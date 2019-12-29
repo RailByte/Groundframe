@@ -1,0 +1,593 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="simsig_USp_UPSERT_TSIMTest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for simsig.USp_UPSERT_TSIM
+DECLARE @id AS SMALLINT
+DECLARE @name AS NVARCHAR (128)
+DECLARE @description AS NVARCHAR (2048)
+DECLARE @simsig_wiki_link AS NVARCHAR (512)
+DECLARE @simsig_code AS NVARCHAR (32)
+DECLARE @datetime AS DATETIMEOFFSET (7)
+DECLARE @debug AS BIT
+DECLARE @debug_session_id AS UNIQUEIDENTIFIER;
+DECLARE @error_message NVARCHAR(256);
+
+--Check proc errors if user not logged in
+
+SET @id = 0;
+SET @name = 'Test Name';SET @description = 'Test Description';
+SET @simsig_wiki_link = 'Test Wiki Link';
+SET @simsig_code = 'Test SimSig Code';
+SET @datetime = NULL;
+SET @debug = 0;
+SET @debug_session_id = NULL;
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_link, @simsig_code, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 1
+
+SELECT 
+	[error_message] = @error_message;
+
+--Log User In
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY'
+
+--Check 2 - Ensure missing @name raises error (&lt;NULL&gt;)
+
+SET @name = NULL;
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_link, @simsig_code, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 2
+
+SELECT 
+	[error_message] = @error_message;
+
+--Check 3 - Ensure @name raises error (empty string)
+
+SET @name = '';
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_link, @simsig_code, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 3
+
+SELECT 
+	[error_message] = @error_message;
+
+--Check 4 - Ensure @simsig_code raises error (&lt;NULL&gt;)
+
+SET @name = 'Test Name';
+SET @simsig_code = NULL;
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_link, @simsig_code, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 4
+
+SELECT 
+	[error_message] = @error_message;
+
+--Check 5 - Ensure @simsig_code raises error (Empty String)
+
+SET @simsig_code = '';
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_link, @simsig_code, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 5
+
+SELECT 
+	[error_message] = @error_message;
+
+--Check 6 - Ensure @simsig_code raises error (Empty String)
+
+SET @simsig_code = 'Test SimSig Code';
+
+EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_link, @simsig_code, @datetime, @debug, @debug_session_id OUTPUT;
+
+--Result Set 6
+
+SELECT 
+	[name],
+	[description],
+	[simsig_wiki_link],
+	[simsig_code],
+	[createdon] = CAST(CASE WHEN [createdon] IS NULL THEN 0 ELSE 1 END AS BIT),
+	[createdby_id],
+	[modifiedon] = CAST(CASE WHEN [modifiedon] IS NULL THEN 0 ELSE 1 END AS BIT),
+	[modifiedby_id]
+FROM [simsig].[TSIM]
+WHERE
+	[id] = @id
+
+--Check 7 Ensure Default Era Created
+
+--Result Set 7
+
+SELECT
+	[id],
+	[sim_id],
+	[name],
+	[description],
+	[era_type_id]
+FROM [simsig].[TSIMERA]
+WHERE
+	[sim_id] = @id;
+
+--Check 8 - Ensure passing name that already exists that a new record isn't created
+
+DECLARE @created_id SMALLINT = @id;
+
+SET @id = 0;
+SET @description = 'Test Description 1';
+SET @simsig_wiki_link = 'Test Wiki Link 1';
+SET @simsig_code = 'Test SimSig Code 1';
+
+EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_link, @simsig_code, @datetime, @debug, @debug_session_id OUTPUT;
+
+--Result Set 8
+
+SELECT 
+	[id] = CAST(CASE WHEN [id] = @created_id THEN 1 ELSE 0 END AS BIT),
+	[name],
+	[description],
+	[simsig_wiki_link],
+	[simsig_code],
+	[createdon] = CAST(CASE WHEN [createdon] IS NULL THEN 0 ELSE 1 END AS BIT),
+	[createdby_id],
+	[modifiedon] = CAST(CASE WHEN [modifiedon] = [createdon] THEN 0 ELSE 1 END AS BIT),
+	[modifiedby_id]
+FROM [simsig].[TSIM]
+WHERE
+	[name] = @name;
+
+--Check 9 - Ensure passing id that already exists that a new record isn't created
+
+SET @name = 'Test Name 2';
+SET @description = 'Test Description 2';
+SET @simsig_wiki_link = 'Test Wiki Link 2';
+SET @simsig_code = 'Test SimSig Code 2';
+
+EXEC [simsig].[USp_UPSERT_TSIM] @created_id OUTPUT, @name, @description, @simsig_wiki_link, @simsig_code, @datetime, @debug, @debug_session_id OUTPUT;
+
+--Result Set 9
+
+SELECT 
+	[name],
+	[description],
+	[simsig_wiki_link],
+	[simsig_code],
+	[createdon] = CAST(CASE WHEN [createdon] IS NULL THEN 0 ELSE 1 END AS BIT),
+	[createdby_id],
+	[modifiedon] = CAST(CASE WHEN [modifiedon] = [createdon] THEN 0 ELSE 1 END AS BIT),
+	[modifiedby_id]
+FROM [simsig].[TSIM]
+WHERE
+	[id] = @id
+
+--Check 10 - Check only 1 record created at this stage
+
+--Result Set 10
+
+SELECT
+	[id]
+FROM [simsig].[TSIM]
+
+--Check 11 - Check debug works correctly and a custom date is specified correctly
+
+SET @id = 0
+SET @name = 'Test Name 2';
+SET @description = 'Test Description 2';
+SET @simsig_wiki_link = 'Test Wiki Link 2';
+SET @simsig_code = 'Test SimSig Code 2';
+SET @debug = 1
+SET @datetime = TODATETIMEOFFSET(GETUTCDATE(), '-07:00');
+
+EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_link, @simsig_code, @datetime, @debug, @debug_session_id OUTPUT;
+
+--Result Set 11
+
+SELECT 
+	[id] = CAST(CASE WHEN [id] != @created_id THEN 1 ELSE 0 END AS BIT),
+	[name],
+	[description],
+	[simsig_wiki_link],
+	[simsig_code],
+	[createdon] = CAST(CASE WHEN [createdon] = @datetime THEN 1 ELSE 0 END AS BIT),
+	[createdby_id],
+	[modifiedon] = CAST(CASE WHEN [modifiedon] = @datetime THEN 1 ELSE 0 END AS BIT),
+	[modifiedby_id]
+FROM [simsig].[TSIM]
+WHERE
+	[id] = @id;
+
+--Result Set 12
+
+SELECT
+	debug_count = CAST(CASE WHEN COUNT(*) &gt; 0 THEN 1 ELSE 0 END AS BIT)
+FROM [debug].[TEVENT]
+WHERE
+	[debug_session_id] = @debug_session_id
+
+--Check 12 - Check debug works correctly when a specific debug session guid is passed
+
+SET @id = 0
+SET @name = 'Test Name 3';
+SET @description = 'Test Description 3';
+SET @simsig_wiki_link = 'Test Wiki Link 3';
+SET @simsig_code = 'Test SimSig Code 3';
+SET @debug = 1
+SET @datetime = TODATETIMEOFFSET(GETUTCDATE(), '-08:00');
+SET @debug_session_id = NEWID();
+DECLARE @expected_debug_session_id UNIQUEIDENTIFIER = @debug_session_id;
+
+EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_link, @simsig_code, @datetime, @debug, @debug_session_id OUTPUT;
+
+--Result Set 13
+
+SELECT
+	debug_count = CAST(CASE WHEN COUNT(*) &gt; 0 THEN 1 ELSE 0 END AS BIT)
+FROM [debug].[TEVENT]
+WHERE
+	[debug_session_id] = @expected_debug_session_id</value>
+  </data>
+  <data name="simsig_USp_UPSERT_TSIMTest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>--Clear Session Context
+
+EXEC [common].[Usp_CLEAR_SESSIONCONTEXT];
+
+--Clear data
+DELETE FROM [simsig].[TSIMERA];
+DELETE FROM [simsig].[TSIM];</value>
+  </data>
+  <data name="simsig_USp_GET_TSIMTest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for simsig.USp_GET_TSIM
+DECLARE @id AS SMALLINT;
+DECLARE @debug AS BIT = 0;
+DECLARE @debug_session_id AS UNIQUEIDENTIFIER = NULL;
+DECLARE @inserted_record1_id AS SMALLINT; --The ID of the first inserted record
+DECLARE @created_datetime DATETIMEOFFSET = SYSDATETIMEOFFSET();
+DECLARE @error_message NVARCHAR(256);
+
+--Set up data
+
+INSERT INTO [simsig].[TSIM]
+(
+	[name],
+	[description],
+	[simsig_code],
+	[simsig_wiki_link],
+	[createdby_id],
+	[createdon],
+	[modifiedby_id],
+	[modifiedon]
+)
+VALUES
+(
+	'Test Name 1',
+	'Test Description 1',
+	'Test Code 1',
+	'Test Wiki Link 1',
+	2,
+	@created_datetime,
+	2,
+	@created_datetime
+)
+
+SET @inserted_record1_id = CAST(SCOPE_IDENTITY() AS INT);
+SET @created_datetime = SYSDATETIMEOFFSET();
+
+INSERT INTO [simsig].[TSIM]
+(
+	[name],
+	[description],
+	[simsig_code],
+	[simsig_wiki_link],
+	[createdby_id],
+	[createdon],
+	[modifiedby_id],
+	[modifiedon]
+)
+VALUES
+(
+	'Test Name 2',
+	'Test Description 2',
+	'Test Code 2',
+	'Test Wiki Link 2',
+	2,
+	@created_datetime,
+	2,
+	@created_datetime
+);
+
+--Check 1 Ensure Errors as user not logged int
+
+BEGIN TRY
+	EXEC [simsig].[USp_GET_TSIM] @id = @inserted_record1_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 1
+
+SELECT 
+	[error_message] = @error_message;
+
+--Log User In
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY'
+
+--Check 2 the first record is returned when ID is passed
+
+--Result Set 2
+EXEC [simsig].[USp_GET_TSIM] @id = @inserted_record1_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+
+--Check 3 ensure all records are returned
+
+--Result Set 3
+EXEC [simsig].[USp_GET_TSIM] @id = 0, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+--Check 4 ensure debug enters event records
+
+SET @debug = 1
+EXEC [simsig].[USp_GET_TSIM] @id = 0, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+--Result Set 5
+SELECT
+	debug_count = CAST(CASE WHEN COUNT(*) &gt; 0 THEN 1 ELSE 0 END AS BIT)
+FROM [debug].[TEVENT]
+WHERE
+	[debug_session_id] = @debug_session_id
+
+--Check 5 ensure debug enters event records for the correct @debug_session_id
+
+SET @debug_session_id = NEWID();
+DECLARE @expected_debug_session_id UNIQUEIDENTIFIER = @debug_session_id;
+
+EXEC [simsig].[USp_GET_TSIM] @id = 0, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+--Result Set 7
+
+SELECT
+	debug_count = CAST(CASE WHEN COUNT(*) &gt; 0 THEN 1 ELSE 0 END AS BIT)
+FROM [debug].[TEVENT]
+WHERE
+	[debug_session_id] = @expected_debug_session_id</value>
+  </data>
+  <data name="simsig_USp_GET_TSIMTest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>/*
+Add SQL statements here that you want to run after 
+the test script is run.
+
+In the lower pane, you can add test conditions that verify 
+whether the results of your SQL statements match what 
+you expect.
+*/
+
+--Delete records
+DELETE FROM [simsig].[TSIM]</value>
+  </data>
+  <data name="simsig_Usp_DELETE_TSIMTest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for simsig.Usp_DELETE_TSIM
+DECLARE @id AS INT;
+
+INSERT INTO [simsig].[TSIM]
+(
+	[name],
+	[description],
+	[simsig_code],
+	[simsig_wiki_link],
+	[createdby_id],
+	[createdon],
+	[modifiedby_id],
+	[modifiedon]
+)
+VALUES
+(
+	N'Test Delete Name 1',
+	N'Test Delete Desc 1',
+	N'Test Delete Code 1',
+	N'Test Delete Wiki Line 1',
+	2,
+	SYSDATETIMEOFFSET(),
+	2,
+	SYSDATETIMEOFFSET()
+);
+
+SET @id = (SELECT CAST(SCOPE_IDENTITY() AS INT));
+
+INSERT INTO [simsig].[TSIMERA]
+(
+	[sim_id],
+	[name],
+	[description],
+	[era_type_id]
+)
+VALUES
+(
+	@id,
+	N'Test Delete Era Name 1',
+	N'Test Delete Era Desc 1',
+	2
+)
+
+--Result 1 Check Sim was created
+SELECT * FROM [simsig].[TSIM] WHERE [id] = @id;
+--Result 2 Check Smim Era was created
+SELECT * FROM [simsig].[TSIMERA] WHERE [sim_id] = @id;
+
+--Check not being logged in raises error
+
+DECLARE @error_message NVARCHAR(256);
+
+BEGIN TRY
+	EXEC  [simsig].[Usp_DELETE_TSIM] @id = @id;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 3
+SELECT
+	[error_message] = @error_message;
+		
+--Log User In
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY'
+
+--Delete Sim
+EXEC  [simsig].[Usp_DELETE_TSIM] @id = @id;
+
+--Result 4 Check Sim was deleted
+SELECT * FROM [simsig].[TSIM] WHERE [id] = @id;
+--Result 5 Check Smim Era was deleted
+SELECT * FROM [simsig].[TSIMERA] WHERE [sim_id] = @id;
+</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+</root>

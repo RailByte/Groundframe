@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="common_Usp_SET_SESSIONCONTEXTTest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for common.Usp_SET_SESSIONCONTEXT
+DECLARE @app_api_key AS NVARCHAR (16);
+DECLARE @app_user_api_key AS NVARCHAR (48);
+DECLARE @error_message NVARCHAR(256);
+
+--Check 1 Check Correct if invalid App API Key is passed
+
+SET @app_api_key = 'InvalidAPIKey';
+SET @app_user_api_key = 'testuserAPIKEY';
+
+BEGIN TRY
+	EXEC common.Usp_SET_SESSIONCONTEXT @app_api_key = @app_api_key, @app_user_api_key = @app_user_api_key;
+END TRY
+BEGIN CATCH
+	SELECT
+		@error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result set 1
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 2 Check Correct if invalid User API Key is passed
+
+SET @app_api_key = 'testappAPIKEY';
+SET @app_user_api_key = 'InvalidAPIKEY';
+
+BEGIN TRY
+	EXEC common.Usp_SET_SESSIONCONTEXT @app_api_key = @app_api_key, @app_user_api_key = @app_user_api_key;
+END TRY
+BEGIN CATCH
+	SELECT
+		@error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result set 2
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 3 Check Correct if app is disabled
+
+UPDATE [app].[TAPP]
+SET [app_status_id] = 2
+WHERE
+	[id] = 2; --Test App
+
+SET @app_api_key = 'testappAPIKEY';
+SET @app_user_api_key = 'testuserAPIKEY';
+
+BEGIN TRY
+	EXEC common.Usp_SET_SESSIONCONTEXT @app_api_key = @app_api_key, @app_user_api_key = @app_user_api_key;
+END TRY
+BEGIN CATCH
+	SELECT
+		@error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result set 3
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 4 Check Correct if user is disabled
+
+UPDATE [app].[TAPP]
+SET [app_status_id] = 1
+WHERE
+	[id] = 2; --Test App
+
+UPDATE [app].[TUSER]
+SET [user_status_id] = 2
+WHERE
+	[id] = 2; --Test User
+
+
+SET @app_api_key = 'testappAPIKEY';
+SET @app_user_api_key = 'testuserAPIKEY';
+
+BEGIN TRY
+	EXEC common.Usp_SET_SESSIONCONTEXT @app_api_key = @app_api_key, @app_user_api_key = @app_user_api_key;
+END TRY
+BEGIN CATCH
+	SELECT
+		@error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result set 4
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 5, 6 and 7 Check Session_Context info
+
+UPDATE [app].[TUSER]
+SET [user_status_id] = 1
+WHERE
+	[id] = 2; --Test User
+
+
+SET @app_api_key = 'testappAPIKEY';
+SET @app_user_api_key = 'testuserAPIKEY';
+
+BEGIN TRY
+	EXEC common.Usp_SET_SESSIONCONTEXT @app_api_key = @app_api_key, @app_user_api_key = @app_user_api_key;
+END TRY
+BEGIN CATCH
+	SELECT
+		@error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result set 5
+
+SELECT
+	ISNULL(CONVERT(BIT,SESSION_CONTEXT(N'logged_in')),0); 
+
+--Result set 6
+
+SELECT
+	CONVERT(INT,SESSION_CONTEXT(N'application'));  
+
+--Result set 7
+
+SELECT
+	CONVERT(INT,SESSION_CONTEXT(N'app_user'));  
+</value>
+  </data>
+  <data name="common_Usp_GENERATE_APIKEYTest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for common.Usp_GENERATE_APIKEY
+DECLARE @length AS INT; 
+DECLARE @api_key AS VARCHAR (16);
+
+--Check that passing @length as &lt;NULL&gt; returns an API Key of between 10 and 16 characters
+
+EXECUTE [common].[Usp_GENERATE_APIKEY] @length, @api_key OUTPUT;
+
+--Result Set 1
+
+SELECT
+	CONVERT(BIT,CASE WHEN LEN(@api_key) BETWEEN 10 and 16 THEN 1 ELSE 0 END);
+
+</value>
+  </data>
+  <data name="common_Usp_SET_SESSIONCONTEXTTest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>/*
+Add SQL statements here that you want to run after 
+the test script is run.
+
+In the lower pane, you can add test conditions that verify 
+whether the results of your SQL statements match what 
+you expect.
+*/
+
+EXEC [common].[Usp_CLEAR_SESSIONCONTEXT];</value>
+  </data>
+  <data name="common_Usp_CLEAR_SESSIONCONTEXTTest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for common.Usp_SET_SESSIONCONTEXT
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY';
+EXEC [common].[Usp_CLEAR_SESSIONCONTEXT];
+
+--Result set 1
+
+SELECT
+	ISNULL(CONVERT(BIT,SESSION_CONTEXT(N'logged_in')),0); 
+
+--Result set 2
+
+SELECT
+	CONVERT(INT,SESSION_CONTEXT(N'application'));  
+
+--Result set 3
+
+SELECT
+	CONVERT(INT,SESSION_CONTEXT(N'app_user'));  
+</value>
+  </data>
+  <data name="common_Usp_TEARDOWN_TESTDATATest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for common.Usp_TEARDOWN_TESTDATA
+DECLARE @error_message NVARCHAR(256)
+
+--Check 1 - Raises error if user not logged in
+
+BEGIN TRY
+	EXEC [common].[Usp_TEARDOWN_TESTDATA] @testdata_id = NULL;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 1 
+SELECT 
+	[error_message] = @error_message;
+
+--Log User In
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY'
+
+--Check 2 - Check error if no tear down flag is set
+
+BEGIN TRY
+	EXEC [common].[Usp_TEARDOWN_TESTDATA] @testdata_id = NULL;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 2 
+SELECT 
+	[error_message] = @error_message;
+
+--Populate Some Data
+
+DECLARE @testdata_id UNIQUEIDENTIFIER
+
+EXEC [common].[Usp_GENERATE_TESTDATA] @records_to_generate = 5, @testdata_id = @testdata_id OUTPUT;
+
+EXEC sys.sp_set_session_context @key = 'can_tear_down', @value = 1;
+
+EXEC [common].[Usp_TEARDOWN_TESTDATA]  @testdata_id = @testdata_id;
+
+--Result Set 3
+
+SELECT [id] FROM [simsig].[TSIM] WHERE [testdata_id] = @testdata_id;
+
+--Result Set 4
+
+SELECT 
+	E.[id] 
+FROM [simsig].[TSIMERA] AS E 
+INNER JOIN [simsig].[TSIM] AS S ON E.[sim_id] = S.[id]
+WHERE 
+	S.[testdata_id] = @testdata_id;</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+</root>
