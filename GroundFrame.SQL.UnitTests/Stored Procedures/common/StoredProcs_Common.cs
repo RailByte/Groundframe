@@ -98,8 +98,8 @@ namespace GroundFrame.SQL.UnitTests
             // 
             chk_Invalid_AppAPI.ColumnNumber = 1;
             chk_Invalid_AppAPI.Enabled = true;
-            chk_Invalid_AppAPI.ExpectedValue = "Error executing [debug].[Usp_SET_SESSIONCONTEXT]: - The application isn\'t a valid" +
-                " application or has been disabled";
+            chk_Invalid_AppAPI.ExpectedValue = "Error executing [common].[Usp_SET_SESSIONCONTEXT]: - The application isn\'t a vali" +
+                "d application or has been disabled";
             chk_Invalid_AppAPI.Name = "chk_Invalid_AppAPI";
             chk_Invalid_AppAPI.NullExpected = false;
             chk_Invalid_AppAPI.ResultSet = 1;
@@ -109,8 +109,8 @@ namespace GroundFrame.SQL.UnitTests
             // 
             chk_Invalid_UserAPI.ColumnNumber = 1;
             chk_Invalid_UserAPI.Enabled = true;
-            chk_Invalid_UserAPI.ExpectedValue = "Error executing [debug].[Usp_SET_SESSIONCONTEXT]: - The user isn\'t a valid user o" +
-                "r their account has been disabled";
+            chk_Invalid_UserAPI.ExpectedValue = "Error executing [common].[Usp_SET_SESSIONCONTEXT]: - The user isn\'t a valid user " +
+                "or their account has been disabled";
             chk_Invalid_UserAPI.Name = "chk_Invalid_UserAPI";
             chk_Invalid_UserAPI.NullExpected = false;
             chk_Invalid_UserAPI.ResultSet = 2;
@@ -120,8 +120,8 @@ namespace GroundFrame.SQL.UnitTests
             // 
             chk_Disabled_AppAPI.ColumnNumber = 1;
             chk_Disabled_AppAPI.Enabled = true;
-            chk_Disabled_AppAPI.ExpectedValue = "Error executing [debug].[Usp_SET_SESSIONCONTEXT]: - The application isn\'t a valid" +
-                " application or has been disabled";
+            chk_Disabled_AppAPI.ExpectedValue = "Error executing [common].[Usp_SET_SESSIONCONTEXT]: - The application isn\'t a vali" +
+                "d application or has been disabled";
             chk_Disabled_AppAPI.Name = "chk_Disabled_AppAPI";
             chk_Disabled_AppAPI.NullExpected = false;
             chk_Disabled_AppAPI.ResultSet = 3;
@@ -131,8 +131,8 @@ namespace GroundFrame.SQL.UnitTests
             // 
             chk_Disabled_UserAPI.ColumnNumber = 1;
             chk_Disabled_UserAPI.Enabled = true;
-            chk_Disabled_UserAPI.ExpectedValue = "Error executing [debug].[Usp_SET_SESSIONCONTEXT]: - The user isn\'t a valid user o" +
-                "r their account has been disabled";
+            chk_Disabled_UserAPI.ExpectedValue = "Error executing [common].[Usp_SET_SESSIONCONTEXT]: - The user isn\'t a valid user " +
+                "or their account has been disabled";
             chk_Disabled_UserAPI.Name = "chk_Disabled_UserAPI";
             chk_Disabled_UserAPI.NullExpected = false;
             chk_Disabled_UserAPI.ResultSet = 4;

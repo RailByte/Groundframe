@@ -39,10 +39,10 @@ BEGIN
 	IF @debug = 1
 	BEGIN
 		SET @debug_message = 'Executing [simsig].[Usp_UPSERT_TSIM] started.';
-		EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+		EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 
 		SET @debug_message = 'Parameters passed: @id = ' + CONVERT(NVARCHAR(16),@id) + ' | @name = ' + ISNULL(@name,'<NULL>') + ' | @description = ' + ISNULL(@description,'<NULL>') + ' | @simsig_wiki_link = ' + ISNULL(@simsig_wiki_link,'<NULL>') + ' | @simsig_code = ' + ISNULL(@simsig_code,'<NULL>') + ' | @datetime = ' + CASE WHEN @datetime IS NULL THEN '<NULL>' ELSE CONVERT(NVARCHAR(40), @datetime, 127) END + '.';
-		EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+		EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 	END
 
 	--Variables--
@@ -59,7 +59,7 @@ BEGIN
 		IF @debug = 1
 		BEGIN
 			SET @debug_message = 'The user isn''t logged in. Check that [common].[Usp_SET_SESSIONCONTEXT] has fired when the connection to the database was made';
-			EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 		END;
 		
 		THROW 50000, 'The user is not logged in.', 1;
@@ -70,7 +70,7 @@ BEGIN
 	IF @debug = 1
 	BEGIN
 		SET @debug_message = 'Running paramter checks';
-		EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+		EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 	END;
 
 	IF NULLIF(@name,'') IS NULL 
@@ -78,7 +78,7 @@ BEGIN
 		IF @debug = 1
 		BEGIN
 			SET @debug_message = 'No valid @name parameter was supplied';
-			EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 		END;
 
 		THROW 50000, 'No valid name was supplied for the simulation.', 1;
@@ -89,7 +89,7 @@ BEGIN
 		IF @debug = 1
 		BEGIN
 			SET @debug_message = 'No valid @simsig_code parameter was supplied';
-			EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 		END;
 
 		THROW 50000, 'No valid simsig_code was supplied for the simulation.', 1;
@@ -100,7 +100,7 @@ BEGIN
 		IF @debug = 1
 		BEGIN
 			SET @debug_message = 'Checking to ensure the simulation doesn''t already exist and the record active';
-			EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 		END;
 
 		SET @id = ISNULL((SELECT [id] FROM [simsig].[TSIM] WHERE [name] = @name),0)
@@ -108,12 +108,12 @@ BEGIN
 		IF @debug = 1 AND @id = 0
 		BEGIN
 			SET @debug_message = 'Simulation doesn''t exists - a new record will be created';
-			EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 		END
 		ELSE IF @debug = 1 AND @id != 0
 		BEGIN
 			SET @debug_message = 'Simulation already exists ([id] = ' + CONVERT(NVARCHAR(16),@id) + ') - the existing record will be updated';
-			EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 		END;
 	END
 
@@ -151,7 +151,7 @@ BEGIN
 			IF @debug = 1
 			BEGIN
 				SET @debug_message = 'An error has occurred trying to insert a record into [app].[TSIM] for ' + @name + ':- ' + ERROR_MESSAGE();
-				EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+				EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 			END;
 
 			SET @error_message = 'An error has occurred creating a simulation record for ' + @name + ':- ' + ERROR_MESSAGE();
@@ -161,10 +161,10 @@ BEGIN
 		IF @debug = 1
 		BEGIN
 			SET @debug_message = 'New record created successfully ([id] = ' + CAST(@id AS NVARCHAR(16)) + ')';
-			EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 
 			SET @debug_message = 'Creating sim era template for simulation [id] = ' + CAST(@id AS NVARCHAR(16)) + ')';
-			EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 		END;
 
 		BEGIN TRY
@@ -186,14 +186,14 @@ BEGIN
 			IF @debug = 1
 			BEGIN
 				SET @debug_message = 'Default era template for simulation [id] = ' + CAST(@id AS NVARCHAR(16)) + ') create ([id] = ' + CAST(CAST(SCOPE_IDENTITY() AS INT) AS NVARCHAR(16)) + ')';
-				EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+				EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 			END
 		END TRY
 		BEGIN CATCH
 			IF @debug = 1
 			BEGIN
 				SET @debug_message = 'An error has occured trying to create default era tempate for simulation [id] = ' + CAST(@id AS NVARCHAR(16)) + ': - ' + ERROR_MESSAGE();
-				EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+				EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 			END;
 
 			SET @error_message = 'An error has occurred creating default era for simulation ' + @name + ':- ' + ERROR_MESSAGE();
@@ -217,14 +217,14 @@ BEGIN
 			IF @debug = 1
 			BEGIN
 				SET @debug_message = 'Record [id] = ' + CAST(@id AS NVARCHAR(16)) + ' updated successfully';
-				EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+				EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 			END;
 		END TRY
 		BEGIN CATCH
 			IF @debug = 1
 			BEGIN
 				SET @debug_message = 'An error has occured trying to update [app].[TSIM] record [id] = ' + CAST(@id AS NVARCHAR(16)) + ': - ' + ERROR_MESSAGE();
-				EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+				EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 			END;
 
 			SET @error_message = 'An error has occurred updating simulation [id] = ' + CAST(@id AS NVARCHAR(16)) + ':- ' + ERROR_MESSAGE();
@@ -235,7 +235,7 @@ BEGIN
 	IF @debug = 1
 	BEGIN
 		SET @debug_message = 'Executing [simsig].[Usp_UPSERT_TSIM] completed.';
-		EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+		EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 	END
 
 	SET NOCOUNT OFF;

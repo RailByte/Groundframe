@@ -580,24 +580,6 @@ namespace GroundFrame.SQL.UnitTests
             // 
             resources.ApplyResources(simsig_USp_GET_TSIMTest_PosttestAction, "simsig_USp_GET_TSIMTest_PosttestAction");
             // 
-            // simsig_USp_UPSERT_TSIMTestData
-            // 
-            this.simsig_USp_UPSERT_TSIMTestData.PosttestAction = simsig_USp_UPSERT_TSIMTest_PosttestAction;
-            this.simsig_USp_UPSERT_TSIMTestData.PretestAction = null;
-            this.simsig_USp_UPSERT_TSIMTestData.TestAction = simsig_USp_UPSERT_TSIMTest_TestAction;
-            // 
-            // simsig_USp_GET_TSIMTestData
-            // 
-            this.simsig_USp_GET_TSIMTestData.PosttestAction = simsig_USp_GET_TSIMTest_PosttestAction;
-            this.simsig_USp_GET_TSIMTestData.PretestAction = null;
-            this.simsig_USp_GET_TSIMTestData.TestAction = simsig_USp_GET_TSIMTest_TestAction;
-            // 
-            // simsig_Usp_DELETE_TSIMTestData
-            // 
-            this.simsig_Usp_DELETE_TSIMTestData.PosttestAction = null;
-            this.simsig_Usp_DELETE_TSIMTestData.PretestAction = null;
-            this.simsig_Usp_DELETE_TSIMTestData.TestAction = simsig_Usp_DELETE_TSIMTest_TestAction;
-            // 
             // simsig_Usp_DELETE_TSIMTest_TestAction
             // 
             simsig_Usp_DELETE_TSIMTest_TestAction.Conditions.Add(chk_DeleteSim_CheckSimCreation);
@@ -644,6 +626,24 @@ namespace GroundFrame.SQL.UnitTests
             chk_DeleteSim_CheckUserLoggedInError.NullExpected = false;
             chk_DeleteSim_CheckUserLoggedInError.ResultSet = 3;
             chk_DeleteSim_CheckUserLoggedInError.RowNumber = 1;
+            // 
+            // simsig_USp_UPSERT_TSIMTestData
+            // 
+            this.simsig_USp_UPSERT_TSIMTestData.PosttestAction = simsig_USp_UPSERT_TSIMTest_PosttestAction;
+            this.simsig_USp_UPSERT_TSIMTestData.PretestAction = null;
+            this.simsig_USp_UPSERT_TSIMTestData.TestAction = simsig_USp_UPSERT_TSIMTest_TestAction;
+            // 
+            // simsig_USp_GET_TSIMTestData
+            // 
+            this.simsig_USp_GET_TSIMTestData.PosttestAction = simsig_USp_GET_TSIMTest_PosttestAction;
+            this.simsig_USp_GET_TSIMTestData.PretestAction = null;
+            this.simsig_USp_GET_TSIMTestData.TestAction = simsig_USp_GET_TSIMTest_TestAction;
+            // 
+            // simsig_Usp_DELETE_TSIMTestData
+            // 
+            this.simsig_Usp_DELETE_TSIMTestData.PosttestAction = null;
+            this.simsig_Usp_DELETE_TSIMTestData.PretestAction = null;
+            this.simsig_Usp_DELETE_TSIMTestData.TestAction = simsig_Usp_DELETE_TSIMTest_TestAction;
         }
 
         #endregion

@@ -33,7 +33,7 @@ BEGIN
 	END;
 	
 	SET @debug_message = 'Executing [common].[Usp_TEARDOWN_TESTDATA] started.';
-	EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+	EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 
 	--Check tear down flag
 
@@ -42,7 +42,7 @@ BEGIN
 	IF @can_tear_down = 0
 	BEGIN
 		SET @debug_message = 'The tear down flag has not been set.';
-		EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+		EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 	
 		THROW 50000, 'The Tear Down flag is not set therefore this proc cannot run', 1;
 	END;
@@ -82,7 +82,7 @@ BEGIN
 		END
 	
 		SET @debug_message = 'Executing [common].[Usp_TEARDOWN_TESTDATA] completed.';
-		EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+		EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 	END TRY
 	BEGIN CATCH
 		DECLARE @error_message NVARCHAR(256) = 'The proc has failed trying to delete the test down data:- ' + ERROR_MESSAGE();

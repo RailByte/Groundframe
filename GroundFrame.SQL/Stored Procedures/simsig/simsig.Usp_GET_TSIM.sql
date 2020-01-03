@@ -34,10 +34,10 @@ BEGIN
 	IF @debug = 1
 	BEGIN
 		SET @debug_message = 'Executing [simsig].[Usp_GET_TSIM] started.';
-		EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+		EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 
 		SET @debug_message = 'Parameters passed: @id = ' + CONVERT(NVARCHAR(16),@id) + '.';
-		EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+		EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 	END
 
 	--Variables--
@@ -50,7 +50,7 @@ BEGIN
 		IF @debug = 1
 		BEGIN
 			SET @debug_message = 'The user isn''t logged in. Check that [common].[Usp_SET_SESSIONCONTEXT] has fired when the connection to the database was made';
-			EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 		END;
 		
 		THROW 50000, 'The user is not logged in.', 1;
@@ -84,7 +84,7 @@ BEGIN
 		IF @debug = 1
 		BEGIN
 			SET @debug_message = 'An error has occured trying to retrieve [app].[TSIM] record [id] = ' + CAST(@id AS NVARCHAR(16)) + ': - ' + ERROR_MESSAGE();
-			EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 		END;
 
 		SET @error_message = 'An error has occurred retrieving simulation [id] = ' + CAST(@id AS NVARCHAR(16)) + ':- ' + ERROR_MESSAGE();
@@ -94,7 +94,7 @@ BEGIN
 	IF @debug = 1
 	BEGIN
 		SET @debug_message = 'Executing [simsig].[Usp_GET_TSIM] completed.';
-		EXEC [debug].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+		EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 	END
 
 	SET NOCOUNT OFF;

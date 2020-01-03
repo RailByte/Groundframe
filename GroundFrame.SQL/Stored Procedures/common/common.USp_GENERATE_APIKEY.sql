@@ -45,6 +45,8 @@ BEGIN
 		SET @min_length = 10;
 	END
 
+	--Loop around until the generated key hasn't already been issued and insert into [common].[TAPIKEY] 
+
 	WHILE NOT EXISTS (SELECT 1 FROM [common].[TAPIKEY] WHERE [api_key] = @api_key AND @api_key IS NOT NULL)
 	BEGIN
 		SET @api_key = LEFT(REPLACE(CONVERT(VARCHAR(46), NEWID()),'-',''),@length);

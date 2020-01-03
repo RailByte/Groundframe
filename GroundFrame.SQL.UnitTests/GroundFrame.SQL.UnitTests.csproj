@@ -62,7 +62,7 @@
     <Compile Include="Stored Procedures\common\StoredProcs_Common.cs">
       <SubType>Designer</SubType>
     </Compile>
-    <Compile Include="Stored Procedures\debug\StoredProcs_Debug.cs">
+    <Compile Include="Stored Procedures\audit\StoredProcs_Audit.cs">
       <SubType>Designer</SubType>
     </Compile>
     <Compile Include="Stored Procedures\simsig\StoredProcs_Simsig.cs">
@@ -76,8 +76,8 @@
     <EmbeddedResource Include="Stored Procedures\common\StoredProcs_Common.resx">
       <DependentUpon>StoredProcs_Common.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Stored Procedures\debug\StoredProcs_Debug.resx">
-      <DependentUpon>StoredProcs_Debug.cs</DependentUpon>
+    <EmbeddedResource Include="Stored Procedures\audit\StoredProcs_Audit.resx">
+      <DependentUpon>StoredProcs_Audit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Stored Procedures\simsig\StoredProcs_Simsig.resx">
       <DependentUpon>StoredProcs_Simsig.cs</DependentUpon>

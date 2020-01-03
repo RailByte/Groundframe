@@ -1,7 +1,7 @@
 ﻿/******************************
 ** File:		~\GroundFrame\GroundFrame.SQL\Schema\debug.sql
 ** Name:		debug
-** Desc:		Schema to hold all objects relating to capturing debugging data
+** Desc:		Schema to hold all objects relating to capturing aduting and debugging data
 ** Unit Test:	
 ** Auth:		Tim Caceres
 ** Date:		2019-12-12
@@ -13,4 +13,4 @@
 ** 1    2019-12-12	TC			Initial Script creation
 **
 *******************************/
-CREATE SCHEMA [debug];
+CREATE SCHEMA [audit];

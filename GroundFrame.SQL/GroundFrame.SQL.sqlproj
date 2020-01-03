@@ -63,9 +63,9 @@
     <Folder Include="Tables" />
     <Folder Include="Stored Procedures" />
     <Folder Include="Tables\simsig" />
-    <Folder Include="Tables\debug" />
+    <Folder Include="Tables\audit" />
     <Folder Include="Stored Procedures\simsig" />
-    <Folder Include="Stored Procedures\debug" />
+    <Folder Include="Stored Procedures\audit" />
     <Folder Include="Tables\app" />
     <Folder Include="Tables\common" />
     <Folder Include="Stored Procedures\common" />
@@ -81,11 +81,11 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\simsig.sql" />
-    <Build Include="Schema\debug.sql" />
+    <Build Include="Schema\audit.sql" />
     <Build Include="Tables\simsig\simsig.TLOCATION.sql" />
-    <Build Include="Tables\debug\debug.TEVENT.sql" />
+    <Build Include="Tables\audit\audit.TEVENT.sql" />
     <Build Include="Stored Procedures\simsig\simsig.USp_UPSERT_TSIM.sql" />
-    <Build Include="Stored Procedures\debug\debug.Usp_INSERT_TEVENT.sql" />
+    <Build Include="Stored Procedures\audit\audit.Usp_INSERT_TEVENT.sql" />
     <Build Include="Schema\app.sql" />
     <Build Include="Tables\app\app.TAPP.sql" />
     <Build Include="Schema\common.sql" />

@@ -346,7 +346,7 @@ WHERE
 
 SELECT
 	debug_count = CAST(CASE WHEN COUNT(*) &gt; 0 THEN 1 ELSE 0 END AS BIT)
-FROM [debug].[TEVENT]
+FROM [audit].[TEVENT]
 WHERE
 	[debug_session_id] = @debug_session_id
 
@@ -368,7 +368,7 @@ EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_li
 
 SELECT
 	debug_count = CAST(CASE WHEN COUNT(*) &gt; 0 THEN 1 ELSE 0 END AS BIT)
-FROM [debug].[TEVENT]
+FROM [audit].[TEVENT]
 WHERE
 	[debug_session_id] = @expected_debug_session_id</value>
   </data>
@@ -478,7 +478,7 @@ EXEC [simsig].[USp_GET_TSIM] @id = 0, @debug = @debug, @debug_session_id = @debu
 --Result Set 5
 SELECT
 	debug_count = CAST(CASE WHEN COUNT(*) &gt; 0 THEN 1 ELSE 0 END AS BIT)
-FROM [debug].[TEVENT]
+FROM [audit].[TEVENT]
 WHERE
 	[debug_session_id] = @debug_session_id
 
@@ -493,7 +493,7 @@ EXEC [simsig].[USp_GET_TSIM] @id = 0, @debug = @debug, @debug_session_id = @debu
 
 SELECT
 	debug_count = CAST(CASE WHEN COUNT(*) &gt; 0 THEN 1 ELSE 0 END AS BIT)
-FROM [debug].[TEVENT]
+FROM [audit].[TEVENT]
 WHERE
 	[debug_session_id] = @expected_debug_session_id</value>
   </data>

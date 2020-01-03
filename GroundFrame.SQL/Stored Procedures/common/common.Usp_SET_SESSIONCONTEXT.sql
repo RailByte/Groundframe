@@ -27,12 +27,12 @@ BEGIN
 	--Check the application and the user has access to the system
 	IF @app_id = 0
 	BEGIN;
-		THROW 50000, 'Error executing [debug].[Usp_SET_SESSIONCONTEXT]: - The application isn''t a valid application or has been disabled', 1;
+		THROW 50000, 'Error executing [common].[Usp_SET_SESSIONCONTEXT]: - The application isn''t a valid application or has been disabled', 1;
 	END;
 
 	IF @app_user_id = 0
 	BEGIN;
-		THROW 50000, 'Error executing [debug].[Usp_SET_SESSIONCONTEXT]: - The user isn''t a valid user or their account has been disabled', 1;
+		THROW 50000, 'Error executing [common].[Usp_SET_SESSIONCONTEXT]: - The user isn''t a valid user or their account has been disabled', 1;
 	END;
 
 	EXEC sys.sp_set_session_context @key = N'application', @value = @app_id, @read_only = 0; 
