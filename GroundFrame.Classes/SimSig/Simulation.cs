@@ -93,10 +93,12 @@ namespace GroundFrame.Classes
         /// Instantiates a new Simulation object from the supplied SqlDataReader object
         /// </summary>
         /// <param name="DataReader">A SqlDataReader object representing a Simulation</param>
-        public Simulation(SqlDataReader DataReader)
+        public Simulation(SqlDataReader DataReader, GFSqlConnector SQLConnector)
         {
+            //Instantiate a new GFSqlConnector object from the supplied connector. Stops issues with shared connections / commands and readers etc.
+            this._SQLConnector = new GFSqlConnector(SQLConnector);
+            //Parse Reader
             this.ParseSqlDataReader(DataReader);
-            this._Eras = new List<SimulationEra>();
         }
 
         #endregion Constructors
@@ -108,7 +110,14 @@ namespace GroundFrame.Classes
         /// </summary>
         public void SaveToSQLDB()
         {
+            bool newRecord = this._ID == 0 ? true : false;
             this.SaveSimulationToSQLDB(null);
+
+            //if it's a new record the SimEras need loading as a template era is created on new record Save
+            if (newRecord)
+            {
+                this.LoadSimErasFromSQLDB();
+            }
         }
         /// <summary>
         /// Saves the Simulation object to the GroundFrame.SQL database using the supplied DateTimeOffset
@@ -152,6 +161,37 @@ namespace GroundFrame.Classes
             }
         }
 
+        //Loads the Simulation Eras from the GroundFrame.SQL database into the Era List.
+        private void LoadSimErasFromSQLDB()
+        {
+            this._Eras = new List<SimulationEra>();
+
+            try
+            {
+                //Open the Connection
+                this._SQLConnector.Open();
+                //Set Command
+                SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_GET_TSIMERA_BY_SIM", CommandType.StoredProcedure);
+                //Add Parameters
+                Cmd.Parameters.Add(new SqlParameter("@sim_id", this._ID));
+                //Execute the Query
+                SqlDataReader DataReader = Cmd.ExecuteReader();
+
+                while (DataReader.Read())
+                {
+                    this._Eras.Add(new SimulationEra(DataReader));
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw new ApplicationException($"An error has occurred trying to read Simulation Eras for Sim ID {0} from the GroundFrame.SQL database.", Ex);
+            }
+            finally
+            {
+                this._SQLConnector.Close();
+            }
+        }
+
         /// <summary>
         /// Gets the simulation object from the GroundFrame.SQL database based on the ID
         /// </summary>
@@ -176,8 +216,9 @@ namespace GroundFrame.Classes
                 //Read the records
                 while (DataReader.Read())
                 {
-                    ParseSqlDataReader(DataReader);
+                    this.ParseSqlDataReader(DataReader);
                 }
+
             }
             catch (Exception Ex)
             {
@@ -200,6 +241,9 @@ namespace GroundFrame.Classes
             this.Description = DataReader.GetString(DataReader.GetOrdinal("description"));
             this._SimSigCode = DataReader.GetString(DataReader.GetOrdinal("simsig_code"));
             this.SimSigWikiLink = DataReader.GetString(DataReader.GetOrdinal("simsig_wiki_link"));
+
+            //Load the Simulation Eras
+            this.LoadSimErasFromSQLDB();
         }
 
         /// <summary>

@@ -43,6 +43,21 @@ namespace GroundFrame.Classes
         /// </summary>
         public Guid TestDataID { get { return this._TestDataID; } }
 
+        /// <summary>
+        /// Gets the Test Data Flag to indicate whether connection is being used for running a test
+        /// </summary>
+        public bool IsTest { get { return this._IsTest; } }
+
+        /// <summary>
+        /// Gets the Application key
+        /// </summary>
+        public string ApplicationAPIKey { get { return this._ApplicationAPIKey; } }
+
+        /// <summary>
+        /// Gets the Application User Key
+        /// </summary>
+        public string ApplicationUserAPIKey { get { return this._ApplicationUserAPIKey; } }
+
         #endregion Properties
 
         #region Constructors
@@ -54,6 +69,7 @@ namespace GroundFrame.Classes
         /// <param name="AppUserAPIKey"></param>
         /// <param name="SQLServer"></param>
         /// <param name="DBName"></param>
+        /// <param name="IsTest">This is used by the testing environment and will delete any data added whilst the connection is open to leave a clean database</param>
         public GFSqlConnector(string AppAPIKey, string AppUserAPIKey, string SQLServer, string DBName, bool IsTest = false)
         {
             this._ApplicationAPIKey = AppAPIKey;
@@ -69,6 +85,20 @@ namespace GroundFrame.Classes
             }
         }
 
+        /// <summary>
+        /// Instatiates a new GFSqlConnector as a copy of the supplied one. Stops conflicts between connectors on sub query execution
+        /// </summary>
+        /// <param name="SQLConnector"></param>
+        public GFSqlConnector(GFSqlConnector SQLConnector)
+        {
+            this._ApplicationAPIKey = SQLConnector.ApplicationAPIKey;
+            this._ApplicationUserAPIKey = SQLConnector.ApplicationUserAPIKey;
+            this._SQLServer = SQLConnector.SQLServer;
+            this._DBName = SQLConnector.DBName;
+            this._Connection = new SqlConnection(this.BuildSQLConnectionString());
+            this._IsTest = SQLConnector.IsTest;
+        }
+
         #endregion Constructors
 
         #region Methods
@@ -80,7 +110,7 @@ namespace GroundFrame.Classes
         private string BuildSQLConnectionString()
         {
             string AppName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-            string ConnectionString =  $"Data Source={this._SQLServer};Initial Catalog={this._DBName};Integrated Security=SSPI;Application Name={AppName};Connect Timeout=2";
+            string ConnectionString =  $"Data Source={this._SQLServer};Initial Catalog={this._DBName};Integrated Security=SSPI;Application Name={AppName};Connect Timeout=30";
             return ConnectionString;
         }
 

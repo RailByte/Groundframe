@@ -587,6 +587,51 @@ SELECT * FROM [simsig].[TSIM] WHERE [id] = @id;
 SELECT * FROM [simsig].[TSIMERA] WHERE [sim_id] = @id;
 </value>
   </data>
+  <data name="simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for simsig.Usp_GET_TSIMERA_BY_SIM
+DECLARE @id AS SMALLINT
+DECLARE @name AS NVARCHAR (128)
+DECLARE @description AS NVARCHAR (2048)
+DECLARE @simsig_wiki_link AS NVARCHAR (512)
+DECLARE @simsig_code AS NVARCHAR (32)
+DECLARE @datetime AS DATETIMEOFFSET (7)
+DECLARE @debug AS BIT
+DECLARE @debug_session_id AS UNIQUEIDENTIFIER;
+DECLARE @error_message NVARCHAR(256);
+
+--Check proc errors if user not logged in
+
+SET @id = 0;
+SET @name = 'Test Get SimEra By Sim Name';
+SET @description = 'Test Get SimEra By Sim Description';
+SET @simsig_wiki_link = 'Test Get SimEra By Sim Wiki Link';
+SET @simsig_code = 'Test Get SimEra By Sim SimSig Code';
+SET @datetime = NULL;
+SET @debug = 0;
+SET @debug_session_id = NULL;
+
+--Log User In
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY';
+
+--Create Sim
+
+EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_link, @simsig_code, @datetime, @debug, @debug_session_id OUTPUT;
+
+--Check Proc Returns 1 Row
+
+EXEC [simsig].[Usp_GET_TSIMERA_BY_SIM] @sim_id = 1
+
+--Delete Data
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[sim_id] = @id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[id] = @id;</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

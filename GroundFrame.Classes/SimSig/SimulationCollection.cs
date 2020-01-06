@@ -20,6 +20,7 @@ namespace GroundFrame.Classes
 
         #region Properties
         public IEnumerator<Simulation> GetEnumerator() { return this._Simulations.GetEnumerator(); }
+
         #endregion Properties
 
         #region Constructors
@@ -48,6 +49,16 @@ namespace GroundFrame.Classes
             return this.GetEnumerator();
         }
 
+        /// <summary>
+        /// Returns the Simulation for the supplied Index
+        /// </summary>
+        /// <param name="Item"></param>
+        /// <returns></returns>
+        public Simulation IndexOf(int Index)
+        {
+            return this._Simulations[Index];
+        }
+
         private void GetAllSimulationsFromSQLDB()
         {
             this._Simulations = new List<Simulation>();
@@ -73,7 +84,7 @@ namespace GroundFrame.Classes
                     else
                     {
                         //Parse the DataReader into the object
-                        this._Simulations.Add(new Simulation(DataReader));
+                        this._Simulations.Add(new Simulation(DataReader, this._SQLConnector));
                     }
                 }
             }

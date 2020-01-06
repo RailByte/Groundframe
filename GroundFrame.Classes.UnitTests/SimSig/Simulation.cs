@@ -79,11 +79,12 @@ namespace GroundFrame.Classes.UnitTests.SimSig
             Assert.Equal(SimSigWikiLink, TestSim.SimSigWikiLink);
             Assert.Equal(SimSigCode, TestSim.SimSigCode);
             Assert.NotEqual(0, TestSim.ID);
+            Assert.Single(TestSim.Eras); //Only a template era should be created
 
         }
 
         /// <summary>
-        /// Checks that the GetValueFromXElement method returns an int when specified 
+        /// Checks that resaving the same record doesn't create a new object
         /// </summary>
         [Theory]
         [InlineData("Test Name 5", "Test Description 5", "Test SimSig Wiki Line 5", "Test SimSig Code 5")]
@@ -118,6 +119,7 @@ namespace GroundFrame.Classes.UnitTests.SimSig
             Assert.Equal(SimSigWikiLink, TestSim.SimSigWikiLink);
             Assert.Equal(SimSigCode.ToLower(), TestSim.SimSigCode);
             Assert.Equal(SetupSimID, TestSim.ID);
+            Assert.Single(TestSim.Eras); //Only a template era should be created
         }
 
         /// <summary>
@@ -137,6 +139,7 @@ namespace GroundFrame.Classes.UnitTests.SimSig
             Assert.Equal(SimSigWikiLink, TestSim.SimSigWikiLink);
             Assert.Equal(SimSigCode, TestSim.SimSigCode);
             Assert.NotEqual(0, TestSim.ID);
+            Assert.Single(TestSim.Eras); //Only a template era should be created
 
             this._SQLConnection.Open();
             SqlCommand Cmd = this._SQLConnection.SQLCommand("SELECT createdon, modifiedon FROM [simsig].[TSIM] WHERE [id] = @id", System.Data.CommandType.Text);
@@ -157,6 +160,44 @@ namespace GroundFrame.Classes.UnitTests.SimSig
             Assert.Equal(TestDateTime, TestCreatedOnDateTime);
             Assert.Equal(TestDateTime, TestModifiedOnDateTime);
 
+        }
+
+
+        /// <summary>
+        /// Checks that trying to create eras against an unsaved Simulation raises an error
+        /// </summary>
+        [Theory]
+        [InlineData("Test Name 10", "Test Description 10", "Test SimSig Wiki Line 10", "Test SimSig Code 10")]
+        [InlineData("Test Name 11", "Test Description 11", "Test SimSig Wiki Line 11", "Test SimSig Code 11")]
+        public void Simulation_Constructor_Check_CreateEra_On_UnsavedSim(string Name, string Description, string SimSigWikiLink, string SimSigCode)
+        {
+            Classes.Simulation TestSim = new Classes.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
+            Assert.Equal(Name, TestSim.Name);
+            Assert.Equal(Description, TestSim.Description);
+            Assert.Equal(SimSigWikiLink, TestSim.SimSigWikiLink);
+            Assert.Equal(SimSigCode, TestSim.SimSigCode);
+            Assert.Throws<ArgumentException>(() => TestSim.Eras.Add(new SimulationEra(TestSim, EraType.WTT, "Test Era Name", "Test Era Description", new GFSqlConnector(this._SQLConnection))));
+        }
+
+        /// <summary>
+        /// Checks that trying to create eras against a saved Simulation doesn't raise an error and one era is recorded
+        /// </summary>
+        [Theory]
+        [InlineData("Test Name 12", "Test Description 12", "Test SimSig Wiki Line 12", "Test SimSig Code 12")]
+        [InlineData("Test Name 13", "Test Description 13", "Test SimSig Wiki Line 13", "Test SimSig Code 13")]
+        public void Simulation_Constructor_Check_CreateEra_On_SavedSim(string Name, string Description, string SimSigWikiLink, string SimSigCode)
+        {
+            Classes.Simulation TestSim = new Classes.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
+            Assert.Equal(Name, TestSim.Name);
+            Assert.Equal(Description, TestSim.Description);
+            Assert.Equal(SimSigWikiLink, TestSim.SimSigWikiLink);
+            Assert.Equal(SimSigCode, TestSim.SimSigCode);
+            TestSim.SaveToSQLDB();
+            Assert.NotEqual(0, TestSim.ID);
+            //Now add the Simulation Era
+            TestSim.Eras.Add(new SimulationEra(TestSim, EraType.WTT, "Test Era Name", "Test Era Description", new GFSqlConnector(this._SQLConnection)));
+            //Check Single Era has been added together with the default template
+            Assert.Equal(2, TestSim.Eras.Count);
         }
 
         #endregion Methods

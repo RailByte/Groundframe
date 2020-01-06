@@ -114,6 +114,8 @@
     <Build Include="Stored Procedures\common\common.Usp_TEARDOWN_TESTDATA.sql" />
     <Build Include="Stored Procedures\common\common.Usp_GENERATE_TESTDATA.sql" />
     <Build Include="Stored Procedures\simsig\simsig.Usp_DELETE_TSIM.sql" />
+    <Build Include="Stored Procedures\simsig\simsig.Usp_GET_TSIMERA_BY_SIM.sql" />
+    <Build Include="Stored Procedures\simsig\simsig.Usp_UPSERT_TSIMERA.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\140\SqlSchemas\master.dacpac">

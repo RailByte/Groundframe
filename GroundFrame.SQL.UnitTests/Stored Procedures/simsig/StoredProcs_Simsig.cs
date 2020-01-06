@@ -88,9 +88,12 @@ namespace GroundFrame.SQL.UnitTests
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_DeleteSim_CheckSimDeletion;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_DeleteSim_CheckSimEraDeletion;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_DeleteSim_CheckUserLoggedInError;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_GetSimEraBySim_RowCount;
             this.simsig_USp_UPSERT_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_USp_GET_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_Usp_DELETE_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             simsig_USp_UPSERT_TSIMTest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             chk_NotLoggedIn_Errors = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_NULLName_Errors = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
@@ -141,6 +144,8 @@ namespace GroundFrame.SQL.UnitTests
             chk_DeleteSim_CheckSimDeletion = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
             chk_DeleteSim_CheckSimEraDeletion = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
             chk_DeleteSim_CheckUserLoggedInError = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            chk_GetSimEraBySim_RowCount = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
             // 
             // simsig_USp_UPSERT_TSIMTest_TestAction
             // 
@@ -644,6 +649,24 @@ namespace GroundFrame.SQL.UnitTests
             this.simsig_Usp_DELETE_TSIMTestData.PosttestAction = null;
             this.simsig_Usp_DELETE_TSIMTestData.PretestAction = null;
             this.simsig_Usp_DELETE_TSIMTestData.TestAction = simsig_Usp_DELETE_TSIMTest_TestAction;
+            // 
+            // simsig_Usp_GET_TSIMERA_BY_SIMTestData
+            // 
+            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.PosttestAction = null;
+            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.PretestAction = null;
+            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.TestAction = simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction;
+            // 
+            // simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction
+            // 
+            simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction.Conditions.Add(chk_GetSimEraBySim_RowCount);
+            resources.ApplyResources(simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction, "simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction");
+            // 
+            // chk_GetSimEraBySim_RowCount
+            // 
+            chk_GetSimEraBySim_RowCount.Enabled = true;
+            chk_GetSimEraBySim_RowCount.Name = "chk_GetSimEraBySim_RowCount";
+            chk_GetSimEraBySim_RowCount.ResultSet = 1;
+            chk_GetSimEraBySim_RowCount.RowCount = 1;
         }
 
         #endregion
@@ -732,10 +755,35 @@ namespace GroundFrame.SQL.UnitTests
                 SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
             }
         }
+        [TestMethod()]
+        public void simsig_Usp_GET_TSIMERA_BY_SIMTest()
+        {
+            SqlDatabaseTestActions testActions = this.simsig_Usp_GET_TSIMERA_BY_SIMTestData;
+            // Execute the pre-test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
+            SqlExecutionResult[] pretestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PretestAction);
+            try
+            {
+                // Execute the test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.TestAction != null), "Executing test script...");
+                SqlExecutionResult[] testResults = TestService.Execute(this.ExecutionContext, this.PrivilegedContext, testActions.TestAction);
+            }
+            finally
+            {
+                // Execute the post-test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.PosttestAction != null), "Executing post-test script...");
+                SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
+            }
+        }
+
 
 
         private SqlDatabaseTestActions simsig_USp_UPSERT_TSIMTestData;
         private SqlDatabaseTestActions simsig_USp_GET_TSIMTestData;
         private SqlDatabaseTestActions simsig_Usp_DELETE_TSIMTestData;
+        private SqlDatabaseTestActions simsig_Usp_GET_TSIMERA_BY_SIMTestData;
     }
 }
