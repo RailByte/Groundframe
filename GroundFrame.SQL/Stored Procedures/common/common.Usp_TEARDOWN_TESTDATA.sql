@@ -79,7 +79,19 @@ BEGIN
 			DELETE FROM [simsig].[TSIM] WHERE id = @simulation_id;
 
 			SET @counter = @counter +1;
-		END
+		END;
+
+		--Delete any other simulation eras
+
+		DELETE FROM [simsig].[TSIMERA]
+		WHERE
+			[testdata_id] = @testdata_id;
+
+		--Delete versions
+
+		DELETE FROM [simsig].[TVERSION]
+		WHERE
+			[testdata_id] = @testdata_id;
 	
 		SET @debug_message = 'Executing [common].[Usp_TEARDOWN_TESTDATA] completed.';
 		EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;

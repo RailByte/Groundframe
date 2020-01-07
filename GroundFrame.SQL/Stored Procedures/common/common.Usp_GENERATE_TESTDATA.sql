@@ -76,6 +76,25 @@ BEGIN
 			@testdata_id
 		);
 
+		INSERT INTO [simsig].[TVERSION]
+		(
+			[name],
+			[description],
+			[simsig_version_from],
+			[simsig_version_to],
+			[version_status_id],
+			[testdata_id]
+		)
+		VALUES
+		(
+			'Generated Version Name ' + @code,
+			'Generated Version Description ' + @code,
+			CAST(@counter AS NUMERIC(4,1)),
+			CASE WHEN @counter = @records_to_generate THEN NULL ELSE CAST(@counter AS NUMERIC(4,1)) + 0.9 END,
+			CASE WHEN @counter = @records_to_generate THEN 2 ELSE  1 END,
+			@testdata_id
+		);
+
 		SET @counter = @counter + 1;
 	END
 END

@@ -26,10 +26,11 @@ Print '.\Post Deployment\Data Population\Script.Populate app.TAPPTYPE.sql comple
 Print '.\Post Deployment\Data Population\Script.Populate app.TAPPSTATUS.sql completed (' + CAST(SYSDATETIME() AS NVARCHAR(200)) + ')';
 :r ".\Post Deployment\Data Population\Script.Populate simsig.TERATYPE.sql"
 Print '.\Post Deployment\Data Population\Script.Populate simsig.TERATYPE.sql completed (' + CAST(SYSDATETIME() AS NVARCHAR(200)) + ')';
+:r ".\Post Deployment\Data Population\Script.Populate simsig.TVERSIONSTATUS.sql"
+Print '.\Post Deployment\Data Population\Script.Populate simsig.TVERSIONSTATUS.sql completed (' + CAST(SYSDATETIME() AS NVARCHAR(200)) + ')';
 --Populate internal users and app
 :r ".\Post Deployment\Data Population\Script.Populate app.TROLE.sql"
 Print '.\Post Deployment\Data Population\Script.Populate app.TROLE.sql completed (' + CAST(SYSDATETIME() AS NVARCHAR(200)) + ')';
-
 :r ".\Post Deployment\Data Population\Script.Populate app.TUSER.sql"
 Print '.\Post Deployment\Data Population\Script.Populate app.TUSER.sql completed (' + CAST(SYSDATETIME() AS NVARCHAR(200)) + ')';
 :r ".\Post Deployment\Data Population\Script.Populate app.TAPP.sql"

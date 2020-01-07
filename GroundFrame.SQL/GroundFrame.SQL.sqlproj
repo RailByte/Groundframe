@@ -118,6 +118,9 @@
     <Build Include="Stored Procedures\simsig\simsig.Usp_UPSERT_TSIMERA.sql" />
     <Build Include="Tables\app\app.TROLE.sql" />
     <None Include="Scripts\Post Deployment\Data Population\Script.Populate app.TROLE.sql" />
+    <Build Include="Stored Procedures\simsig\simsig.Usp_UPSERT_TVERSION.sql" />
+    <Build Include="Tables\simsig\simsig.TVERSIONSTATUS.sql" />
+    <None Include="Scripts\Post Deployment\Data Population\Script.Populate simsig.TVERSIONSTATUS.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\SQLDB\Extensions\SqlServer\140\SqlSchemas\master.dacpac">
