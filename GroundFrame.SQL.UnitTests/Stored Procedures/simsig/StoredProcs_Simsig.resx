@@ -220,7 +220,7 @@ END CATCH
 SELECT 
 	[error_message] = @error_message;
 
---Check 6 - Ensure @simsig_code raises error (Empty String)
+--Check 6 - Ensure check record created correctly
 
 SET @simsig_code = 'Test SimSig Code';
 
@@ -236,7 +236,8 @@ SELECT
 	[createdon] = CAST(CASE WHEN [createdon] IS NULL THEN 0 ELSE 1 END AS BIT),
 	[createdby_id],
 	[modifiedon] = CAST(CASE WHEN [modifiedon] IS NULL THEN 0 ELSE 1 END AS BIT),
-	[modifiedby_id]
+	[modifiedby_id],
+	[testdata_id]
 FROM [simsig].[TSIM]
 WHERE
 	[id] = @id
@@ -370,7 +371,31 @@ SELECT
 	debug_count = CAST(CASE WHEN COUNT(*) &gt; 0 THEN 1 ELSE 0 END AS BIT)
 FROM [audit].[TEVENT]
 WHERE
-	[debug_session_id] = @expected_debug_session_id</value>
+	[debug_session_id] = @expected_debug_session_id;
+
+--Check TestData ID gets added if passed in the session context
+
+DECLARE @testdata_id UNIQUEIDENTIFIER = NEWID();
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY', @testdata_id = @testdata_id
+
+SET @id = 0
+SET @name = 'Test Name 4';
+SET @description = 'Test Description 4';
+SET @simsig_wiki_link = 'Test Wiki Link 4';
+SET @simsig_code = 'Test SimSig Code 4';
+SET @debug = 1
+SET @datetime = NULL;
+SET @debug_session_id = NEWID();
+
+EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_link, @simsig_code, @datetime, @debug, @debug_session_id OUTPUT;
+
+--Result Set 13
+
+SELECT 
+	[testdata_id_check] = CAST(CASE WHEN [testdata_id] = @testdata_id THEN 1 ELSE 0 END AS INT)
+FROM [simsig].[TSIM]
+WHERE
+	[id] = @id;</value>
   </data>
   <data name="simsig_USp_UPSERT_TSIMTest_PosttestAction.SqlScript" xml:space="preserve">
     <value>--Clear Session Context
@@ -620,7 +645,7 @@ EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_li
 
 --Check Proc Returns 1 Row
 
-EXEC [simsig].[Usp_GET_TSIMERA_BY_SIM] @sim_id = 1
+EXEC [simsig].[Usp_GET_TSIMERA_BY_SIM] @sim_id = @id;
 
 --Delete Data
 
@@ -631,6 +656,253 @@ WHERE
 DELETE FROM [simsig].[TSIM]
 WHERE
 	[id] = @id;</value>
+  </data>
+  <data name="simsig_Usp_UPSERT_TSIMERATest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for simsig.Usp_UPSERT_TSIMERA
+
+--Arguements for Proc
+DECLARE @id AS SMALLINT, @sim_id AS SMALLINT, @name AS NVARCHAR (128), @description AS NVARCHAR (2048), @era_type_id AS TINYINT, @debug AS BIT, @debug_session_id AS UNIQUEIDENTIFIER;
+
+--Create a TestData ID
+DECLARE @testdata_id UNIQUEIDENTIFIER = NEWID();
+
+--Other Variables
+DECLARE @error_message NVARCHAR(258);
+
+--First create a simsig.TSIM record to attach the simulation era against
+
+INSERT INTO [simsig].[TSIM]
+(
+	[name],
+	[description],
+	[simsig_wiki_link],
+	[simsig_code],
+	[createdby_id],
+	[createdon],
+	[modifiedby_id],
+	[modifiedon],
+	[testdata_id]
+)
+VALUES
+(
+	'Test SimEra Sim Name',
+	'Test SimEra Sim Description',
+	'Test SimEra Sim Wiki Link',
+	'Test SimEra Sim SimSig Code',
+	2,
+	SYSDATETIMEOFFSET(),
+	2,
+	SYSDATETIMEOFFSET(),
+	@testdata_id
+)
+
+SET @id = 0;
+SET @sim_id = CAST(SCOPE_IDENTITY() AS SMALLINT);
+SET @name = 'Test SimEra Name';
+SET @description = 'Test SimEra Description';
+SET @era_type_id = 1;
+SET @debug = 0;
+
+--Check Error raised if user not logged in
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 1
+
+SELECT 
+	[error_message] = @error_message;
+
+--Log User In
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY';
+
+--Check Error raised if no name passed
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = NULL, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 2
+
+SELECT 
+	[error_message] = @error_message;
+
+--Check Error raised if invalid Sim ID passed
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = -1, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 3
+
+SELECT 
+	[error_message] = @error_message;
+
+--Check Error raised if invalid era type passed
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = 255, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 4
+
+SELECT 
+	[error_message] = @error_message;
+
+--Check Insertion happens correctly
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 5
+
+SELECT
+	[sim_id_check] = CAST(CASE WHEN [sim_id] = @sim_id THEN 1 ELSE 0 END AS BIT),
+	[name],
+	[description],
+	[era_type_id],
+	[testdata_id]
+FROM [simsig].[TSIMERA]
+WHERE
+	[id] = @id;
+
+--Check Trying to insert a new era with an existing name updates the existing record
+
+DECLARE @existing_id SMALLINT = @id;
+
+SET @id = 0;
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 6
+
+SELECT
+	check_same_id = CAST(CASE WHEN @existing_id = @id THEN 1 ELSE 0 END AS BIT),
+	[name],
+	[description],
+	[era_type_id],
+	[testdata_id]
+FROM [simsig].[TSIMERA]
+WHERE
+	[id] = @id;
+
+--Check changing description and era type updates record
+
+SET @name = N'Updated Name';
+SET @description = N'Updated Description';
+SET @era_type_id = 2;
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH;
+
+--Result 7
+
+SELECT
+	check_same_id = CAST(CASE WHEN @existing_id = @id THEN 1 ELSE 0 END AS BIT),
+	[name],
+	[description],
+	[era_type_id],
+	[testdata_id]
+FROM [simsig].[TSIMERA]
+WHERE
+	[id] = @id;
+
+--Delete the SimEra
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[id] = @id;
+
+--Check Debug works ok
+
+SET @id = 0;
+SET @name = 'Test SimEra Name 2';
+SET @description = 'Test SimEra Description 2';
+SET @era_type_id = 1;
+SET @debug = 1;
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH;
+
+--Result Set 8
+
+SELECT
+	*
+FROM [audit].[TEVENT]
+WHERE
+	[debug_session_id] = @debug_session_id
+
+--Delete Sim Era
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[id] = @id;
+
+--Test TestData get's written correctly
+
+SET @id = 0;
+SET @name = 'Test SimEra Name 3';
+SET @description = 'Test SimEra Description 3';
+SET @era_type_id = 1;
+SET @debug = 1;
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY', @testdata_id = @testdata_id
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH;
+
+--Result Set 9
+
+SELECT 
+	[id]
+FROM [simsig].[TSIMERA]
+WHERE
+	[testdata_id] = @testdata_id
+
+--Tear Down Data
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[id] = @id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[testdata_id] = @testdata_id;</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

@@ -23,6 +23,7 @@ namespace GroundFrame.Classes
         private readonly SqlConnection _Connection;
         private readonly bool _IsTest; //Flag to indicate whether the connector is running as part of a test and therefore the TearDown method can be called
         private Guid _TestDataID; //Stores the ID of the test data
+        private int _Timeout; //Store the timeout of the connection in seconds
 
         #endregion Private Variables
 
@@ -58,6 +59,11 @@ namespace GroundFrame.Classes
         /// </summary>
         public string ApplicationUserAPIKey { get { return this._ApplicationUserAPIKey; } }
 
+        /// <summary>
+        /// Gets the Timeout of the connection in seconds
+        /// </summary>
+        public int Timeout { get { return this._Timeout; } }
+
         #endregion Properties
 
         #region Constructors
@@ -69,16 +75,19 @@ namespace GroundFrame.Classes
         /// <param name="AppUserAPIKey"></param>
         /// <param name="SQLServer"></param>
         /// <param name="DBName"></param>
-        /// <param name="IsTest">This is used by the testing environment and will delete any data added whilst the connection is open to leave a clean database</param>
-        public GFSqlConnector(string AppAPIKey, string AppUserAPIKey, string SQLServer, string DBName, bool IsTest = false)
+        /// <param name="IsTest">This is used by the testing environment and will delete any data added whilst the connection is open to leave a clean database. Default = false</param>
+        /// <param name="Timeout">The number of seconds before the connection times out. Default 30.</param>
+        public GFSqlConnector(string AppAPIKey, string AppUserAPIKey, string SQLServer, string DBName, bool IsTest = false, int Timeout = 30)
         {
             this._ApplicationAPIKey = AppAPIKey;
             this._ApplicationUserAPIKey = AppUserAPIKey;
             this._SQLServer = SQLServer;
             this._DBName = DBName;
-            this._Connection = new SqlConnection(this.BuildSQLConnectionString());
             this._IsTest = IsTest;
-            
+            this._TestDataID = IsTest ? Guid.NewGuid() : Guid.Empty;
+            this._Timeout = Timeout;
+            this._Connection = new SqlConnection(this.BuildSQLConnectionString());
+
             if (!this.TestConnection())
             {
                 throw new ApplicationException("Cannot connect to GroundFrame Microsoft SQL Database");
@@ -95,8 +104,10 @@ namespace GroundFrame.Classes
             this._ApplicationUserAPIKey = SQLConnector.ApplicationUserAPIKey;
             this._SQLServer = SQLConnector.SQLServer;
             this._DBName = SQLConnector.DBName;
-            this._Connection = new SqlConnection(this.BuildSQLConnectionString());
             this._IsTest = SQLConnector.IsTest;
+            this._TestDataID = SQLConnector.TestDataID;
+            this._Timeout = SQLConnector.Timeout;
+            this._Connection = new SqlConnection(this.BuildSQLConnectionString());
         }
 
         #endregion Constructors
@@ -110,7 +121,8 @@ namespace GroundFrame.Classes
         private string BuildSQLConnectionString()
         {
             string AppName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-            string ConnectionString =  $"Data Source={this._SQLServer};Initial Catalog={this._DBName};Integrated Security=SSPI;Application Name={AppName};Connect Timeout=30";
+            int Timeout = this.Timeout <= 0 || this.Timeout > 300 ? 30 : this.Timeout; //Stops a silly timeout value being set!
+            string ConnectionString =  $"Data Source={this.SQLServer};Initial Catalog={this.DBName};Integrated Security=SSPI;Application Name={AppName};Connect Timeout={Timeout}";
             return ConnectionString;
         }
 
@@ -150,6 +162,12 @@ namespace GroundFrame.Classes
                 };
                 cmd.Parameters.Add(new SqlParameter("@app_api_key", this._ApplicationAPIKey));
                 cmd.Parameters.Add(new SqlParameter("@app_user_api_key", this._ApplicationUserAPIKey));
+
+                if (this._TestDataID != Guid.Empty)
+                {
+                    cmd.Parameters.Add(new SqlParameter("@testdata_id", this._TestDataID));
+                }
+
                 cmd.ExecuteNonQuery();
             }
             catch (Exception Ex)

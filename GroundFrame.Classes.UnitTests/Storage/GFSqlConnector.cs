@@ -58,7 +58,7 @@ namespace GroundFrame.Classes.UnitTests.Storage
         public void GFSqlConnector_InvalidConnection_CheckException()
         {
             string InvalidServerName = $"{this._SQLServer}GHOGODMDORVTO"; //Build a nonsense servername
-            Assert.Throws<ApplicationException>(() => new GroundFrame.Classes.GFSqlConnector("testappAPIKEY", "testuserAPIKEY", InvalidServerName, this._DBName));
+            Assert.Throws<ApplicationException>(() => new GroundFrame.Classes.GFSqlConnector("testappAPIKEY", "testuserAPIKEY", InvalidServerName, this._DBName, false, 1));
         }
 
         /// <summary>

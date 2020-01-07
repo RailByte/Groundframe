@@ -24,6 +24,7 @@ BEGIN
 	--Variables
 	DECLARE @debug_message NVARCHAR(2048);
 	DECLARE @error_message NVARCHAR(2048);
+	DECLARE @testdata_id UNIQUEIDENTIFIER = CONVERT(UNIQUEIDENTIFIER,SESSION_CONTEXT(N'testdata_id'))
 
 	--Set the @debug_session_id if in debug mode and @debug_session_id <NULL>
 	IF @debug = 1 AND @debug_session_id IS NULL
@@ -79,6 +80,7 @@ BEGIN
 		FROM [simsig].[VSIM] AS S
 		WHERE
 			(S.id = @id OR @id = 0) --Not best practise but given the small number of records shouldn't be a problem.
+			AND (S.[testdata_id] = @testdata_id OR @testdata_id IS NULL) --Used to ensure if the connection is a test only records effected by the test are returned
 	END TRY
 	BEGIN CATCH
 		IF @debug = 1

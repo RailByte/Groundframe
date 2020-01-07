@@ -48,6 +48,7 @@ BEGIN
 	--Variables--
 	DECLARE @logged_in BIT = ISNULL(CONVERT(BIT,SESSION_CONTEXT(N'logged_in')),0); 
 	DECLARE @app_user_id INT = ISNULL(CONVERT(INT,SESSION_CONTEXT(N'app_user')),0); 
+	DECLARE @testdata_id UNIQUEIDENTIFIER = CONVERT(UNIQUEIDENTIFIER,SESSION_CONTEXT(N'testdata_id'))
 
 	--Set Default DateTime
 
@@ -131,7 +132,8 @@ BEGIN
 				[createdon],
 				[createdby_id],
 				[modifiedon],
-				[modifiedby_id]
+				[modifiedby_id],
+				[testdata_id]
 			)
 			VALUES
 			(
@@ -142,7 +144,8 @@ BEGIN
 				@datetime,
 				@app_user_id,
 				@datetime,
-				@app_user_id
+				@app_user_id,
+				@testdata_id
 			);
 
 			SET @id = CAST(SCOPE_IDENTITY() AS SMALLINT);
@@ -173,14 +176,16 @@ BEGIN
 				[sim_id],
 				[name],
 				[description],
-				[era_type_id]
+				[era_type_id],
+				[testdata_id]
 			)
 			VALUES
 			(
 				@id,
 				@name + ' Template',
 				N'Default era template.',
-				2 
+				2,
+				@testdata_id
 			);
 
 			IF @debug = 1

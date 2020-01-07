@@ -14,7 +14,7 @@ namespace GroundFrame.Classes
         #region Private Variables
 
         private int _ID; //Stores the Microsoft SQL Database ID of the Simulation record
-        private GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
+        private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private string _Name; //Stores the Simulation Name
         private string _SimSigCode; //Stores the SimSig Code
         private List<SimulationEra> _Eras; //Stores the Eras available in the Simulation
@@ -67,12 +67,27 @@ namespace GroundFrame.Classes
         /// <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
         public Simulation(string Name, string Description, string SimSigWikiLink, string SimSigCode, GFSqlConnector SQLConnector)
         {
+            if (string.IsNullOrEmpty(Name))
+            {
+                throw new ArgumentException("Name cannot be <NULL> or empty.");
+            }
+
+            if (string.IsNullOrEmpty(SimSigCode))
+            {
+                throw new ArgumentException("SimSigCode cannot be <NULL> or empty.");
+            }
+
+            if (SQLConnector == null)
+            {
+                throw new ArgumentException("SQLConnector cannot be <NULL>.");
+            }
+
             this._ID = 0;
             this._Name = Name;
             this.Description = Description;
             this.SimSigWikiLink = SimSigWikiLink;
             this._SimSigCode = SimSigCode;
-            this._SQLConnector = SQLConnector;
+            this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiates a new copy of the SQLConnector object to stop conflicts between Connections, Commands and Readers
             this._Eras = new List<SimulationEra>();
         }
 
@@ -84,9 +99,8 @@ namespace GroundFrame.Classes
         public Simulation(int ID, GFSqlConnector SQLConnector)
         {
             this._ID = ID;
-            this._SQLConnector = SQLConnector;
+            this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiates a copy of the SQLConnector object so prevent conflicts on Connections, Commands and DataReaders
             this.GetSimulationFromSQLDBByID();
-            this._Eras = new List<SimulationEra>();
         }
 
         /// <summary>
@@ -99,6 +113,8 @@ namespace GroundFrame.Classes
             this._SQLConnector = new GFSqlConnector(SQLConnector);
             //Parse Reader
             this.ParseSqlDataReader(DataReader);
+            //Load Simulation Eras
+            this.LoadSimErasFromSQLDB();
         }
 
         #endregion Constructors
@@ -125,7 +141,14 @@ namespace GroundFrame.Classes
         /// <param name="ExecutionDateTimeOffSet">The exection DateTimOffset</param>
         public void SaveToSQLDB(DateTimeOffset ExecutionDateTimeOffSet)
         {
+            bool newRecord = this._ID == 0 ? true : false;
             this.SaveSimulationToSQLDB(ExecutionDateTimeOffSet);
+
+            //if it's a new record the SimEras need loading as a template era is created on new record Save
+            if (newRecord)
+            {
+                this.LoadSimErasFromSQLDB();
+            }
         }
 
         /// <summary>
@@ -227,6 +250,8 @@ namespace GroundFrame.Classes
             finally
             {
                 this._SQLConnector.Close();
+                //Load the Simulation Eras
+                this.LoadSimErasFromSQLDB();
             }
         }
 
@@ -241,9 +266,6 @@ namespace GroundFrame.Classes
             this.Description = DataReader.GetString(DataReader.GetOrdinal("description"));
             this._SimSigCode = DataReader.GetString(DataReader.GetOrdinal("simsig_code"));
             this.SimSigWikiLink = DataReader.GetString(DataReader.GetOrdinal("simsig_wiki_link"));
-
-            //Load the Simulation Eras
-            this.LoadSimErasFromSQLDB();
         }
 
         /// <summary>
@@ -274,7 +296,7 @@ namespace GroundFrame.Classes
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException($"An error has occurred trying to save simulation recods {this.Name} to the GroundFrame Microsoft SQL database at {this._SQLConnector.SQLServer}.{this._SQLConnector.DBName}", Ex);
+                throw new ApplicationException($"An error has occurred trying to save simulation record {this.Name} to the GroundFrame.SQL database.", Ex);
             }
             finally
             {

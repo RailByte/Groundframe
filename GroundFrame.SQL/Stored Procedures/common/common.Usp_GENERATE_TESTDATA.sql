@@ -64,14 +64,16 @@ BEGIN
 			[sim_id],
 			[name],
 			[description],
-			[era_type_id]
+			[era_type_id],
+			[testdata_id]
 		)
 		VALUES
 		(
 			@simulation_id,
 			'Generated Era Name ' + @code,
 			'Generated Era Description ' + @code,
-			1
+			1,
+			@testdata_id
 		);
 
 		SET @counter = @counter + 1;

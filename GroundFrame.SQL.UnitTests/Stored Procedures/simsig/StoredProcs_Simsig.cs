@@ -90,10 +90,28 @@ namespace GroundFrame.SQL.UnitTests
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_DeleteSim_CheckUserLoggedInError;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_GetSimEraBySim_RowCount;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_NewRecord_TestDataID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_testdataid_added;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_Usp_UPSERT_TSIMERATest_TestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TSIMERA_User_LoggedIn;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TSIMERA_No_Name_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TSIMERA_Invalid_Sim_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TSIMERA_Invalid_Type_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_Upsert_TSIMERA_Check_InsertRowCount;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TSIMERA_Check_UpdateRow_Era;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TSIMERA_Check_InsertRow_CheckDesc;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TSIMERA_Check_InsertRow_CheckType;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TSIMERA_Check_InsertRow_Check_SameName_Insert;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TSIMERA_Check_UpdateRow_Name;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TSIMERA_Check_UpdateRow_Description;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TSIMERA_Check_UpdateRow_Type;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Upsert_TSIMERA_Check_Debug_Data;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Upsert_TSIMERA_Check_Test_Data;
             this.simsig_USp_UPSERT_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_USp_GET_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_Usp_DELETE_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_Usp_GET_TSIMERA_BY_SIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            this.simsig_Usp_UPSERT_TSIMERATestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             simsig_USp_UPSERT_TSIMTest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             chk_NotLoggedIn_Errors = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_NULLName_Errors = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
@@ -146,6 +164,23 @@ namespace GroundFrame.SQL.UnitTests
             chk_DeleteSim_CheckUserLoggedInError = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             chk_GetSimEraBySim_RowCount = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
+            chk_NewRecord_TestDataID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_testdataid_added = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            simsig_Usp_UPSERT_TSIMERATest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            chk_Upsert_TSIMERA_User_LoggedIn = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TSIMERA_No_Name_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TSIMERA_Invalid_Sim_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TSIMERA_Invalid_Type_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TSIMERA_Check_InsertRowCount = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
+            chk_Upsert_TSIMERA_Check_UpdateRow_Era = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckDesc = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckType = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TSIMERA_Check_InsertRow_Check_SameName_Insert = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TSIMERA_Check_UpdateRow_Name = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TSIMERA_Check_UpdateRow_Description = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TSIMERA_Check_UpdateRow_Type = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TSIMERA_Check_Debug_Data = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
+            chk_Upsert_TSIMERA_Check_Test_Data = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
             // 
             // simsig_USp_UPSERT_TSIMTest_TestAction
             // 
@@ -162,6 +197,7 @@ namespace GroundFrame.SQL.UnitTests
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_NewRecord_CreatedByID);
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_NewRecord_ModifiedOn);
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_NewRecord_ModifiedByID);
+            simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_NewRecord_TestDataID);
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_Default_SimEra_RowCount);
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_Default_SimEra_Name);
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_Default_SimEra_Description);
@@ -184,6 +220,7 @@ namespace GroundFrame.SQL.UnitTests
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_NewRecord2_ModifiedOnCorrect);
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_NewRecord2_DebugEvents);
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_NewRecord3_DebugEvents);
+            simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_testdataid_added);
             resources.ApplyResources(simsig_USp_UPSERT_TSIMTest_TestAction, "simsig_USp_UPSERT_TSIMTest_TestAction");
             // 
             // chk_NotLoggedIn_Errors
@@ -632,6 +669,18 @@ namespace GroundFrame.SQL.UnitTests
             chk_DeleteSim_CheckUserLoggedInError.ResultSet = 3;
             chk_DeleteSim_CheckUserLoggedInError.RowNumber = 1;
             // 
+            // simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction
+            // 
+            simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction.Conditions.Add(chk_GetSimEraBySim_RowCount);
+            resources.ApplyResources(simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction, "simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction");
+            // 
+            // chk_GetSimEraBySim_RowCount
+            // 
+            chk_GetSimEraBySim_RowCount.Enabled = true;
+            chk_GetSimEraBySim_RowCount.Name = "chk_GetSimEraBySim_RowCount";
+            chk_GetSimEraBySim_RowCount.ResultSet = 1;
+            chk_GetSimEraBySim_RowCount.RowCount = 1;
+            // 
             // simsig_USp_UPSERT_TSIMTestData
             // 
             this.simsig_USp_UPSERT_TSIMTestData.PosttestAction = simsig_USp_UPSERT_TSIMTest_PosttestAction;
@@ -656,17 +705,178 @@ namespace GroundFrame.SQL.UnitTests
             this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.PretestAction = null;
             this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.TestAction = simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction;
             // 
-            // simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction
+            // chk_NewRecord_TestDataID
             // 
-            simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction.Conditions.Add(chk_GetSimEraBySim_RowCount);
-            resources.ApplyResources(simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction, "simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction");
+            chk_NewRecord_TestDataID.ColumnNumber = 9;
+            chk_NewRecord_TestDataID.Enabled = true;
+            chk_NewRecord_TestDataID.ExpectedValue = null;
+            chk_NewRecord_TestDataID.Name = "chk_NewRecord_TestDataID";
+            chk_NewRecord_TestDataID.NullExpected = true;
+            chk_NewRecord_TestDataID.ResultSet = 6;
+            chk_NewRecord_TestDataID.RowNumber = 1;
             // 
-            // chk_GetSimEraBySim_RowCount
+            // chk_testdataid_added
             // 
-            chk_GetSimEraBySim_RowCount.Enabled = true;
-            chk_GetSimEraBySim_RowCount.Name = "chk_GetSimEraBySim_RowCount";
-            chk_GetSimEraBySim_RowCount.ResultSet = 1;
-            chk_GetSimEraBySim_RowCount.RowCount = 1;
+            chk_testdataid_added.ColumnNumber = 1;
+            chk_testdataid_added.Enabled = true;
+            chk_testdataid_added.ExpectedValue = "true";
+            chk_testdataid_added.Name = "chk_testdataid_added";
+            chk_testdataid_added.NullExpected = false;
+            chk_testdataid_added.ResultSet = 13;
+            chk_testdataid_added.RowNumber = 1;
+            // 
+            // simsig_Usp_UPSERT_TSIMERATestData
+            // 
+            this.simsig_Usp_UPSERT_TSIMERATestData.PosttestAction = null;
+            this.simsig_Usp_UPSERT_TSIMERATestData.PretestAction = null;
+            this.simsig_Usp_UPSERT_TSIMERATestData.TestAction = simsig_Usp_UPSERT_TSIMERATest_TestAction;
+            // 
+            // simsig_Usp_UPSERT_TSIMERATest_TestAction
+            // 
+            simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_User_LoggedIn);
+            simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_No_Name_Error);
+            simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Invalid_Sim_Error);
+            simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Invalid_Type_Error);
+            simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Check_InsertRowCount);
+            simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Check_UpdateRow_Era);
+            simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Check_InsertRow_CheckDesc);
+            simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Check_InsertRow_CheckType);
+            simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Check_InsertRow_Check_SameName_Insert);
+            simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Check_UpdateRow_Name);
+            simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Check_UpdateRow_Description);
+            simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Check_UpdateRow_Type);
+            simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Check_Debug_Data);
+            simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Check_Test_Data);
+            resources.ApplyResources(simsig_Usp_UPSERT_TSIMERATest_TestAction, "simsig_Usp_UPSERT_TSIMERATest_TestAction");
+            // 
+            // chk_Upsert_TSIMERA_User_LoggedIn
+            // 
+            chk_Upsert_TSIMERA_User_LoggedIn.ColumnNumber = 1;
+            chk_Upsert_TSIMERA_User_LoggedIn.Enabled = true;
+            chk_Upsert_TSIMERA_User_LoggedIn.ExpectedValue = "The user is not logged in.";
+            chk_Upsert_TSIMERA_User_LoggedIn.Name = "chk_Upsert_TSIMERA_User_LoggedIn";
+            chk_Upsert_TSIMERA_User_LoggedIn.NullExpected = false;
+            chk_Upsert_TSIMERA_User_LoggedIn.ResultSet = 1;
+            chk_Upsert_TSIMERA_User_LoggedIn.RowNumber = 1;
+            // 
+            // chk_Upsert_TSIMERA_No_Name_Error
+            // 
+            chk_Upsert_TSIMERA_No_Name_Error.ColumnNumber = 1;
+            chk_Upsert_TSIMERA_No_Name_Error.Enabled = true;
+            chk_Upsert_TSIMERA_No_Name_Error.ExpectedValue = "No valid name was supplied for the simulation era.";
+            chk_Upsert_TSIMERA_No_Name_Error.Name = "chk_Upsert_TSIMERA_No_Name_Error";
+            chk_Upsert_TSIMERA_No_Name_Error.NullExpected = false;
+            chk_Upsert_TSIMERA_No_Name_Error.ResultSet = 2;
+            chk_Upsert_TSIMERA_No_Name_Error.RowNumber = 1;
+            // 
+            // chk_Upsert_TSIMERA_Invalid_Sim_Error
+            // 
+            chk_Upsert_TSIMERA_Invalid_Sim_Error.ColumnNumber = 1;
+            chk_Upsert_TSIMERA_Invalid_Sim_Error.Enabled = true;
+            chk_Upsert_TSIMERA_Invalid_Sim_Error.ExpectedValue = "A valid simulation wasn\'t suppled for the simulation era.";
+            chk_Upsert_TSIMERA_Invalid_Sim_Error.Name = "chk_Upsert_TSIMERA_Invalid_Sim_Error";
+            chk_Upsert_TSIMERA_Invalid_Sim_Error.NullExpected = false;
+            chk_Upsert_TSIMERA_Invalid_Sim_Error.ResultSet = 3;
+            chk_Upsert_TSIMERA_Invalid_Sim_Error.RowNumber = 1;
+            // 
+            // chk_Upsert_TSIMERA_Invalid_Type_Error
+            // 
+            chk_Upsert_TSIMERA_Invalid_Type_Error.ColumnNumber = 1;
+            chk_Upsert_TSIMERA_Invalid_Type_Error.Enabled = true;
+            chk_Upsert_TSIMERA_Invalid_Type_Error.ExpectedValue = "A valid era type wasn\'t suppled for the simulation era.";
+            chk_Upsert_TSIMERA_Invalid_Type_Error.Name = "chk_Upsert_TSIMERA_Invalid_Type_Error";
+            chk_Upsert_TSIMERA_Invalid_Type_Error.NullExpected = false;
+            chk_Upsert_TSIMERA_Invalid_Type_Error.ResultSet = 4;
+            chk_Upsert_TSIMERA_Invalid_Type_Error.RowNumber = 1;
+            // 
+            // chk_Upsert_TSIMERA_Check_InsertRowCount
+            // 
+            chk_Upsert_TSIMERA_Check_InsertRowCount.Enabled = true;
+            chk_Upsert_TSIMERA_Check_InsertRowCount.Name = "chk_Upsert_TSIMERA_Check_InsertRowCount";
+            chk_Upsert_TSIMERA_Check_InsertRowCount.ResultSet = 5;
+            chk_Upsert_TSIMERA_Check_InsertRowCount.RowCount = 1;
+            // 
+            // chk_Upsert_TSIMERA_Check_UpdateRow_Era
+            // 
+            chk_Upsert_TSIMERA_Check_UpdateRow_Era.ColumnNumber = 2;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Era.Enabled = true;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Era.ExpectedValue = "Test SimEra Name";
+            chk_Upsert_TSIMERA_Check_UpdateRow_Era.Name = "chk_Upsert_TSIMERA_Check_UpdateRow_Era";
+            chk_Upsert_TSIMERA_Check_UpdateRow_Era.NullExpected = false;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Era.ResultSet = 5;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Era.RowNumber = 1;
+            // 
+            // chk_Upsert_TSIMERA_Check_InsertRow_CheckDesc
+            // 
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckDesc.ColumnNumber = 3;
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckDesc.Enabled = true;
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckDesc.ExpectedValue = "Test SimEra Description";
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckDesc.Name = "chk_Upsert_TSIMERA_Check_InsertRow_CheckDesc";
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckDesc.NullExpected = false;
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckDesc.ResultSet = 5;
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckDesc.RowNumber = 1;
+            // 
+            // chk_Upsert_TSIMERA_Check_InsertRow_CheckType
+            // 
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckType.ColumnNumber = 4;
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckType.Enabled = true;
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckType.ExpectedValue = "1";
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckType.Name = "chk_Upsert_TSIMERA_Check_InsertRow_CheckType";
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckType.NullExpected = false;
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckType.ResultSet = 5;
+            chk_Upsert_TSIMERA_Check_InsertRow_CheckType.RowNumber = 1;
+            // 
+            // chk_Upsert_TSIMERA_Check_InsertRow_Check_SameName_Insert
+            // 
+            chk_Upsert_TSIMERA_Check_InsertRow_Check_SameName_Insert.ColumnNumber = 1;
+            chk_Upsert_TSIMERA_Check_InsertRow_Check_SameName_Insert.Enabled = true;
+            chk_Upsert_TSIMERA_Check_InsertRow_Check_SameName_Insert.ExpectedValue = "true";
+            chk_Upsert_TSIMERA_Check_InsertRow_Check_SameName_Insert.Name = "chk_Upsert_TSIMERA_Check_InsertRow_Check_SameName_Insert";
+            chk_Upsert_TSIMERA_Check_InsertRow_Check_SameName_Insert.NullExpected = false;
+            chk_Upsert_TSIMERA_Check_InsertRow_Check_SameName_Insert.ResultSet = 6;
+            chk_Upsert_TSIMERA_Check_InsertRow_Check_SameName_Insert.RowNumber = 1;
+            // 
+            // chk_Upsert_TSIMERA_Check_UpdateRow_Name
+            // 
+            chk_Upsert_TSIMERA_Check_UpdateRow_Name.ColumnNumber = 2;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Name.Enabled = true;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Name.ExpectedValue = "Updated Name";
+            chk_Upsert_TSIMERA_Check_UpdateRow_Name.Name = "chk_Upsert_TSIMERA_Check_UpdateRow_Name";
+            chk_Upsert_TSIMERA_Check_UpdateRow_Name.NullExpected = false;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Name.ResultSet = 7;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Name.RowNumber = 1;
+            // 
+            // chk_Upsert_TSIMERA_Check_UpdateRow_Description
+            // 
+            chk_Upsert_TSIMERA_Check_UpdateRow_Description.ColumnNumber = 3;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Description.Enabled = true;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Description.ExpectedValue = "Updated Description";
+            chk_Upsert_TSIMERA_Check_UpdateRow_Description.Name = "chk_Upsert_TSIMERA_Check_UpdateRow_Description";
+            chk_Upsert_TSIMERA_Check_UpdateRow_Description.NullExpected = false;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Description.ResultSet = 7;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Description.RowNumber = 1;
+            // 
+            // chk_Upsert_TSIMERA_Check_UpdateRow_Type
+            // 
+            chk_Upsert_TSIMERA_Check_UpdateRow_Type.ColumnNumber = 4;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Type.Enabled = true;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Type.ExpectedValue = "2";
+            chk_Upsert_TSIMERA_Check_UpdateRow_Type.Name = "chk_Upsert_TSIMERA_Check_UpdateRow_Type";
+            chk_Upsert_TSIMERA_Check_UpdateRow_Type.NullExpected = false;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Type.ResultSet = 7;
+            chk_Upsert_TSIMERA_Check_UpdateRow_Type.RowNumber = 1;
+            // 
+            // chk_Upsert_TSIMERA_Check_Debug_Data
+            // 
+            chk_Upsert_TSIMERA_Check_Debug_Data.Enabled = true;
+            chk_Upsert_TSIMERA_Check_Debug_Data.Name = "chk_Upsert_TSIMERA_Check_Debug_Data";
+            chk_Upsert_TSIMERA_Check_Debug_Data.ResultSet = 8;
+            // 
+            // chk_Upsert_TSIMERA_Check_Test_Data
+            // 
+            chk_Upsert_TSIMERA_Check_Test_Data.Enabled = true;
+            chk_Upsert_TSIMERA_Check_Test_Data.Name = "chk_Upsert_TSIMERA_Check_Test_Data";
+            chk_Upsert_TSIMERA_Check_Test_Data.ResultSet = 9;
         }
 
         #endregion
@@ -778,6 +988,30 @@ namespace GroundFrame.SQL.UnitTests
                 SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
             }
         }
+        [TestMethod()]
+        public void simsig_Usp_UPSERT_TSIMERATest()
+        {
+            SqlDatabaseTestActions testActions = this.simsig_Usp_UPSERT_TSIMERATestData;
+            // Execute the pre-test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
+            SqlExecutionResult[] pretestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PretestAction);
+            try
+            {
+                // Execute the test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.TestAction != null), "Executing test script...");
+                SqlExecutionResult[] testResults = TestService.Execute(this.ExecutionContext, this.PrivilegedContext, testActions.TestAction);
+            }
+            finally
+            {
+                // Execute the post-test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.PosttestAction != null), "Executing post-test script...");
+                SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
+            }
+        }
+
 
 
 
@@ -785,5 +1019,6 @@ namespace GroundFrame.SQL.UnitTests
         private SqlDatabaseTestActions simsig_USp_GET_TSIMTestData;
         private SqlDatabaseTestActions simsig_Usp_DELETE_TSIMTestData;
         private SqlDatabaseTestActions simsig_Usp_GET_TSIMERA_BY_SIMTestData;
+        private SqlDatabaseTestActions simsig_Usp_UPSERT_TSIMERATestData;
     }
 }

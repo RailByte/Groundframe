@@ -21,6 +21,7 @@ BEGIN
 	EXEC sys.sp_set_session_context @key = N'application', @value = NULL, @read_only = 0; 
 	EXEC sys.sp_set_session_context @key = N'app_user', @value = NULL, @read_only = 0; 
 	EXEC sys.sp_set_session_context @key = N'logged_in', @value = 0, @read_only = 0; 
+	EXEC sys.sp_set_session_context @key = N'testdata_id', @value = NULL, @read_only = 0; 
 
 	SET NOCOUNT OFF;
 END

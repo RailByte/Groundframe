@@ -17,6 +17,8 @@ CREATE PROCEDURE [simsig].[Usp_GET_TSIMERA_BY_SIM]
 	@sim_id SMALLINT
 AS
 BEGIN
+	DECLARE @testdata_id UNIQUEIDENTIFIER = CONVERT(UNIQUEIDENTIFIER,SESSION_CONTEXT(N'testdata_id'))
+
 	SELECT
 		E.[id],
 		E.[sim_id],
@@ -28,5 +30,6 @@ BEGIN
 	FROM [simsig].[TSIMERA] AS E
 	INNER JOIN [simsig].[TERATYPE] AS ET ON E.[era_type_id] = ET.[id]
 	WHERE
-		[sim_id] = @sim_id;
+		[sim_id] = @sim_id
+		AND (E.[testdata_id] = @testdata_id OR @testdata_id IS NULL) --Used to ensure if the connection is a test only records effected by the test are returned
 END

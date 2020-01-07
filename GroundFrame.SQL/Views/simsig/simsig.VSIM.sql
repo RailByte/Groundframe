@@ -27,7 +27,8 @@ SELECT
 	S.[createdon],
 	S.[modifiedby_id],
 	[modified_by_username] = MB.[username],
-	S.[modifiedon]
+	S.[modifiedon],
+	S.[testdata_id]
 FROM [simsig].[TSIM] AS S
 INNER JOIN [app].[VUSER] AS CB ON S.[createdby_id] = CB.[id]
 INNER JOIN [app].[VUSER] AS MB ON S.[modifiedby_id] = MB.[id]

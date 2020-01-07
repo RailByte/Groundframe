@@ -15,7 +15,8 @@
 *******************************/
 CREATE PROCEDURE [common].[Usp_SET_SESSIONCONTEXT]
 	@app_api_key NVARCHAR(16),
-	@app_user_api_key NVARCHAR(48)
+	@app_user_api_key NVARCHAR(48),
+	@testdata_id UNIQUEIDENTIFIER = NULL
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -38,4 +39,5 @@ BEGIN
 	EXEC sys.sp_set_session_context @key = N'application', @value = @app_id, @read_only = 0; 
 	EXEC sys.sp_set_session_context @key = N'app_user', @value = @app_user_id, @read_only = 0; 
 	EXEC sys.sp_set_session_context @key = N'logged_in', @value = 1, @read_only = 0; 
+	EXEC sys.sp_set_session_context @key = N'testdata_id', @value = @testdata_id, @read_only = 0; 
 END

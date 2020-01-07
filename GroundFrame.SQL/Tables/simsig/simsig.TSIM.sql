@@ -24,7 +24,7 @@ CREATE TABLE [simsig].[TSIM]
 	[createdon] DATETIMEOFFSET NOT NULL,
 	[modifiedby_id] SMALLINT NOT NULL,
 	[modifiedon] DATETIMEOFFSET NOT NULL,
-	[testdata_id] UNIQUEIDENTIFIER NULL,
+	[testdata_id] UNIQUEIDENTIFIER NULL, --Used to identify a test set of data. Tests can then be carried out on just data added by a test to ensure to 'contamination' of data
 	CONSTRAINT PK_SIMSIG_TSIM PRIMARY KEY ([id] ASC),
 	CONSTRAINT FG_SIMSIG_TSIM_CREATEDBY_APP_TUSER FOREIGN KEY ([createdby_id]) REFERENCES [app].[TUSER] ([id]),
 	CONSTRAINT FG_SIMSIG_TSIM_MODIFIEDBY_APP_TUSER FOREIGN KEY ([modifiedby_id]) REFERENCES [app].[TUSER] ([id]),

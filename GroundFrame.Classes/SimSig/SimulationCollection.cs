@@ -15,7 +15,7 @@ namespace GroundFrame.Classes
 
         #region Private Variables
         private List<Simulation> _Simulations = new List<Simulation>(); //List to store all Simulations
-        private GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
+        private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         #endregion Private Variables
 
         #region Properties
@@ -31,7 +31,7 @@ namespace GroundFrame.Classes
         public SimulationCollection(GFSqlConnector SQLConnector)
         {
             //Set the SQL Connector
-            this._SQLConnector = SQLConnector;
+            this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiated as a new copy of the SQLConnector to stop conflict issues with open connections, commands and DataReaders
             //Get the simulations
             this.GetAllSimulationsFromSQLDB();
         }
