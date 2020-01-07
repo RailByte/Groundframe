@@ -15,10 +15,13 @@
 *******************************/
 CREATE TABLE [simsig].[TVERSION]
 (
-	[id] INT NOT NULL IDENTITY,
+	[id] SMALLINT NOT NULL IDENTITY,
 	[simsig_version_from] NUMERIC(4,1) NOT NULL,
 	[simsig_version_to] NUMERIC(4,1) NULL,
 	[name] NVARCHAR(128) NOT NULL,
-	[decription] NVARCHAR(2048) NULL,
-	CONSTRAINT PK_SIMSIG_TVERSION PRIMARY KEY ([id] ASC)
+	[description] NVARCHAR(2048) NULL,
+	[version_status_id] TINYINT NOT NULL,
+	[testdata_id] UNIQUEIDENTIFIER NULL,
+	CONSTRAINT PK_SIMSIG_TVERSION PRIMARY KEY ([id] ASC),
+	CONSTRAINT FK_SIMSGI_TVERSION_TVERSIONSTATUS FOREIGN KEY ([version_status_id]) REFERENCES [simsig].[TVERSIONSTATUS]([id])
 )

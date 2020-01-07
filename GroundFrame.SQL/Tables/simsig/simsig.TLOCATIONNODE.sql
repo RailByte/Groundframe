@@ -19,7 +19,7 @@ CREATE TABLE [simsig].[TLOCATIONNODE]
 	[sim_id] SMALLINT NOT NULL,
 	[location_id] INT NOT NULL,
 	[simera_id] SMALLINT NOT NULL,
-	[version_id] INT NOT NULL,
+	[version_id] SMALLINT NOT NULL,
 	[simsig_platform_code] NVARCHAR(4) NOT NULL,
 	[simsig_elec_bitmap] TINYINT NOT NULL CONSTRAINT DF_SIMSIG_TLOCATION_SIMSIG_ELEC_BITMAP DEFAULT (0),
 	[location_type_id] TINYINT NOT NULL,
