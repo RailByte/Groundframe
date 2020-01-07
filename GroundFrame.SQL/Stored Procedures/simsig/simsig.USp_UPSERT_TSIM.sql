@@ -135,6 +135,8 @@ BEGIN
 	BEGIN
 		--Insert new record
 
+		BEGIN TRAN TRAN_UPSERTSIM
+
 		BEGIN TRY
 			INSERT INTO [simsig].[TSIM]
 			(
@@ -161,9 +163,13 @@ BEGIN
 				@testdata_id
 			);
 
+			COMMIT TRAN TRAN_UPSERTSIM
+
 			SET @id = CAST(SCOPE_IDENTITY() AS SMALLINT);
 		END TRY
 		BEGIN CATCH
+			ROLLBACK TRAN TRAN_UPSERTSIM
+
 			IF @debug = 1
 			BEGIN
 				SET @debug_message = 'An error has occurred trying to insert a record into [app].[TSIM] for ' + @name + ':- ' + ERROR_MESSAGE();
@@ -183,6 +189,8 @@ BEGIN
 			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 		END;
 
+		BEGIN TRAN TRAN_UPSERTSIM_SIMERA
+
 		BEGIN TRY
 			INSERT INTO [simsig].[TSIMERA]
 			(
@@ -201,6 +209,8 @@ BEGIN
 				@testdata_id
 			);
 
+			COMMIT TRAN TRAN_UPSERTSIM_SIMERA
+
 			IF @debug = 1
 			BEGIN
 				SET @debug_message = 'Default era template for simulation [id] = ' + CAST(@id AS NVARCHAR(16)) + ') create ([id] = ' + CAST(CAST(SCOPE_IDENTITY() AS INT) AS NVARCHAR(16)) + ')';
@@ -208,6 +218,8 @@ BEGIN
 			END
 		END TRY
 		BEGIN CATCH
+			ROLLBACK TRAN TRAN_UPSERTSIM_SIMERA
+
 			IF @debug = 1
 			BEGIN
 				SET @debug_message = 'An error has occured trying to create default era tempate for simulation [id] = ' + CAST(@id AS NVARCHAR(16)) + ': - ' + ERROR_MESSAGE();
@@ -222,6 +234,8 @@ BEGIN
 	BEGIN
 		--Update the existing record
 
+		BEGIN TRAN TRAN_UPSERTSIM
+
 		BEGIN TRY
 			UPDATE [simsig].[TSIM]
 			SET
@@ -232,6 +246,8 @@ BEGIN
 			WHERE
 				[id] = @id;
 
+			COMMIT TRAN TRAN_UPSERTSIM
+
 			IF @debug = 1
 			BEGIN
 				SET @debug_message = 'Record [id] = ' + CAST(@id AS NVARCHAR(16)) + ' updated successfully';
@@ -239,6 +255,8 @@ BEGIN
 			END;
 		END TRY
 		BEGIN CATCH
+			ROLLBACK TRAN TRAN_UPSERTSIM
+
 			IF @debug = 1
 			BEGIN
 				SET @debug_message = 'An error has occured trying to update [app].[TSIM] record [id] = ' + CAST(@id AS NVARCHAR(16)) + ': - ' + ERROR_MESSAGE();

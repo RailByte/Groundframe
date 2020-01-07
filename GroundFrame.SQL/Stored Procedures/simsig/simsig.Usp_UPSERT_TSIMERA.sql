@@ -141,6 +141,8 @@ BEGIN
 	BEGIN
 		--Insert new record
 
+		BEGIN TRAN TRAN_UPSERTSIMERA
+
 		BEGIN TRY
 			INSERT INTO [simsig].[TSIMERA]
 			(
@@ -159,9 +161,13 @@ BEGIN
 				@testdata_id
 			);
 
+			COMMIT TRAN TRAN_UPSERTSIMERA
+
 			SET @id = CAST(SCOPE_IDENTITY() AS SMALLINT);
 		END TRY
 		BEGIN CATCH
+			ROLLBACK TRAN TRAN_UPSERTSIMERA
+
 			IF @debug = 1
 			BEGIN
 				SET @debug_message = 'An error has occurred trying to insert a record into [app].[TSIMERA] for ' + @name + ':- ' + ERROR_MESSAGE();
@@ -182,6 +188,8 @@ BEGIN
 	BEGIN
 		--Update the existing record
 
+		BEGIN TRAN TRAN_UPSERTSIMERA
+
 		BEGIN TRY
 			UPDATE [simsig].[TSIMERA]
 			SET
@@ -191,6 +199,8 @@ BEGIN
 			WHERE
 				[id] = @id;
 
+			COMMIT TRAN TRAN_UPSERTSIMERA
+
 			IF @debug = 1
 			BEGIN
 				SET @debug_message = 'Record [id] = ' + CAST(@id AS NVARCHAR(16)) + ' updated successfully';
@@ -198,6 +208,8 @@ BEGIN
 			END;
 		END TRY
 		BEGIN CATCH
+			ROLLBACK TRAN TRAN_UPSERTSIMERA
+
 			IF @debug = 1
 			BEGIN
 				SET @debug_message = 'An error has occured trying to update [app].[TSIMERA] record [id] = ' + CAST(@id AS NVARCHAR(16)) + ': - ' + ERROR_MESSAGE();
