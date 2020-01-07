@@ -151,7 +151,7 @@ END CATCH
 SELECT 
 	[error_message] = @error_message;
 
---Log User In
+--Log Editor User In
 
 EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY'
 
@@ -389,13 +389,31 @@ SET @debug_session_id = NEWID();
 
 EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_link, @simsig_code, @datetime, @debug, @debug_session_id OUTPUT;
 
---Result Set 13
+--Result Set 14
 
 SELECT 
-	[testdata_id_check] = CAST(CASE WHEN [testdata_id] = @testdata_id THEN 1 ELSE 0 END AS INT)
+	[testdata_id_check] = CAST(CASE WHEN [testdata_id] = @testdata_id THEN 1 ELSE 0 END AS BIT)
 FROM [simsig].[TSIM]
 WHERE
-	[id] = @id;</value>
+	[id] = @id;
+
+--Check a standard doesn't have permission
+
+--Log Standard User In
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'teststandarduserAPIKEY'
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_link, @simsig_code, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 15
+
+SELECT 
+	[error_message] = @error_message;</value>
   </data>
   <data name="simsig_USp_UPSERT_TSIMTest_PosttestAction.SqlScript" xml:space="preserve">
     <value>--Clear Session Context
@@ -598,6 +616,23 @@ END CATCH
 --Result Set 3
 SELECT
 	[error_message] = @error_message;
+
+--Check a standard doesn't have permission
+
+--Log Standard User In
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'teststandarduserAPIKEY'
+
+BEGIN TRY
+	EXEC  [simsig].[Usp_DELETE_TSIM] @id = @id;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 4
+SELECT
+	[error_message] = @error_message;
 		
 --Log User In
 
@@ -606,9 +641,9 @@ EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_use
 --Delete Sim
 EXEC  [simsig].[Usp_DELETE_TSIM] @id = @id;
 
---Result 4 Check Sim was deleted
+--Result 5 Check Sim was deleted
 SELECT * FROM [simsig].[TSIM] WHERE [id] = @id;
---Result 5 Check Smim Era was deleted
+--Result 6 Check Smim Era was deleted
 SELECT * FROM [simsig].[TSIMERA] WHERE [sim_id] = @id;
 </value>
   </data>
@@ -645,8 +680,26 @@ EXEC [simsig].[USp_UPSERT_TSIM] @id OUTPUT, @name, @description, @simsig_wiki_li
 
 --Check Proc Returns 1 Row
 
+--Result Set 1
+
 EXEC [simsig].[Usp_GET_TSIMERA_BY_SIM] @sim_id = @id;
 
+--Check if user isn't logged in an error is raised
+
+--Log User Out
+
+EXEC [common].[Usp_CLEAR_SESSIONCONTEXT];
+
+BEGIN TRY
+	EXEC [simsig].[Usp_GET_TSIMERA_BY_SIM] @sim_id = @id;
+END TRY
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 2
+
+SELECT [error_message] = @error_message;
 --Delete Data
 
 DELETE FROM [simsig].[TSIMERA]
@@ -893,6 +946,24 @@ SELECT
 FROM [simsig].[TSIMERA]
 WHERE
 	[testdata_id] = @testdata_id
+
+--Check a standard doesn't have permission
+
+--Log Standard User In
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'teststandarduserAPIKEY'
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH;
+
+--Result Set 10
+
+SELECT
+	[error_message] = @error_message;
 
 --Tear Down Data
 

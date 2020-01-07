@@ -107,6 +107,10 @@ namespace GroundFrame.SQL.UnitTests
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TSIMERA_Check_UpdateRow_Type;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Upsert_TSIMERA_Check_Debug_Data;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Upsert_TSIMERA_Check_Test_Data;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_StandardUser_Errors;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TSIMERA_Check_StandardUser_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_GetSimEraBySim_Check_NotLoggedIn;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_DeleteSim_CheckStandardUserError;
             this.simsig_USp_UPSERT_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_USp_GET_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_Usp_DELETE_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
@@ -181,6 +185,10 @@ namespace GroundFrame.SQL.UnitTests
             chk_Upsert_TSIMERA_Check_UpdateRow_Type = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_Upsert_TSIMERA_Check_Debug_Data = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
             chk_Upsert_TSIMERA_Check_Test_Data = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
+            chk_StandardUser_Errors = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TSIMERA_Check_StandardUser_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_GetSimEraBySim_Check_NotLoggedIn = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_DeleteSim_CheckStandardUserError = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             // 
             // simsig_USp_UPSERT_TSIMTest_TestAction
             // 
@@ -221,6 +229,7 @@ namespace GroundFrame.SQL.UnitTests
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_NewRecord2_DebugEvents);
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_NewRecord3_DebugEvents);
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_testdataid_added);
+            simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_StandardUser_Errors);
             resources.ApplyResources(simsig_USp_UPSERT_TSIMTest_TestAction, "simsig_USp_UPSERT_TSIMTest_TestAction");
             // 
             // chk_NotLoggedIn_Errors
@@ -626,9 +635,10 @@ namespace GroundFrame.SQL.UnitTests
             // 
             simsig_Usp_DELETE_TSIMTest_TestAction.Conditions.Add(chk_DeleteSim_CheckSimCreation);
             simsig_Usp_DELETE_TSIMTest_TestAction.Conditions.Add(chk_DeleteSim_CheckSimEraCreation);
+            simsig_Usp_DELETE_TSIMTest_TestAction.Conditions.Add(chk_DeleteSim_CheckUserLoggedInError);
             simsig_Usp_DELETE_TSIMTest_TestAction.Conditions.Add(chk_DeleteSim_CheckSimDeletion);
             simsig_Usp_DELETE_TSIMTest_TestAction.Conditions.Add(chk_DeleteSim_CheckSimEraDeletion);
-            simsig_Usp_DELETE_TSIMTest_TestAction.Conditions.Add(chk_DeleteSim_CheckUserLoggedInError);
+            simsig_Usp_DELETE_TSIMTest_TestAction.Conditions.Add(chk_DeleteSim_CheckStandardUserError);
             resources.ApplyResources(simsig_Usp_DELETE_TSIMTest_TestAction, "simsig_Usp_DELETE_TSIMTest_TestAction");
             // 
             // chk_DeleteSim_CheckSimCreation
@@ -649,14 +659,14 @@ namespace GroundFrame.SQL.UnitTests
             // 
             chk_DeleteSim_CheckSimDeletion.Enabled = true;
             chk_DeleteSim_CheckSimDeletion.Name = "chk_DeleteSim_CheckSimDeletion";
-            chk_DeleteSim_CheckSimDeletion.ResultSet = 4;
+            chk_DeleteSim_CheckSimDeletion.ResultSet = 5;
             chk_DeleteSim_CheckSimDeletion.RowCount = 0;
             // 
             // chk_DeleteSim_CheckSimEraDeletion
             // 
             chk_DeleteSim_CheckSimEraDeletion.Enabled = true;
             chk_DeleteSim_CheckSimEraDeletion.Name = "chk_DeleteSim_CheckSimEraDeletion";
-            chk_DeleteSim_CheckSimEraDeletion.ResultSet = 5;
+            chk_DeleteSim_CheckSimEraDeletion.ResultSet = 6;
             chk_DeleteSim_CheckSimEraDeletion.RowCount = 0;
             // 
             // chk_DeleteSim_CheckUserLoggedInError
@@ -672,6 +682,7 @@ namespace GroundFrame.SQL.UnitTests
             // simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction
             // 
             simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction.Conditions.Add(chk_GetSimEraBySim_RowCount);
+            simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction.Conditions.Add(chk_GetSimEraBySim_Check_NotLoggedIn);
             resources.ApplyResources(simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction, "simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction");
             // 
             // chk_GetSimEraBySim_RowCount
@@ -722,7 +733,7 @@ namespace GroundFrame.SQL.UnitTests
             chk_testdataid_added.ExpectedValue = "true";
             chk_testdataid_added.Name = "chk_testdataid_added";
             chk_testdataid_added.NullExpected = false;
-            chk_testdataid_added.ResultSet = 13;
+            chk_testdataid_added.ResultSet = 14;
             chk_testdataid_added.RowNumber = 1;
             // 
             // simsig_Usp_UPSERT_TSIMERATestData
@@ -747,6 +758,7 @@ namespace GroundFrame.SQL.UnitTests
             simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Check_UpdateRow_Type);
             simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Check_Debug_Data);
             simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Check_Test_Data);
+            simsig_Usp_UPSERT_TSIMERATest_TestAction.Conditions.Add(chk_Upsert_TSIMERA_Check_StandardUser_Error);
             resources.ApplyResources(simsig_Usp_UPSERT_TSIMERATest_TestAction, "simsig_Usp_UPSERT_TSIMERATest_TestAction");
             // 
             // chk_Upsert_TSIMERA_User_LoggedIn
@@ -877,6 +889,46 @@ namespace GroundFrame.SQL.UnitTests
             chk_Upsert_TSIMERA_Check_Test_Data.Enabled = true;
             chk_Upsert_TSIMERA_Check_Test_Data.Name = "chk_Upsert_TSIMERA_Check_Test_Data";
             chk_Upsert_TSIMERA_Check_Test_Data.ResultSet = 9;
+            // 
+            // chk_StandardUser_Errors
+            // 
+            chk_StandardUser_Errors.ColumnNumber = 1;
+            chk_StandardUser_Errors.Enabled = true;
+            chk_StandardUser_Errors.ExpectedValue = "The user does not have permission to perform this action.";
+            chk_StandardUser_Errors.Name = "chk_StandardUser_Errors";
+            chk_StandardUser_Errors.NullExpected = false;
+            chk_StandardUser_Errors.ResultSet = 15;
+            chk_StandardUser_Errors.RowNumber = 1;
+            // 
+            // chk_Upsert_TSIMERA_Check_StandardUser_Error
+            // 
+            chk_Upsert_TSIMERA_Check_StandardUser_Error.ColumnNumber = 1;
+            chk_Upsert_TSIMERA_Check_StandardUser_Error.Enabled = true;
+            chk_Upsert_TSIMERA_Check_StandardUser_Error.ExpectedValue = "The user does not have permission to perform this action.";
+            chk_Upsert_TSIMERA_Check_StandardUser_Error.Name = "chk_Upsert_TSIMERA_Check_StandardUser_Error";
+            chk_Upsert_TSIMERA_Check_StandardUser_Error.NullExpected = false;
+            chk_Upsert_TSIMERA_Check_StandardUser_Error.ResultSet = 10;
+            chk_Upsert_TSIMERA_Check_StandardUser_Error.RowNumber = 1;
+            // 
+            // chk_GetSimEraBySim_Check_NotLoggedIn
+            // 
+            chk_GetSimEraBySim_Check_NotLoggedIn.ColumnNumber = 1;
+            chk_GetSimEraBySim_Check_NotLoggedIn.Enabled = true;
+            chk_GetSimEraBySim_Check_NotLoggedIn.ExpectedValue = "The user is not logged in.";
+            chk_GetSimEraBySim_Check_NotLoggedIn.Name = "chk_GetSimEraBySim_Check_NotLoggedIn";
+            chk_GetSimEraBySim_Check_NotLoggedIn.NullExpected = false;
+            chk_GetSimEraBySim_Check_NotLoggedIn.ResultSet = 2;
+            chk_GetSimEraBySim_Check_NotLoggedIn.RowNumber = 1;
+            // 
+            // chk_DeleteSim_CheckStandardUserError
+            // 
+            chk_DeleteSim_CheckStandardUserError.ColumnNumber = 1;
+            chk_DeleteSim_CheckStandardUserError.Enabled = true;
+            chk_DeleteSim_CheckStandardUserError.ExpectedValue = "The user does not have permission to perform this action.";
+            chk_DeleteSim_CheckStandardUserError.Name = "chk_DeleteSim_CheckStandardUserError";
+            chk_DeleteSim_CheckStandardUserError.NullExpected = false;
+            chk_DeleteSim_CheckStandardUserError.ResultSet = 4;
+            chk_DeleteSim_CheckStandardUserError.RowNumber = 1;
         }
 
         #endregion

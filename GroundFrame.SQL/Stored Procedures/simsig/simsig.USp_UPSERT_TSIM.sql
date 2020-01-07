@@ -66,6 +66,19 @@ BEGIN
 		THROW 50000, 'The user is not logged in.', 1;
 	END;
 
+	--Check user has editor or admin role
+
+	IF ISNULL((SELECT [role_bitmap] FROM [app].[TUSER] WHERE [id] = @app_user_id),0) & 6 = 0
+	BEGIN;
+		IF @debug = 1
+		BEGIN
+			SET @debug_message = 'The user isn''t in the editor or admin role. Check their permissions';
+			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+		END;
+		
+		THROW 50000, 'The user does not have permission to perform this action.', 1;
+	END;
+
 	--Paramter checks
 
 	IF @debug = 1

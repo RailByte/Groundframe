@@ -17,7 +17,15 @@ CREATE PROCEDURE [simsig].[Usp_GET_TSIMERA_BY_SIM]
 	@sim_id SMALLINT
 AS
 BEGIN
-	DECLARE @testdata_id UNIQUEIDENTIFIER = CONVERT(UNIQUEIDENTIFIER,SESSION_CONTEXT(N'testdata_id'))
+	DECLARE @logged_in BIT = ISNULL(CONVERT(BIT,SESSION_CONTEXT(N'logged_in')),0); 
+	DECLARE @app_user_id INT = ISNULL(CONVERT(INT,SESSION_CONTEXT(N'app_user')),0); 
+	DECLARE @testdata_id UNIQUEIDENTIFIER = CONVERT(UNIQUEIDENTIFIER,SESSION_CONTEXT(N'testdata_id'));
+
+	--Check user is logged in
+	IF @logged_in = 0
+	BEGIN;
+		THROW 50000, 'The user is not logged in.', 1;
+	END;
 
 	SELECT
 		E.[id],

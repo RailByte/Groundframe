@@ -30,6 +30,7 @@ USING
 		[api_key],
 		[user_status_id],
 		[user_type_id],
+		[role_bitmap],
 		[createdby_id],
 		[createdon],
 		[modifiedby_id],
@@ -37,8 +38,9 @@ USING
 	FROM 
 	(
 		VALUES
-		(1, N'DBA Account', N'Account', N'DBA', NULL, NULL, 1, 2, 1, @today, 1, @today),
-		(2, N'Test Account', N'Account', N'Test', N'sys.admin@groundframe.co.uk', N'testuserAPIKEY', 1, 2, 1, @today, 1, @today)
+		(1, N'DBA Account', N'Account', N'DBA', NULL, NULL, 1, 2, 7, 1, @today, 1, @today),
+		(2, N'Test Editor Account', N'Editor Account', N'Test', N'test.editoraccount@groundframe.io', N'testuserAPIKEY', 1, 2, 3, 1, @today, 1, @today),
+		(3, N'Test Standard Account', N'Standard Account', N'Test', N'test.standardaccount@groundframe.io', N'teststandarduserAPIKEY', 1, 2, 1, 1, @today, 1, @today)
 	)
 	AS USERS(		
 		[id],
@@ -49,6 +51,7 @@ USING
 		[api_key],
 		[user_status_id],
 		[user_type_id],
+		[role_bitmap],
 		[createdby_id],
 		[createdon],
 		[modifiedby_id],
@@ -67,6 +70,7 @@ THEN INSERT
 		[api_key],
 		[user_status_id],
 		[user_type_id],
+		[role_bitmap],
 		[createdby_id],
 		[createdon],
 		[modifiedby_id],
@@ -82,6 +86,7 @@ VALUES
 		S.[api_key],
 		S.[user_status_id],
 		S.[user_type_id],
+		S.[role_bitmap],
 		S.[createdby_id],
 		S.[createdon],
 		S.[modifiedby_id],
