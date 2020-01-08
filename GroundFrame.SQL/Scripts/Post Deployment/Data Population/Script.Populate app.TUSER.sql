@@ -59,6 +59,17 @@ USING
 	)
 ) AS S
 ON T.[id] = S.[id]
+WHEN MATCHED
+THEN UPDATE SET
+		T.[username] = S.[username],
+		T.[last_name] = S.[last_name],
+		T.[first_name] = S.[first_name],
+		T.[email] = S.[email],
+		T.[api_key] = S.[api_key],
+		T.[user_status_id] = S.[user_status_id],
+		T.[user_type_id] = S.[user_type_id],
+		T.[role_bitmap] = S.[role_bitmap],
+		T.[modifiedon] = GETUTCDATE()
 WHEN NOT MATCHED BY TARGET
 THEN INSERT 
 (

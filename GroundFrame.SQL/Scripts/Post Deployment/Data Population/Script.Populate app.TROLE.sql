@@ -35,6 +35,8 @@ USING
 	)
 ) AS S
 ON T.[id] = S.[id]
+WHEN MATCHED
+THEN UPDATE SET [T].[name] = S.[name], T.[description] = S.[description]
 WHEN NOT MATCHED BY TARGET
 THEN INSERT 
 (

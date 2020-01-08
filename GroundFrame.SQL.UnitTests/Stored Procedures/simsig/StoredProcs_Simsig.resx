@@ -277,8 +277,7 @@ SELECT
 	[simsig_code],
 	[createdon] = CAST(CASE WHEN [createdon] IS NULL THEN 0 ELSE 1 END AS BIT),
 	[createdby_id],
-	[modifiedon] = CAST(CASE WHEN [modifiedon] = [createdon] THEN 0 ELSE 1 END AS BIT),
-	[modifiedby_id]
+	[modifiedon] = CAST(CASE WHEN [modifiedon] = [createdon] THEN 0 ELSE 1 END AS BIT)
 FROM [simsig].[TSIM]
 WHERE
 	[name] = @name;
@@ -314,6 +313,16 @@ WHERE
 SELECT
 	[id]
 FROM [simsig].[TSIM]
+
+--Delete Records
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[sim_id] = @id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[id] = @id;
 
 --Check 11 - Check debug works correctly and a custom date is specified correctly
 
@@ -351,6 +360,16 @@ FROM [audit].[TEVENT]
 WHERE
 	[debug_session_id] = @debug_session_id
 
+--Delete Records
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[sim_id] = @id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[id] = @id;
+
 --Check 12 - Check debug works correctly when a specific debug session guid is passed
 
 SET @id = 0
@@ -372,6 +391,16 @@ SELECT
 FROM [audit].[TEVENT]
 WHERE
 	[debug_session_id] = @expected_debug_session_id;
+
+--Delete Records
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[sim_id] = @id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[id] = @id;
 
 --Check TestData ID gets added if passed in the session context
 
@@ -413,16 +442,20 @@ END CATCH
 --Result Set 15
 
 SELECT 
-	[error_message] = @error_message;</value>
+	[error_message] = @error_message;
+
+--Delete Records
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[testdata_id] = @testdata_id;</value>
   </data>
   <data name="simsig_USp_UPSERT_TSIMTest_PosttestAction.SqlScript" xml:space="preserve">
-    <value>--Clear Session Context
-
-EXEC [common].[Usp_CLEAR_SESSIONCONTEXT];
-
---Clear data
-DELETE FROM [simsig].[TSIMERA];
-DELETE FROM [simsig].[TSIM];</value>
+    <value />
   </data>
   <data name="simsig_USp_GET_TSIMTest_TestAction.SqlScript" xml:space="preserve">
     <value>-- database unit test for simsig.USp_GET_TSIM
@@ -432,6 +465,7 @@ DECLARE @debug_session_id AS UNIQUEIDENTIFIER = NULL;
 DECLARE @inserted_record1_id AS SMALLINT; --The ID of the first inserted record
 DECLARE @created_datetime DATETIMEOFFSET = SYSDATETIMEOFFSET();
 DECLARE @error_message NVARCHAR(256);
+DECLARE @testdata_id UNIQUEIDENTIFIER = NEWID();
 
 --Set up data
 
@@ -444,18 +478,20 @@ INSERT INTO [simsig].[TSIM]
 	[createdby_id],
 	[createdon],
 	[modifiedby_id],
-	[modifiedon]
+	[modifiedon],
+	[testdata_id]
 )
 VALUES
 (
-	'Test Name 1',
-	'Test Description 1',
-	'Test Code 1',
-	'Test Wiki Link 1',
+	'Test Get Sim Name 1',
+	'Test Get Sim Description 1',
+	'Test Get Sim Code 1',
+	'Test Get Sim Wiki Link 1',
 	2,
 	@created_datetime,
 	2,
-	@created_datetime
+	@created_datetime,
+	@testdata_id
 )
 
 SET @inserted_record1_id = CAST(SCOPE_IDENTITY() AS INT);
@@ -470,18 +506,20 @@ INSERT INTO [simsig].[TSIM]
 	[createdby_id],
 	[createdon],
 	[modifiedby_id],
-	[modifiedon]
+	[modifiedon],
+	[testdata_id]
 )
 VALUES
 (
-	'Test Name 2',
-	'Test Description 2',
-	'Test Code 2',
-	'Test Wiki Link 2',
+	'Test Get Sim Name 2',
+	'Test Get Sim Description 2',
+	'Test Get Sim Code 2',
+	'Test Get Sim Wiki Link 2',
 	2,
 	@created_datetime,
 	2,
-	@created_datetime
+	@created_datetime,
+	@testdata_id
 );
 
 --Check 1 Ensure Errors as user not logged int
@@ -538,20 +576,15 @@ SELECT
 	debug_count = CAST(CASE WHEN COUNT(*) &gt; 0 THEN 1 ELSE 0 END AS BIT)
 FROM [audit].[TEVENT]
 WHERE
-	[debug_session_id] = @expected_debug_session_id</value>
+	[debug_session_id] = @expected_debug_session_id;
+
+--Teardown data
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[testdata_id] = @testdata_id;</value>
   </data>
   <data name="simsig_USp_GET_TSIMTest_PosttestAction.SqlScript" xml:space="preserve">
-    <value>/*
-Add SQL statements here that you want to run after 
-the test script is run.
-
-In the lower pane, you can add test conditions that verify 
-whether the results of your SQL statements match what 
-you expect.
-*/
-
---Delete records
-DELETE FROM [simsig].[TSIM]</value>
+    <value />
   </data>
   <data name="simsig_Usp_DELETE_TSIMTest_TestAction.SqlScript" xml:space="preserve">
     <value>-- database unit test for simsig.Usp_DELETE_TSIM

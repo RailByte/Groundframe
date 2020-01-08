@@ -82,6 +82,18 @@ USING
 	)
 ) AS S
 ON T.[id] = S.[id]
+WHEN MATCHED
+THEN UPDATE
+SET
+	T.[name] = S.[name],
+	T.[description] = S.[description],
+	T.[api_key] = S.[api_key],
+	T.[app_status_id] = S.[app_status_id],
+	T.[app_type_id] = S.[app_type_id],
+	T.[app_url] = S.[app_url],
+	T.[owner_id] = S.[owner_id],
+	T.[modifiedby_id] = S.[modifiedby_id],
+	T.[modifiedon] = S.[modifiedon]
 WHEN NOT MATCHED BY TARGET
 THEN INSERT 
 (
