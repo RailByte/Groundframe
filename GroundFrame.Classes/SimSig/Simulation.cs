@@ -281,7 +281,7 @@ namespace GroundFrame.Classes
                 //Set Command
                 SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_UPSERT_TSIM", CommandType.StoredProcedure);
                 //Add Parameters
-                Cmd.Parameters.Add(new SqlParameter("@name", this._Name));
+                Cmd.Parameters.Add(new SqlParameter("@name", this.Name));
                 Cmd.Parameters.Add(new SqlParameter("@description", string.IsNullOrEmpty(this.Description) ? (object)DBNull.Value : this.Description));
                 Cmd.Parameters.Add(new SqlParameter("@simsig_wiki_link", string.IsNullOrEmpty(this.SimSigWikiLink) ? (object)DBNull.Value : this.SimSigWikiLink));
                 Cmd.Parameters.Add(new SqlParameter("@simsig_code", this._SimSigCode));
