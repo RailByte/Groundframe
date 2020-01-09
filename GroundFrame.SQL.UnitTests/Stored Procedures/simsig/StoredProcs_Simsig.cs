@@ -949,42 +949,6 @@ namespace GroundFrame.SQL.UnitTests
             chk_Upsert_TSIMERA_Check_StandardUser_Error.ResultSet = 10;
             chk_Upsert_TSIMERA_Check_StandardUser_Error.RowNumber = 1;
             // 
-            // simsig_USp_UPSERT_TSIMTestData
-            // 
-            this.simsig_USp_UPSERT_TSIMTestData.PosttestAction = simsig_USp_UPSERT_TSIMTest_PosttestAction;
-            this.simsig_USp_UPSERT_TSIMTestData.PretestAction = null;
-            this.simsig_USp_UPSERT_TSIMTestData.TestAction = simsig_USp_UPSERT_TSIMTest_TestAction;
-            // 
-            // simsig_USp_GET_TSIMTestData
-            // 
-            this.simsig_USp_GET_TSIMTestData.PosttestAction = simsig_USp_GET_TSIMTest_PosttestAction;
-            this.simsig_USp_GET_TSIMTestData.PretestAction = null;
-            this.simsig_USp_GET_TSIMTestData.TestAction = simsig_USp_GET_TSIMTest_TestAction;
-            // 
-            // simsig_Usp_DELETE_TSIMTestData
-            // 
-            this.simsig_Usp_DELETE_TSIMTestData.PosttestAction = null;
-            this.simsig_Usp_DELETE_TSIMTestData.PretestAction = null;
-            this.simsig_Usp_DELETE_TSIMTestData.TestAction = simsig_Usp_DELETE_TSIMTest_TestAction;
-            // 
-            // simsig_Usp_GET_TSIMERA_BY_SIMTestData
-            // 
-            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.PosttestAction = null;
-            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.PretestAction = null;
-            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.TestAction = simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction;
-            // 
-            // simsig_Usp_UPSERT_TSIMERATestData
-            // 
-            this.simsig_Usp_UPSERT_TSIMERATestData.PosttestAction = null;
-            this.simsig_Usp_UPSERT_TSIMERATestData.PretestAction = null;
-            this.simsig_Usp_UPSERT_TSIMERATestData.TestAction = simsig_Usp_UPSERT_TSIMERATest_TestAction;
-            // 
-            // simsig_USp_UPSERT_TVERSIONTestData
-            // 
-            this.simsig_USp_UPSERT_TVERSIONTestData.PosttestAction = null;
-            this.simsig_USp_UPSERT_TVERSIONTestData.PretestAction = null;
-            this.simsig_USp_UPSERT_TVERSIONTestData.TestAction = simsig_USp_UPSERT_TVERSIONTest_TestAction;
-            // 
             // simsig_USp_UPSERT_TVERSIONTest_TestAction
             // 
             simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Not_Logged_In_Error);
@@ -1234,6 +1198,42 @@ namespace GroundFrame.SQL.UnitTests
             chk_Upsert_TVERSION_Add2ndVersion_Check_Debug.Enabled = true;
             chk_Upsert_TVERSION_Add2ndVersion_Check_Debug.Name = "chk_Upsert_TVERSION_Add2ndVersion_Check_Debug";
             chk_Upsert_TVERSION_Add2ndVersion_Check_Debug.ResultSet = 10;
+            // 
+            // simsig_USp_UPSERT_TSIMTestData
+            // 
+            this.simsig_USp_UPSERT_TSIMTestData.PosttestAction = simsig_USp_UPSERT_TSIMTest_PosttestAction;
+            this.simsig_USp_UPSERT_TSIMTestData.PretestAction = null;
+            this.simsig_USp_UPSERT_TSIMTestData.TestAction = simsig_USp_UPSERT_TSIMTest_TestAction;
+            // 
+            // simsig_USp_GET_TSIMTestData
+            // 
+            this.simsig_USp_GET_TSIMTestData.PosttestAction = simsig_USp_GET_TSIMTest_PosttestAction;
+            this.simsig_USp_GET_TSIMTestData.PretestAction = null;
+            this.simsig_USp_GET_TSIMTestData.TestAction = simsig_USp_GET_TSIMTest_TestAction;
+            // 
+            // simsig_Usp_DELETE_TSIMTestData
+            // 
+            this.simsig_Usp_DELETE_TSIMTestData.PosttestAction = null;
+            this.simsig_Usp_DELETE_TSIMTestData.PretestAction = null;
+            this.simsig_Usp_DELETE_TSIMTestData.TestAction = simsig_Usp_DELETE_TSIMTest_TestAction;
+            // 
+            // simsig_Usp_GET_TSIMERA_BY_SIMTestData
+            // 
+            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.PosttestAction = null;
+            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.PretestAction = null;
+            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.TestAction = simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction;
+            // 
+            // simsig_Usp_UPSERT_TSIMERATestData
+            // 
+            this.simsig_Usp_UPSERT_TSIMERATestData.PosttestAction = null;
+            this.simsig_Usp_UPSERT_TSIMERATestData.PretestAction = null;
+            this.simsig_Usp_UPSERT_TSIMERATestData.TestAction = simsig_Usp_UPSERT_TSIMERATest_TestAction;
+            // 
+            // simsig_USp_UPSERT_TVERSIONTestData
+            // 
+            this.simsig_USp_UPSERT_TVERSIONTestData.PosttestAction = null;
+            this.simsig_USp_UPSERT_TVERSIONTestData.PretestAction = null;
+            this.simsig_USp_UPSERT_TVERSIONTestData.TestAction = simsig_USp_UPSERT_TVERSIONTest_TestAction;
         }
 
         #endregion

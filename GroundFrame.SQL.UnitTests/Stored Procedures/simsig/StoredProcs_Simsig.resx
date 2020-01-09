@@ -851,12 +851,7 @@ SELECT
 
 --Check Insertion happens correctly
 
-BEGIN TRY
-	EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
-END TRY
-BEGIN CATCH
-	SET @error_message = ERROR_MESSAGE();
-END CATCH
+EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
 
 --Result Set 5
 
@@ -876,12 +871,7 @@ DECLARE @existing_id SMALLINT = @id;
 
 SET @id = 0;
 
-BEGIN TRY
-	EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
-END TRY
-BEGIN CATCH
-	SET @error_message = ERROR_MESSAGE();
-END CATCH
+EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
 
 --Result Set 6
 
@@ -901,12 +891,8 @@ SET @name = N'Updated Name';
 SET @description = N'Updated Description';
 SET @era_type_id = 2;
 
-BEGIN TRY
-	EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
-END TRY
-BEGIN CATCH
-	SET @error_message = ERROR_MESSAGE();
-END CATCH;
+
+EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
 
 --Result 7
 
@@ -934,12 +920,7 @@ SET @description = 'Test SimEra Description 2';
 SET @era_type_id = 1;
 SET @debug = 1;
 
-BEGIN TRY
-	EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
-END TRY
-BEGIN CATCH
-	SET @error_message = ERROR_MESSAGE();
-END CATCH;
+EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
 
 --Result Set 8
 
@@ -965,12 +946,7 @@ SET @debug = 1;
 
 EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY', @testdata_id = @testdata_id
 
-BEGIN TRY
-	EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
-END TRY
-BEGIN CATCH
-	SET @error_message = ERROR_MESSAGE();
-END CATCH;
+EXEC [simsig].[USp_UPSERT_TSIMERA] @id = @id OUTPUT, @sim_id = @sim_id, @name = @name, @description = @description, @era_type_id = @era_type_id, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
 
 --Result Set 9
 
