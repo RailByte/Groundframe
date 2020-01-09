@@ -1008,6 +1008,227 @@ DELETE FROM [simsig].[TSIM]
 WHERE
 	[testdata_id] = @testdata_id;</value>
   </data>
+  <data name="simsig_USp_UPSERT_TVERSIONTest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for simsig.USp_UPSERT_TVERSION
+DECLARE	@id AS SMALLINT, 
+		@name AS NVARCHAR (128),
+		@description AS NVARCHAR (2048),
+		@version AS NUMERIC (4, 1),
+		@version_status_id AS TINYINT,
+		@debug AS BIT, 
+		@debug_session_id AS UNIQUEIDENTIFIER;
+
+SELECT @name = 'Test Version 1 Name',
+       @description = 'Test Version 1 Description',
+       @version = 1.0,
+       @version_status_id = 2,
+       @debug = 0;
+
+--Other Variables
+
+DECLARE @error_message NVARCHAR(248);
+
+--Check User is logged in
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TVERSION] @id OUTPUT, @name, @description, @version, @version_status_id, @debug, @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 1 
+
+SELECT 
+	[error_message] = @error_message;
+
+--Test Editor is denied access
+
+SET @error_message = N'No Error Thrown';
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY'
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TVERSION] @id OUTPUT, @name, @description, @version, @version_status_id, @debug, @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 2 
+
+SELECT 
+	[error_message] = @error_message;
+
+--Test Standard is denied access
+
+SET @error_message = N'No Error Thrown';
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'teststandarduserAPIKEY'
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TVERSION] @id OUTPUT, @name, @description, @version, @version_status_id, @debug, @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 3
+
+SELECT 
+	[error_message] = @error_message;
+
+--Test Admin user works ok
+
+SET @error_message = N'No Error Thrown';
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testadminuserAPIKEY'
+
+EXEC [simsig].[USp_UPSERT_TVERSION] @id OUTPUT, @name, @description, @version, @version_status_id, @debug, @debug_session_id OUTPUT;
+
+--Result Set 4
+
+SELECT 
+	[id] = CAST(CASE WHEN [id] = @id THEN 1 ELSE 0 END AS BIT),
+	[name],
+	[description],
+	[simsig_version_from],
+	[simsig_version_to],
+	[version_status_id],
+	[testdata_id]
+FROM [simsig].[TVERSION]
+WHERE
+	[id] = @id;
+
+--Delete Version
+
+DELETE FROM [simsig].[TVERSION]
+WHERE
+	[id] = @id;
+
+--TestData ID
+
+DECLARE @testdata_id UNIQUEIDENTIFIER = NEWID();
+SET @id = 0; --Reset ID;
+
+SET @error_message = N'No Error Thrown';
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testadminuserAPIKEY', @testdata_id = @testdata_id;
+
+EXEC [simsig].[USp_UPSERT_TVERSION] @id OUTPUT, @name, @description, @version, @version_status_id, @debug, @debug_session_id OUTPUT;
+
+--Result Set 5
+
+SELECT 
+	[id]
+	[name],
+	[description],
+	[simsig_version_from],
+	[simsig_version_to],
+	[version_status_id],
+	[testdata_id]
+FROM [simsig].[TVERSION]
+WHERE
+	[testdata_id] = @testdata_id;
+
+--Test Updating Status and Name and Description
+
+SET @name = 'Test Version 2 Name'
+SET @description = 'Test Version 2 Description'
+SET @version_status_id = 1;
+SET @error_message = N'No Error Thrown';
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testadminuserAPIKEY', @testdata_id = @testdata_id;
+
+EXEC [simsig].[USp_UPSERT_TVERSION] @id OUTPUT, @name, @description, @version, @version_status_id, @debug, @debug_session_id OUTPUT;
+
+--Result Set 6
+
+SELECT 
+	[name],
+	[description],
+	[simsig_version_from],
+	[simsig_version_to],
+	[version_status_id]
+FROM [simsig].[TVERSION]
+WHERE
+	[id] = @id;
+
+--Check trying to update version doesn't result in update
+
+SET @version = 2.0
+SET @error_message = N'No Error Thrown';
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testadminuserAPIKEY', @testdata_id = @testdata_id;
+
+EXEC [simsig].[USp_UPSERT_TVERSION] @id OUTPUT, @name, @description, @version, @version_status_id, @debug, @debug_session_id OUTPUT;
+
+--Result Set 7
+
+SELECT 
+	[simsig_version_from],
+	[simsig_version_to]
+FROM [simsig].[TVERSION]
+WHERE
+	[id] = @id;
+
+--Check Adding a new verions updates previous record and inserts new record correctly
+
+DECLARE @previous_id SMALLINT = @id;
+SET @name = 'Test Version 3 Name'
+SET @description = 'Test Version 3 Description'
+SET @version_status_id = 2;
+SET @version = 2.0
+SET @error_message = N'No Error Thrown';
+SET @id = 0;
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testadminuserAPIKEY', @testdata_id = @testdata_id;
+
+EXEC [simsig].[USp_UPSERT_TVERSION] @id OUTPUT, @name, @description, @version, @version_status_id, @debug, @debug_session_id OUTPUT;
+
+--Result Set 8
+
+SELECT 
+	[simsig_version_from],
+	[simsig_version_to]
+FROM [simsig].[TVERSION]
+WHERE
+	[id] = @previous_id;
+
+--Result Set 9
+
+SELECT 
+	[simsig_version_from],
+	[simsig_version_to]
+FROM [simsig].[TVERSION]
+WHERE
+	[id] = @id;
+
+--Check Debug
+
+SET @debug = 1
+SET @name = 'Test Version 4 Name'
+SET @description = 'Test Version 4 Description'
+SET @version_status_id = 2;
+SET @version = 2.0
+SET @error_message = N'No Error Thrown';
+SET @id = 0;
+
+EXEC [simsig].[USp_UPSERT_TVERSION] @id OUTPUT, @name, @description, @version, @version_status_id, @debug, @debug_session_id OUTPUT;
+
+SELECT
+	*
+FROM [audit].[TEVENT]
+WHERE
+	[debug_session_id] = @debug_session_id;
+	
+--Teardown data
+
+DELETE FROM [simsig].[TVERSION]
+WHERE
+	[testdata_id] = @testdata_id;
+</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

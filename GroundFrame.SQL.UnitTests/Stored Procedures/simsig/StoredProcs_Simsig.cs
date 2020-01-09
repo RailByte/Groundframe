@@ -111,11 +111,36 @@ namespace GroundFrame.SQL.UnitTests
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Upsert_TSIMERA_Check_Debug_Data;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Upsert_TSIMERA_Check_Test_Data;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TSIMERA_Check_StandardUser_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_USp_UPSERT_TVERSIONTest_TestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Not_Logged_In_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Editor_No_Permission;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_StandardUser_No_Permission;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_InitialAdd_ID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_InitialAdd_Name;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_InitialAdd_Description;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Version_From;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_InitialAdd_Version_To;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_InitialAdd_VersionStatus;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_InitialAdd_TestData_ID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_Upsert_TVERSION_TestData_ID_CHeck_TestData_ID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Update_Check_Name;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Update_Check_Description;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Update_Check_Status;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Update_Version_From;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Update_Version_To;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_UpdateVersionCheck_Version_From;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_UpdateVersionCheck_Version_To;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Upsert_TVERSION_Add2ndVersion_Check_Debug;
             this.simsig_USp_UPSERT_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_USp_GET_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_Usp_DELETE_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_Usp_GET_TSIMERA_BY_SIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_Usp_UPSERT_TSIMERATestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            this.simsig_USp_UPSERT_TVERSIONTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             simsig_USp_UPSERT_TSIMTest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             chk_NotLoggedIn_Errors = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_NULLName_Errors = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
@@ -189,6 +214,30 @@ namespace GroundFrame.SQL.UnitTests
             chk_Upsert_TSIMERA_Check_Debug_Data = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
             chk_Upsert_TSIMERA_Check_Test_Data = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
             chk_Upsert_TSIMERA_Check_StandardUser_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            simsig_USp_UPSERT_TVERSIONTest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            chk_Upsert_TVERSION_Not_Logged_In_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_Editor_No_Permission = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_StandardUser_No_Permission = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_InitialAdd_ID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_InitialAdd_Name = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_InitialAdd_Description = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_Version_From = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_InitialAdd_Version_To = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_InitialAdd_VersionStatus = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_InitialAdd_TestData_ID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_TestData_ID_CHeck_TestData_ID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
+            chk_Upsert_TVERSION_Update_Check_Name = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_Update_Check_Description = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_Update_Check_Status = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_Update_Version_From = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_Update_Version_To = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_From = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_To = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Debug = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
             // 
             // simsig_USp_UPSERT_TSIMTest_TestAction
             // 
@@ -929,6 +978,262 @@ namespace GroundFrame.SQL.UnitTests
             this.simsig_Usp_UPSERT_TSIMERATestData.PosttestAction = null;
             this.simsig_Usp_UPSERT_TSIMERATestData.PretestAction = null;
             this.simsig_Usp_UPSERT_TSIMERATestData.TestAction = simsig_Usp_UPSERT_TSIMERATest_TestAction;
+            // 
+            // simsig_USp_UPSERT_TVERSIONTestData
+            // 
+            this.simsig_USp_UPSERT_TVERSIONTestData.PosttestAction = null;
+            this.simsig_USp_UPSERT_TVERSIONTestData.PretestAction = null;
+            this.simsig_USp_UPSERT_TVERSIONTestData.TestAction = simsig_USp_UPSERT_TVERSIONTest_TestAction;
+            // 
+            // simsig_USp_UPSERT_TVERSIONTest_TestAction
+            // 
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Not_Logged_In_Error);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Editor_No_Permission);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_StandardUser_No_Permission);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_InitialAdd_ID);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_InitialAdd_Name);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_InitialAdd_Description);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Version_From);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_InitialAdd_Version_To);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_InitialAdd_VersionStatus);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_InitialAdd_TestData_ID);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_TestData_ID_CHeck_TestData_ID);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Update_Check_Name);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Update_Check_Description);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Update_Check_Status);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Update_Version_From);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Update_Version_To);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_UpdateVersionCheck_Version_From);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_UpdateVersionCheck_Version_To);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Add2ndVersion_Check_Debug);
+            resources.ApplyResources(simsig_USp_UPSERT_TVERSIONTest_TestAction, "simsig_USp_UPSERT_TVERSIONTest_TestAction");
+            // 
+            // chk_Upsert_TVERSION_Not_Logged_In_Error
+            // 
+            chk_Upsert_TVERSION_Not_Logged_In_Error.ColumnNumber = 1;
+            chk_Upsert_TVERSION_Not_Logged_In_Error.Enabled = true;
+            chk_Upsert_TVERSION_Not_Logged_In_Error.ExpectedValue = "The user is not logged in.";
+            chk_Upsert_TVERSION_Not_Logged_In_Error.Name = "chk_Upsert_TVERSION_Not_Logged_In_Error";
+            chk_Upsert_TVERSION_Not_Logged_In_Error.NullExpected = false;
+            chk_Upsert_TVERSION_Not_Logged_In_Error.ResultSet = 1;
+            chk_Upsert_TVERSION_Not_Logged_In_Error.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_Editor_No_Permission
+            // 
+            chk_Upsert_TVERSION_Editor_No_Permission.ColumnNumber = 1;
+            chk_Upsert_TVERSION_Editor_No_Permission.Enabled = true;
+            chk_Upsert_TVERSION_Editor_No_Permission.ExpectedValue = "The user does not have permission to perform this action.";
+            chk_Upsert_TVERSION_Editor_No_Permission.Name = "chk_Upsert_TVERSION_Editor_No_Permission";
+            chk_Upsert_TVERSION_Editor_No_Permission.NullExpected = false;
+            chk_Upsert_TVERSION_Editor_No_Permission.ResultSet = 2;
+            chk_Upsert_TVERSION_Editor_No_Permission.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_StandardUser_No_Permission
+            // 
+            chk_Upsert_TVERSION_StandardUser_No_Permission.ColumnNumber = 1;
+            chk_Upsert_TVERSION_StandardUser_No_Permission.Enabled = true;
+            chk_Upsert_TVERSION_StandardUser_No_Permission.ExpectedValue = "The user does not have permission to perform this action.";
+            chk_Upsert_TVERSION_StandardUser_No_Permission.Name = "chk_Upsert_TVERSION_StandardUser_No_Permission";
+            chk_Upsert_TVERSION_StandardUser_No_Permission.NullExpected = false;
+            chk_Upsert_TVERSION_StandardUser_No_Permission.ResultSet = 3;
+            chk_Upsert_TVERSION_StandardUser_No_Permission.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_InitialAdd_ID
+            // 
+            chk_Upsert_TVERSION_InitialAdd_ID.ColumnNumber = 1;
+            chk_Upsert_TVERSION_InitialAdd_ID.Enabled = true;
+            chk_Upsert_TVERSION_InitialAdd_ID.ExpectedValue = "true";
+            chk_Upsert_TVERSION_InitialAdd_ID.Name = "chk_Upsert_TVERSION_InitialAdd_ID";
+            chk_Upsert_TVERSION_InitialAdd_ID.NullExpected = false;
+            chk_Upsert_TVERSION_InitialAdd_ID.ResultSet = 4;
+            chk_Upsert_TVERSION_InitialAdd_ID.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_InitialAdd_Name
+            // 
+            chk_Upsert_TVERSION_InitialAdd_Name.ColumnNumber = 2;
+            chk_Upsert_TVERSION_InitialAdd_Name.Enabled = true;
+            chk_Upsert_TVERSION_InitialAdd_Name.ExpectedValue = "Test Version 1 Name";
+            chk_Upsert_TVERSION_InitialAdd_Name.Name = "chk_Upsert_TVERSION_InitialAdd_Name";
+            chk_Upsert_TVERSION_InitialAdd_Name.NullExpected = false;
+            chk_Upsert_TVERSION_InitialAdd_Name.ResultSet = 4;
+            chk_Upsert_TVERSION_InitialAdd_Name.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_InitialAdd_Description
+            // 
+            chk_Upsert_TVERSION_InitialAdd_Description.ColumnNumber = 3;
+            chk_Upsert_TVERSION_InitialAdd_Description.Enabled = true;
+            chk_Upsert_TVERSION_InitialAdd_Description.ExpectedValue = "Test Version 1 Description";
+            chk_Upsert_TVERSION_InitialAdd_Description.Name = "chk_Upsert_TVERSION_InitialAdd_Description";
+            chk_Upsert_TVERSION_InitialAdd_Description.NullExpected = false;
+            chk_Upsert_TVERSION_InitialAdd_Description.ResultSet = 4;
+            chk_Upsert_TVERSION_InitialAdd_Description.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_Version_From
+            // 
+            chk_Upsert_TVERSION_Version_From.ColumnNumber = 4;
+            chk_Upsert_TVERSION_Version_From.Enabled = true;
+            chk_Upsert_TVERSION_Version_From.ExpectedValue = "1.0";
+            chk_Upsert_TVERSION_Version_From.Name = "chk_Upsert_TVERSION_Version_From";
+            chk_Upsert_TVERSION_Version_From.NullExpected = false;
+            chk_Upsert_TVERSION_Version_From.ResultSet = 4;
+            chk_Upsert_TVERSION_Version_From.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_InitialAdd_Version_To
+            // 
+            chk_Upsert_TVERSION_InitialAdd_Version_To.ColumnNumber = 5;
+            chk_Upsert_TVERSION_InitialAdd_Version_To.Enabled = true;
+            chk_Upsert_TVERSION_InitialAdd_Version_To.ExpectedValue = null;
+            chk_Upsert_TVERSION_InitialAdd_Version_To.Name = "chk_Upsert_TVERSION_InitialAdd_Version_To";
+            chk_Upsert_TVERSION_InitialAdd_Version_To.NullExpected = true;
+            chk_Upsert_TVERSION_InitialAdd_Version_To.ResultSet = 4;
+            chk_Upsert_TVERSION_InitialAdd_Version_To.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_InitialAdd_VersionStatus
+            // 
+            chk_Upsert_TVERSION_InitialAdd_VersionStatus.ColumnNumber = 6;
+            chk_Upsert_TVERSION_InitialAdd_VersionStatus.Enabled = true;
+            chk_Upsert_TVERSION_InitialAdd_VersionStatus.ExpectedValue = "2";
+            chk_Upsert_TVERSION_InitialAdd_VersionStatus.Name = "chk_Upsert_TVERSION_InitialAdd_VersionStatus";
+            chk_Upsert_TVERSION_InitialAdd_VersionStatus.NullExpected = false;
+            chk_Upsert_TVERSION_InitialAdd_VersionStatus.ResultSet = 4;
+            chk_Upsert_TVERSION_InitialAdd_VersionStatus.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_InitialAdd_TestData_ID
+            // 
+            chk_Upsert_TVERSION_InitialAdd_TestData_ID.ColumnNumber = 7;
+            chk_Upsert_TVERSION_InitialAdd_TestData_ID.Enabled = true;
+            chk_Upsert_TVERSION_InitialAdd_TestData_ID.ExpectedValue = null;
+            chk_Upsert_TVERSION_InitialAdd_TestData_ID.Name = "chk_Upsert_TVERSION_InitialAdd_TestData_ID";
+            chk_Upsert_TVERSION_InitialAdd_TestData_ID.NullExpected = true;
+            chk_Upsert_TVERSION_InitialAdd_TestData_ID.ResultSet = 4;
+            chk_Upsert_TVERSION_InitialAdd_TestData_ID.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_TestData_ID_CHeck_TestData_ID
+            // 
+            chk_Upsert_TVERSION_TestData_ID_CHeck_TestData_ID.Enabled = true;
+            chk_Upsert_TVERSION_TestData_ID_CHeck_TestData_ID.Name = "chk_Upsert_TVERSION_TestData_ID_CHeck_TestData_ID";
+            chk_Upsert_TVERSION_TestData_ID_CHeck_TestData_ID.ResultSet = 5;
+            chk_Upsert_TVERSION_TestData_ID_CHeck_TestData_ID.RowCount = 1;
+            // 
+            // chk_Upsert_TVERSION_Update_Check_Name
+            // 
+            chk_Upsert_TVERSION_Update_Check_Name.ColumnNumber = 1;
+            chk_Upsert_TVERSION_Update_Check_Name.Enabled = true;
+            chk_Upsert_TVERSION_Update_Check_Name.ExpectedValue = "Test Version 2 Name";
+            chk_Upsert_TVERSION_Update_Check_Name.Name = "chk_Upsert_TVERSION_Update_Check_Name";
+            chk_Upsert_TVERSION_Update_Check_Name.NullExpected = false;
+            chk_Upsert_TVERSION_Update_Check_Name.ResultSet = 6;
+            chk_Upsert_TVERSION_Update_Check_Name.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_Update_Check_Description
+            // 
+            chk_Upsert_TVERSION_Update_Check_Description.ColumnNumber = 2;
+            chk_Upsert_TVERSION_Update_Check_Description.Enabled = true;
+            chk_Upsert_TVERSION_Update_Check_Description.ExpectedValue = "Test Version 2 Description";
+            chk_Upsert_TVERSION_Update_Check_Description.Name = "chk_Upsert_TVERSION_Update_Check_Description";
+            chk_Upsert_TVERSION_Update_Check_Description.NullExpected = false;
+            chk_Upsert_TVERSION_Update_Check_Description.ResultSet = 6;
+            chk_Upsert_TVERSION_Update_Check_Description.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_Update_Check_Status
+            // 
+            chk_Upsert_TVERSION_Update_Check_Status.ColumnNumber = 5;
+            chk_Upsert_TVERSION_Update_Check_Status.Enabled = true;
+            chk_Upsert_TVERSION_Update_Check_Status.ExpectedValue = "1";
+            chk_Upsert_TVERSION_Update_Check_Status.Name = "chk_Upsert_TVERSION_Update_Check_Status";
+            chk_Upsert_TVERSION_Update_Check_Status.NullExpected = false;
+            chk_Upsert_TVERSION_Update_Check_Status.ResultSet = 6;
+            chk_Upsert_TVERSION_Update_Check_Status.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_Update_Version_From
+            // 
+            chk_Upsert_TVERSION_Update_Version_From.ColumnNumber = 3;
+            chk_Upsert_TVERSION_Update_Version_From.Enabled = true;
+            chk_Upsert_TVERSION_Update_Version_From.ExpectedValue = "1.0";
+            chk_Upsert_TVERSION_Update_Version_From.Name = "chk_Upsert_TVERSION_Update_Version_From";
+            chk_Upsert_TVERSION_Update_Version_From.NullExpected = false;
+            chk_Upsert_TVERSION_Update_Version_From.ResultSet = 6;
+            chk_Upsert_TVERSION_Update_Version_From.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_Update_Version_To
+            // 
+            chk_Upsert_TVERSION_Update_Version_To.ColumnNumber = 4;
+            chk_Upsert_TVERSION_Update_Version_To.Enabled = true;
+            chk_Upsert_TVERSION_Update_Version_To.ExpectedValue = null;
+            chk_Upsert_TVERSION_Update_Version_To.Name = "chk_Upsert_TVERSION_Update_Version_To";
+            chk_Upsert_TVERSION_Update_Version_To.NullExpected = true;
+            chk_Upsert_TVERSION_Update_Version_To.ResultSet = 6;
+            chk_Upsert_TVERSION_Update_Version_To.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_UpdateVersionCheck_Version_From
+            // 
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_From.ColumnNumber = 1;
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_From.Enabled = true;
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_From.ExpectedValue = "1.0";
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_From.Name = "chk_Upsert_TVERSION_UpdateVersionCheck_Version_From";
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_From.NullExpected = false;
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_From.ResultSet = 7;
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_From.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_UpdateVersionCheck_Version_To
+            // 
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_To.ColumnNumber = 2;
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_To.Enabled = true;
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_To.ExpectedValue = null;
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_To.Name = "chk_Upsert_TVERSION_UpdateVersionCheck_Version_To";
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_To.NullExpected = true;
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_To.ResultSet = 7;
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_To.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From
+            // 
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From.ColumnNumber = 1;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From.Enabled = true;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From.ExpectedValue = "1.0";
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From.Name = "chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From";
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From.NullExpected = false;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From.ResultSet = 8;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To
+            // 
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To.ColumnNumber = 2;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To.Enabled = true;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To.ExpectedValue = "1.9";
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To.Name = "chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To";
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To.NullExpected = false;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To.ResultSet = 8;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From
+            // 
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From.ColumnNumber = 1;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From.Enabled = true;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From.ExpectedValue = "2.0";
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From.Name = "chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From";
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From.NullExpected = false;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From.ResultSet = 9;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To
+            // 
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To.ColumnNumber = 2;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To.Enabled = true;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To.ExpectedValue = null;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To.Name = "chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To";
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To.NullExpected = true;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To.ResultSet = 9;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To.RowNumber = 1;
+            // 
+            // chk_Upsert_TVERSION_Add2ndVersion_Check_Debug
+            // 
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Debug.Enabled = true;
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Debug.Name = "chk_Upsert_TVERSION_Add2ndVersion_Check_Debug";
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Debug.ResultSet = 10;
         }
 
         #endregion
@@ -1063,6 +1368,30 @@ namespace GroundFrame.SQL.UnitTests
                 SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
             }
         }
+        [TestMethod()]
+        public void simsig_USp_UPSERT_TVERSIONTest()
+        {
+            SqlDatabaseTestActions testActions = this.simsig_USp_UPSERT_TVERSIONTestData;
+            // Execute the pre-test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
+            SqlExecutionResult[] pretestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PretestAction);
+            try
+            {
+                // Execute the test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.TestAction != null), "Executing test script...");
+                SqlExecutionResult[] testResults = TestService.Execute(this.ExecutionContext, this.PrivilegedContext, testActions.TestAction);
+            }
+            finally
+            {
+                // Execute the post-test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.PosttestAction != null), "Executing post-test script...");
+                SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
+            }
+        }
+
 
 
 
@@ -1072,5 +1401,6 @@ namespace GroundFrame.SQL.UnitTests
         private SqlDatabaseTestActions simsig_Usp_DELETE_TSIMTestData;
         private SqlDatabaseTestActions simsig_Usp_GET_TSIMERA_BY_SIMTestData;
         private SqlDatabaseTestActions simsig_Usp_UPSERT_TSIMERATestData;
+        private SqlDatabaseTestActions simsig_USp_UPSERT_TVERSIONTestData;
     }
 }

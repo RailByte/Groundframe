@@ -29,6 +29,8 @@ BEGIN
 	DECLARE @debug_message NVARCHAR(2048);
 	DECLARE @error_message NVARCHAR(2048);
 
+	IF @id IS NULL SET @id = 0;
+
 	--Set the @debug_session_id if in debug mode and @debug_session_id <NULL>
 	IF @debug = 1 AND @debug_session_id IS NULL
 	BEGIN
@@ -63,7 +65,7 @@ BEGIN
 
 	--Check user has admin role
 
-	IF ISNULL((SELECT [role_bitmap] FROM [app].[TUSER] WHERE [id] = @app_user_id),0) & 7 = 0
+	IF ISNULL((SELECT [role_bitmap] FROM [app].[TUSER] WHERE [id] = @app_user_id),0) & 4 = 0
 	BEGIN;
 		IF @debug = 1
 		BEGIN
@@ -135,11 +137,11 @@ BEGIN
 		BEGIN TRAN TRAN_UPSERTVERSION
 
 		BEGIN TRY
-			--Get the previous record
+			--Get the previous record (if a previous record exists)
 
-			DECLARE @previous_id SMALLINT = ISNULL((SELECT [id] FROM [simsig].[TVERSION] WHERE [simsig_version_from] IS NULL),0);
+			DECLARE @previous_id SMALLINT = ISNULL((SELECT [id] FROM [simsig].[TVERSION] WHERE [simsig_version_to] IS NULL),0);
 
-			IF @previous_id = 0
+			IF @previous_id = 0 AND (SELECT COUNT(*) FROM [simsig].[TVERSION]) > 0
 			BEGIN
 				IF @debug = 1
 				BEGIN
@@ -152,11 +154,13 @@ BEGIN
 
 			--Close previous version
 
-			UPDATE [simsig].[TVERSION]
-			SET [simsig_version_to] = (@version - 0.1)
-			WHERE
-				[id] = @previous_id
-
+			IF @previous_id != 0
+			BEGIN
+				UPDATE [simsig].[TVERSION]
+				SET [simsig_version_to] = (@version - 0.1)
+				WHERE
+					[id] = @previous_id;
+			END
 
 			INSERT INTO [simsig].[TVERSION]
 			(

@@ -40,7 +40,8 @@ USING
 		VALUES
 		(1, N'DBA Account', N'Account', N'DBA', NULL, NULL, 1, 2, 7, 1, @today, 1, @today),
 		(2, N'Test Editor Account', N'Editor Account', N'Test', N'test.editoraccount@groundframe.io', N'testuserAPIKEY', 1, 2, 3, 1, @today, 1, @today),
-		(3, N'Test Standard Account', N'Standard Account', N'Test', N'test.standardaccount@groundframe.io', N'teststandarduserAPIKEY', 1, 2, 1, 1, @today, 1, @today)
+		(3, N'Test Standard Account', N'Standard Account', N'Test', N'test.standardaccount@groundframe.io', N'teststandarduserAPIKEY', 1, 2, 1, 1, @today, 1, @today),
+		(4, N'Test Admin Account', N'Standard Admin', N'Test', N'test.adminaccount@groundframe.io', N'testadminuserAPIKEY', 1, 2, 7, 1, @today, 1, @today)
 	)
 	AS USERS(		
 		[id],
