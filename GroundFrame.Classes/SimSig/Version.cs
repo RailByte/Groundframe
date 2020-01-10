@@ -26,7 +26,7 @@ namespace GroundFrame.Classes
         #region Private Variables
 
         private int _ID; //The GroundFrame.SQL database ID
-        private GFSqlConnector _SQLConnector; //A connector to the GroundFrame.SQL database
+        private readonly GFSqlConnector _SQLConnector; //A connector to the GroundFrame.SQL database
 
         #endregion Private Variables
 
@@ -65,6 +65,13 @@ namespace GroundFrame.Classes
 
         #region Constructors
 
+        /// <summary>
+        /// Instantiates a new Version object the supplied values
+        /// </summary>
+        /// <param name="Name">The name of the verison</param>
+        /// <param name="Description">A description of the version</param>
+        /// <param name="Version">The version number. This must be greater the latest version stored in the GroundFrame.SQL database</param>
+        /// <param name="SQLConnector">A Connector to the GroundFrame.SQL Database</param>
         public Version (string Name, string Description, Decimal Version, GFSqlConnector SQLConnector)
         {
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Creates a copy of the object to prevent conflict with connectios, commands and readers
@@ -73,6 +80,29 @@ namespace GroundFrame.Classes
             this.VersionFrom = Version;
             this.VersionTo = null;
             this.Status = VersionStatus.Development;
+        }
+
+        /// <summary>
+        /// Instantiates a new Version object from the GroundFrame.SQL database for the supplied Record ID
+        /// </summary>
+        /// <param name="ID">The ID of the version record to get from the GroundFrame.SQL database</param>
+        /// <param name="SQLConnector">A Connector to the GroundFrame.SQL Database</param>
+        public Version(int ID, GFSqlConnector SQLConnector)
+        {
+            this._ID = ID;
+            this._SQLConnector = new GFSqlConnector(SQLConnector); //Creates a copy of the object to prevent conflict with connectios, commands and readers
+            this.GetVersionFromSQLDBByID();
+        }
+
+        /// <summary>
+        /// Instatiates a Version object from a SqlDataReader object
+        /// </summary>
+        /// <param name="DataReader">The source SqlDataReader</param>
+        /// <param name="SQLConnector">A Connector to the GroundFrame.SQL Database</param>
+        public Version (SqlDataReader DataReader, GFSqlConnector SQLConnector)
+        {
+            this._SQLConnector = new GFSqlConnector(SQLConnector); //Creates a copy of the object to prevent conflict with connectios, commands and readers
+            this.ParseSqlDataReader(DataReader);
         }
 
         #endregion Constructors
@@ -86,6 +116,7 @@ namespace GroundFrame.Classes
         {
             this.SaveVersionToSQLDB();
         }
+
         /// <summary>
         /// Saves the Version to the GroundFrame.SQL database
         /// </summary>
@@ -118,6 +149,53 @@ namespace GroundFrame.Classes
             {
                 this._SQLConnector.Close();
             }
+        }
+
+        /// <summary>
+        /// Gets the Version from the GroundFrame.SQL database
+        /// </summary>
+        private void GetVersionFromSQLDBByID()
+        {
+            try
+            {
+                //Open the Connection
+                this._SQLConnector.Open();
+                //Set Command
+                SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_GET_TVERSION", CommandType.StoredProcedure);
+                //Add Parameters
+                Cmd.Parameters.Add(new SqlParameter("@id", (Int16)this._ID));
+                Cmd.Parameters.Add(new SqlParameter("@debug", true));
+
+                //Execute
+                SqlDataReader DataReader = Cmd.ExecuteReader();
+
+                while (DataReader.Read())
+                {
+                    this.ParseSqlDataReader(DataReader);
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw new ApplicationException($"An error has occurred trying to get version record {this.ID} to the GroundFrame.SQL database.", Ex);
+            }
+            finally
+            {
+                this._SQLConnector.Close();
+            }
+        }
+
+        /// <summary>
+        /// Parses a SqlDataReader object into a Version object
+        /// </summary>
+        /// <param name="DataReader"></param>
+        private void ParseSqlDataReader(SqlDataReader DataReader)
+        {
+            this._ID = DataReader.GetInt16(DataReader.GetOrdinal("id"));
+            this.Name = DataReader.GetString(DataReader.GetOrdinal("name"));
+            this.Description = DataReader.GetString(DataReader.GetOrdinal("description"));
+            this.VersionFrom = DataReader.GetDecimal(DataReader.GetOrdinal("simsig_version_from"));
+            this.VersionTo = DataReader.GetNullableDecimal("simsig_version_to");
+            this.Status = (VersionStatus)DataReader.GetByte(DataReader.GetOrdinal("version_status_id"));
         }
 
         #endregion Methods

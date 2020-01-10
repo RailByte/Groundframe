@@ -237,8 +237,14 @@ namespace GroundFrame.Classes
                 SqlDataReader DataReader = Cmd.ExecuteReader();
 
                 //Read the records
-                while (DataReader.Read())
+                if (DataReader.HasRows == false)
                 {
+                    //If no record around then 
+                    throw new NoRowsException($"No Simulation Record Found");
+                }
+                else
+                {
+                    //Parse the DataReader into the version object
                     this.ParseSqlDataReader(DataReader);
                 }
 

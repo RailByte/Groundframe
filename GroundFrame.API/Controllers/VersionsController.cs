@@ -12,11 +12,11 @@ namespace GroundFrame.API.Controllers
     [Produces("application/json")]
     [ApiController]
     [Route("api")]
-    public class Simulations : ControllerBase
+    public class Versions : ControllerBase
     {
-        private readonly ILogger<Simulation> _logger;
+        private readonly ILogger<GroundFrame.Classes.Version> _logger;
         private readonly GFSqlConnector _SQLConnection;
-        public Simulations(ILogger<Simulation> logger)
+        public Versions(ILogger<GroundFrame.Classes.Version> logger)
         {
             _logger = logger;
             string SQLServer = @"(localdb)\MSSQLLocalDB"; ;
@@ -25,18 +25,18 @@ namespace GroundFrame.API.Controllers
         }
 
         /// <summary>
-        /// Gets a specific Simulation
+        /// Gets a specific Version
         /// </summary>
-        /// <param name="id">The ID of the Simulation to be returned</param>
-        /// <response code="200">Returns the requested Simulation</response> 
+        /// <param name="id">The ID of the Version to be returned</param>
+        /// <response code="200">Returns the requested Version</response> 
         [HttpGet]
-        [Route("simulations/{id:int}")]
+        [Route("versions/{id:int}")]
         public IActionResult Get(int id)
         {
             try
             {
-                Classes.Simulation Sim = new Classes.Simulation(id, this._SQLConnection);
-                return Ok(Sim);
+                Classes.Version Ver = new Classes.Version(id, this._SQLConnection);
+                return Ok(Ver);
             }
             catch (Exception Ex)
             {
@@ -46,18 +46,18 @@ namespace GroundFrame.API.Controllers
         }
 
         /// <summary>
-        /// Gets all simulations that the user can see
+        /// Gets all versions that the user can see. Development versions are limited to editors and administrators and hidden from standard users
         /// </summary>
-        /// <response code="200">Returns the requested Simulation</response> 
+        /// <response code="200">Returns the requested Version</response> 
         [HttpGet]
         [HttpGet]
-        [Route("simulations")]
+        [Route("versions")]
         public IActionResult Get()
         {
             try
             {
-                Classes.SimulationCollection SimCollection = new Classes.SimulationCollection(this._SQLConnection);
-                return Ok(SimCollection);
+                Classes.VersionCollection VerCollection = new Classes.VersionCollection(this._SQLConnection);
+                return Ok(VerCollection);
             }
             catch (Exception Ex)
             {

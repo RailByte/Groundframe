@@ -131,15 +131,15 @@ BEGIN
 	IF @id = 0
 	BEGIN
 		SET @version_status_id = 2;
-		DECLARE @previous_id SMALLINT = ISNULL((SELECT [id] FROM [simsig].[TVERSION] WHERE [simsig_version_to] IS NULL),0);
+		DECLARE @previous_id SMALLINT = ISNULL((SELECT [id] FROM [simsig].[TVERSION] WHERE [simsig_version_to] IS NULL AND ([testdata_id] = @testdata_id OR @testdata_id IS NULL)),0);
 
 		--Get the previous record (if a previous record exists)		
 
-		IF @previous_id = 0 AND (SELECT COUNT(*) FROM [simsig].[TVERSION]) > 0
+		IF @previous_id = 0 AND (SELECT COUNT(*) FROM [simsig].[TVERSION] WHERE ([testdata_id] = @testdata_id OR @testdata_id IS NULL)) > 0
 		BEGIN
 			IF @debug = 1
 			BEGIN
-				SET @debug_message = 'Couldn''t ascertain the previous version to close off.';
+				SET @debug_message = 'Couldn''t ascertain the previous version to close off. @previous_id = ' + CAST(@previous_id AS NVARCHAR(8)) + '. Existing Record Count = ' + CAST((SELECT COUNT(*) FROM [simsig].[TVERSION]) AS NVARCHAR(8));
 				EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 			END;
 
@@ -152,7 +152,7 @@ BEGIN
 			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 		END;
 
-		IF @previous_id != 0 AND (SELECT COUNT(*) FROM [simsig].[TVERSION]) > 0
+		IF @previous_id != 0 AND (SELECT COUNT(*) FROM [simsig].[TVERSION] WHERE ([testdata_id] = @testdata_id OR @testdata_id IS NULL)) > 0
 		BEGIN
 			DECLARE @previous_version NUMERIC(4,1) = (SELECT [simsig_version_from] FROM [simsig].[TVERSION] WHERE [id] = @previous_id);
 

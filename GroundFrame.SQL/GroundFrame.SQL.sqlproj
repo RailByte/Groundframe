@@ -80,6 +80,9 @@
     <Folder Include="Views\app" />
     <Folder Include="Tables\test" />
     <Folder Include="Stored Procedures\test" />
+    <Folder Include="Functions" />
+    <Folder Include="Functions\Scalar" />
+    <Folder Include="Functions\Scalar\app" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\simsig.sql" />
@@ -110,7 +113,7 @@
     <Build Include="Stored Procedures\common\common.Usp_SET_SESSIONCONTEXT.sql" />
     <Build Include="Tables\simsig\simsig.TERATYPE.sql" />
     <None Include="Scripts\Post Deployment\Data Population\Script.Populate simsig.TERATYPE.sql" />
-    <Build Include="Stored Procedures\simsig\simsig.Usp_GET_TSIM.sql" />
+    <Build Include="Stored Procedures\simsig\simsig.Usp_GET_TVERSION.sql" />
     <Build Include="Views\simsig\simsig.VSIM.sql" />
     <Build Include="Views\app\simsig.VUSER.sql" />
     <Build Include="Stored Procedures\common\common.Usp_TEARDOWN_TESTDATA.sql" />
@@ -126,6 +129,9 @@
     <Build Include="Schema\test.sql" />
     <Build Include="Tables\test\test.TTESTDATA.sql" />
     <Build Include="Stored Procedures\test\test.Usp_REGISTER_TESTDATA.sql" />
+    <Build Include="Stored Procedures\simsig\Copy of simsig.Usp_GET_TSIM.sql" />
+    <Build Include="Views\simsig\simsig.VVERSION.sql" />
+    <Build Include="Functions\Scalar\app\app.Fn_GET_USERROLE.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\SQLDB\Extensions\SqlServer\140\SqlSchemas\master.dacpac">
