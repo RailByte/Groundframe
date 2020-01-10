@@ -1186,17 +1186,41 @@ SET @debug = 1
 SET @name = 'Test Version 4 Name'
 SET @description = 'Test Version 4 Description'
 SET @version_status_id = 2;
-SET @version = 2.0
+SET @version = 3.0
 SET @error_message = N'No Error Thrown';
 SET @id = 0;
 
 EXEC [simsig].[USp_UPSERT_TVERSION] @id OUTPUT, @name, @description, @version, @version_status_id, @debug, @debug_session_id OUTPUT;
+
+--Result 10
 
 SELECT
 	*
 FROM [audit].[TEVENT]
 WHERE
 	[debug_session_id] = @debug_session_id;
+
+--Check Error thrown if current version is being split
+
+SET @debug = 1
+SET @name = 'Test Version 5 Name'
+SET @description = 'Test Version 5 Description'
+SET @version_status_id = 2;
+SET @version = 3.0
+SET @error_message = N'No Error Thrown';
+SET @id = 0;
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TVERSION] @id OUTPUT, @name, @description, @version, @version_status_id, @debug, @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 11
+
+SELECT 
+	[error_message] = @error_message;
 	
 --Teardown data
 

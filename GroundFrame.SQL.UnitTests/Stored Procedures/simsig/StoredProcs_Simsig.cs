@@ -135,6 +135,7 @@ namespace GroundFrame.SQL.UnitTests
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Upsert_TVERSION_Add2ndVersion_Check_Debug;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Check_VersionSplitError;
             this.simsig_USp_UPSERT_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_USp_GET_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_Usp_DELETE_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
@@ -238,6 +239,7 @@ namespace GroundFrame.SQL.UnitTests
             chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_Upsert_TVERSION_Add2ndVersion_Check_Debug = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
+            chk_Upsert_TVERSION_Check_VersionSplitError = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             // 
             // simsig_USp_UPSERT_TSIMTest_TestAction
             // 
@@ -974,6 +976,7 @@ namespace GroundFrame.SQL.UnitTests
             simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From);
             simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To);
             simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Add2ndVersion_Check_Debug);
+            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Check_VersionSplitError);
             resources.ApplyResources(simsig_USp_UPSERT_TVERSIONTest_TestAction, "simsig_USp_UPSERT_TVERSIONTest_TestAction");
             // 
             // chk_Upsert_TVERSION_Not_Logged_In_Error
@@ -1234,6 +1237,17 @@ namespace GroundFrame.SQL.UnitTests
             this.simsig_USp_UPSERT_TVERSIONTestData.PosttestAction = null;
             this.simsig_USp_UPSERT_TVERSIONTestData.PretestAction = null;
             this.simsig_USp_UPSERT_TVERSIONTestData.TestAction = simsig_USp_UPSERT_TVERSIONTest_TestAction;
+            // 
+            // chk_Upsert_TVERSION_Check_VersionSplitError
+            // 
+            chk_Upsert_TVERSION_Check_VersionSplitError.ColumnNumber = 1;
+            chk_Upsert_TVERSION_Check_VersionSplitError.Enabled = true;
+            chk_Upsert_TVERSION_Check_VersionSplitError.ExpectedValue = "An error has occurred creating a new version. You cannot specify a new version eq" +
+                "ual or less to the exsting version";
+            chk_Upsert_TVERSION_Check_VersionSplitError.Name = "chk_Upsert_TVERSION_Check_VersionSplitError";
+            chk_Upsert_TVERSION_Check_VersionSplitError.NullExpected = false;
+            chk_Upsert_TVERSION_Check_VersionSplitError.ResultSet = 11;
+            chk_Upsert_TVERSION_Check_VersionSplitError.RowNumber = 1;
         }
 
         #endregion

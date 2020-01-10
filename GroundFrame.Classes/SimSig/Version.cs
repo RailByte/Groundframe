@@ -73,13 +73,22 @@ namespace GroundFrame.Classes
             this.VersionFrom = Version;
             this.VersionTo = null;
             this.Status = VersionStatus.Development;
-            SaveVersionToSQLDB();
         }
 
         #endregion Constructors
 
         #region Methods
 
+        /// <summary>
+        /// Saves the Version to the GroundFrame.SQL database
+        /// </summary>
+        public void SaveToSQLDB()
+        {
+            this.SaveVersionToSQLDB();
+        }
+        /// <summary>
+        /// Saves the Version to the GroundFrame.SQL database
+        /// </summary>
         private void SaveVersionToSQLDB()
         {
             try

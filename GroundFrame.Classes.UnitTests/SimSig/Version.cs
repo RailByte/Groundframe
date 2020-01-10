@@ -56,6 +56,7 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         public void Version_Constructor_ByProperties(string Name, string Description, Decimal Version)
         {
             Classes.Version TestVersion = new Classes.Version(Name, Description, Version, this._SQLConnection);
+            TestVersion.SaveToSQLDB();
             Assert.Equal(Name, TestVersion.Name);
             Assert.Equal(Description, TestVersion.Description);
             Assert.Equal(Version, TestVersion.VersionFrom);

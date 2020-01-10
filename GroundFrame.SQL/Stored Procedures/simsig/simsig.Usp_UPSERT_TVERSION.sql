@@ -131,26 +131,48 @@ BEGIN
 	IF @id = 0
 	BEGIN
 		SET @version_status_id = 2;
+		DECLARE @previous_id SMALLINT = ISNULL((SELECT [id] FROM [simsig].[TVERSION] WHERE [simsig_version_to] IS NULL),0);
+
+		--Get the previous record (if a previous record exists)		
+
+		IF @previous_id = 0 AND (SELECT COUNT(*) FROM [simsig].[TVERSION]) > 0
+		BEGIN
+			IF @debug = 1
+			BEGIN
+				SET @debug_message = 'Couldn''t ascertain the previous version to close off.';
+				EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+			END;
+
+			THROW 50000, 'An error has occurred creating new version. An active previous version couldn''t be found', 1;
+		END
+
+		IF @debug = 1
+		BEGIN
+			SET @debug_message = 'Checking to ensure that new version is <= to the latest version';
+			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+		END;
+
+		IF @previous_id != 0 AND (SELECT COUNT(*) FROM [simsig].[TVERSION]) > 0
+		BEGIN
+			DECLARE @previous_version NUMERIC(4,1) = (SELECT [simsig_version_from] FROM [simsig].[TVERSION] WHERE [id] = @previous_id);
+
+			IF @version <= @previous_version
+			BEGIN
+				IF @debug = 1
+				BEGIN
+					SET @debug_message = 'An attempt was made to split the existing latest version.';
+					EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+				END;
+
+				THROW 50000, 'An error has occurred creating a new version. You cannot specify a new version equal or less to the exsting version', 1;
+			END
+		END
 
 		--Insert new record
 
 		BEGIN TRAN TRAN_UPSERTVERSION
 
 		BEGIN TRY
-			--Get the previous record (if a previous record exists)
-
-			DECLARE @previous_id SMALLINT = ISNULL((SELECT [id] FROM [simsig].[TVERSION] WHERE [simsig_version_to] IS NULL),0);
-
-			IF @previous_id = 0 AND (SELECT COUNT(*) FROM [simsig].[TVERSION]) > 0
-			BEGIN
-				IF @debug = 1
-				BEGIN
-					SET @debug_message = 'Couldn''t ascertain the previous version to close off.';
-					EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
-				END;
-
-				THROW 50000, 'An error has occurred and a new version. An active previous version couldn''t be found', 1;
-			END
 
 			--Close previous version
 
