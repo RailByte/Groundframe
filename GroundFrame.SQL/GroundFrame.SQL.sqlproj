@@ -78,13 +78,15 @@
     <Folder Include="Views" />
     <Folder Include="Views\simsig" />
     <Folder Include="Views\app" />
+    <Folder Include="Tables\test" />
+    <Folder Include="Stored Procedures\test" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\simsig.sql" />
     <Build Include="Schema\audit.sql" />
     <Build Include="Tables\simsig\simsig.TLOCATION.sql" />
     <Build Include="Tables\audit\audit.TEVENT.sql" />
-    <Build Include="Stored Procedures\simsig\simsig.USp_UPSERT_TSIM.sql" />
+    <Build Include="Stored Procedures\simsig\simsig.Usp_UPSERT_TSIM.sql" />
     <Build Include="Stored Procedures\audit\audit.Usp_INSERT_TEVENT.sql" />
     <Build Include="Schema\app.sql" />
     <Build Include="Tables\app\app.TAPP.sql" />
@@ -121,6 +123,9 @@
     <Build Include="Stored Procedures\simsig\simsig.Usp_UPSERT_TVERSION.sql" />
     <Build Include="Tables\simsig\simsig.TVERSIONSTATUS.sql" />
     <None Include="Scripts\Post Deployment\Data Population\Script.Populate simsig.TVERSIONSTATUS.sql" />
+    <Build Include="Schema\test.sql" />
+    <Build Include="Tables\test\test.TTESTDATA.sql" />
+    <Build Include="Stored Procedures\test\test.Usp_REGISTER_TESTDATA.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\SQLDB\Extensions\SqlServer\140\SqlSchemas\master.dacpac">

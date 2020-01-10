@@ -404,7 +404,11 @@ WHERE
 
 --Check TestData ID gets added if passed in the session context
 
-DECLARE @testdata_id UNIQUEIDENTIFIER = NEWID();
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+
+--Set / Get TestData ID
+
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_UPSERT_TSIMTest', @testdata_id = @testdata_id OUTPUT;
 EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY', @testdata_id = @testdata_id
 
 SET @id = 0
@@ -455,7 +459,18 @@ WHERE
 	[testdata_id] = @testdata_id;</value>
   </data>
   <data name="simsig_USp_UPSERT_TSIMTest_PosttestAction.SqlScript" xml:space="preserve">
-    <value />
+    <value>--Teardown Data
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_UPSERT_TSIMTest', @testdata_id = @testdata_id OUTPUT;
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[testdata_id] = @testdata_id;</value>
   </data>
   <data name="simsig_USp_GET_TSIMTest_TestAction.SqlScript" xml:space="preserve">
     <value>-- database unit test for simsig.USp_GET_TSIM
@@ -465,7 +480,11 @@ DECLARE @debug_session_id AS UNIQUEIDENTIFIER = NULL;
 DECLARE @inserted_record1_id AS SMALLINT; --The ID of the first inserted record
 DECLARE @created_datetime DATETIMEOFFSET = SYSDATETIMEOFFSET();
 DECLARE @error_message NVARCHAR(256);
-DECLARE @testdata_id UNIQUEIDENTIFIER = NEWID();
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+
+--Set / Get TestData ID
+
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_GET_TSIMTest', @testdata_id = @testdata_id OUTPUT;
 
 --Set up data
 
@@ -576,15 +595,21 @@ SELECT
 	debug_count = CAST(CASE WHEN COUNT(*) &gt; 0 THEN 1 ELSE 0 END AS BIT)
 FROM [audit].[TEVENT]
 WHERE
-	[debug_session_id] = @expected_debug_session_id;
+	[debug_session_id] = @expected_debug_session_id;</value>
+  </data>
+  <data name="simsig_USp_GET_TSIMTest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>--Teardown Data
 
---Teardown data
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_GET_TSIMTest', @testdata_id = @testdata_id OUTPUT;
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[testdata_id] = @testdata_id;
+
 DELETE FROM [simsig].[TSIM]
 WHERE
 	[testdata_id] = @testdata_id;</value>
-  </data>
-  <data name="simsig_USp_GET_TSIMTest_PosttestAction.SqlScript" xml:space="preserve">
-    <value />
   </data>
   <data name="simsig_Usp_DELETE_TSIMTest_TestAction.SqlScript" xml:space="preserve">
     <value>-- database unit test for simsig.Usp_DELETE_TSIM
@@ -640,7 +665,7 @@ SELECT * FROM [simsig].[TSIMERA] WHERE [sim_id] = @id;
 DECLARE @error_message NVARCHAR(256);
 
 BEGIN TRY
-	EXEC  [simsig].[Usp_DELETE_TSIM] @id = @id;
+	EXEC [simsig].[Usp_DELETE_TSIM] @id = @id;
 END TRY
 BEGIN CATCH
 	SET @error_message = ERROR_MESSAGE();
@@ -691,6 +716,11 @@ DECLARE @datetime AS DATETIMEOFFSET (7)
 DECLARE @debug AS BIT
 DECLARE @debug_session_id AS UNIQUEIDENTIFIER;
 DECLARE @error_message NVARCHAR(256);
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+
+--Set / Get TestData ID
+
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_GET_TSIMERA_BY_SIMTest', @testdata_id = @testdata_id OUTPUT;
 
 --Check proc errors if user not logged in
 
@@ -705,7 +735,7 @@ SET @debug_session_id = NULL;
 
 --Log User In
 
-EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY';
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY', @testdata_id = @testdata_id;
 
 --Create Sim
 
@@ -732,16 +762,7 @@ END CATCH
 
 --Result Set 2
 
-SELECT [error_message] = @error_message;
---Delete Data
-
-DELETE FROM [simsig].[TSIMERA]
-WHERE
-	[sim_id] = @id;
-
-DELETE FROM [simsig].[TSIM]
-WHERE
-	[id] = @id;</value>
+SELECT [error_message] = @error_message;</value>
   </data>
   <data name="simsig_Usp_UPSERT_TSIMERATest_TestAction.SqlScript" xml:space="preserve">
     <value>-- database unit test for simsig.Usp_UPSERT_TSIMERA
@@ -750,7 +771,11 @@ WHERE
 DECLARE @id AS SMALLINT, @sim_id AS SMALLINT, @name AS NVARCHAR (128), @description AS NVARCHAR (2048), @era_type_id AS TINYINT, @debug AS BIT, @debug_session_id AS UNIQUEIDENTIFIER;
 
 --Create a TestData ID
-DECLARE @testdata_id UNIQUEIDENTIFIER = NEWID();
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+
+--Set / Get TestData ID
+
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_UPSERT_TSIMERATest', @testdata_id = @testdata_id OUTPUT;
 
 --Other Variables
 DECLARE @error_message NVARCHAR(258);
@@ -972,17 +997,7 @@ END CATCH;
 --Result Set 10
 
 SELECT
-	[error_message] = @error_message;
-
---Tear Down Data
-
-DELETE FROM [simsig].[TSIMERA]
-WHERE
-	[id] = @id;
-
-DELETE FROM [simsig].[TSIM]
-WHERE
-	[testdata_id] = @testdata_id;</value>
+	[error_message] = @error_message;</value>
   </data>
   <data name="simsig_USp_UPSERT_TVERSIONTest_TestAction.SqlScript" xml:space="preserve">
     <value>-- database unit test for simsig.USp_UPSERT_TVERSION
@@ -1084,9 +1099,11 @@ WHERE
 
 --TestData ID
 
-DECLARE @testdata_id UNIQUEIDENTIFIER = NEWID();
-SET @id = 0; --Reset ID;
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_UPSERT_TVERSIONTest', @testdata_id = @testdata_id OUTPUT;
 
+--Set Variables
+SET @id = 0; --Reset ID;
 SET @error_message = N'No Error Thrown';
 
 EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testadminuserAPIKEY', @testdata_id = @testdata_id;
@@ -1220,14 +1237,42 @@ END CATCH
 --Result Set 11
 
 SELECT 
-	[error_message] = @error_message;
-	
---Teardown data
+	[error_message] = @error_message;</value>
+  </data>
+  <data name="simsig_Usp_GET_TSIMERA_BY_SIMTest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>--Teardown Data
 
-DELETE FROM [simsig].[TVERSION]
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_GET_TSIMERA_BY_SIMTest', @testdata_id = @testdata_id OUTPUT;
+
+DELETE FROM [simsig].[TSIMERA]
 WHERE
 	[testdata_id] = @testdata_id;
-</value>
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[testdata_id] = @testdata_id;</value>
+  </data>
+  <data name="simsig_Usp_UPSERT_TSIMERATest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>--Teardown Data
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_UPSERT_TSIMERATest', @testdata_id = @testdata_id OUTPUT;
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[testdata_id] = @testdata_id;</value>
+  </data>
+  <data name="simsig_USp_UPSERT_TVERSIONTest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>--Teardown Data
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_UPSERT_TVERSIONTest', @testdata_id = @testdata_id OUTPUT;
+DELETE FROM [simsig].[TVERSION] WHERE [testdata_id] = @testdata_id;</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

@@ -1,6 +1,6 @@
 ﻿/******************************
-** File:		~\GroundFrame\GroundFrame.SQL\Stored Procedures\simsig\simsig.USp_UPSERT_TSIM.sql
-** Name:		simsig.USp_UPSERT_TSIM
+** File:		~\GroundFrame\GroundFrame.SQL\Stored Procedures\simsig\simsig.Usp_UPSERT_TSIM.sql
+** Name:		simsig.Usp_UPSERT_TSIM
 ** Desc:		Stored procedure create or update a SimSig simulation
 ** Unit Test:	
 ** Auth:		Tim Caceres
@@ -13,7 +13,7 @@
 ** 1    2019-12-12	TC			Initial Script creation
 **
 *******************************/
-CREATE PROCEDURE [simsig].[USp_UPSERT_TSIM]
+CREATE PROCEDURE [simsig].[Usp_UPSERT_TSIM]
 	@id SMALLINT = 0 OUTPUT,
 	@name NVARCHAR(128),
 	@description NVARCHAR(2048),

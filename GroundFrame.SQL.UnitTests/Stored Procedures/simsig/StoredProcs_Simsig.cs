@@ -136,6 +136,9 @@ namespace GroundFrame.SQL.UnitTests
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Upsert_TVERSION_Add2ndVersion_Check_Debug;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Check_VersionSplitError;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_USp_UPSERT_TVERSIONTest_PosttestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_Usp_GET_TSIMERA_BY_SIMTest_PosttestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_Usp_UPSERT_TSIMERATest_PosttestAction;
             this.simsig_USp_UPSERT_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_USp_GET_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_Usp_DELETE_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
@@ -240,6 +243,9 @@ namespace GroundFrame.SQL.UnitTests
             chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_To = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_Upsert_TVERSION_Add2ndVersion_Check_Debug = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
             chk_Upsert_TVERSION_Check_VersionSplitError = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            simsig_USp_UPSERT_TVERSIONTest_PosttestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            simsig_Usp_GET_TSIMERA_BY_SIMTest_PosttestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            simsig_Usp_UPSERT_TSIMERATest_PosttestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             // 
             // simsig_USp_UPSERT_TSIMTest_TestAction
             // 
@@ -1222,19 +1228,19 @@ namespace GroundFrame.SQL.UnitTests
             // 
             // simsig_Usp_GET_TSIMERA_BY_SIMTestData
             // 
-            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.PosttestAction = null;
+            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.PosttestAction = simsig_Usp_GET_TSIMERA_BY_SIMTest_PosttestAction;
             this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.PretestAction = null;
             this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.TestAction = simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction;
             // 
             // simsig_Usp_UPSERT_TSIMERATestData
             // 
-            this.simsig_Usp_UPSERT_TSIMERATestData.PosttestAction = null;
+            this.simsig_Usp_UPSERT_TSIMERATestData.PosttestAction = simsig_Usp_UPSERT_TSIMERATest_PosttestAction;
             this.simsig_Usp_UPSERT_TSIMERATestData.PretestAction = null;
             this.simsig_Usp_UPSERT_TSIMERATestData.TestAction = simsig_Usp_UPSERT_TSIMERATest_TestAction;
             // 
             // simsig_USp_UPSERT_TVERSIONTestData
             // 
-            this.simsig_USp_UPSERT_TVERSIONTestData.PosttestAction = null;
+            this.simsig_USp_UPSERT_TVERSIONTestData.PosttestAction = simsig_USp_UPSERT_TVERSIONTest_PosttestAction;
             this.simsig_USp_UPSERT_TVERSIONTestData.PretestAction = null;
             this.simsig_USp_UPSERT_TVERSIONTestData.TestAction = simsig_USp_UPSERT_TVERSIONTest_TestAction;
             // 
@@ -1248,6 +1254,18 @@ namespace GroundFrame.SQL.UnitTests
             chk_Upsert_TVERSION_Check_VersionSplitError.NullExpected = false;
             chk_Upsert_TVERSION_Check_VersionSplitError.ResultSet = 11;
             chk_Upsert_TVERSION_Check_VersionSplitError.RowNumber = 1;
+            // 
+            // simsig_USp_UPSERT_TVERSIONTest_PosttestAction
+            // 
+            resources.ApplyResources(simsig_USp_UPSERT_TVERSIONTest_PosttestAction, "simsig_USp_UPSERT_TVERSIONTest_PosttestAction");
+            // 
+            // simsig_Usp_GET_TSIMERA_BY_SIMTest_PosttestAction
+            // 
+            resources.ApplyResources(simsig_Usp_GET_TSIMERA_BY_SIMTest_PosttestAction, "simsig_Usp_GET_TSIMERA_BY_SIMTest_PosttestAction");
+            // 
+            // simsig_Usp_UPSERT_TSIMERATest_PosttestAction
+            // 
+            resources.ApplyResources(simsig_Usp_UPSERT_TSIMERATest_PosttestAction, "simsig_Usp_UPSERT_TSIMERATest_PosttestAction");
         }
 
         #endregion
