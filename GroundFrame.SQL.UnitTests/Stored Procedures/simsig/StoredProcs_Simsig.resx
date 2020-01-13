@@ -1239,6 +1239,13 @@ END CATCH
 SELECT 
 	[error_message] = @error_message;</value>
   </data>
+  <data name="simsig_USp_UPSERT_TVERSIONTest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>--Teardown Data
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_UPSERT_TVERSIONTest', @testdata_id = @testdata_id OUTPUT;
+DELETE FROM [simsig].[TVERSION] WHERE [testdata_id] = @testdata_id;</value>
+  </data>
   <data name="simsig_Usp_GET_TSIMERA_BY_SIMTest_PosttestAction.SqlScript" xml:space="preserve">
     <value>--Teardown Data
 
@@ -1267,12 +1274,126 @@ DELETE FROM [simsig].[TSIM]
 WHERE
 	[testdata_id] = @testdata_id;</value>
   </data>
-  <data name="simsig_USp_UPSERT_TVERSIONTest_PosttestAction.SqlScript" xml:space="preserve">
-    <value>--Teardown Data
+  <data name="simsig_USp_GET_TVERSIONTest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>-- Get TestData ID;
 
 DECLARE @testdata_id UNIQUEIDENTIFIER;
-EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_UPSERT_TVERSIONTest', @testdata_id = @testdata_id OUTPUT;
-DELETE FROM [simsig].[TVERSION] WHERE [testdata_id] = @testdata_id;</value>
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_GET_TVERSIONTest', @testdata_id = @testdata_id OUTPUT;
+
+--Teardown Records
+
+DELETE FROM [simsig].[TVERSION]
+WHERE
+	[testdata_id] = @testdata_id;</value>
+  </data>
+  <data name="simsig_USp_GET_TVERSIONTest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for simsig.USp_GET_TVERSION
+DECLARE @id1 AS SMALLINT, @id2 AS SMALLINT, @debug AS BIT = NULL, @debug_session_id AS UNIQUEIDENTIFIER = NULL, @testdata_id UNIQUEIDENTIFIER;
+
+-- Get TestData ID;
+
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_GET_TVERSIONTest', @testdata_id = @testdata_id OUTPUT;
+
+--Create some test data
+
+INSERT INTO [simsig].[TVERSION]
+(
+	[simsig_version_from],
+	[simsig_version_to],
+	[name],
+	[description],
+	[version_status_id],
+	[testdata_id]
+)
+VALUES
+(
+	1.0,
+	1.9,
+	N'Test Get Version Name 1',
+	N'Test Get Version Desc 1',
+	1,
+	@testdata_id
+)
+
+SELECT @id1 = CAST(SCOPE_IDENTITY() AS INT);
+
+INSERT INTO [simsig].[TVERSION]
+(
+	[simsig_version_from],
+	[simsig_version_to],
+	[name],
+	[description],
+	[version_status_id],
+	[testdata_id]
+)
+VALUES
+(
+	2.0,
+	NULL,
+	N'Test Get Version Name 2',
+	N'Test Get Version Desc 2',
+	2,
+	@testdata_id
+)
+
+SELECT @id2 = CAST(SCOPE_IDENTITY() AS INT);
+
+--Other Variables
+
+DECLARE @error_message NVARCHAR(248);
+
+--Check being not logged in raises an error
+
+BEGIN TRY
+	EXECUTE  [simsig].[USp_GET_TVERSION] @id = @id1, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 1
+
+SELECT
+	[error_message] = @error_message;
+
+--Log in Editor.
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY', @testdata_id = @testdata_id;
+
+--Check 1 Record is returned when specific ID (First Record) passed and check values.
+
+--Result Set 2
+
+EXEC [simsig].[USp_GET_TVERSION] @id = @id1, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+--Check passing 0 still returns 2 Records
+
+--Result Set 3
+
+EXEC [simsig].[USp_GET_TVERSION] @id = 0, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+--Log in Standard User.
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'teststandarduserAPIKEY', @testdata_id = @testdata_id;
+
+--Result Set 4
+
+EXEC [simsig].[USp_GET_TVERSION] @id = @id2, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+--Check returning all record for a standard user omits dev versions
+
+--Result Set 5
+
+EXEC [simsig].[USp_GET_TVERSION] @id = 0, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+--Check Debugging
+
+SET @debug = 1;
+
+--Result Set 6
+
+EXEC [simsig].[USp_GET_TVERSION] @id = 0, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

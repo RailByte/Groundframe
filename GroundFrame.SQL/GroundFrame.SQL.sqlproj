@@ -83,6 +83,8 @@
     <Folder Include="Functions" />
     <Folder Include="Functions\Scalar" />
     <Folder Include="Functions\Scalar\app" />
+    <Folder Include="Indexes\simsig" />
+    <Folder Include="Indexes\simsig\TVERSION" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\simsig.sql" />
@@ -129,7 +131,7 @@
     <Build Include="Schema\test.sql" />
     <Build Include="Tables\test\test.TTESTDATA.sql" />
     <Build Include="Stored Procedures\test\test.Usp_REGISTER_TESTDATA.sql" />
-    <Build Include="Stored Procedures\simsig\Copy of simsig.Usp_GET_TSIM.sql" />
+    <Build Include="Stored Procedures\simsig\simsig.Usp_GET_TSIM.sql" />
     <Build Include="Views\simsig\simsig.VVERSION.sql" />
     <Build Include="Functions\Scalar\app\app.Fn_GET_USERROLE.sql" />
   </ItemGroup>

@@ -242,7 +242,8 @@ namespace GroundFrame.Classes
                     //If no record around then 
                     throw new NoRowsException($"No Simulation Record Found");
                 }
-                else
+                
+                while (DataReader.Read())
                 {
                     //Parse the DataReader into the version object
                     this.ParseSqlDataReader(DataReader);
@@ -251,7 +252,7 @@ namespace GroundFrame.Classes
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException($"An error has occurred trying to retrieve Simuation Record ID {0} from the GroundFrame.SQL database.", Ex);
+                throw new ApplicationException($"An error has occurred trying to retrieve Simuation Record ID {this.ID} from the GroundFrame.SQL database.", Ex);
             }
             finally
             {
