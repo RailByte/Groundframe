@@ -1274,18 +1274,6 @@ DELETE FROM [simsig].[TSIM]
 WHERE
 	[testdata_id] = @testdata_id;</value>
   </data>
-  <data name="simsig_USp_GET_TVERSIONTest_PosttestAction.SqlScript" xml:space="preserve">
-    <value>-- Get TestData ID;
-
-DECLARE @testdata_id UNIQUEIDENTIFIER;
-EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_GET_TVERSIONTest', @testdata_id = @testdata_id OUTPUT;
-
---Teardown Records
-
-DELETE FROM [simsig].[TVERSION]
-WHERE
-	[testdata_id] = @testdata_id;</value>
-  </data>
   <data name="simsig_USp_GET_TVERSIONTest_TestAction.SqlScript" xml:space="preserve">
     <value>-- database unit test for simsig.USp_GET_TVERSION
 DECLARE @id1 AS SMALLINT, @id2 AS SMALLINT, @debug AS BIT = NULL, @debug_session_id AS UNIQUEIDENTIFIER = NULL, @testdata_id UNIQUEIDENTIFIER;
@@ -1394,6 +1382,321 @@ SET @debug = 1;
 
 EXEC [simsig].[USp_GET_TVERSION] @id = 0, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
 </value>
+  </data>
+  <data name="simsig_USp_GET_TVERSIONTest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>-- Get TestData ID;
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_GET_TVERSIONTest', @testdata_id = @testdata_id OUTPUT;
+
+--Teardown Records
+
+DELETE FROM [simsig].[TVERSION]
+WHERE
+	[testdata_id] = @testdata_id;</value>
+  </data>
+  <data name="simsig_USp_UPSERT_TLOCATIONTest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>--Teardown Data
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+
+--Get TestData ID 
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_UPSERT_TLOCATIONTest', @testdata_id = @testdata_id OUTPUT;
+
+--Delete records
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TLOCATION]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[testdata_id] = @testdata_id;
+</value>
+  </data>
+  <data name="simsig_USp_UPSERT_TLOCATIONTest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for simsig.USp_UPSERT_TLOCATION
+DECLARE @id AS SMALLINT, @sim_id AS SMALLINT, @tiploc AS NVARCHAR (16), @name AS NVARCHAR (64), @simsig_code AS NVARCHAR (16), @simsig_entry_point AS BIT, @datetime AS DATETIMEOFFSET (7), @debug AS BIT, @debug_session_id AS UNIQUEIDENTIFIER;
+
+--Other Variables
+
+DECLARE @error_message NVARCHAR(248) = N' No Error Raised';
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+
+--Get TestData ID 
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_UPSERT_TLOCATIONTest', @testdata_id = @testdata_id OUTPUT;
+
+--Check 1 -- Check not logged in raises error
+
+SELECT @tiploc = NULL,
+       @name = N'Test Upsert Location Name 1',
+       @simsig_code = N'TUPSERTLOC1',
+       @simsig_entry_point = 1,
+       @datetime = NULL,
+       @debug = 0;
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATION] @id OUTPUT, @sim_id, @tiploc, @name, @simsig_code, @simsig_entry_point, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY 
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 1
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 2 -- Check Standard User raises error
+
+--Log Standard User In
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'teststandarduserAPIKEY', @testdata_id = @testdata_id
+
+SET @error_message = N' No Error Raised';
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATION] @id OUTPUT, @sim_id, @tiploc, @name, @simsig_code, @simsig_entry_point, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY 
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 2
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 3 -- Check Invalid Name Errors
+
+--Log Editor In
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY', @testdata_id = @testdata_id
+
+SET @error_message = N' No Error Raised';
+SET @name = '';
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATION] @id OUTPUT, @sim_id, @tiploc, @name, @simsig_code, @simsig_entry_point, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY 
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 3 (Check Empty String)
+
+SELECT
+	[error_message] = @error_message;
+
+SET @error_message = N' No Error Raised';
+SET @name = NULL;
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATION] @id OUTPUT, @sim_id, @tiploc, @name, @simsig_code, @simsig_entry_point, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY 
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 4 (Check &lt;NULL&gt;)
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 4 -- Check Invalid SimSig Code Errors
+
+SET @error_message = N' No Error Raised';
+SET @name = N'Test Upsert Location Name 1';
+SET @simsig_code = '';
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATION] @id OUTPUT, @sim_id, @tiploc, @name, @simsig_code, @simsig_entry_point, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY 
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 5 (Check Empty String)
+
+SELECT
+	[error_message] = @error_message;
+
+SET @error_message = N' No Error Raised';
+SET @simsig_code = NULL;
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATION] @id OUTPUT, @sim_id, @tiploc, @name, @simsig_code, @simsig_entry_point, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY 
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 6 (Check &lt;NULL&gt;)
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 5 -- Check NULL Entry point flag Errors
+
+SET @error_message = N' No Error Raised';
+SET @name = N'Test Upsert Location Name 1';
+SET @simsig_code = 'TUPSERTLOC1';
+SET @simsig_entry_point = NULL
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATION] @id OUTPUT, @sim_id, @tiploc, @name, @simsig_code, @simsig_entry_point, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY 
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 7
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 6 -- Check Invalid Sim ID Errors
+
+SET @error_message = N' No Error Raised';
+SET @simsig_entry_point = 0
+SET @sim_id = -1;
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATION] @id OUTPUT, @sim_id, @tiploc, @name, @simsig_code, @simsig_entry_point, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY 
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 8
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 8 Check Record Creates Correctly
+
+SET @error_message = N' No Error Raised';
+SET @simsig_entry_point = 0
+SET @sim_id = 0;
+
+--Log Admin In (this will check this role works ok going forward).
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testadminuserAPIKEY', @testdata_id = @testdata_id;
+
+--Create Sim
+
+EXEC [simsig].[Usp_UPSERT_TSIM] @id = @sim_id OUTPUT, @name = N'Test Upsert Location Sim Name 1', @description = N'Test Upsert Location Sim Desc 1', @simsig_wiki_link = NULL, @simsig_code = 'Test Uplocation Location Code 1', @datetime = NULL;
+
+--Create Location
+
+EXEC [simsig].[USp_UPSERT_TLOCATION] @id OUTPUT, @sim_id, @tiploc, @name, @simsig_code, @simsig_entry_point, @datetime, @debug, @debug_session_id OUTPUT;
+
+--Result Set 9
+
+SELECT
+	[sim_id] = CAST(CASE WHEN [sim_id] = @sim_id THEN 1 ELSE 0 END AS BIT),
+	[tiploc],
+	[name],
+	[simsig_code],
+	[simsig_entry_point],
+	[testdata_id] = CAST(CASE WHEN [testdata_id] = @testdata_id THEN 1 ELSE 0 END AS BIT),
+	[createdby_id],
+	[createdby_app_id],
+	[createdon] = CAST(CASE WHEN [createdon] IS NOT NULL THEN 1 ELSE 0 END AS BIT),
+	[modifiedby_id],
+	[modifiedby_app_id],
+	[modifiedon] = CAST(CASE WHEN [modifiedon] IS NOT NULL THEN 1 ELSE 0 END AS BIT)
+FROM [simsig].[TLOCATION]
+WHERE
+	[id] = @id;
+
+--Check 9 Updating ID change record
+
+--Log Editor back in
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY', @testdata_id = @testdata_id
+
+SELECT @tiploc = 'TIPLOC2',
+       @name = N'Test Upsert Location Name 2',
+       @simsig_code = N'TUPSERTLOC2',
+       @simsig_entry_point = 1,
+       @datetime = SYSDATETIMEOFFSET(),
+       @debug = 0;
+
+EXEC [simsig].[USp_UPSERT_TLOCATION] @id OUTPUT, @sim_id, @tiploc, @name, @simsig_code, @simsig_entry_point, @datetime, @debug, @debug_session_id OUTPUT;
+
+--Result Set 10
+
+SELECT
+	[sim_id] = CAST(CASE WHEN [sim_id] = @sim_id THEN 1 ELSE 0 END AS BIT),
+	[tiploc],
+	[name],
+	[simsig_code],
+	[simsig_entry_point],
+	[testdata_id] = CAST(CASE WHEN [testdata_id] = @testdata_id THEN 1 ELSE 0 END AS BIT),
+	[createdby_id],
+	[createdby_app_id],
+	[createdon] = CAST(CASE WHEN [createdon] IS NOT NULL THEN 1 ELSE 0 END AS BIT),
+	[modifiedby_id],
+	[modifiedby_app_id],
+	[modifiedon] = CAST(CASE WHEN [modifiedon] = @datetime THEN 1 ELSE 0 END AS BIT)
+FROM [simsig].[TLOCATION]
+WHERE
+	[id] = @id;
+
+--Check 10 Updating Name change record
+
+DECLARE @existing_id SMALLINT = @id;
+SET @id = 0;
+
+EXEC [simsig].[USp_UPSERT_TLOCATION] @id OUTPUT, @sim_id, @tiploc, @name, @simsig_code, @simsig_entry_point, @datetime, @debug, @debug_session_id OUTPUT;
+
+--Result Set 11
+
+SELECT
+	[same_id_flag] = CAST(CASE WHEN @id = @existing_id THEN 1 ELSE 0 END AS BIT);
+
+--Check 11 Check Debug
+
+SELECT @tiploc = NULL,
+       @name = N'Test Upsert Location Name 3',
+       @simsig_code = N'TUPSERTLOC3',
+       @simsig_entry_point = 1,
+       @datetime = NULL,
+       @debug = 1;
+
+EXEC [simsig].[USp_UPSERT_TLOCATION] @id OUTPUT, @sim_id, @tiploc, @name, @simsig_code, @simsig_entry_point, @datetime, @debug, @debug_session_id OUTPUT;
+
+--Result Set 12
+
+SELECT
+	[sim_id] = CAST(CASE WHEN [sim_id] = @sim_id THEN 1 ELSE 0 END AS BIT),
+	[tiploc],
+	[name],
+	[simsig_code],
+	[simsig_entry_point],
+	[testdata_id] = CAST(CASE WHEN [testdata_id] = @testdata_id THEN 1 ELSE 0 END AS BIT),
+	[createdby_id],
+	[createdby_app_id],
+	[createdon] = CAST(CASE WHEN [createdon] IS NOT NULL THEN 1 ELSE 0 END AS BIT),
+	[modifiedby_id],
+	[modifiedby_app_id],
+	[modifiedon] = CAST(CASE WHEN [modifiedon] = @datetime THEN 1 ELSE 0 END AS BIT)
+FROM [simsig].[TLOCATION]
+WHERE
+	[id] = @id;
+
+--Result Set 13
+
+SELECT
+	*
+FROM [audit].[TEVENT]
+WHERE
+	[debug_session_id] = @debug_session_id</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

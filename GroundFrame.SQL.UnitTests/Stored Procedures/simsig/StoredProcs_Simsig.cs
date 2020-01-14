@@ -141,7 +141,6 @@ namespace GroundFrame.SQL.UnitTests
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_Usp_UPSERT_TSIMERATest_PosttestAction;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_USp_GET_TVERSIONTest_TestAction;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Usp_GET_VERSION_Check_User_Not_Logged_In_Error;
-            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_USp_GET_TVERSIONTest_PosttestAction;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_Usp_GET_VERSION_Check_SingleIDPassed_RowCount;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Usp_GET_VERSION_Check_SingleIDPassed_Name;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Usp_GET_VERSION_Check_SingleIDPassed_Desc;
@@ -151,6 +150,41 @@ namespace GroundFrame.SQL.UnitTests
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_Usp_GET_VERSION_Check_Get_All_Editor_User_RowCount;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_Usp_GET_VERSION_Check_Get_All_StandardUser_User_RowCount;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Usp_GET_VERSION_Check_Debugging;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_USp_GET_TVERSIONTest_PosttestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_USp_UPSERT_TLOCATIONTest_TestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Not_LoggedIn_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_StandardUser_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_InValidName_EmptyString_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_InValidName_NULL_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_InValidSimSigCode_EmptyString_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_InValidSimSigCode_NULL_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_InValidEntryPointFlag_NULL_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_InValid_SimID_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_USp_UPSERT_TLOCATIONTest_PosttestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Insert_SimID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Insert_Tiploc;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Insert_Name;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Insert_SimSigCode;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Insert_EntryPointFlag;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Insert_TestDataID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Insert_CreatedByID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Insert_CreatedByAppID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Insert_CreatedOn;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Insert_ModifiedByID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Insert_ModifiedByAppID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Insert_ModifiedOn;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Update_SimID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Update_TIPLOC;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Update_Name;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Update_Code;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Update_EntryFlag;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Update_CreatedByID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Update_CreatedAppID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Update_ModifiedByID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Update_ModifiedAppID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_Update_ModifiedOn;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TLOCATION_Check_UpdateByName_CheckID;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Upsert_TLOCATION_Check_CheckDebug_CreatesLocation;
             this.simsig_USp_UPSERT_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_USp_GET_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_Usp_DELETE_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
@@ -158,6 +192,7 @@ namespace GroundFrame.SQL.UnitTests
             this.simsig_Usp_UPSERT_TSIMERATestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_USp_UPSERT_TVERSIONTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_USp_GET_TVERSIONTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            this.simsig_USp_UPSERT_TLOCATIONTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             simsig_USp_UPSERT_TSIMTest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             chk_NotLoggedIn_Errors = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_NULLName_Errors = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
@@ -261,7 +296,6 @@ namespace GroundFrame.SQL.UnitTests
             simsig_Usp_UPSERT_TSIMERATest_PosttestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             simsig_USp_GET_TVERSIONTest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             chk_Usp_GET_VERSION_Check_User_Not_Logged_In_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
-            simsig_USp_GET_TVERSIONTest_PosttestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             chk_Usp_GET_VERSION_Check_SingleIDPassed_RowCount = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
             chk_Usp_GET_VERSION_Check_SingleIDPassed_Name = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_Usp_GET_VERSION_Check_SingleIDPassed_Desc = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
@@ -271,6 +305,41 @@ namespace GroundFrame.SQL.UnitTests
             chk_Usp_GET_VERSION_Check_Get_All_Editor_User_RowCount = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
             chk_Usp_GET_VERSION_Check_Get_All_StandardUser_User_RowCount = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
             chk_Usp_GET_VERSION_Check_Debugging = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
+            simsig_USp_GET_TVERSIONTest_PosttestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            chk_Upsert_TLOCATION_Not_LoggedIn_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_StandardUser_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_InValidName_EmptyString_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_InValidName_NULL_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_InValidSimSigCode_EmptyString_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_InValidSimSigCode_NULL_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_InValidEntryPointFlag_NULL_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_InValid_SimID_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            simsig_USp_UPSERT_TLOCATIONTest_PosttestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            chk_Upsert_TLOCATION_Check_Insert_SimID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Insert_Tiploc = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Insert_Name = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Insert_SimSigCode = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Insert_EntryPointFlag = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Insert_TestDataID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByAppID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Insert_CreatedOn = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByAppID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedOn = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Update_SimID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Update_TIPLOC = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Update_Name = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Update_Code = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Update_EntryFlag = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Update_CreatedByID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Update_CreatedAppID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Update_ModifiedByID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Update_ModifiedAppID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_Update_ModifiedOn = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_UpdateByName_CheckID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Upsert_TLOCATION_Check_CheckDebug_CreatesLocation = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
             // 
             // simsig_USp_UPSERT_TSIMTest_TestAction
             // 
@@ -1256,48 +1325,6 @@ namespace GroundFrame.SQL.UnitTests
             // 
             resources.ApplyResources(simsig_Usp_UPSERT_TSIMERATest_PosttestAction, "simsig_Usp_UPSERT_TSIMERATest_PosttestAction");
             // 
-            // simsig_USp_UPSERT_TSIMTestData
-            // 
-            this.simsig_USp_UPSERT_TSIMTestData.PosttestAction = simsig_USp_UPSERT_TSIMTest_PosttestAction;
-            this.simsig_USp_UPSERT_TSIMTestData.PretestAction = null;
-            this.simsig_USp_UPSERT_TSIMTestData.TestAction = simsig_USp_UPSERT_TSIMTest_TestAction;
-            // 
-            // simsig_USp_GET_TSIMTestData
-            // 
-            this.simsig_USp_GET_TSIMTestData.PosttestAction = simsig_USp_GET_TSIMTest_PosttestAction;
-            this.simsig_USp_GET_TSIMTestData.PretestAction = null;
-            this.simsig_USp_GET_TSIMTestData.TestAction = simsig_USp_GET_TSIMTest_TestAction;
-            // 
-            // simsig_Usp_DELETE_TSIMTestData
-            // 
-            this.simsig_Usp_DELETE_TSIMTestData.PosttestAction = null;
-            this.simsig_Usp_DELETE_TSIMTestData.PretestAction = null;
-            this.simsig_Usp_DELETE_TSIMTestData.TestAction = simsig_Usp_DELETE_TSIMTest_TestAction;
-            // 
-            // simsig_Usp_GET_TSIMERA_BY_SIMTestData
-            // 
-            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.PosttestAction = simsig_Usp_GET_TSIMERA_BY_SIMTest_PosttestAction;
-            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.PretestAction = null;
-            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.TestAction = simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction;
-            // 
-            // simsig_Usp_UPSERT_TSIMERATestData
-            // 
-            this.simsig_Usp_UPSERT_TSIMERATestData.PosttestAction = simsig_Usp_UPSERT_TSIMERATest_PosttestAction;
-            this.simsig_Usp_UPSERT_TSIMERATestData.PretestAction = null;
-            this.simsig_Usp_UPSERT_TSIMERATestData.TestAction = simsig_Usp_UPSERT_TSIMERATest_TestAction;
-            // 
-            // simsig_USp_UPSERT_TVERSIONTestData
-            // 
-            this.simsig_USp_UPSERT_TVERSIONTestData.PosttestAction = simsig_USp_UPSERT_TVERSIONTest_PosttestAction;
-            this.simsig_USp_UPSERT_TVERSIONTestData.PretestAction = null;
-            this.simsig_USp_UPSERT_TVERSIONTestData.TestAction = simsig_USp_UPSERT_TVERSIONTest_TestAction;
-            // 
-            // simsig_USp_GET_TVERSIONTestData
-            // 
-            this.simsig_USp_GET_TVERSIONTestData.PosttestAction = simsig_USp_GET_TVERSIONTest_PosttestAction;
-            this.simsig_USp_GET_TVERSIONTestData.PretestAction = null;
-            this.simsig_USp_GET_TVERSIONTestData.TestAction = simsig_USp_GET_TVERSIONTest_TestAction;
-            // 
             // simsig_USp_GET_TVERSIONTest_TestAction
             // 
             simsig_USp_GET_TVERSIONTest_TestAction.Conditions.Add(chk_Usp_GET_VERSION_Check_User_Not_Logged_In_Error);
@@ -1321,10 +1348,6 @@ namespace GroundFrame.SQL.UnitTests
             chk_Usp_GET_VERSION_Check_User_Not_Logged_In_Error.NullExpected = false;
             chk_Usp_GET_VERSION_Check_User_Not_Logged_In_Error.ResultSet = 1;
             chk_Usp_GET_VERSION_Check_User_Not_Logged_In_Error.RowNumber = 1;
-            // 
-            // simsig_USp_GET_TVERSIONTest_PosttestAction
-            // 
-            resources.ApplyResources(simsig_USp_GET_TVERSIONTest_PosttestAction, "simsig_USp_GET_TVERSIONTest_PosttestAction");
             // 
             // chk_Usp_GET_VERSION_Check_SingleIDPassed_RowCount
             // 
@@ -1402,6 +1425,414 @@ namespace GroundFrame.SQL.UnitTests
             chk_Usp_GET_VERSION_Check_Debugging.Enabled = true;
             chk_Usp_GET_VERSION_Check_Debugging.Name = "chk_Usp_GET_VERSION_Check_Debugging";
             chk_Usp_GET_VERSION_Check_Debugging.ResultSet = 6;
+            // 
+            // simsig_USp_GET_TVERSIONTest_PosttestAction
+            // 
+            resources.ApplyResources(simsig_USp_GET_TVERSIONTest_PosttestAction, "simsig_USp_GET_TVERSIONTest_PosttestAction");
+            // 
+            // simsig_USp_UPSERT_TSIMTestData
+            // 
+            this.simsig_USp_UPSERT_TSIMTestData.PosttestAction = simsig_USp_UPSERT_TSIMTest_PosttestAction;
+            this.simsig_USp_UPSERT_TSIMTestData.PretestAction = null;
+            this.simsig_USp_UPSERT_TSIMTestData.TestAction = simsig_USp_UPSERT_TSIMTest_TestAction;
+            // 
+            // simsig_USp_GET_TSIMTestData
+            // 
+            this.simsig_USp_GET_TSIMTestData.PosttestAction = simsig_USp_GET_TSIMTest_PosttestAction;
+            this.simsig_USp_GET_TSIMTestData.PretestAction = null;
+            this.simsig_USp_GET_TSIMTestData.TestAction = simsig_USp_GET_TSIMTest_TestAction;
+            // 
+            // simsig_Usp_DELETE_TSIMTestData
+            // 
+            this.simsig_Usp_DELETE_TSIMTestData.PosttestAction = null;
+            this.simsig_Usp_DELETE_TSIMTestData.PretestAction = null;
+            this.simsig_Usp_DELETE_TSIMTestData.TestAction = simsig_Usp_DELETE_TSIMTest_TestAction;
+            // 
+            // simsig_Usp_GET_TSIMERA_BY_SIMTestData
+            // 
+            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.PosttestAction = simsig_Usp_GET_TSIMERA_BY_SIMTest_PosttestAction;
+            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.PretestAction = null;
+            this.simsig_Usp_GET_TSIMERA_BY_SIMTestData.TestAction = simsig_Usp_GET_TSIMERA_BY_SIMTest_TestAction;
+            // 
+            // simsig_Usp_UPSERT_TSIMERATestData
+            // 
+            this.simsig_Usp_UPSERT_TSIMERATestData.PosttestAction = simsig_Usp_UPSERT_TSIMERATest_PosttestAction;
+            this.simsig_Usp_UPSERT_TSIMERATestData.PretestAction = null;
+            this.simsig_Usp_UPSERT_TSIMERATestData.TestAction = simsig_Usp_UPSERT_TSIMERATest_TestAction;
+            // 
+            // simsig_USp_UPSERT_TVERSIONTestData
+            // 
+            this.simsig_USp_UPSERT_TVERSIONTestData.PosttestAction = simsig_USp_UPSERT_TVERSIONTest_PosttestAction;
+            this.simsig_USp_UPSERT_TVERSIONTestData.PretestAction = null;
+            this.simsig_USp_UPSERT_TVERSIONTestData.TestAction = simsig_USp_UPSERT_TVERSIONTest_TestAction;
+            // 
+            // simsig_USp_GET_TVERSIONTestData
+            // 
+            this.simsig_USp_GET_TVERSIONTestData.PosttestAction = simsig_USp_GET_TVERSIONTest_PosttestAction;
+            this.simsig_USp_GET_TVERSIONTestData.PretestAction = null;
+            this.simsig_USp_GET_TVERSIONTestData.TestAction = simsig_USp_GET_TVERSIONTest_TestAction;
+            // 
+            // simsig_USp_UPSERT_TLOCATIONTestData
+            // 
+            this.simsig_USp_UPSERT_TLOCATIONTestData.PosttestAction = simsig_USp_UPSERT_TLOCATIONTest_PosttestAction;
+            this.simsig_USp_UPSERT_TLOCATIONTestData.PretestAction = null;
+            this.simsig_USp_UPSERT_TLOCATIONTestData.TestAction = simsig_USp_UPSERT_TLOCATIONTest_TestAction;
+            // 
+            // simsig_USp_UPSERT_TLOCATIONTest_TestAction
+            // 
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Not_LoggedIn_Error);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_StandardUser_Error);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_InValidName_EmptyString_Error);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_InValidName_NULL_Error);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_InValidSimSigCode_EmptyString_Error);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_InValidSimSigCode_NULL_Error);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_InValidEntryPointFlag_NULL_Error);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_InValid_SimID_Error);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Insert_SimID);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Insert_Tiploc);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Insert_Name);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Insert_SimSigCode);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Insert_EntryPointFlag);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Insert_TestDataID);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Insert_CreatedByID);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Insert_CreatedByAppID);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Insert_CreatedOn);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Insert_ModifiedByID);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Insert_ModifiedByAppID);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Insert_ModifiedOn);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Update_SimID);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Update_TIPLOC);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Update_Name);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Update_Code);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Update_EntryFlag);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Update_CreatedByID);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Update_CreatedAppID);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Update_ModifiedByID);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Update_ModifiedAppID);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_Update_ModifiedOn);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_UpdateByName_CheckID);
+            simsig_USp_UPSERT_TLOCATIONTest_TestAction.Conditions.Add(chk_Upsert_TLOCATION_Check_CheckDebug_CreatesLocation);
+            resources.ApplyResources(simsig_USp_UPSERT_TLOCATIONTest_TestAction, "simsig_USp_UPSERT_TLOCATIONTest_TestAction");
+            // 
+            // chk_Upsert_TLOCATION_Not_LoggedIn_Error
+            // 
+            chk_Upsert_TLOCATION_Not_LoggedIn_Error.ColumnNumber = 1;
+            chk_Upsert_TLOCATION_Not_LoggedIn_Error.Enabled = true;
+            chk_Upsert_TLOCATION_Not_LoggedIn_Error.ExpectedValue = "The user is not logged in.";
+            chk_Upsert_TLOCATION_Not_LoggedIn_Error.Name = "chk_Upsert_TLOCATION_Not_LoggedIn_Error";
+            chk_Upsert_TLOCATION_Not_LoggedIn_Error.NullExpected = false;
+            chk_Upsert_TLOCATION_Not_LoggedIn_Error.ResultSet = 1;
+            chk_Upsert_TLOCATION_Not_LoggedIn_Error.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_StandardUser_Error
+            // 
+            chk_Upsert_TLOCATION_StandardUser_Error.ColumnNumber = 1;
+            chk_Upsert_TLOCATION_StandardUser_Error.Enabled = true;
+            chk_Upsert_TLOCATION_StandardUser_Error.ExpectedValue = "The user does not have permission to perform this action.";
+            chk_Upsert_TLOCATION_StandardUser_Error.Name = "chk_Upsert_TLOCATION_StandardUser_Error";
+            chk_Upsert_TLOCATION_StandardUser_Error.NullExpected = false;
+            chk_Upsert_TLOCATION_StandardUser_Error.ResultSet = 2;
+            chk_Upsert_TLOCATION_StandardUser_Error.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_InValidName_EmptyString_Error
+            // 
+            chk_Upsert_TLOCATION_InValidName_EmptyString_Error.ColumnNumber = 1;
+            chk_Upsert_TLOCATION_InValidName_EmptyString_Error.Enabled = true;
+            chk_Upsert_TLOCATION_InValidName_EmptyString_Error.ExpectedValue = "No valid name was supplied for the location.";
+            chk_Upsert_TLOCATION_InValidName_EmptyString_Error.Name = "chk_Upsert_TLOCATION_InValidName_EmptyString_Error";
+            chk_Upsert_TLOCATION_InValidName_EmptyString_Error.NullExpected = false;
+            chk_Upsert_TLOCATION_InValidName_EmptyString_Error.ResultSet = 3;
+            chk_Upsert_TLOCATION_InValidName_EmptyString_Error.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_InValidName_NULL_Error
+            // 
+            chk_Upsert_TLOCATION_InValidName_NULL_Error.ColumnNumber = 1;
+            chk_Upsert_TLOCATION_InValidName_NULL_Error.Enabled = true;
+            chk_Upsert_TLOCATION_InValidName_NULL_Error.ExpectedValue = "No valid name was supplied for the location.";
+            chk_Upsert_TLOCATION_InValidName_NULL_Error.Name = "chk_Upsert_TLOCATION_InValidName_NULL_Error";
+            chk_Upsert_TLOCATION_InValidName_NULL_Error.NullExpected = false;
+            chk_Upsert_TLOCATION_InValidName_NULL_Error.ResultSet = 4;
+            chk_Upsert_TLOCATION_InValidName_NULL_Error.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_InValidSimSigCode_EmptyString_Error
+            // 
+            chk_Upsert_TLOCATION_InValidSimSigCode_EmptyString_Error.ColumnNumber = 1;
+            chk_Upsert_TLOCATION_InValidSimSigCode_EmptyString_Error.Enabled = true;
+            chk_Upsert_TLOCATION_InValidSimSigCode_EmptyString_Error.ExpectedValue = "No valid simsig code was supplied for the location.";
+            chk_Upsert_TLOCATION_InValidSimSigCode_EmptyString_Error.Name = "chk_Upsert_TLOCATION_InValidSimSigCode_EmptyString_Error";
+            chk_Upsert_TLOCATION_InValidSimSigCode_EmptyString_Error.NullExpected = false;
+            chk_Upsert_TLOCATION_InValidSimSigCode_EmptyString_Error.ResultSet = 5;
+            chk_Upsert_TLOCATION_InValidSimSigCode_EmptyString_Error.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_InValidSimSigCode_NULL_Error
+            // 
+            chk_Upsert_TLOCATION_InValidSimSigCode_NULL_Error.ColumnNumber = 1;
+            chk_Upsert_TLOCATION_InValidSimSigCode_NULL_Error.Enabled = true;
+            chk_Upsert_TLOCATION_InValidSimSigCode_NULL_Error.ExpectedValue = "No valid simsig code was supplied for the location.";
+            chk_Upsert_TLOCATION_InValidSimSigCode_NULL_Error.Name = "chk_Upsert_TLOCATION_InValidSimSigCode_NULL_Error";
+            chk_Upsert_TLOCATION_InValidSimSigCode_NULL_Error.NullExpected = false;
+            chk_Upsert_TLOCATION_InValidSimSigCode_NULL_Error.ResultSet = 6;
+            chk_Upsert_TLOCATION_InValidSimSigCode_NULL_Error.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_InValidEntryPointFlag_NULL_Error
+            // 
+            chk_Upsert_TLOCATION_InValidEntryPointFlag_NULL_Error.ColumnNumber = 1;
+            chk_Upsert_TLOCATION_InValidEntryPointFlag_NULL_Error.Enabled = true;
+            chk_Upsert_TLOCATION_InValidEntryPointFlag_NULL_Error.ExpectedValue = "No valid simsig entry point flag was supplied for the location.";
+            chk_Upsert_TLOCATION_InValidEntryPointFlag_NULL_Error.Name = "chk_Upsert_TLOCATION_InValidEntryPointFlag_NULL_Error";
+            chk_Upsert_TLOCATION_InValidEntryPointFlag_NULL_Error.NullExpected = false;
+            chk_Upsert_TLOCATION_InValidEntryPointFlag_NULL_Error.ResultSet = 7;
+            chk_Upsert_TLOCATION_InValidEntryPointFlag_NULL_Error.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_InValid_SimID_Error
+            // 
+            chk_Upsert_TLOCATION_InValid_SimID_Error.ColumnNumber = 1;
+            chk_Upsert_TLOCATION_InValid_SimID_Error.Enabled = true;
+            chk_Upsert_TLOCATION_InValid_SimID_Error.ExpectedValue = "No valid simulation was supplied for the location.";
+            chk_Upsert_TLOCATION_InValid_SimID_Error.Name = "chk_Upsert_TLOCATION_InValid_SimID_Error";
+            chk_Upsert_TLOCATION_InValid_SimID_Error.NullExpected = false;
+            chk_Upsert_TLOCATION_InValid_SimID_Error.ResultSet = 8;
+            chk_Upsert_TLOCATION_InValid_SimID_Error.RowNumber = 1;
+            // 
+            // simsig_USp_UPSERT_TLOCATIONTest_PosttestAction
+            // 
+            resources.ApplyResources(simsig_USp_UPSERT_TLOCATIONTest_PosttestAction, "simsig_USp_UPSERT_TLOCATIONTest_PosttestAction");
+            // 
+            // chk_Upsert_TLOCATION_Check_Insert_SimID
+            // 
+            chk_Upsert_TLOCATION_Check_Insert_SimID.ColumnNumber = 1;
+            chk_Upsert_TLOCATION_Check_Insert_SimID.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Insert_SimID.ExpectedValue = "true";
+            chk_Upsert_TLOCATION_Check_Insert_SimID.Name = "chk_Upsert_TLOCATION_Check_Insert_SimID";
+            chk_Upsert_TLOCATION_Check_Insert_SimID.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Insert_SimID.ResultSet = 9;
+            chk_Upsert_TLOCATION_Check_Insert_SimID.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Insert_Tiploc
+            // 
+            chk_Upsert_TLOCATION_Check_Insert_Tiploc.ColumnNumber = 2;
+            chk_Upsert_TLOCATION_Check_Insert_Tiploc.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Insert_Tiploc.ExpectedValue = null;
+            chk_Upsert_TLOCATION_Check_Insert_Tiploc.Name = "chk_Upsert_TLOCATION_Check_Insert_Tiploc";
+            chk_Upsert_TLOCATION_Check_Insert_Tiploc.NullExpected = true;
+            chk_Upsert_TLOCATION_Check_Insert_Tiploc.ResultSet = 9;
+            chk_Upsert_TLOCATION_Check_Insert_Tiploc.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Insert_Name
+            // 
+            chk_Upsert_TLOCATION_Check_Insert_Name.ColumnNumber = 3;
+            chk_Upsert_TLOCATION_Check_Insert_Name.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Insert_Name.ExpectedValue = "Test Upsert Location Name 1";
+            chk_Upsert_TLOCATION_Check_Insert_Name.Name = "chk_Upsert_TLOCATION_Check_Insert_Name";
+            chk_Upsert_TLOCATION_Check_Insert_Name.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Insert_Name.ResultSet = 9;
+            chk_Upsert_TLOCATION_Check_Insert_Name.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Insert_SimSigCode
+            // 
+            chk_Upsert_TLOCATION_Check_Insert_SimSigCode.ColumnNumber = 4;
+            chk_Upsert_TLOCATION_Check_Insert_SimSigCode.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Insert_SimSigCode.ExpectedValue = "TUPSERTLOC1";
+            chk_Upsert_TLOCATION_Check_Insert_SimSigCode.Name = "chk_Upsert_TLOCATION_Check_Insert_SimSigCode";
+            chk_Upsert_TLOCATION_Check_Insert_SimSigCode.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Insert_SimSigCode.ResultSet = 9;
+            chk_Upsert_TLOCATION_Check_Insert_SimSigCode.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Insert_EntryPointFlag
+            // 
+            chk_Upsert_TLOCATION_Check_Insert_EntryPointFlag.ColumnNumber = 5;
+            chk_Upsert_TLOCATION_Check_Insert_EntryPointFlag.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Insert_EntryPointFlag.ExpectedValue = "false";
+            chk_Upsert_TLOCATION_Check_Insert_EntryPointFlag.Name = "chk_Upsert_TLOCATION_Check_Insert_EntryPointFlag";
+            chk_Upsert_TLOCATION_Check_Insert_EntryPointFlag.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Insert_EntryPointFlag.ResultSet = 9;
+            chk_Upsert_TLOCATION_Check_Insert_EntryPointFlag.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Insert_TestDataID
+            // 
+            chk_Upsert_TLOCATION_Check_Insert_TestDataID.ColumnNumber = 6;
+            chk_Upsert_TLOCATION_Check_Insert_TestDataID.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Insert_TestDataID.ExpectedValue = "true";
+            chk_Upsert_TLOCATION_Check_Insert_TestDataID.Name = "chk_Upsert_TLOCATION_Check_Insert_TestDataID";
+            chk_Upsert_TLOCATION_Check_Insert_TestDataID.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Insert_TestDataID.ResultSet = 9;
+            chk_Upsert_TLOCATION_Check_Insert_TestDataID.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Insert_CreatedByID
+            // 
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByID.ColumnNumber = 7;
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByID.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByID.ExpectedValue = "4";
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByID.Name = "chk_Upsert_TLOCATION_Check_Insert_CreatedByID";
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByID.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByID.ResultSet = 9;
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByID.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Insert_CreatedByAppID
+            // 
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByAppID.ColumnNumber = 8;
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByAppID.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByAppID.ExpectedValue = "2";
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByAppID.Name = "chk_Upsert_TLOCATION_Check_Insert_CreatedByAppID";
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByAppID.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByAppID.ResultSet = 9;
+            chk_Upsert_TLOCATION_Check_Insert_CreatedByAppID.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Insert_CreatedOn
+            // 
+            chk_Upsert_TLOCATION_Check_Insert_CreatedOn.ColumnNumber = 9;
+            chk_Upsert_TLOCATION_Check_Insert_CreatedOn.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Insert_CreatedOn.ExpectedValue = "true";
+            chk_Upsert_TLOCATION_Check_Insert_CreatedOn.Name = "chk_Upsert_TLOCATION_Check_Insert_CreatedOn";
+            chk_Upsert_TLOCATION_Check_Insert_CreatedOn.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Insert_CreatedOn.ResultSet = 9;
+            chk_Upsert_TLOCATION_Check_Insert_CreatedOn.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Insert_ModifiedByID
+            // 
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByID.ColumnNumber = 10;
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByID.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByID.ExpectedValue = "4";
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByID.Name = "chk_Upsert_TLOCATION_Check_Insert_ModifiedByID";
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByID.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByID.ResultSet = 9;
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByID.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Insert_ModifiedByAppID
+            // 
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByAppID.ColumnNumber = 11;
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByAppID.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByAppID.ExpectedValue = "2";
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByAppID.Name = "chk_Upsert_TLOCATION_Check_Insert_ModifiedByAppID";
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByAppID.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByAppID.ResultSet = 9;
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedByAppID.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Insert_ModifiedOn
+            // 
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedOn.ColumnNumber = 12;
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedOn.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedOn.ExpectedValue = "true";
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedOn.Name = "chk_Upsert_TLOCATION_Check_Insert_ModifiedOn";
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedOn.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedOn.ResultSet = 9;
+            chk_Upsert_TLOCATION_Check_Insert_ModifiedOn.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Update_SimID
+            // 
+            chk_Upsert_TLOCATION_Check_Update_SimID.ColumnNumber = 1;
+            chk_Upsert_TLOCATION_Check_Update_SimID.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Update_SimID.ExpectedValue = "true";
+            chk_Upsert_TLOCATION_Check_Update_SimID.Name = "chk_Upsert_TLOCATION_Check_Update_SimID";
+            chk_Upsert_TLOCATION_Check_Update_SimID.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Update_SimID.ResultSet = 10;
+            chk_Upsert_TLOCATION_Check_Update_SimID.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Update_TIPLOC
+            // 
+            chk_Upsert_TLOCATION_Check_Update_TIPLOC.ColumnNumber = 2;
+            chk_Upsert_TLOCATION_Check_Update_TIPLOC.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Update_TIPLOC.ExpectedValue = "TIPLOC2";
+            chk_Upsert_TLOCATION_Check_Update_TIPLOC.Name = "chk_Upsert_TLOCATION_Check_Update_TIPLOC";
+            chk_Upsert_TLOCATION_Check_Update_TIPLOC.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Update_TIPLOC.ResultSet = 10;
+            chk_Upsert_TLOCATION_Check_Update_TIPLOC.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Update_Name
+            // 
+            chk_Upsert_TLOCATION_Check_Update_Name.ColumnNumber = 3;
+            chk_Upsert_TLOCATION_Check_Update_Name.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Update_Name.ExpectedValue = "Test Upsert Location Name 2";
+            chk_Upsert_TLOCATION_Check_Update_Name.Name = "chk_Upsert_TLOCATION_Check_Update_Name";
+            chk_Upsert_TLOCATION_Check_Update_Name.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Update_Name.ResultSet = 10;
+            chk_Upsert_TLOCATION_Check_Update_Name.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Update_Code
+            // 
+            chk_Upsert_TLOCATION_Check_Update_Code.ColumnNumber = 4;
+            chk_Upsert_TLOCATION_Check_Update_Code.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Update_Code.ExpectedValue = "TUPSERTLOC2";
+            chk_Upsert_TLOCATION_Check_Update_Code.Name = "chk_Upsert_TLOCATION_Check_Update_Code";
+            chk_Upsert_TLOCATION_Check_Update_Code.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Update_Code.ResultSet = 10;
+            chk_Upsert_TLOCATION_Check_Update_Code.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Update_EntryFlag
+            // 
+            chk_Upsert_TLOCATION_Check_Update_EntryFlag.ColumnNumber = 5;
+            chk_Upsert_TLOCATION_Check_Update_EntryFlag.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Update_EntryFlag.ExpectedValue = "true";
+            chk_Upsert_TLOCATION_Check_Update_EntryFlag.Name = "chk_Upsert_TLOCATION_Check_Update_EntryFlag";
+            chk_Upsert_TLOCATION_Check_Update_EntryFlag.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Update_EntryFlag.ResultSet = 10;
+            chk_Upsert_TLOCATION_Check_Update_EntryFlag.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Update_CreatedByID
+            // 
+            chk_Upsert_TLOCATION_Check_Update_CreatedByID.ColumnNumber = 7;
+            chk_Upsert_TLOCATION_Check_Update_CreatedByID.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Update_CreatedByID.ExpectedValue = "4";
+            chk_Upsert_TLOCATION_Check_Update_CreatedByID.Name = "chk_Upsert_TLOCATION_Check_Update_CreatedByID";
+            chk_Upsert_TLOCATION_Check_Update_CreatedByID.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Update_CreatedByID.ResultSet = 10;
+            chk_Upsert_TLOCATION_Check_Update_CreatedByID.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Update_CreatedAppID
+            // 
+            chk_Upsert_TLOCATION_Check_Update_CreatedAppID.ColumnNumber = 8;
+            chk_Upsert_TLOCATION_Check_Update_CreatedAppID.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Update_CreatedAppID.ExpectedValue = "2";
+            chk_Upsert_TLOCATION_Check_Update_CreatedAppID.Name = "chk_Upsert_TLOCATION_Check_Update_CreatedAppID";
+            chk_Upsert_TLOCATION_Check_Update_CreatedAppID.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Update_CreatedAppID.ResultSet = 10;
+            chk_Upsert_TLOCATION_Check_Update_CreatedAppID.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Update_ModifiedByID
+            // 
+            chk_Upsert_TLOCATION_Check_Update_ModifiedByID.ColumnNumber = 10;
+            chk_Upsert_TLOCATION_Check_Update_ModifiedByID.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Update_ModifiedByID.ExpectedValue = "2";
+            chk_Upsert_TLOCATION_Check_Update_ModifiedByID.Name = "chk_Upsert_TLOCATION_Check_Update_ModifiedByID";
+            chk_Upsert_TLOCATION_Check_Update_ModifiedByID.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Update_ModifiedByID.ResultSet = 10;
+            chk_Upsert_TLOCATION_Check_Update_ModifiedByID.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Update_ModifiedAppID
+            // 
+            chk_Upsert_TLOCATION_Check_Update_ModifiedAppID.ColumnNumber = 11;
+            chk_Upsert_TLOCATION_Check_Update_ModifiedAppID.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Update_ModifiedAppID.ExpectedValue = "2";
+            chk_Upsert_TLOCATION_Check_Update_ModifiedAppID.Name = "chk_Upsert_TLOCATION_Check_Update_ModifiedAppID";
+            chk_Upsert_TLOCATION_Check_Update_ModifiedAppID.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Update_ModifiedAppID.ResultSet = 10;
+            chk_Upsert_TLOCATION_Check_Update_ModifiedAppID.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_Update_ModifiedOn
+            // 
+            chk_Upsert_TLOCATION_Check_Update_ModifiedOn.ColumnNumber = 12;
+            chk_Upsert_TLOCATION_Check_Update_ModifiedOn.Enabled = true;
+            chk_Upsert_TLOCATION_Check_Update_ModifiedOn.ExpectedValue = "true";
+            chk_Upsert_TLOCATION_Check_Update_ModifiedOn.Name = "chk_Upsert_TLOCATION_Check_Update_ModifiedOn";
+            chk_Upsert_TLOCATION_Check_Update_ModifiedOn.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_Update_ModifiedOn.ResultSet = 10;
+            chk_Upsert_TLOCATION_Check_Update_ModifiedOn.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_UpdateByName_CheckID
+            // 
+            chk_Upsert_TLOCATION_Check_UpdateByName_CheckID.ColumnNumber = 1;
+            chk_Upsert_TLOCATION_Check_UpdateByName_CheckID.Enabled = true;
+            chk_Upsert_TLOCATION_Check_UpdateByName_CheckID.ExpectedValue = "true";
+            chk_Upsert_TLOCATION_Check_UpdateByName_CheckID.Name = "chk_Upsert_TLOCATION_Check_UpdateByName_CheckID";
+            chk_Upsert_TLOCATION_Check_UpdateByName_CheckID.NullExpected = false;
+            chk_Upsert_TLOCATION_Check_UpdateByName_CheckID.ResultSet = 11;
+            chk_Upsert_TLOCATION_Check_UpdateByName_CheckID.RowNumber = 1;
+            // 
+            // chk_Upsert_TLOCATION_Check_CheckDebug_CreatesLocation
+            // 
+            chk_Upsert_TLOCATION_Check_CheckDebug_CreatesLocation.Enabled = true;
+            chk_Upsert_TLOCATION_Check_CheckDebug_CreatesLocation.Name = "chk_Upsert_TLOCATION_Check_CheckDebug_CreatesLocation";
+            chk_Upsert_TLOCATION_Check_CheckDebug_CreatesLocation.ResultSet = 12;
         }
 
         #endregion
@@ -1582,6 +2013,31 @@ namespace GroundFrame.SQL.UnitTests
                 SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
             }
         }
+        [TestMethod()]
+        public void simsig_USp_UPSERT_TLOCATIONTest()
+        {
+            SqlDatabaseTestActions testActions = this.simsig_USp_UPSERT_TLOCATIONTestData;
+            // Execute the pre-test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
+            SqlExecutionResult[] pretestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PretestAction);
+            try
+            {
+                // Execute the test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.TestAction != null), "Executing test script...");
+                SqlExecutionResult[] testResults = TestService.Execute(this.ExecutionContext, this.PrivilegedContext, testActions.TestAction);
+            }
+            finally
+            {
+                // Execute the post-test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.PosttestAction != null), "Executing post-test script...");
+                SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
+            }
+        }
+
+
 
 
 
@@ -1595,5 +2051,6 @@ namespace GroundFrame.SQL.UnitTests
         private SqlDatabaseTestActions simsig_Usp_UPSERT_TSIMERATestData;
         private SqlDatabaseTestActions simsig_USp_UPSERT_TVERSIONTestData;
         private SqlDatabaseTestActions simsig_USp_GET_TVERSIONTestData;
+        private SqlDatabaseTestActions simsig_USp_UPSERT_TLOCATIONTestData;
     }
 }
