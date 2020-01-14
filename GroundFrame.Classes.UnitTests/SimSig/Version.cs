@@ -64,6 +64,53 @@ namespace GroundFrame.Classes.UnitTests.SimSig
             Assert.NotEqual(0, TestVersion.ID);
         }
 
+        /// <summary>
+        /// Checks that passing the GroundFrame.SQL ID of a location it gets correctly instantiated into the object
+        /// </summary>
+        [Theory]
+        [InlineData("Test Version Name 2", "Test Version Description 2", 2.0)]
+        public void Version_Constructor_ByID(string Name, string Description, Decimal Version)
+        {
+            Classes.Version TestVersion = new Classes.Version(Name, Description, Version, this._SQLConnection);
+            TestVersion.SaveToSQLDB();
+
+            Classes.Version ComparisonVersion = new Classes.Version(TestVersion.ID, this._SQLConnection);
+            Assert.Equal(TestVersion.ID, ComparisonVersion.ID);
+            Assert.Equal(TestVersion.Name, ComparisonVersion.Name);
+            Assert.Equal(TestVersion.Description, ComparisonVersion.Description);
+            Assert.Equal(Version, ComparisonVersion.VersionFrom);
+        }
+
+        /// <summary>
+        /// Checks that passing the GroundFrame.SQL ID of a location it gets correctly instantiated into the object
+        /// </summary>
+        [Theory]
+        [InlineData("Test Version Name 3", "Test Version Description 3", 3.0)]
+        public void Version_Constructor_CheckVersionToUpdatesCorrectly(string Name, string Description, Decimal Version)
+        {
+            //Create initial version
+            Classes.Version TestVersion = new Classes.Version(Name, Description, Version, this._SQLConnection);
+            TestVersion.SaveToSQLDB();
+            Assert.NotEqual(0, TestVersion.ID);
+            Assert.Equal(Name, TestVersion.Name);
+            Assert.Equal(Description, TestVersion.Description);
+            Assert.Equal(Version, TestVersion.VersionFrom);
+            Assert.Null(TestVersion.VersionTo);
+
+            //Create and check next verion
+            Classes.Version ComparisonVersion = new Classes.Version(string.Format(@"{0}_U", Name), string.Format(@"{0}_U", Description), Version + 1, this._SQLConnection);
+            ComparisonVersion.SaveToSQLDB();
+            Assert.NotEqual(0, ComparisonVersion.ID);
+            Assert.Equal(string.Format(@"{0}_U", Name), ComparisonVersion.Name);
+            Assert.Equal(string.Format(@"{0}_U", Description), ComparisonVersion.Description);
+            Assert.Equal((decimal)Version + 1, ComparisonVersion.VersionFrom);
+            Assert.Null(ComparisonVersion.VersionTo);
+
+            //Refresh Initial
+            TestVersion.RefreshFromDB();
+            Assert.Equal((decimal)3.9, TestVersion.VersionTo);
+        }
+
         #endregion Methods
     }
 }

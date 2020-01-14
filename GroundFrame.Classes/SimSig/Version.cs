@@ -116,6 +116,13 @@ namespace GroundFrame.Classes
         {
             this.SaveVersionToSQLDB();
         }
+        /// <summary>
+        /// Refresh the Version from the GroundFrame.SQL database
+        /// </summary>
+        public void RefreshFromDB()
+        {
+            this.GetVersionFromSQLDBByID();
+        }
 
         /// <summary>
         /// Saves the Version to the GroundFrame.SQL database
@@ -156,6 +163,11 @@ namespace GroundFrame.Classes
         /// </summary>
         private void GetVersionFromSQLDBByID()
         {
+            if (this._ID == 0)
+            {
+                throw new ApplicationException("Cannot load Version from the GroundFrame.SQL Database when the ID = 0.");
+            }
+
             try
             {
                 //Open the Connection
