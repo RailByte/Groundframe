@@ -1,7 +1,7 @@
 ﻿/******************************
 ** File:		~\GroundFrame\GroundFrame.SQL\Stored Procedures\simsig\simsig.USp_UPSERT_TVERSION.sql
 ** Name:		simsig.USp_UPSERT_TVERSION
-** Desc:		Stored procedure create or update a SimSig verion
+** Desc:		Stored procedure create or update a SimSig version
 ** Unit Test:	
 ** Auth:		Tim Caceres
 ** Date:		2019-12-12
