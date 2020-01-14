@@ -172,7 +172,7 @@ BEGIN
 
 			IF @debug = 1
 			BEGIN
-				SET @debug_message = 'An error has occurred trying to insert a record into [app].[TSIM] for ' + @name + ':- ' + ERROR_MESSAGE();
+				SET @debug_message = 'An error has occurred trying to insert a record into [simsig].[TSIM] for ' + @name + ':- ' + ERROR_MESSAGE();
 				EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 			END;
 
