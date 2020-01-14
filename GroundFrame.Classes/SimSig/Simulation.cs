@@ -18,6 +18,7 @@ namespace GroundFrame.Classes
         private string _Name; //Stores the Simulation Name
         private string _SimSigCode; //Stores the SimSig Code
         private List<SimulationEra> _Eras; //Stores the Eras available in the Simulation
+        private LocationCollection _Locations; //Stores the locations available in the Simulation
 
         #endregion Private Variables
 
@@ -52,6 +53,8 @@ namespace GroundFrame.Classes
         /// Gets the Eras available in the Simulation
         /// </summary>
         public List<SimulationEra> Eras { get { return this._Eras; } }
+
+        public LocationCollection Locations { get { return this._Locations; } }
 
         #endregion Properties
 
@@ -89,6 +92,7 @@ namespace GroundFrame.Classes
             this._SimSigCode = SimSigCode;
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiates a new copy of the SQLConnector object to stop conflicts between Connections, Commands and Readers
             this._Eras = new List<SimulationEra>();
+            this._Locations = null;
         }
 
         /// <summary>
@@ -115,6 +119,9 @@ namespace GroundFrame.Classes
             this.ParseSqlDataReader(DataReader);
             //Load Simulation Eras
             this.LoadSimErasFromSQLDB();
+            //Load Locations
+            this._Locations = new LocationCollection(this, SQLConnector);
+            
         }
 
         #endregion Constructors
@@ -252,6 +259,8 @@ namespace GroundFrame.Classes
                 this._SQLConnector.Close();
                 //Load the Simulation Eras
                 this.LoadSimErasFromSQLDB();
+                //Get the simulation locations
+                this._Locations = new LocationCollection(this, this._SQLConnector);
             }
         }
 

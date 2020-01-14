@@ -72,9 +72,24 @@ namespace GroundFrame.Classes
                 throw new ArgumentException("SimSigCode cannot be <NULL> or empty.");
             }
 
+            if (SimSigCode.Length > 16)
+            {
+                throw new ArgumentException("SimSig Code must be 16 characters or less");
+            }
+
+            if (SimSigCode.Length > 32)
+            {
+                throw new ArgumentException("Name must be 32 characters or less");
+            }
+
             if (SQLConnector == null)
             {
                 throw new ArgumentException("SQLConnector cannot be <NULL>.");
+            }
+
+            if (Simulation.ID == 0)
+            {
+                throw new ArgumentException("The Simulation must be saved to the GroundFrame.SQL database before a location can be created");
             }
 
             this._ID = 0;
@@ -145,7 +160,7 @@ namespace GroundFrame.Classes
                 //Open the Connection
                 this._SQLConnector.Open();
                 //Set Command
-                SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_DELETE_TSIM", CommandType.StoredProcedure);
+                SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_DELETE_TSIM1", CommandType.StoredProcedure);
                 //Add Parameters
                 Cmd.Parameters.Add(new SqlParameter("@id", this._ID));
                 //Execute the Query
@@ -179,9 +194,9 @@ namespace GroundFrame.Classes
                 //Open the Connection
                 this._SQLConnector.Open();
                 //Set Command
-                SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_GET_TSIM", CommandType.StoredProcedure);
+                SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_GET_TLOCATION", CommandType.StoredProcedure);
                 //Add Parameters
-                Cmd.Parameters.Add(new SqlParameter("@id", this._ID));
+                Cmd.Parameters.Add(new SqlParameter("@id", this.ID));
                 SqlDataReader DataReader = Cmd.ExecuteReader();
                 
                 while (DataReader.Read())
@@ -207,10 +222,10 @@ namespace GroundFrame.Classes
         /// <param name="DataReader"></param>
         private void ParseSqlDataReader(SqlDataReader DataReader)
         {
-            this._ID = DataReader.GetInt16(DataReader.GetOrdinal("id"));
+            this._ID = DataReader.GetInt32(DataReader.GetOrdinal("id"));
             this._SimID = DataReader.GetInt16(DataReader.GetOrdinal("sim_id"));
             this._Name = DataReader.GetString(DataReader.GetOrdinal("name"));
-            this.TIPLOC = DataReader.GetString(DataReader.GetOrdinal("tiploc"));
+            this.TIPLOC = DataReader.GetNullableString("tiploc");
             this.SimSigCode = DataReader.GetString(DataReader.GetOrdinal("simsig_code"));
             this.EntryPoint = DataReader.GetBoolean(DataReader.GetOrdinal("simsig_entry_point"));
         }

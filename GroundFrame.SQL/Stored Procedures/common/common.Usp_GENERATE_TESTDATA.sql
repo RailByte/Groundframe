@@ -26,6 +26,7 @@ BEGIN
 	--Variables
 	DECLARE @counter TINYINT = 1;
 	DECLARE @simulation_id INT;
+	DECLARE @location_counter TINYINT = 1;
 
 	WHILE @counter <= @records_to_generate
 	BEGIN
@@ -58,6 +59,46 @@ BEGIN
 		)
 
 		SET @simulation_id = CAST(SCOPE_IDENTITY() AS INT);
+
+		--Generate Locations
+
+		SET @location_counter = 1;
+
+		WHILE (@location_counter <= @records_to_generate)
+		BEGIN
+			INSERT INTO [simsig].[TLOCATION]
+			(
+				[sim_id],
+				[tiploc],
+				[name],
+				[simsig_code],
+				[simsig_entry_point],
+				[testdata_id],
+				[createdby_id],
+				[createdby_app_id],
+				[createdon],
+				[modifiedby_id],
+				[modifiedby_app_id],
+				[modifiedon]
+			)
+			VALUES
+			(
+				@simulation_id,
+				'TIPLOC' + CONVERT(NVARCHAR(8), @simulation_id) + CONVERT(NVARCHAR(3), @location_counter),
+				'Loc Name ' + CONVERT(NVARCHAR(8), @simulation_id) + CONVERT(NVARCHAR(3), @location_counter),
+				'Loc Code ' + CONVERT(NVARCHAR(8), @simulation_id) + CONVERT(NVARCHAR(3), @location_counter),
+				CAST(@location_counter % 1 AS BIT),
+				@testdata_id,
+				4,
+				2,
+				SYSDATETIMEOFFSET(),
+				4,
+				2,
+				SYSDATETIMEOFFSET()
+			)
+
+			SET @location_counter = @location_counter + 1;
+		END
 
 		INSERT INTO [simsig].[TSIMERA]
 		(

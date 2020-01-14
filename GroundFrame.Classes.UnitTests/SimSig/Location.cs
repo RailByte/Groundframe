@@ -58,8 +58,8 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         /// Checks that trying to creating location and saving assigns properties correctly and issues GroundFrame.SQL database ID
         /// </summary>
         [Theory]
-        [InlineData(null, "Test Location Name 1", false, "Test Location Code 1")]
-        [InlineData("TIPLOC2", "Test Location Name 2", false, "Test Location Code 2")]
+        [InlineData(null, "Test Location Name 1", false, "TestLocCode1")]
+        [InlineData("TIPLOC2", "Test Location Name 2", false, "TestLocCode2")]
         public void Location_Constructor_ByProperties(string TIPLOC, string Name, bool EntryPoint, string SimSigCode)
         {
             Classes.Location TestLocation = new Classes.Location(this._TestSimulation, Name, TIPLOC, SimSigCode, EntryPoint, this._SQLConnection);
@@ -75,8 +75,8 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         /// Checks that creating a location and then updating doesn't error
         /// </summary>
         [Theory]
-        [InlineData(null, "Test Location Name 3", false, "Test Location Code 3")]
-        [InlineData("TIPLOC2", "Test Location Name 4", false, "Test Location Code 4")]
+        [InlineData(null, "Test Location Name 3", false, "TestLocCode3")]
+        [InlineData("TIPLOC4", "Test Location Name 4", false, "TestLocCode4")]
         public void Location_Method_CheckUpdate(string TIPLOC, string Name, bool EntryPoint, string SimSigCode)
         {
             Classes.Location TestLocation = new Classes.Location(this._TestSimulation, Name, TIPLOC, SimSigCode, EntryPoint, this._SQLConnection);
@@ -95,6 +95,32 @@ namespace GroundFrame.Classes.UnitTests.SimSig
             TestLocation.SaveToSQLDB();
 
             Assert.Equal(LocationID, TestLocation.ID);
+        }
+
+
+        /// <summary>
+        /// Checks that creating a location and then updating doesn't error
+        /// </summary>
+        [Theory]
+        [InlineData(null, "Test Location Name 5", false, "TestLocCode5")]
+        [InlineData("TIPLOC6", "Test Location Name 6", false, "TestLocCode6")]
+        public void Location_Method_CheckRefresh(string TIPLOC, string Name, bool EntryPoint, string SimSigCode)
+        {
+            Classes.Location TestLocation = new Classes.Location(this._TestSimulation, Name, TIPLOC, SimSigCode, EntryPoint, this._SQLConnection);
+            TestLocation.SaveToSQLDB();
+
+            //Now load into a new object and compare
+
+            Classes.Location CheckLocation = new Classes.Location(TestLocation.ID, this._SQLConnection);
+            Assert.Equal(TestLocation.ID, CheckLocation.ID);
+            Assert.Equal(TestLocation.Name, CheckLocation.Name);
+            Assert.Equal(TestLocation.SimSigCode, CheckLocation.SimSigCode);
+            Assert.Equal(TestLocation.EntryPoint, CheckLocation.EntryPoint);
+
+            string TestTIPLOC = string.IsNullOrEmpty(TestLocation.TIPLOC) ? "NULL" : TestLocation.TIPLOC;
+            string CheckTIPLOC = string.IsNullOrEmpty(CheckLocation.TIPLOC) ? "NULL" : CheckLocation.TIPLOC;
+
+            Assert.Equal(TestTIPLOC, CheckTIPLOC);
         }
 
         #endregion Methods

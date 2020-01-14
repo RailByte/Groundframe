@@ -1698,6 +1698,184 @@ FROM [audit].[TEVENT]
 WHERE
 	[debug_session_id] = @debug_session_id</value>
   </data>
+  <data name="simsig_USp_GET_TLOCATIONTest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>--Teardown Data
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+
+--Get TestData ID 
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_GET_TLOCATIONTest', @testdata_id = @testdata_id OUTPUT;
+
+--Delete records
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TLOCATION]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[testdata_id] = @testdata_id;
+</value>
+  </data>
+  <data name="simsig_USp_GET_TLOCATIONTest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for simsig.USp_GET_TLOCATION
+DECLARE @id AS SMALLINT = 0, @debug AS BIT = 0, @debug_session_id AS UNIQUEIDENTIFIER;
+
+--Other Variables
+
+DECLARE @error_message NVARCHAR(248) = N' No Error Raised';
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+
+--Get TestData ID 
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_GET_TLOCATIONTest', @testdata_id = @testdata_id OUTPUT;
+
+
+--Check 1 Check Being Not Logged in Raises Error
+
+BEGIN TRY
+	EXEC [simsig].[USp_GET_TLOCATION] @id, @debug, @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 1
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 2 Does Proc Return Data As Expected?
+
+--Log In User
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testadminuserAPIKEY', @testdata_id = @testdata_id;
+
+--Create Sim
+
+DECLARE @sim_id INT = 0;
+
+EXEC [simsig].[Usp_UPSERT_TSIM] @id = @sim_id OUTPUT, @name = N'Test Get Location Sim Name 1', @description = N'Test Get Location Sim Desc 1', @simsig_wiki_link = NULL, @simsig_code = 'Test Get Location Code 1', @datetime = NULL;
+
+--Create Location(s)
+
+DECLARE @id1 SMALLINT = 0;
+EXEC [simsig].[USp_UPSERT_TLOCATION] @id = @id1 OUTPUT, @sim_id = @sim_id, @tiploc = NULL, @name = 'Test Get Location Loc Name 1', @simsig_code = 'GETLOCCODE1', @simsig_entry_point = 1, @datetime = NULL, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+DECLARE @id2 SMALLINT = 0;
+EXEC [simsig].[USp_UPSERT_TLOCATION] @id = @id2 OUTPUT, @sim_id = @sim_id, @tiploc = NULL, @name = 'Test Get Location Loc Name 2', @simsig_code = 'GETLOCCODE2', @simsig_entry_point = 0, @datetime = NULL, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+--Result Set 2 (1st Location)
+
+EXEC [simsig].[USp_GET_TLOCATION] @id1, @debug, @debug_session_id OUTPUT
+
+--Result Set 3 (2nd Location)
+
+EXEC [simsig].[USp_GET_TLOCATION] @id2, @debug, @debug_session_id OUTPUT
+
+--Check 3 Check debug
+
+DECLARE @id3 SMALLINT = 0;
+SET @debug = 1;
+EXEC [simsig].[USp_UPSERT_TLOCATION] @id = @id2 OUTPUT, @sim_id = @sim_id, @tiploc = NULL, @name = 'Test Get Location Loc Name 2', @simsig_code = 'GETLOCCODE2', @simsig_entry_point = 0, @datetime = NULL, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+--Result Set 4
+
+SELECT
+	*
+FROM [audit].[TEVENT]
+WHERE
+	[debug_session_id] = @debug_session_id;</value>
+  </data>
+  <data name="simsig_Usp_GET_TLOCATION_BY_SIMTest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>--Teardown Data
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+
+--Get TestData ID 
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_GET_TLOCATION_BY_SIMTest', @testdata_id = @testdata_id OUTPUT;
+
+--Delete records
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TLOCATION]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[testdata_id] = @testdata_id;
+</value>
+  </data>
+  <data name="simsig_Usp_GET_TLOCATION_BY_SIMTest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for simsig.USp_GET_TLOCATION
+DECLARE @sim_id AS SMALLINT = 0, @debug AS BIT = 0, @debug_session_id AS UNIQUEIDENTIFIER;
+
+--Other Variables
+
+DECLARE @error_message NVARCHAR(248) = N' No Error Raised';
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+
+--Get TestData ID 
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_GET_TLOCATION_BY_SIMTest', @testdata_id = @testdata_id OUTPUT;
+
+--Check 1 Check Being Not Logged in Raises Error
+
+BEGIN TRY
+	EXEC [simsig].[USp_GET_TLOCATION_BY_SIM] @sim_id, @debug, @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 1
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 2 Does Proc Return Data As Expected?
+
+--Log In User
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testadminuserAPIKEY', @testdata_id = @testdata_id;
+
+--Create Sim
+
+SET @sim_id = 0;
+
+EXEC [simsig].[Usp_UPSERT_TSIM] @id = @sim_id OUTPUT, @name = N'Test Get Location Sim Name 1', @description = N'Test Get Location Sim Desc 1', @simsig_wiki_link = NULL, @simsig_code = 'Test Get Location Code 1', @datetime = NULL;
+
+--Create Location(s)
+
+DECLARE @id1 SMALLINT = 0;
+EXEC [simsig].[USp_UPSERT_TLOCATION] @id = @id1 OUTPUT, @sim_id = @sim_id, @tiploc = NULL, @name = 'Test Get Location By SIM Loc Name 1', @simsig_code = 'GETLOCBYSIMCODE1', @simsig_entry_point = 1, @datetime = NULL, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+DECLARE @id2 SMALLINT = 0;
+EXEC [simsig].[USp_UPSERT_TLOCATION] @id = @id2 OUTPUT, @sim_id = @sim_id, @tiploc = NULL, @name = 'Test Get Location By SIM Loc Name 2', @simsig_code = 'GETLOCBYSIMCODE2', @simsig_entry_point = 0, @datetime = NULL, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+--Result Set 2
+
+EXEC [simsig].[USp_GET_TLOCATION_BY_SIM] @sim_id, @debug, @debug_session_id OUTPUT
+
+
+--Check 2 Check debug
+
+SET @debug = 1;
+EXEC [simsig].[USp_GET_TLOCATION_BY_SIM] @sim_id, @debug, @debug_session_id OUTPUT
+
+--Result Set 3
+
+SELECT
+	*
+FROM [audit].[TEVENT]
+WHERE
+	[debug_session_id] = @debug_session_id;</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

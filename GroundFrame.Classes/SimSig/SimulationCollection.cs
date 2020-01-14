@@ -82,7 +82,7 @@ namespace GroundFrame.Classes
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException($"An error has occurred trying to retrieve all Simuation records from the GroundFrame.SQL database.", Ex);
+                throw new ApplicationException($"An error has occurred trying to retrieve all Simulation records from the GroundFrame.SQL database.", Ex);
             }
             finally
             {

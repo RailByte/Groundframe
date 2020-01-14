@@ -25,10 +25,10 @@ namespace GroundFrame.API.Controllers
         }
 
         /// <summary>
-        /// Gets a specific Simulation
+        /// Gets a specific simulation together with its subsidary data
         /// </summary>
-        /// <param name="id">The ID of the Simulation to be returned</param>
-        /// <response code="200">Returns the requested Simulation</response> 
+        /// <param name="id">The ID of the simulation to be returned</param>
+        /// <response code="200">Returns the requested simulation</response> 
         [HttpGet]
         [Route("simulations/{id:int}")]
         public IActionResult Get(int id)
@@ -37,6 +37,27 @@ namespace GroundFrame.API.Controllers
             {
                 Classes.Simulation Sim = new Classes.Simulation(id, this._SQLConnection);
                 return Ok(Sim);
+            }
+            catch (Exception Ex)
+            {
+                _logger.LogError($"An error has occurred: {Ex}");
+                return StatusCode(500, Ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the locations for the specified simulation
+        /// </summary>
+        /// <param name="id">The ID of the simulation which the locations belong</param>
+        /// <response code="200">Returns the requested locactions</response> 
+        [HttpGet]
+        [Route("simulations/{id:int}/locations")]
+        public IActionResult GetSimLocations(int id)
+        {
+            try
+            {
+                Classes.Simulation Sim = new Classes.Simulation(id, this._SQLConnection);
+                return Ok(new Classes.LocationCollection(Sim, this._SQLConnection));
             }
             catch (Exception Ex)
             {
