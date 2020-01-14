@@ -76,6 +76,7 @@ BEGIN
 				[id] = @counter;
 
 			DELETE FROM [simsig].[TSIMERA] WHERE sim_id = @simulation_id;
+			DELETE FROM [simsig].[TLOCATION] WHERE sim_id = @simulation_id;
 			DELETE FROM [simsig].[TSIM] WHERE id = @simulation_id;
 
 			SET @counter = @counter +1;
@@ -84,6 +85,12 @@ BEGIN
 		--Delete any other simulation eras
 
 		DELETE FROM [simsig].[TSIMERA]
+		WHERE
+			[testdata_id] = @testdata_id;
+
+		--Delete any other locations
+
+		DELETE FROM [simsig].[TLOCATION]
 		WHERE
 			[testdata_id] = @testdata_id;
 
