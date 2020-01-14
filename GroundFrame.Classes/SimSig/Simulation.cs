@@ -235,14 +235,7 @@ namespace GroundFrame.Classes
                 //Add Parameters
                 Cmd.Parameters.Add(new SqlParameter("@id", this._ID));
                 SqlDataReader DataReader = Cmd.ExecuteReader();
-
-                //Read the records
-                if (DataReader.HasRows == false)
-                {
-                    //If no record around then 
-                    throw new NoRowsException($"No Simulation Record Found");
-                }
-                
+               
                 while (DataReader.Read())
                 {
                     //Parse the DataReader into the version object

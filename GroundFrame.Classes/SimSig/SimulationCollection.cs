@@ -76,16 +76,8 @@ namespace GroundFrame.Classes
                 //Read the records
                 while (DataReader.Read())
                 {
-                    if (DataReader.HasRows == false)
-                    {
-                        //If no record around then 
-                        throw new NoRowsException($"No Simulation Records Found");
-                    }
-                    else
-                    {
-                        //Parse the DataReader into the object
-                        this._Simulations.Add(new Simulation(DataReader, this._SQLConnector));
-                    }
+                    //Parse the DataReader into the object
+                    this._Simulations.Add(new Simulation(DataReader, this._SQLConnector));
                 }
             }
             catch (Exception Ex)
