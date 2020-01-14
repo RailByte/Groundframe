@@ -50,7 +50,6 @@ namespace GroundFrame.API.Controllers
         /// </summary>
         /// <response code="200">Returns the requested Simulation</response> 
         [HttpGet]
-        [HttpGet]
         [Route("simulations")]
         public IActionResult Get()
         {
@@ -61,15 +60,8 @@ namespace GroundFrame.API.Controllers
             }
             catch (Exception Ex)
             {
-                if (Ex.GetType() == typeof(NoRowsException))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    _logger.LogError($"An error has occurred: {Ex}");
-                    return StatusCode(500, Ex.Message);
-                }
+                _logger.LogError($"An error has occurred: {Ex}");
+                return StatusCode(500, Ex.Message);
             }
         }
     }
