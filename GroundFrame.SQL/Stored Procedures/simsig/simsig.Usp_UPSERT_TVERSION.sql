@@ -252,7 +252,7 @@ BEGIN
 
 			IF @debug = 1
 			BEGIN
-				SET @debug_message = 'An error has occured trying to update [app].[TVERSION] record [id] = ' + CAST(@id AS NVARCHAR(16)) + ': - ' + ERROR_MESSAGE();
+				SET @debug_message = 'An error has occured trying to update [simsig].[TVERSION] record [id] = ' + CAST(@id AS NVARCHAR(16)) + ': - ' + ERROR_MESSAGE();
 				EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 			END;
 
