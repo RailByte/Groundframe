@@ -24,7 +24,6 @@ namespace GroundFrame.Classes.UnitTests.WTT.Common
         [InlineData("4O3", true, true, true)]
         [InlineData("34O", true, true, true)]
         [InlineData("43O", true, true, true)]
-        [InlineData("", false, false, false)]
         public void Electrification_Constructor_SimSigCode(string SimSigCode, bool ExpectedOverhead, bool Expected3rdRail, bool Expected4thRail)
         {
             GroundFrame.Classes.Electrification TestElectrification = new GroundFrame.Classes.Electrification(SimSigCode);

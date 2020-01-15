@@ -25,7 +25,7 @@ namespace GroundFrame.API.Controllers
         }
 
         /// <summary>
-        /// Gets a specific simulation together with its subsidary data
+        /// Gets a specific simulation together with its extension data (eras and locations)
         /// </summary>
         /// <param name="id">The ID of the simulation to be returned</param>
         /// <response code="200">Returns the requested simulation</response> 
@@ -35,7 +35,7 @@ namespace GroundFrame.API.Controllers
         {
             try
             {
-                Classes.Simulation Sim = new Classes.Simulation(id, this._SQLConnection);
+                Classes.SimulationExtension Sim = new Classes.SimulationExtension(id, this._SQLConnection);
                 return Ok(Sim);
             }
             catch (Exception Ex)

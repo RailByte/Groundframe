@@ -18,8 +18,12 @@ namespace GroundFrame.Classes
         /// <param name="ElementName">The name of the element for whose value is to be return</param>
         /// <param name="DefaultValue">The default value which should be returned if the element isn't found in the XML</param>
         /// <returns></returns>
-        public static T GetValueFromXElement<T>(XElement XML, string ElementName, object DefaultValue = null)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
+        public static T GetValueFromXElement<T>(XElement XML, string ElementName, object DefaultValue = null, string Culture = "en-GB")
         {
+            //Validate XML
+            ArgumentValidation.ValidateXElement(XML, new System.Globalization.CultureInfo(Culture));
+
             //Throw an ApplicationException if the element cannot be found and no default value is provided
             if (XML.Element(ElementName) == null && DefaultValue == null)
             {
@@ -36,7 +40,8 @@ namespace GroundFrame.Classes
                 }
                 else
                 {
-                    throw new InvalidCastException($"Cannot convert default value '{DefaultValue.ToString()}' for Element '{ElementName}' to type of {typeof(T).ToString()}.");
+                    string DefaultValueString = DefaultValue == null ? "<NULL>" : DefaultValue.ToString();
+                    throw new InvalidCastException($"Cannot convert default value '{DefaultValueString}' for Element '{ElementName}' to type of {typeof(T).ToString()}.");
                 }
             }
             else
@@ -61,6 +66,8 @@ namespace GroundFrame.Classes
         /// <param name="Value">The value to be converted</param>
         /// <param name="ConversionType">The target type of the conversion</param>
         /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify CultureInfo", Justification = "<Pending>")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
         private static bool CanChangeType(object Value, Type ConversionType)
         {
             try
@@ -70,6 +77,7 @@ namespace GroundFrame.Classes
             }
             catch
             {
+                //Don't need to rethrow the exception - just return false to show it can't convert the type
                 return false;
             }
         }

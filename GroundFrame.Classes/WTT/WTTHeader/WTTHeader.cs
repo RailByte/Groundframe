@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Xml.Linq;
 
@@ -13,6 +14,7 @@ namespace GroundFrame.Classes
         #region Private Variables
 
         private int _VersionBuild; //Stores the Build Version Number
+        private CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
@@ -66,8 +68,9 @@ namespace GroundFrame.Classes
         /// Instantiates a WTTHeader object from the SimSigTimeable element from a SimSig SavedTimetable.xml document
         /// </summary>
         /// <param name="Header">XElement containing the WTT XML defining this header object</param>
-        public WTTHeader(XElement Header)
+        public WTTHeader(XElement Header, string Culture = "en-GB")
         {
+            this._Culture = new CultureInfo(Culture);
             this.ParseHeaderXML(Header); //Parse the header XML
         }
 
@@ -75,11 +78,12 @@ namespace GroundFrame.Classes
         /// Instantiates a new WTTHeader object
         /// </summary>
         /// <param name="Header">The WTT Name</param>
-        public WTTHeader(string Name)
+        public WTTHeader(string Name, string Culture = "en-GB")
         {
+            this._Culture = new CultureInfo(Culture);
             this.Name = Name;
-            this.StartTime = new Time(0);
-            this.FinishTime = new Time(0);
+            this.StartTime = new Time(0,"H");
+            this.FinishTime = new Time(0, "H");
             this.VersionMajor = 1;
             this.TrainDescriptionTemplate = "$originTime $originName-$destName $operator ($stock)";
         }
@@ -98,8 +102,8 @@ namespace GroundFrame.Classes
             {
                 this.Name = XMLMethods.GetValueFromXElement<string>(Header, @"Name");
                 this.Description = XMLMethods.GetValueFromXElement<string>(Header, @"Description", string.Empty);
-                this.StartTime = new Time(XMLMethods.GetValueFromXElement<int>(Header, @"StartTime", 0));
-                this.FinishTime = new Time(XMLMethods.GetValueFromXElement<int>(Header, @"FinishTime", 0));
+                this.StartTime = new Time(XMLMethods.GetValueFromXElement<int>(Header, @"StartTime", 0), "H");
+                this.FinishTime = new Time(XMLMethods.GetValueFromXElement<int>(Header, @"FinishTime", 0), "H");
                 this.VersionMajor = XMLMethods.GetValueFromXElement<int>(Header, @"VMajor", 1);
                 this.VersionMinor = XMLMethods.GetValueFromXElement<int>(Header, @"VMinor", 0);
                 this._VersionBuild = XMLMethods.GetValueFromXElement<int>(Header, @"VBuild", 0);
@@ -107,7 +111,7 @@ namespace GroundFrame.Classes
             }
             catch (Exception Ex)
             {
-                throw new Exception("Cannot Parse the WTT Header from the Source SimSig WTT XML", Ex);
+                throw new Exception(ExceptionHelper.GetStaticException("ParseWTTHeaderException", null, this._Culture), Ex);
             }
         }
 

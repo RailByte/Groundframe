@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace GroundFrame.Classes
@@ -15,6 +16,9 @@ namespace GroundFrame.Classes
         #endregion Constants
 
         #region Private Variables
+
+        private readonly CultureInfo _Culture; //Stores the culture info
+
         #endregion Private Variables
 
         #region Properties
@@ -42,9 +46,13 @@ namespace GroundFrame.Classes
         /// Instantiates a WTTElectrification object from the supplied SimSig code
         /// </summary>
         /// <param name="SimSimCode"></param>
-        public Electrification(string SimSimCode)
+        public Electrification(string SimSigCode, string Culture = "en-GB")
         {
-            this.ConvertSimSigCode(SimSimCode);
+            this._Culture = new CultureInfo(Culture);
+            //Validate Arguments
+            ArgumentValidation.ValidateSimSigCode(SimSigCode, this._Culture);
+
+            this.ConvertSimSigCode(SimSigCode);
         }
 
         #endregion Constructors
@@ -68,21 +76,21 @@ namespace GroundFrame.Classes
                 HasMatch = true;
             }
 
-            if (Code.ToUpper().IndexOf("O")>=0)
+            if (Code.IndexOf("O", StringComparison.OrdinalIgnoreCase)>=0)
             {
                 Overhead = true;
                 HasMatch = true;
                 CharactersParsed ++;
             }
 
-            if (Code.ToUpper().IndexOf("3")>=0)
+            if (Code.IndexOf("3", StringComparison.OrdinalIgnoreCase)>=0)
             {
                 ThirdRail = true;
                 HasMatch = true;
                 CharactersParsed++;
             }
 
-            if (Code.ToUpper().IndexOf("4")>=0)
+            if (Code.IndexOf("4", StringComparison.OrdinalIgnoreCase)>=0)
             {
                 FourthRail = true;
                 HasMatch = true;
@@ -91,7 +99,7 @@ namespace GroundFrame.Classes
 
             if (!HasMatch || (CharactersParsed != Code.Length))
             {
-                throw new ArgumentException("The Code provided is not a valid SimSig code");
+                throw new ArgumentException(ExceptionHelper.GetStaticException("InvalidSimSigCodeError", null, this._Culture));
             }
         }
 

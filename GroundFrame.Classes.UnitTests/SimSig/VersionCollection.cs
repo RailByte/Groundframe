@@ -60,8 +60,6 @@ namespace GroundFrame.Classes.UnitTests.SimSig
             Classes.SimulationCollection TestSimCollection = new Classes.SimulationCollection(this._SQLConnection);
             //Check 5 records are returned
             Assert.Equal(5, TestSimCollection.Count);
-            //Check a sim has one era
-            Assert.Single(TestSimCollection.IndexOf(0).Eras);
         }
 
         #endregion Methods

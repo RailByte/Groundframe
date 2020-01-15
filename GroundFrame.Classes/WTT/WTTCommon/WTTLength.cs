@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace GroundFrame.Classes
@@ -19,6 +20,7 @@ namespace GroundFrame.Classes
         #region Private Variables
 
         private readonly int _Meters; //Stores the length in meters
+        private readonly CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
@@ -47,12 +49,12 @@ namespace GroundFrame.Classes
         /// Instantiates a new instance of a WTTLength from the supplied meters
         /// </summary>
         /// <param name="Meters">The length in meters</param>
-        public WTTLength(int Meters)
+        public WTTLength(int Meters, string Culture = "en-GB")
         {
-            if (Meters <= 0)
-            {
-                throw new ArgumentNullException("The meters must be greater than zero");
-            }
+            this._Culture = new CultureInfo(Culture);
+
+            //Validate arguments
+            ArgumentValidation.ValidateMeters(Meters, this._Culture);
 
             this._Meters = Meters;
         }

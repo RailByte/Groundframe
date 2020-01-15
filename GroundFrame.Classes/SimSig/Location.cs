@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Text;
 
 namespace GroundFrame.Classes
 {
-    public class Location
+    public class Location : IDisposable
     {
         #region Constants
         #endregion Constants
@@ -17,6 +18,7 @@ namespace GroundFrame.Classes
         private int _SimID; //Stores the Microsoft SQL Database ID of the Location record
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private string _Name; //Stores the location name
+        private readonly CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
@@ -60,36 +62,19 @@ namespace GroundFrame.Classes
         /// <param name="SimSigCode">The SimSig code for the location.</param>
         /// <param name="EntryPoint">Indicates whether the location is an entry point for the location</param>
         /// <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
-        public Location(Simulation Simulation, string Name, string TIPLOC, string SimSigCode, bool EntryPoint, GFSqlConnector SQLConnector)
+        public Location(Simulation Simulation, string Name, string TIPLOC, string SimSigCode, bool EntryPoint, GFSqlConnector SQLConnector, string Culture = "en-GB")
         {
-            if (string.IsNullOrEmpty(Name))
-            {
-                throw new ArgumentException("Name cannot be <NULL> or empty.");
-            }
+            this._Culture = new CultureInfo(Culture);
 
-            if (string.IsNullOrEmpty(SimSigCode))
-            {
-                throw new ArgumentException("SimSigCode cannot be <NULL> or empty.");
-            }
-
-            if (SimSigCode.Length > 16)
-            {
-                throw new ArgumentException("SimSig Code must be 16 characters or less");
-            }
-
-            if (SimSigCode.Length > 32)
-            {
-                throw new ArgumentException("Name must be 32 characters or less");
-            }
-
-            if (SQLConnector == null)
-            {
-                throw new ArgumentException("SQLConnector cannot be <NULL>.");
-            }
+            //Check Arguments
+            ArgumentValidation.ValidateName(Name, this._Culture);
+            ArgumentValidation.ValidateSimSigCode(SimSigCode, this._Culture, 16);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+            ArgumentValidation.ValidateSimulation(Simulation, this._Culture);
 
             if (Simulation.ID == 0)
             {
-                throw new ArgumentException("The Simulation must be saved to the GroundFrame.SQL database before a location can be created");
+                throw new ArgumentException(ExceptionHelper.GetStaticException("CreateLocationUnsavedSimError",null, this._Culture));
             }
 
             this._ID = 0;
@@ -106,8 +91,13 @@ namespace GroundFrame.Classes
         /// </summary>
         /// <param name="ID">The ID of the location record to be retreived</param>
         /// <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
-        public Location(int ID, GFSqlConnector SQLConnector)
+        public Location(int ID, GFSqlConnector SQLConnector, string Culture = "en-GB")
         {
+            this._Culture = new CultureInfo(Culture);
+
+            //Validate Arguments
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+
             this._ID = ID;
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiates a copy of the SQLConnector object so prevent conflicts on Connections, Commands and DataReaders
             this.GetLocationFromSQLDBByID();
@@ -117,8 +107,14 @@ namespace GroundFrame.Classes
         /// Instantiates a new Location object from the supplied SqlDataReader object
         /// </summary>
         /// <param name="DataReader">A SqlDataReader object representing a location</param>
-        public Location(SqlDataReader DataReader, GFSqlConnector SQLConnector)
+        public Location(SqlDataReader DataReader, GFSqlConnector SQLConnector, string Culture = "en-GB")
         {
+            this._Culture = new CultureInfo(Culture);
+
+            //Validate Arguments
+            ArgumentValidation.ValidateSqlDataReader(DataReader, this._Culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+
             //Instantiate a new GFSqlConnector object from the supplied connector. Stops issues with shared connections / commands and readers etc.
             this._SQLConnector = new GFSqlConnector(SQLConnector);
             //Parse Reader
@@ -145,6 +141,7 @@ namespace GroundFrame.Classes
             this.SaveLocationToSQLDB(ExecutionDateTimeOffSet);
         }
 
+
         /// <summary>
         /// Deletes the location from the GroundFrame.SQL Database
         /// </summary>
@@ -152,7 +149,7 @@ namespace GroundFrame.Classes
         {
             if (this._ID <= 0)
             {
-                throw new ArgumentException("Error deleting Location from GroundFrame.SQL Database - the Limulation ID must not be 0");
+                throw new ArgumentException(ExceptionHelper.GetStaticException("DeleteLocationZeroIDError",null,this._Culture));
             }
 
             try
@@ -160,7 +157,7 @@ namespace GroundFrame.Classes
                 //Open the Connection
                 this._SQLConnector.Open();
                 //Set Command
-                SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_DELETE_TSIM1", CommandType.StoredProcedure);
+                using SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_DELETE_TSIM1", CommandType.StoredProcedure);
                 //Add Parameters
                 Cmd.Parameters.Add(new SqlParameter("@id", this._ID));
                 //Execute the Query
@@ -186,7 +183,7 @@ namespace GroundFrame.Classes
 
             if (this._ID <= 0)
             {
-                throw new ArgumentException("Error retrieving Location from GroundFrame.SQL Database - the Location ID must not be 0");
+                throw new ArgumentException(ExceptionHelper.GetStaticException("RetrieveLocationZeroIDError", null, this._Culture));
             }
 
             try
@@ -194,11 +191,12 @@ namespace GroundFrame.Classes
                 //Open the Connection
                 this._SQLConnector.Open();
                 //Set Command
-                SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_GET_TLOCATION", CommandType.StoredProcedure);
+                using SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_GET_TLOCATION", CommandType.StoredProcedure);
                 //Add Parameters
                 Cmd.Parameters.Add(new SqlParameter("@id", this.ID));
                 SqlDataReader DataReader = Cmd.ExecuteReader();
-                
+
+
                 while (DataReader.Read())
                 {
                     //Parse the DataReader into the version object
@@ -222,6 +220,9 @@ namespace GroundFrame.Classes
         /// <param name="DataReader"></param>
         private void ParseSqlDataReader(SqlDataReader DataReader)
         {
+            //Validate Argument
+            ArgumentValidation.ValidateSqlDataReader(DataReader, this._Culture);
+
             this._ID = DataReader.GetInt32(DataReader.GetOrdinal("id"));
             this._SimID = DataReader.GetInt16(DataReader.GetOrdinal("sim_id"));
             this._Name = DataReader.GetString(DataReader.GetOrdinal("name"));
@@ -230,10 +231,12 @@ namespace GroundFrame.Classes
             this.EntryPoint = DataReader.GetBoolean(DataReader.GetOrdinal("simsig_entry_point"));
         }
 
+
         /// <summary>
         /// Saves the object the Microsoft SQL database
         /// </summary>
         /// <param name="CurrentDateTime"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
         private void SaveLocationToSQLDB(DateTimeOffset? CurrentDateTime = null)
         {
             try
@@ -241,7 +244,7 @@ namespace GroundFrame.Classes
                 //Open the Connection
                 this._SQLConnector.Open();
                 //Set Command
-                SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_UPSERT_TLOCATION", CommandType.StoredProcedure);
+                using SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_UPSERT_TLOCATION", CommandType.StoredProcedure);
                 //Add Parameters
                 Cmd.Parameters.Add(new SqlParameter("@sim_id", this._SimID));
                 Cmd.Parameters.Add(new SqlParameter("@name", this.Name));
@@ -267,6 +270,40 @@ namespace GroundFrame.Classes
             }
          }
 
+        /// <summary>
+        /// Disposes the Simulation object
+        /// </summary>
+        public void Dispose()
+        {
+            // If this function is being called the user wants to release the
+            // resources. lets call the Dispose which will do this for us.
+            Dispose(true);
+
+            // Now since we have done the cleanup already there is nothing left
+            // for the Finalizer to do. So lets tell the GC not to call it later.
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing == true)
+            {
+
+            }
+            else
+            {
+                this._SQLConnector.Dispose();
+            }
+        }
+
+        ~Location()
+        {
+            // The object went out of scope and finalized is called
+            // Lets call dispose in to release unmanaged resources 
+            // the managed resources will anyways be released when GC 
+            // runs the next time.
+            Dispose(false);
+        }
         #endregion Methods
     }
 }

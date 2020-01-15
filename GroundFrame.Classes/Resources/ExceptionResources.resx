@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CannotConnectGFSQLDb" xml:space="preserve">
+    <value>Cannot connect to GroundFrame Microsoft SQL Database</value>
+  </data>
+  <data name="CreateLocationUnsavedSimError" xml:space="preserve">
+    <value>The Simulation must be saved to the GroundFrame.SQL database before a Location can be created</value>
+  </data>
+  <data name="DeleteLocationZeroIDError" xml:space="preserve">
+    <value>You cannot delete a Location from the GroundFrame.SQL Database when the ID is zero</value>
+  </data>
+  <data name="DeleteSimulationZeroIDError" xml:space="preserve">
+    <value>You cannot delete a Simulation from the GroundFrame.SQL Database when the ID is zero</value>
+  </data>
+  <data name="InvalidDataReaderArgument" xml:space="preserve">
+    <value>The DataReader argument cannot be &lt;NULL&gt;</value>
+  </data>
+  <data name="InvalidHalfMinuteCharacterArgument" xml:space="preserve">
+    <value>The HalfMinuteCharacter cannot be &lt;NULL&gt; or empty</value>
+  </data>
+  <data name="InvalidHalfMinuteCharacterASCIIArgument" xml:space="preserve">
+    <value>The HalfMinuteCharacterASCII argument must be between 32 and 255</value>
+  </data>
+  <data name="InvalidHalfMinuteCharacterLengthArgument" xml:space="preserve">
+    <value>The HalfMinuteCharacter argument must only be 1 character</value>
+  </data>
+  <data name="InvalidMeterArgument" xml:space="preserve">
+    <value>The meters argument must be greater than zero</value>
+  </data>
+  <data name="InvalidNameArgument" xml:space="preserve">
+    <value>The Name argument cannot be &lt;NULL&gt; or empty</value>
+  </data>
+  <data name="InvalidNameLengthArgument" xml:space="preserve">
+    <value>The name argument cannot be longer than {0} characters</value>
+  </data>
+  <data name="InvalidSecondsArgument" xml:space="preserve">
+    <value>The Seconds argument must be equal or greater than 0</value>
+  </data>
+  <data name="InvalidSimSigCodeArgument" xml:space="preserve">
+    <value>The SimSigCode argument cannot be &lt;NULL&gt; or empty</value>
+  </data>
+  <data name="InvalidSimSigCodeError" xml:space="preserve">
+    <value>The code provided is not a valid SimSig code</value>
+  </data>
+  <data name="InvalidSimSigCodeLengthArgument" xml:space="preserve">
+    <value>The SimSig code argument cannot be longer than {0} characters</value>
+  </data>
+  <data name="InvalidSimulationArgument" xml:space="preserve">
+    <value>The Simulation argument cannot be &lt;NULL&gt;</value>
+  </data>
+  <data name="InvalidSimulationNotSavedToDBArgument" xml:space="preserve">
+    <value>The Simulation hasn't been saved to the GroundFrame.SQL database</value>
+  </data>
+  <data name="InvalidSQLConnectorArgument" xml:space="preserve">
+    <value>The SQLConnector argument cannot be &lt;NULL&gt;</value>
+  </data>
+  <data name="InvalidTimeDelimiterArgument" xml:space="preserve">
+    <value>The Time Delimiter argument cannot be &lt;NULL&gt;</value>
+  </data>
+  <data name="InvalidTimeDelimiterLengthArgument" xml:space="preserve">
+    <value>The Time Delimiter argument must be a single character</value>
+  </data>
+  <data name="InvalidXMLArgument" xml:space="preserve">
+    <value>The XML argument cannot be &lt;NULL&gt;</value>
+  </data>
+  <data name="ParseWTTHeaderException" xml:space="preserve">
+    <value>Cannot Parse the WTT Header from the Source SimSig WTT XML</value>
+  </data>
+  <data name="RefreshSimulationError" xml:space="preserve">
+    <value>You cannot refresh a simulation from the GroundFrame.SQL database if it hasn't yet been saved to the GroundFrame.SQL database</value>
+  </data>
+  <data name="RetieveAllSimsError" xml:space="preserve">
+    <value>An error has occurred trying to retrieve all Simulation records from the GroundFrame.SQL database</value>
+  </data>
+  <data name="RetrieveLocationZeroIDError" xml:space="preserve">
+    <value>You cannot delete a Simulation from the GroundFrame.SQL Database when the ID is zero</value>
+  </data>
+  <data name="RetrieveSimulationZeroIDError" xml:space="preserve">
+    <value>You cannot load a Simulation from the GroundFrame.SQL Database when the ID is zero</value>
+  </data>
+  <data name="RetrieveVersionRecordsError" xml:space="preserve">
+    <value>An error has occurred trying to retrieve all Version records from the GroundFrame.SQL database.</value>
+  </data>
+  <data name="RetrieveVersionZeroIDError" xml:space="preserve">
+    <value>You cannot load a Version from the GroundFrame.SQL Database when the ID is zero</value>
+  </data>
+  <data name="TearDownError" xml:space="preserve">
+    <value>The connection is figured to be part of a test therefore you cannot tear down the data</value>
+  </data>
+</root>

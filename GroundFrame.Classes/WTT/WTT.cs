@@ -70,6 +70,7 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Reads a SimSig WTT File and returns an XDocument represent the SavedTimeable.xml file inside the WTT file
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "<Pending>")]
         private void ReadWTTFile()
         {
             bool SaveTimeTableFound = false;
@@ -81,16 +82,14 @@ namespace GroundFrame.Classes
 
             using (FileStream WTTFile = File.OpenRead(this._SourceWTTFileName))
             {
-                using (ZipArchive WTTZip = new ZipArchive(WTTFile, ZipArchiveMode.Read))
+                using ZipArchive WTTZip = new ZipArchive(WTTFile, ZipArchiveMode.Read);
+                foreach (ZipArchiveEntry WTTZipEntry in WTTZip.Entries)
                 {
-                    foreach (ZipArchiveEntry WTTZipEntry in WTTZip.Entries)
+                    if (WTTZipEntry.Name.ToLower() == "savedtimetable.xml")
                     {
-                        if (WTTZipEntry.Name.ToLower() == "savedtimetable.xml")
-                        {
-                            SaveTimeTableFound = true;
-                            this._SourceWTTXML = this.ConvertStreamToXDocument(WTTZipEntry.Open());
-                            this.ParseWTTXML(); //Parse the XML into the object
-                        }
+                        SaveTimeTableFound = true;
+                        this._SourceWTTXML = ConvertStreamToXDocument(WTTZipEntry.Open());
+                        this.ParseWTTXML(); //Parse the XML into the object
                     }
                 }
             }
@@ -107,11 +106,12 @@ namespace GroundFrame.Classes
         /// </summary>
         /// <param name="WTTStream"></param>
         /// <returns></returns>
-        private XDocument ConvertStreamToXDocument(Stream WTTStream)
+        private static XDocument ConvertStreamToXDocument(Stream WTTStream)
         {
             return XDocument.Load(WTTStream);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
         private void ParseWTTXML()
         {
             //Parse the WTT Attributes

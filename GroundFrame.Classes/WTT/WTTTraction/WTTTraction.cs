@@ -41,15 +41,6 @@ namespace GroundFrame.Classes
             this.GenerateSimSigID();
         }
 
-        /// <summary>
-        /// Instantiates a new instance of a WTTTraction object from the supplied WTT Xml
-        /// </summary>
-        /// <param name="Traction">XElement containing the WTT XML defining this traction object</param>
-        public WTTTraction(XElement Traction)
-        {
-
-        }
-
         #endregion Constructors
 
         #region Methods
@@ -64,7 +55,9 @@ namespace GroundFrame.Classes
             {
                 byte[] Buffer = new byte[3];
                 new Random().NextBytes(Buffer);
+#pragma warning disable CA1305 // Specify IFormatProvider
                 string SimSigID = String.Concat(Buffer.Select(x => x.ToString("X2")).ToArray());
+#pragma warning restore CA1305 // Specify IFormatProvider
                 if (6 % 2 == 0)
                 {
                     this._SimSigID = SimSigID;

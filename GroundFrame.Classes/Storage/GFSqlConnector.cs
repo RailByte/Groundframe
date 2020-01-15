@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.SqlClient;
 using System.Data;
+using System.Globalization;
 
 namespace GroundFrame.Classes
 {
@@ -23,7 +24,8 @@ namespace GroundFrame.Classes
         private readonly SqlConnection _Connection;
         private readonly bool _IsTest; //Flag to indicate whether the connector is running as part of a test and therefore the TearDown method can be called
         private Guid _TestDataID; //Stores the ID of the test data
-        private int _Timeout; //Store the timeout of the connection in seconds
+        private readonly int _Timeout; //Store the timeout of the connection in seconds
+        private readonly CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
@@ -64,6 +66,11 @@ namespace GroundFrame.Classes
         /// </summary>
         public int Timeout { get { return this._Timeout; } }
 
+        /// <summary>
+        /// Returns the culture of the connection
+        /// </summary>
+        public CultureInfo Culture { get { return this._Culture; } }
+
         #endregion Properties
 
         #region Constructors
@@ -77,8 +84,9 @@ namespace GroundFrame.Classes
         /// <param name="DBName"></param>
         /// <param name="IsTest">This is used by the testing environment and will delete any data added whilst the connection is open to leave a clean database. Default = false</param>
         /// <param name="Timeout">The number of seconds before the connection times out. Default 30.</param>
-        public GFSqlConnector(string AppAPIKey, string AppUserAPIKey, string SQLServer, string DBName, bool IsTest = false, int Timeout = 30)
+        public GFSqlConnector(string AppAPIKey, string AppUserAPIKey, string SQLServer, string DBName, bool IsTest = false, int Timeout = 30, string Culture = "en-GB")
         {
+            this._Culture = new CultureInfo(Culture);
             this._ApplicationAPIKey = AppAPIKey;
             this._ApplicationUserAPIKey = AppUserAPIKey;
             this._SQLServer = SQLServer;
@@ -90,7 +98,7 @@ namespace GroundFrame.Classes
 
             if (!this.TestConnection())
             {
-                throw new ApplicationException("Cannot connect to GroundFrame Microsoft SQL Database");
+                throw new ApplicationException(ExceptionHelper.GetStaticException("CannotConnectGFSQLDb", null, this._Culture));
             }
         }
 
@@ -100,6 +108,9 @@ namespace GroundFrame.Classes
         /// <param name="SQLConnector"></param>
         public GFSqlConnector(GFSqlConnector SQLConnector)
         {
+            //Validate argument
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, new CultureInfo("en-GB"));
+
             this._ApplicationAPIKey = SQLConnector.ApplicationAPIKey;
             this._ApplicationUserAPIKey = SQLConnector.ApplicationUserAPIKey;
             this._SQLServer = SQLConnector.SQLServer;
@@ -108,6 +119,7 @@ namespace GroundFrame.Classes
             this._TestDataID = SQLConnector.TestDataID;
             this._Timeout = SQLConnector.Timeout;
             this._Connection = new SqlConnection(this.BuildSQLConnectionString());
+            this._Culture = SQLConnector.Culture;
         }
 
         #endregion Constructors
@@ -139,8 +151,11 @@ namespace GroundFrame.Classes
 
                 return true;
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch
+#pragma warning restore CA1031 // Do not catch general exception types
             {
+                //Don't need the method to throw an exception
                 return false;
             }
         }
@@ -169,10 +184,11 @@ namespace GroundFrame.Classes
                 }
 
                 cmd.ExecuteNonQuery();
+                cmd.Dispose();
             }
             catch (Exception Ex)
             {
-                throw new ArgumentException("An error has occured trying to connect the GF Microsoft SQL database.", Ex);
+                throw new ArgumentException(ExceptionHelper.GetStaticException("CannotConnectGFSQLDb", null, this._Culture), Ex);
             }
             
         }
@@ -185,12 +201,14 @@ namespace GroundFrame.Classes
             this._Connection.Close();
         }
 
+
         /// <summary>
         /// Gets a SqlCommand object build from a command string and command type
         /// </summary>
         /// <param name="CommandString">The command string to execute</param>
         /// <param name="Type">The command type</param>
         /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "<Pending>")]
         public SqlCommand SQLCommand (string CommandString, CommandType Type)
         {
             SqlCommand Command = new SqlCommand(CommandString, this._Connection)
@@ -222,7 +240,7 @@ namespace GroundFrame.Classes
         {
             if (this._IsTest == false)
             {
-                throw new ApplicationException("The connection is figured to be part of a test therefore you cannot tear down the data");
+                throw new ApplicationException(ExceptionHelper.GetStaticException("TearDownError", null, this._Culture));
             }
             else
             {
@@ -230,30 +248,31 @@ namespace GroundFrame.Classes
                 this.Open();
 
                 //Set Tear Down Flag
-                SqlCommand cmd = new SqlCommand("sys.sp_set_session_context", this._Connection)
+
+                using (SqlCommand cmd = new SqlCommand("sys.sp_set_session_context", this._Connection))
                 {
-                    CommandType = CommandType.StoredProcedure
-                };
-                cmd.Parameters.Add(new SqlParameter("@key", "can_tear_down"));
-                cmd.Parameters.Add(new SqlParameter("@value", true));
-                cmd.ExecuteNonQuery();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@key", "can_tear_down"));
+                    cmd.Parameters.Add(new SqlParameter("@value", true));
+                    cmd.ExecuteNonQuery();
+                }
 
                 //Clear Down Data
-                cmd = new SqlCommand("common.Usp_TEARDOWN_TESTDATA", this._Connection)
+                using (SqlCommand cmd = new SqlCommand("common.Usp_TEARDOWN_TESTDATA", this._Connection))
                 {
-                    CommandType = CommandType.StoredProcedure
-                };
-                cmd.Parameters.Add(new SqlParameter("@testdata_id",  this._TestDataID));
-                cmd.ExecuteNonQuery();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@testdata_id", this._TestDataID));
+                    cmd.ExecuteNonQuery();
+                }
 
                 //Clear Test Down Flag
-                cmd = new SqlCommand("sys.sp_set_session_context", this._Connection)
+                using (SqlCommand cmd = new SqlCommand("sys.sp_set_session_context", this._Connection))
                 {
-                    CommandType = CommandType.StoredProcedure
-                };
-                cmd.Parameters.Add(new SqlParameter("@key", "can_tear_down"));
-                cmd.Parameters.Add(new SqlParameter("@value", false));
-                cmd.ExecuteNonQuery();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@key", "can_tear_down"));
+                    cmd.Parameters.Add(new SqlParameter("@value", false));
+                    cmd.ExecuteNonQuery();
+                }
 
                 this.Close();
             }
@@ -266,16 +285,17 @@ namespace GroundFrame.Classes
         {
             Guid TestDataID = Guid.Empty;
             this._Connection.Open();
-            SqlCommand Cmd = new SqlCommand("common.Usp_GENERATE_TESTDATA", this._Connection)
+            using (SqlCommand Cmd = new SqlCommand("common.Usp_GENERATE_TESTDATA", this._Connection))
             {
-                CommandType = CommandType.StoredProcedure
+                Cmd.CommandType = CommandType.StoredProcedure;
+                Cmd.Parameters.Add(new SqlParameter("@records_to_generate", RecordsToGenerate));
+                Cmd.Parameters.Add(new SqlParameter("@testdata_id", TestDataID));
+                Cmd.Parameters["@testdata_id"].Direction = ParameterDirection.Output;
+                Cmd.ExecuteNonQuery();
+                this._Connection.Close();
+                this._TestDataID = (Guid)Cmd.Parameters["@testdata_id"].Value; //Set the Simulation ID
             };
-            Cmd.Parameters.Add(new SqlParameter("@records_to_generate", RecordsToGenerate));
-            Cmd.Parameters.Add(new SqlParameter("@testdata_id", TestDataID));
-            Cmd.Parameters["@testdata_id"].Direction = ParameterDirection.Output;
-            Cmd.ExecuteNonQuery();
-            this._Connection.Close();
-            this._TestDataID = (Guid)Cmd.Parameters["@testdata_id"].Value; //Set the Simulation ID
+
         }
 
         protected virtual void Dispose(bool disposing)

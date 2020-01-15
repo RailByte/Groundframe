@@ -18,6 +18,9 @@ namespace GroundFrame.Classes
         /// <returns></returns>
         public static Decimal? GetNullableDecimal(this SqlDataReader DataReader, string FieldName)
         {
+            //Validate Arguments
+            ArgumentValidation.ValidateSqlDataReader(DataReader, new System.Globalization.CultureInfo("en-GB"));
+
             int Ordinal = DataReader.GetOrdinal(FieldName);
             return DataReader.IsDBNull(Ordinal) ? (Decimal?)null : DataReader.GetDecimal(Ordinal);
         }
@@ -30,6 +33,9 @@ namespace GroundFrame.Classes
         /// <returns></returns>
         public static string GetNullableString(this SqlDataReader DataReader, string FieldName)
         {
+            //Validate Arguments
+            ArgumentValidation.ValidateSqlDataReader(DataReader, new System.Globalization.CultureInfo("en-GB"));
+
             int Ordinal = DataReader.GetOrdinal(FieldName);
             return DataReader.IsDBNull(Ordinal) ? null : DataReader.GetString(Ordinal);
         }

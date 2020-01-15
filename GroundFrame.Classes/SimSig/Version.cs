@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Text;
 
 namespace GroundFrame.Classes
@@ -14,11 +15,10 @@ namespace GroundFrame.Classes
         Production = 1,
         Development = 2
     }
-
-    /// <summary>
+/// <summary>
     /// A class representing a SimSig version. One Version can cover multiple SimSig versions and there should be one Version for each version of the SimSig TimeTable Schema
     /// </summary>
-    public class Version
+    public class Version : IDisposable
     {
         #region Constants
         #endregion Constants
@@ -27,6 +27,7 @@ namespace GroundFrame.Classes
 
         private int _ID; //The GroundFrame.SQL database ID
         private readonly GFSqlConnector _SQLConnector; //A connector to the GroundFrame.SQL database
+        private readonly CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
@@ -72,8 +73,14 @@ namespace GroundFrame.Classes
         /// <param name="Description">A description of the version</param>
         /// <param name="Version">The version number. This must be greater the latest version stored in the GroundFrame.SQL database</param>
         /// <param name="SQLConnector">A Connector to the GroundFrame.SQL Database</param>
-        public Version (string Name, string Description, Decimal Version, GFSqlConnector SQLConnector)
+        public Version (string Name, string Description, Decimal Version, GFSqlConnector SQLConnector, string Culture = "en-GB")
         {
+            this._Culture = new CultureInfo(Culture);
+
+            //Validate Arguments
+            ArgumentValidation.ValidateName(Name, this._Culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Creates a copy of the object to prevent conflict with connectios, commands and readers
             this.Name = Name;
             this.Description = Description;
@@ -87,9 +94,15 @@ namespace GroundFrame.Classes
         /// </summary>
         /// <param name="ID">The ID of the version record to get from the GroundFrame.SQL database</param>
         /// <param name="SQLConnector">A Connector to the GroundFrame.SQL Database</param>
-        public Version(int ID, GFSqlConnector SQLConnector)
+        public Version(int ID, GFSqlConnector SQLConnector, string Culture = "en-GB")
         {
+            this._Culture = new CultureInfo(Culture);
+
+            //Validate Arguments
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+
             this._ID = ID;
+            this._Culture = new CultureInfo(Culture);
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Creates a copy of the object to prevent conflict with connectios, commands and readers
             this.GetVersionFromSQLDBByID();
         }
@@ -99,8 +112,14 @@ namespace GroundFrame.Classes
         /// </summary>
         /// <param name="DataReader">The source SqlDataReader</param>
         /// <param name="SQLConnector">A Connector to the GroundFrame.SQL Database</param>
-        public Version (SqlDataReader DataReader, GFSqlConnector SQLConnector)
+        public Version (SqlDataReader DataReader, GFSqlConnector SQLConnector, string Culture = "en-GB")
         {
+            this._Culture = new CultureInfo(Culture);
+
+            //Validate Arguments
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+            ArgumentValidation.ValidateSqlDataReader(DataReader, this._Culture);
+
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Creates a copy of the object to prevent conflict with connectios, commands and readers
             this.ParseSqlDataReader(DataReader);
         }
@@ -124,9 +143,11 @@ namespace GroundFrame.Classes
             this.GetVersionFromSQLDBByID();
         }
 
+
         /// <summary>
         /// Saves the Version to the GroundFrame.SQL database
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
         private void SaveVersionToSQLDB()
         {
             try
@@ -147,6 +168,7 @@ namespace GroundFrame.Classes
                 //Execute
                 Cmd.ExecuteNonQuery();
                 this._ID = Convert.ToInt32(Cmd.Parameters["@id"].Value);
+                Cmd.Dispose();
             }
             catch (Exception Ex)
             {
@@ -165,7 +187,7 @@ namespace GroundFrame.Classes
         {
             if (this._ID == 0)
             {
-                throw new ApplicationException("Cannot load Version from the GroundFrame.SQL Database when the ID = 0.");
+                throw new ApplicationException(ExceptionHelper.GetStaticException("RetrieveVersionZeroIDError", null, this._Culture));
             }
 
             try
@@ -181,10 +203,14 @@ namespace GroundFrame.Classes
                 //Execute
                 SqlDataReader DataReader = Cmd.ExecuteReader();
 
+                Cmd.Dispose();
+
                 while (DataReader.Read())
                 {
                     this.ParseSqlDataReader(DataReader);
                 }
+
+                Cmd.Dispose();
             }
             catch (Exception Ex)
             {
@@ -208,6 +234,42 @@ namespace GroundFrame.Classes
             this.VersionFrom = DataReader.GetDecimal(DataReader.GetOrdinal("simsig_version_from"));
             this.VersionTo = DataReader.GetNullableDecimal("simsig_version_to");
             this.Status = (VersionStatus)DataReader.GetByte(DataReader.GetOrdinal("version_status_id"));
+        }
+
+
+        /// <summary>
+        /// Disposes the Version object
+        /// </summary>
+        public void Dispose()
+        {
+            // If this function is being called the user wants to release the
+            // resources. lets call the Dispose which will do this for us.
+            Dispose(true);
+
+            // Now since we have done the cleanup already there is nothing left
+            // for the Finalizer to do. So lets tell the GC not to call it later.
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing == true)
+            {
+
+            }
+            else
+            {
+                this._SQLConnector.Dispose();
+            }
+        }
+
+        ~Version()
+        {
+            // The object went out of scope and finalized is called
+            // Lets call dispose in to release unmanaged resources 
+            // the managed resources will anyways be released when GC 
+            // runs the next time.
+            Dispose(false);
         }
 
         #endregion Methods

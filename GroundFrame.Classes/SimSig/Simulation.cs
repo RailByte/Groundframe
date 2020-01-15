@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 
 namespace GroundFrame.Classes
 {
-    public class Simulation
+    public class Simulation : IDisposable
     {
         #region Constants
         #endregion Constants
@@ -17,8 +20,7 @@ namespace GroundFrame.Classes
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private string _Name; //Stores the Simulation Name
         private string _SimSigCode; //Stores the SimSig Code
-        private List<SimulationEra> _Eras; //Stores the Eras available in the Simulation
-        private LocationCollection _Locations; //Stores the locations available in the Simulation
+        private CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
@@ -49,13 +51,6 @@ namespace GroundFrame.Classes
         /// </summary>
         public string SimSigCode { get { return this._SimSigCode; } }
 
-        /// <summary>
-        /// Gets the Eras available in the Simulation
-        /// </summary>
-        public List<SimulationEra> Eras { get { return this._Eras; } }
-
-        public LocationCollection Locations { get { return this._Locations; } }
-
         #endregion Properties
 
         #region Constructors
@@ -68,22 +63,16 @@ namespace GroundFrame.Classes
         /// <param name="SimSigWikiLink">The URL to the simulation manula on the SimSig wiki</param>
         /// <param name="SimSigCode">The SimSig code for the simulation. This cannot be altered once set</param>
         /// <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
-        public Simulation(string Name, string Description, string SimSigWikiLink, string SimSigCode, GFSqlConnector SQLConnector)
+        public Simulation(string Name, string Description, string SimSigWikiLink, string SimSigCode, GFSqlConnector SQLConnector, string Culture = "en-GB")
         {
-            if (string.IsNullOrEmpty(Name))
-            {
-                throw new ArgumentException("Name cannot be <NULL> or empty.");
-            }
+            //Load Resources
+            this.LoadResource(Culture);
 
-            if (string.IsNullOrEmpty(SimSigCode))
-            {
-                throw new ArgumentException("SimSigCode cannot be <NULL> or empty.");
-            }
+            //Validate arguments
+            ArgumentValidation.ValidateName(Name, this._Culture);
+            ArgumentValidation.ValidateSimSigCode(SimSigCode, this._Culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
 
-            if (SQLConnector == null)
-            {
-                throw new ArgumentException("SQLConnector cannot be <NULL>.");
-            }
 
             this._ID = 0;
             this._Name = Name;
@@ -91,8 +80,6 @@ namespace GroundFrame.Classes
             this.SimSigWikiLink = SimSigWikiLink;
             this._SimSigCode = SimSigCode;
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiates a new copy of the SQLConnector object to stop conflicts between Connections, Commands and Readers
-            this._Eras = new List<SimulationEra>();
-            this._Locations = null;
         }
 
         /// <summary>
@@ -100,8 +87,14 @@ namespace GroundFrame.Classes
         /// </summary>
         /// <param name="ID">The ID of the Simulation record to be retreived</param>
         /// <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
-        public Simulation(int ID, GFSqlConnector SQLConnector)
+        public Simulation(int ID, GFSqlConnector SQLConnector, string Culture = "en-GB")
         {
+            //Load Resources
+            this.LoadResource(Culture);
+
+            //Validate arguments
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+
             this._ID = ID;
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiates a copy of the SQLConnector object so prevent conflicts on Connections, Commands and DataReaders
             this.GetSimulationFromSQLDBByID();
@@ -111,17 +104,19 @@ namespace GroundFrame.Classes
         /// Instantiates a new Simulation object from the supplied SqlDataReader object
         /// </summary>
         /// <param name="DataReader">A SqlDataReader object representing a Simulation</param>
-        public Simulation(SqlDataReader DataReader, GFSqlConnector SQLConnector)
+        public Simulation(SqlDataReader DataReader, GFSqlConnector SQLConnector, string Culture = "en-GB")
         {
+            //Load Resources
+            this.LoadResource(Culture);
+
+            //Validate arguments
+            ArgumentValidation.ValidateSqlDataReader(DataReader, this._Culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+
             //Instantiate a new GFSqlConnector object from the supplied connector. Stops issues with shared connections / commands and readers etc.
             this._SQLConnector = new GFSqlConnector(SQLConnector);
             //Parse Reader
-            this.ParseSqlDataReader(DataReader);
-            //Load Simulation Eras
-            this.LoadSimErasFromSQLDB();
-            //Load Locations
-            this._Locations = new LocationCollection(this, SQLConnector);
-            
+            this.ParseSqlDataReader(DataReader);           
         }
 
         #endregion Constructors
@@ -129,18 +124,34 @@ namespace GroundFrame.Classes
         #region Methods
 
         /// <summary>
+        /// Loads resources needed by the class
+        /// </summary>
+        /// <param name="Culture"></param>
+        private void LoadResource(string Culture)
+        {
+            //Get Exception Message Resources
+            this._Culture = new CultureInfo(Culture);
+        }
+
+        /// <summary>
+        /// Refreshes the Simulation data from the GroundFrame.SQL database
+        /// </summary>
+        public void RefreshFromSQLDB()
+        {
+            if (this._ID == 0)
+            {
+                throw new ApplicationException(ExceptionHelper.GetStaticException("RefreshSimulationError",null,this._Culture));
+            }
+
+            this.GetSimulationFromSQLDBByID();
+        }
+
+        /// <summary>
         /// Saves the Simulation object to the Microsoft SQL database using application DateTimeOffset as the execution date / time
         /// </summary>
         public void SaveToSQLDB()
         {
-            bool newRecord = this._ID == 0 ? true : false;
             this.SaveSimulationToSQLDB(null);
-
-            //if it's a new record the SimEras need loading as a template era is created on new record Save
-            if (newRecord)
-            {
-                this.LoadSimErasFromSQLDB();
-            }
         }
         /// <summary>
         /// Saves the Simulation object to the GroundFrame.SQL database using the supplied DateTimeOffset
@@ -148,15 +159,9 @@ namespace GroundFrame.Classes
         /// <param name="ExecutionDateTimeOffSet">The exection DateTimOffset</param>
         public void SaveToSQLDB(DateTimeOffset ExecutionDateTimeOffSet)
         {
-            bool newRecord = this._ID == 0 ? true : false;
             this.SaveSimulationToSQLDB(ExecutionDateTimeOffSet);
-
-            //if it's a new record the SimEras need loading as a template era is created on new record Save
-            if (newRecord)
-            {
-                this.LoadSimErasFromSQLDB();
-            }
         }
+
 
         /// <summary>
         /// Deletes the Simulation from the GroundFrame.SQL Database
@@ -165,7 +170,7 @@ namespace GroundFrame.Classes
         {
             if (this._ID <= 0)
             {
-                throw new ArgumentException("Error deleting Simulation from GroundFrame.SQL Database - the Simulation ID must not be 0");
+                throw new ArgumentException(ExceptionHelper.GetStaticException("DeleteSimulationZeroIDError",null,this._Culture));
             }
 
             try
@@ -173,7 +178,7 @@ namespace GroundFrame.Classes
                 //Open the Connection
                 this._SQLConnector.Open();
                 //Set Command
-                SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_DELETE_TSIM", CommandType.StoredProcedure);
+                using SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_DELETE_TSIM", CommandType.StoredProcedure);
                 //Add Parameters
                 Cmd.Parameters.Add(new SqlParameter("@id", this._ID));
                 //Execute the Query
@@ -191,37 +196,6 @@ namespace GroundFrame.Classes
             }
         }
 
-        //Loads the Simulation Eras from the GroundFrame.SQL database into the Era List.
-        private void LoadSimErasFromSQLDB()
-        {
-            this._Eras = new List<SimulationEra>();
-
-            try
-            {
-                //Open the Connection
-                this._SQLConnector.Open();
-                //Set Command
-                SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_GET_TSIMERA_BY_SIM", CommandType.StoredProcedure);
-                //Add Parameters
-                Cmd.Parameters.Add(new SqlParameter("@sim_id", this._ID));
-                //Execute the Query
-                SqlDataReader DataReader = Cmd.ExecuteReader();
-
-                while (DataReader.Read())
-                {
-                    this._Eras.Add(new SimulationEra(DataReader));
-                }
-            }
-            catch (Exception Ex)
-            {
-                throw new ApplicationException($"An error has occurred trying to read Simulation Eras for Sim ID {0} from the GroundFrame.SQL database.", Ex);
-            }
-            finally
-            {
-                this._SQLConnector.Close();
-            }
-        }
-
         /// <summary>
         /// Gets the simulation object from the GroundFrame.SQL database based on the ID
         /// </summary>
@@ -230,19 +204,20 @@ namespace GroundFrame.Classes
 
             if (this._ID <= 0)
             {
-                throw new ArgumentException("Error retrieving Simulation from GroundFrame.SQL Database - the Simulation ID must not be 0");
+                throw new ArgumentException(ExceptionHelper.GetStaticException("RetrieveSimulationZeroIDError", null, this._Culture));
             }
 
             try
             {
                 //Open the Connection
                 this._SQLConnector.Open();
+
                 //Set Command
-                SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_GET_TSIM", CommandType.StoredProcedure);
+                using SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_GET_TSIM", CommandType.StoredProcedure);
                 //Add Parameters
                 Cmd.Parameters.Add(new SqlParameter("@id", this._ID));
                 SqlDataReader DataReader = Cmd.ExecuteReader();
-               
+
                 while (DataReader.Read())
                 {
                     //Parse the DataReader into the version object
@@ -257,10 +232,6 @@ namespace GroundFrame.Classes
             finally
             {
                 this._SQLConnector.Close();
-                //Load the Simulation Eras
-                this.LoadSimErasFromSQLDB();
-                //Get the simulation locations
-                this._Locations = new LocationCollection(this, this._SQLConnector);
             }
         }
 
@@ -277,10 +248,12 @@ namespace GroundFrame.Classes
             this.SimSigWikiLink = DataReader.GetString(DataReader.GetOrdinal("simsig_wiki_link"));
         }
 
+
         /// <summary>
         /// Saves the object the Microsoft SQL database
         /// </summary>
         /// <param name="CurrentDateTime"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
         private void SaveSimulationToSQLDB(DateTimeOffset? CurrentDateTime = null)
         {
             try
@@ -288,7 +261,7 @@ namespace GroundFrame.Classes
                 //Open the Connection
                 this._SQLConnector.Open();
                 //Set Command
-                SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_UPSERT_TSIM", CommandType.StoredProcedure);
+                using SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_UPSERT_TSIM", CommandType.StoredProcedure);
                 //Add Parameters
                 Cmd.Parameters.Add(new SqlParameter("@name", this.Name));
                 Cmd.Parameters.Add(new SqlParameter("@description", string.IsNullOrEmpty(this.Description) ? (object)DBNull.Value : this.Description));
@@ -302,6 +275,7 @@ namespace GroundFrame.Classes
                 //Execute
                 Cmd.ExecuteNonQuery();
                 this._ID = Convert.ToInt32(Cmd.Parameters["@id"].Value);
+
             }
             catch (Exception Ex)
             {
@@ -312,6 +286,41 @@ namespace GroundFrame.Classes
                 this._SQLConnector.Close();
             }
          }
+
+        /// <summary>
+        /// Disposes the Simulation object
+        /// </summary>
+        public void Dispose()
+        {
+            // If this function is being called the user wants to release the
+            // resources. lets call the Dispose which will do this for us.
+            Dispose(true);
+
+            // Now since we have done the cleanup already there is nothing left
+            // for the Finalizer to do. So lets tell the GC not to call it later.
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing == true)
+            {
+
+            }
+            else
+            {
+                this._SQLConnector.Dispose();
+            }
+        }
+
+        ~Simulation()
+        {
+            // The object went out of scope and finalized is called
+            // Lets call dispose in to release unmanaged resources 
+            // the managed resources will anyways be released when GC 
+            // runs the next time.
+            Dispose(false);
+        }
 
         #endregion Methods
     }

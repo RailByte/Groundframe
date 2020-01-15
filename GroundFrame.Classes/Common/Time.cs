@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Reflection;
+using System.Resources;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GroundFrame.Classes
 {
     public enum WTTTimeFormat
     {
-        Short = 1,
-        Long = 2
+        ShortFormat = 1,
+        LongFormat = 2
     }
 
     /// <summary>
@@ -22,8 +26,9 @@ namespace GroundFrame.Classes
         #region Private Variables
 
         private readonly int _Seconds; //Stores the number of seconds since midnight.
-        private char _HalfMinuteCharacter; //Stores the character which represents a half minute.
-        private DateTime _WTTStartDate; //Stores the start date of the timetable.
+        private readonly char _HalfMinuteCharacter; //Stores the character which represents a half minute.
+        private readonly DateTime _WTTStartDate; //Stores the start date of the timetable.
+        private readonly CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
@@ -37,12 +42,12 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Gets the WTTTime formatted as ShortTime (HH:mmC)
         /// </summary>
-        public string FormattedShortTime { get { return this.FormatTime(WTTTimeFormat.Short); } }
+        public string FormattedShortTime { get { return this.FormatTime(WTTTimeFormat.ShortFormat); } }
 
         /// <summary>
         /// Gets the WTTTime formatted as LongTime (DD HH:mmC)
         /// </summary>
-        public string FormattedLongTime { get { return this.FormatTime(WTTTimeFormat.Long); } }
+        public string FormattedLongTime { get { return this.FormatTime(WTTTimeFormat.LongFormat); } }
 
         /// <summary>
         /// Gets the WTTTime as a DateTime object calculated from the WTT Start Date (if no WTT Start Date is specified then this will be defaulted to 01/01/1850)
@@ -54,34 +59,17 @@ namespace GroundFrame.Classes
         #region Constructors
 
         /// <summary>
-        /// Initialises a WTTTime object. The half minute character will be "H" and the WTT start date 1850-01-01
-        /// </summary>
-        /// <param name="Seconds">The number of seconds since midnight</param>
-        public Time(int Seconds)
-        {
-            //Check Arguments
-            if (Seconds<0)
-            {
-                throw new ArgumentOutOfRangeException("Seconds must be equal or greater than 0");
-            }
-
-            this._Seconds = Seconds;
-            this._WTTStartDate = new DateTime(1850, 1, 1);
-            this._HalfMinuteCharacter = (char)72; //"H"
-        }
-
-        /// <summary>
         /// Initialises a WTTTime object. The WTT start date 1850-01-01
         /// </summary>
         /// <param name="Seconds">The number of seconds since midnight</param>
         /// <param name="HalfMinuteCharacter">A string representing the half minute character</param>
-        public Time(int Seconds, string HalfMinuteCharacter = "H")
+        public Time(int Seconds, string HalfMinuteCharacter, string Culture = "en-GB")
         {
-            //Check the HalfMinuteCharacter argument is only 1 character
-            if (HalfMinuteCharacter.Length != 1)
-            {
-                throw new ArgumentOutOfRangeException("The HalfMinuteCharacter argument must only be 1 character");
-            }
+            //Get Exception Messasge Resources
+            this._Culture = new CultureInfo(Culture);
+            //Valdiate Arguments
+            ArgumentValidation.ValidateHalfMinute(HalfMinuteCharacter, this._Culture);
+            ArgumentValidation.ValidateSeconds(Seconds, this._Culture);
 
             this._Seconds = Seconds;
             this._WTTStartDate = new DateTime(1850, 1, 1);
@@ -93,13 +81,13 @@ namespace GroundFrame.Classes
         /// </summary>
         /// <param name="Seconds">The number of seconds since midnight</param>
         /// <param name="HalfMinuteCharacterASCII">The ASCII number representing the half minute character</param>
-        public Time(int Seconds, int HalfMinuteCharacterASCII= 72)
+        public Time(int Seconds, int HalfMinuteCharacterASCII, string Culture = "en-GB")
         {
-            //Check the HalfMinuteCharacterASCII argument is within the valid range
-            if (HalfMinuteCharacterASCII < 32 || HalfMinuteCharacterASCII >255)
-            {
-                throw new ArgumentOutOfRangeException("The HalfMinuteCharacterASCII argument must be between 32 and 255");
-            }
+            //Get Exception Messasge Resources
+            this._Culture = new CultureInfo(Culture);
+            //Valdiate Arguments
+            ArgumentValidation.ValidateHalfMinute(HalfMinuteCharacterASCII, this._Culture);
+            ArgumentValidation.ValidateSeconds(Seconds, this._Culture);
 
             this._Seconds = Seconds;
             this._WTTStartDate = new DateTime(1850, 1, 1);
@@ -112,13 +100,12 @@ namespace GroundFrame.Classes
         /// <param name="Seconds">The number of seconds since midnight</param>
         /// <param name="WTTStartDate">The WTT Start Date - allows the WTTTime object to calculate the correct date for the timetable</param>
         /// <param name="HalfMinuteCharacter">A string representing the half minute character</param>
-        public Time(int Seconds, DateTime WTTStartDate, string HalfMinuteCharacter = "H")
+        public Time(int Seconds, DateTime WTTStartDate, string HalfMinuteCharacter = "H", string Culture = "en-GB")
         {
-            //Check the HalfMinuteCharacter argument is only 1 character
-            if (HalfMinuteCharacter.Length != 1)
-            {
-                throw new ArgumentOutOfRangeException("The HalfMinuteCharacter argument must only be 1 character");
-            }
+            //Get Exception Messasge Resources
+            this._Culture = new CultureInfo(Culture);
+            ArgumentValidation.ValidateHalfMinute(HalfMinuteCharacter, this._Culture);
+            ArgumentValidation.ValidateSeconds(Seconds, this._Culture);
 
             this._Seconds = Seconds;
             this._WTTStartDate = WTTStartDate;
@@ -131,13 +118,13 @@ namespace GroundFrame.Classes
         /// <param name="Seconds">The number of seconds since midnight</param>
         /// <param name="WTTStartDate">The WTT Start Date - allows the WTTTime object to calculate the correct date for the timetable</param>
         /// <param name="HalfMinuteCharacterASCII">The ASCII number representing the half minute character</param>
-        public Time(int Seconds, DateTime WTTStartDate, int HalfMinuteCharacterASCII = 72)
+        public Time(int Seconds, DateTime WTTStartDate, int HalfMinuteCharacterASCII = 72, string Culture = "en-GB")
         {
-            //Check the HalfMinuteCharacterASCII argument is within the valid range
-            if (HalfMinuteCharacterASCII < 32 || HalfMinuteCharacterASCII > 255)
-            {
-                throw new ArgumentOutOfRangeException("The HalfMinuteCharacterASCII argument must be between 32 and 255");
-            }
+            //Get Exception Messasge Resources
+            this._Culture = new CultureInfo(Culture);
+            //Valdiate Arguments
+            ArgumentValidation.ValidateHalfMinute(HalfMinuteCharacterASCII, this._Culture);
+            ArgumentValidation.ValidateSeconds(Seconds, this._Culture);
 
             this._Seconds = Seconds;
             this._WTTStartDate = WTTStartDate;
@@ -147,6 +134,8 @@ namespace GroundFrame.Classes
         #endregion Constructors
 
         #region Methods
+
+
 
         /// <summary>
         /// Caclualtes the DateTime value for the WTTTime object from the WTTStartDate property
@@ -165,35 +154,26 @@ namespace GroundFrame.Classes
         /// <returns></returns>
         public string FormatTime(WTTTimeFormat Format, string Delimiter = ":")
         {
-            if (Delimiter == null)
-            {
-                throw new ArgumentNullException("The Delimiter argument cannot be <NULL>");
-            }
-
-            if (Delimiter.Length != 1)
-            {
-                throw new ArgumentOutOfRangeException("The Delimiter argument must be a single character");
-            }
-
+            ArgumentValidation.ValidateDelimiter(Delimiter, this._Culture);
             TimeSpan TimeDifference = this._WTTStartDate.AddSeconds(this._Seconds).Subtract(this._WTTStartDate);
             int TotalDays = (int)Math.Floor((decimal)TimeDifference.TotalDays);
             int TotalHours = (int)Math.Floor((decimal)TimeDifference.TotalHours);
             int Hours = (int)Math.Floor((decimal)TimeDifference.Hours);
             int Minutes = (int)Math.Floor((decimal)TimeDifference.Minutes);
             int Seconds = (int)Math.Floor((decimal)TimeDifference.Seconds);
-            string HalfMinuteCharacter = Seconds == 0 ? "" : this._HalfMinuteCharacter.ToString();    
-            string DisplayMinutes = Minutes.ToString().Length == 1 ? string.Format(@"0{0}", Minutes) : Minutes.ToString();
+            string HalfMinuteCharacter = Seconds == 0 ? "" : this._HalfMinuteCharacter.ToString(this._Culture);    
+            string DisplayMinutes = Minutes.ToString(this._Culture).Length == 1 ? string.Format(this._Culture, @"0{0}", Minutes) : Minutes.ToString(this._Culture);
 
-            if (Format == WTTTimeFormat.Short)
+            if (Format == WTTTimeFormat.ShortFormat)
             {
-                string DisplayTotalHours = TotalHours.ToString().Length == 1 ? string.Format(@"0{0}", TotalHours) : TotalHours.ToString();
-                return string.Format(@"{0}{1}{2}{3}", DisplayTotalHours, Delimiter, DisplayMinutes, HalfMinuteCharacter);
+                string DisplayTotalHours = TotalHours.ToString(this._Culture).Length == 1 ? string.Format(this._Culture,@"0{0}", TotalHours) : TotalHours.ToString(this._Culture);
+                return string.Format(this._Culture, @"{0}{1}{2}{3}", DisplayTotalHours, Delimiter, DisplayMinutes, HalfMinuteCharacter);
             }
             else
             {
-                string DisplayHours = Hours.ToString().Length == 1 ? string.Format(@"0{0}", Hours) : Hours.ToString();
-                string DisplayDays = this.FormatDays(TotalDays); //Get the Day format.
-                return string.Format(@"{0}{1}{2}{3}{4}", DisplayDays, DisplayHours, Delimiter, DisplayMinutes, HalfMinuteCharacter);
+                string DisplayHours = Hours.ToString(this._Culture).Length == 1 ? string.Format(this._Culture, @"0{0}", Hours) : Hours.ToString(this._Culture);
+                string DisplayDays = FormatDays(TotalDays); //Get the Day format.
+                return string.Format(this._Culture, @"{0}{1}{2}{3}{4}", DisplayDays, DisplayHours, Delimiter, DisplayMinutes, HalfMinuteCharacter);
             }
         }
 
@@ -202,7 +182,7 @@ namespace GroundFrame.Classes
         /// </summary>
         /// <param name="Days"></param>
         /// <returns></returns>
-        private string FormatDays(int Days)
+        private static string FormatDays(int Days)
         {
             if (Days == 0) //No days so we just need to return an empty string
             {
