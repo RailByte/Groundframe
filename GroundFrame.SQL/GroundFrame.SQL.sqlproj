@@ -138,6 +138,8 @@
     <Build Include="Views\simsig\simsig.VLOCATION.sql" />
     <Build Include="Stored Procedures\simsig\simsig.Usp_GET_TLOCATION.sql" />
     <Build Include="Stored Procedures\simsig\simsig.Usp_GET_TLOCATION_BY_SIM.sql" />
+    <None Include="Scripts\Post Deployment\Data Population\Script.Populate simsig.TLOCATIONTYPE.sql" />
+    <Build Include="Stored Procedures\simsig\simsig.Usp_UPSERT_TLOCATIONNODE.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\SQLDB\Extensions\SqlServer\140\SqlSchemas\master.dacpac">

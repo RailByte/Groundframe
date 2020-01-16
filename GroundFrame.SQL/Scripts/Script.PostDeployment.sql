@@ -28,6 +28,8 @@ Print '.\Post Deployment\Data Population\Script.Populate app.TAPPSTATUS.sql comp
 Print '.\Post Deployment\Data Population\Script.Populate simsig.TERATYPE.sql completed (' + CAST(SYSDATETIME() AS NVARCHAR(200)) + ')';
 :r ".\Post Deployment\Data Population\Script.Populate simsig.TVERSIONSTATUS.sql"
 Print '.\Post Deployment\Data Population\Script.Populate simsig.TVERSIONSTATUS.sql completed (' + CAST(SYSDATETIME() AS NVARCHAR(200)) + ')';
+:r ".\Post Deployment\Data Population\Script.Populate simsig.TLOCATIONTYPE.sql"
+Print '.\Post Deployment\Data Population\Script.Populate simsig.TLOCATIONTYPE.sql completed (' + CAST(SYSDATETIME() AS NVARCHAR(200)) + ')';
 --Populate internal users and app
 :r ".\Post Deployment\Data Population\Script.Populate app.TROLE.sql"
 Print '.\Post Deployment\Data Population\Script.Populate app.TROLE.sql completed (' + CAST(SYSDATETIME() AS NVARCHAR(200)) + ')';
