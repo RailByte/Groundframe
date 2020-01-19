@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace GroundFrame.Classes
 {
-    public class WTTTraction
+    public class WTTTrainCategory
     {
         #region Constants
         #endregion Constants
@@ -29,6 +29,7 @@ namespace GroundFrame.Classes
         /// </summary>
         public string Description { get; set; }
 
+
         #endregion Properties
 
         #region Constructors
@@ -36,7 +37,7 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Instantiates a new instance of a WTTTraction object
         /// </summary>
-        public WTTTraction()
+        public WTTTrainCategory()
         {
             this.GenerateSimSigID();
         }

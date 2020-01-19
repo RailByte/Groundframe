@@ -75,12 +75,19 @@ BEGIN
 			WHERE
 				[id] = @counter;
 
+			DELETE FROM [simsig].[TLOCATIONNODE] WHERE sim_id = @simulation_id;
 			DELETE FROM [simsig].[TSIMERA] WHERE sim_id = @simulation_id;
 			DELETE FROM [simsig].[TLOCATION] WHERE sim_id = @simulation_id;
 			DELETE FROM [simsig].[TSIM] WHERE id = @simulation_id;
 
 			SET @counter = @counter +1;
 		END;
+
+		--Delte any other location notes
+
+		DELETE FROM [simsig].[TLOCATIONNODE]
+		WHERE
+			[testdata_id] = @testdata_id;
 
 		--Delete any other simulation eras
 

@@ -1395,29 +1395,6 @@ DELETE FROM [simsig].[TVERSION]
 WHERE
 	[testdata_id] = @testdata_id;</value>
   </data>
-  <data name="simsig_USp_UPSERT_TLOCATIONTest_PosttestAction.SqlScript" xml:space="preserve">
-    <value>--Teardown Data
-
-DECLARE @testdata_id UNIQUEIDENTIFIER;
-
---Get TestData ID 
-EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_UPSERT_TLOCATIONTest', @testdata_id = @testdata_id OUTPUT;
-
---Delete records
-
-DELETE FROM [simsig].[TSIMERA]
-WHERE
-	[testdata_id] = @testdata_id;
-
-DELETE FROM [simsig].[TLOCATION]
-WHERE
-	[testdata_id] = @testdata_id;
-
-DELETE FROM [simsig].[TSIM]
-WHERE
-	[testdata_id] = @testdata_id;
-</value>
-  </data>
   <data name="simsig_USp_UPSERT_TLOCATIONTest_TestAction.SqlScript" xml:space="preserve">
     <value>-- database unit test for simsig.USp_UPSERT_TLOCATION
 DECLARE @id AS SMALLINT, @sim_id AS SMALLINT, @tiploc AS NVARCHAR (16), @name AS NVARCHAR (64), @simsig_code AS NVARCHAR (16), @simsig_entry_point AS BIT, @datetime AS DATETIMEOFFSET (7), @debug AS BIT, @debug_session_id AS UNIQUEIDENTIFIER;
@@ -1698,13 +1675,13 @@ FROM [audit].[TEVENT]
 WHERE
 	[debug_session_id] = @debug_session_id</value>
   </data>
-  <data name="simsig_USp_GET_TLOCATIONTest_PosttestAction.SqlScript" xml:space="preserve">
+  <data name="simsig_USp_UPSERT_TLOCATIONTest_PosttestAction.SqlScript" xml:space="preserve">
     <value>--Teardown Data
 
 DECLARE @testdata_id UNIQUEIDENTIFIER;
 
 --Get TestData ID 
-EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_GET_TLOCATIONTest', @testdata_id = @testdata_id OUTPUT;
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_UPSERT_TLOCATIONTest', @testdata_id = @testdata_id OUTPUT;
 
 --Delete records
 
@@ -1789,13 +1766,13 @@ FROM [audit].[TEVENT]
 WHERE
 	[debug_session_id] = @debug_session_id;</value>
   </data>
-  <data name="simsig_Usp_GET_TLOCATION_BY_SIMTest_PosttestAction.SqlScript" xml:space="preserve">
+  <data name="simsig_USp_GET_TLOCATIONTest_PosttestAction.SqlScript" xml:space="preserve">
     <value>--Teardown Data
 
 DECLARE @testdata_id UNIQUEIDENTIFIER;
 
 --Get TestData ID 
-EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_GET_TLOCATION_BY_SIMTest', @testdata_id = @testdata_id OUTPUT;
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_GET_TLOCATIONTest', @testdata_id = @testdata_id OUTPUT;
 
 --Delete records
 
@@ -1875,6 +1852,347 @@ SELECT
 FROM [audit].[TEVENT]
 WHERE
 	[debug_session_id] = @debug_session_id;</value>
+  </data>
+  <data name="simsig_Usp_GET_TLOCATION_BY_SIMTest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>--Teardown Data
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+
+--Get TestData ID 
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_GET_TLOCATION_BY_SIMTest', @testdata_id = @testdata_id OUTPUT;
+
+--Delete records
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TLOCATION]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[testdata_id] = @testdata_id;
+</value>
+  </data>
+  <data name="simsig_USp_UPSERT_TLOCATIONNODETest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>--Teardown Data
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+
+--Get TestData ID 
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_UPSERT_TLOCATIONNODETest', @testdata_id = @testdata_id OUTPUT;
+
+--Delete records
+
+DELETE FROM [simsig].[TLOCATIONNODE]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TLOCATION]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TVERSION]
+WHERE
+	[testdata_id] = @testdata_id;</value>
+  </data>
+  <data name="simsig_USp_UPSERT_TLOCATIONNODETest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for simsig.USp_UPSERT_TLOCATIONNODE
+DECLARE @id AS INT, @sim_id AS SMALLINT, @location_id AS INT, @simera_id AS SMALLINT, @version_id AS SMALLINT, @simsig_platform_code AS VARCHAR (4), @simsig_elec_bitmap AS TINYINT, @location_type_id AS TINYINT, @length AS SMALLINT, @freight_only AS BIT, @simsig_line AS VARCHAR (4), @simsig_path AS VARCHAR (4), @datetime AS DATETIMEOFFSET (7), @debug AS BIT, @debug_session_id AS UNIQUEIDENTIFIER;
+
+--Other Variables
+
+DECLARE @error_message NVARCHAR(248) = N' No Error Raised';
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+
+--Get TestData ID 
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_UPSERT_TLOCATIONNODETest', @testdata_id = @testdata_id OUTPUT;
+
+--Create Supporting Data
+
+--Create Sim
+
+INSERT INTO [simsig].[TSIM]
+(
+	[name],
+	[description],
+	[simsig_code],
+	[simsig_wiki_link],
+	[createdby_id],
+	[createdon],
+	[modifiedby_id],
+	[modifiedon],
+	[testdata_id]
+)
+VALUES
+(
+	N'Upsert TLOCATIONNOTE Sim Name 1',
+	N'Upsert TLOCATIONNOTE Sim Desc 1',
+	N'UPSTLOCNOTECode1',
+	NULL,
+	2,
+	SYSDATETIMEOFFSET(),
+	2,
+	SYSDATETIMEOFFSET(),
+	@testdata_id
+)
+
+SELECT @sim_id = CAST(SCOPE_IDENTITY() AS INT);
+
+--Create SimEra
+
+INSERT INTO [simsig].[TSIMERA]
+(
+	[sim_id],
+	[name],
+	[description],
+	[era_type_id],
+	[testdata_id]
+)
+VALUES
+(
+	@sim_id,
+	N'Upsert TLOCATIONNOTE Sim Name 1',
+	N'Upsert TLOCATIONNOTE Sim Desc 1',
+	2,
+	@testdata_id
+);
+
+SELECT @simera_id = CAST(SCOPE_IDENTITY() AS INT);
+
+--Create Version
+
+INSERT INTO [simsig].[TVERSION]
+(
+	[simsig_version_from],
+	[simsig_version_to],
+	[name],
+	[description],
+	[version_status_id],
+	[testdata_id]
+)
+VALUES
+(
+	1.0,
+	NULL,
+	N'Upsert TLOCATIONNOTE Name 1',
+	N'Upsert TLOCATIONNOTE Desc 1',
+	2,
+	@testdata_id
+);
+
+SELECT @version_id = CAST(SCOPE_IDENTITY() AS INT);
+
+--Create a location
+
+INSERT INTO [simsig].[TLOCATION]
+(
+	[sim_id],
+	[tiploc],
+	[name],
+	[simsig_code],
+	[simsig_entry_point],
+	[testdata_id],
+	[createdby_id],
+	[createdby_app_id],
+	[createdon],
+	[modifiedby_id],
+	[modifiedon],
+	[modifiedby_app_id]
+)
+VALUES
+(
+	@sim_id,
+	NULL,
+	N'Upsert TLOCATIONNOTE Name 1',
+	N'UPSTLOCNOTECode1',
+	1,
+	@testdata_id,
+	4,
+	2,
+	SYSDATETIME(),
+	4,
+	SYSDATETIME(),
+	2
+)
+
+SELECT @location_id = CAST(SCOPE_IDENTITY() AS INT);
+
+SELECT @simsig_platform_code = NULL,
+       @simsig_elec_bitmap = NULL,
+       @location_type_id = NULL,
+       @length = 0,
+       @freight_only = 0,
+       @simsig_line = NULL,
+       @simsig_path = NULL,
+       @datetime = NULL,
+       @debug = 0;
+
+--Check 1 Test user not logged in creates an error
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATIONNODE] @id OUTPUT, @sim_id, @location_id, @simera_id, @version_id, @simsig_platform_code, @simsig_elec_bitmap, @location_type_id, @length, @freight_only, @simsig_line, @simsig_path, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 1
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 2 -- Check Standard User raises error
+
+--Log Standard User In
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'teststandarduserAPIKEY', @testdata_id = @testdata_id
+
+SET @error_message = N'No Error Raised';
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATIONNODE] @id OUTPUT, @sim_id, @location_id, @simera_id, @version_id, @simsig_platform_code, @simsig_elec_bitmap, @location_type_id, @length, @freight_only, @simsig_line, @simsig_path, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY 
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 2
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 3 Check that passing an invalid Sim raises an error
+
+--Log Editor User In
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY', @testdata_id = @testdata_id
+
+SET @error_message = N'No Error Raised';
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATIONNODE] @id OUTPUT, -1, @location_id, @simera_id, @version_id, @simsig_platform_code, @simsig_elec_bitmap, @location_type_id, @length, @freight_only, @simsig_line, @simsig_path, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY 
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 3
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 4 Check that passing an invalid Location raises an error
+
+SET @error_message = N'No Error Raised';
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATIONNODE] @id OUTPUT, @sim_id, -1, @simera_id, @version_id, @simsig_platform_code, @simsig_elec_bitmap, @location_type_id, @length, @freight_only, @simsig_line, @simsig_path, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY 
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 4
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 5 Check that passing an invalid Sim Era raises an error
+
+SET @error_message = N'No Error Raised';
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATIONNODE] @id OUTPUT, @sim_id, @location_id, -1, @version_id, @simsig_platform_code, @simsig_elec_bitmap, @location_type_id, @length, @freight_only, @simsig_line, @simsig_path, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY 
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 5
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 6 Check that passing an invalid Version raises an error
+
+SET @error_message = N'No Error Raised';
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATIONNODE] @id OUTPUT, @sim_id, @location_id, @simera_id, -1, @simsig_platform_code, @simsig_elec_bitmap, @location_type_id, @length, @freight_only, @simsig_line, @simsig_path, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY 
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 6
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 7 Check that passing an invalid Location Type raises an error
+
+SET @error_message = N'No Error Raised';
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATIONNODE] @id OUTPUT, @sim_id, @location_id, @simera_id, @version_id, @simsig_platform_code, @simsig_elec_bitmap, 255, @length, @freight_only, @simsig_line, @simsig_path, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY 
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 7
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 8 Check record get's created as expected
+
+SET @error_message = N'No Error Raised';
+SET @location_type_id = 1;
+SET @simsig_elec_bitmap = 0;
+
+BEGIN TRY
+	EXEC [simsig].[USp_UPSERT_TLOCATIONNODE] @id OUTPUT, @sim_id, @location_id, @simera_id, @version_id, @simsig_platform_code, @simsig_elec_bitmap, @location_type_id, @length, @freight_only, @simsig_line, @simsig_path, @datetime, @debug, @debug_session_id OUTPUT;
+END TRY 
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 8
+
+SELECT
+	[sim_id] = CAST(CASE WHEN @sim_id = [sim_id] THEN 1 ELSE 0 END AS BIT),
+	[location_id] = CAST(CASE WHEN @location_id = [location_id] THEN 1 ELSE 0 END AS BIT),
+	[simera_id] = CAST(CASE WHEN @simera_id = [simera_id] THEN 1 ELSE 0 END AS BIT),
+	[version_id] = CAST(CASE WHEN version_id = [version_id] THEN 1 ELSE 0 END AS BIT),
+	[simsig_platform_code],
+	[simsig_elec_bitmap],
+	[location_type_id],
+	[length],
+	[freight_only],
+	[simsig_line],
+	[simsig_path],
+	[testdata_id],
+	[createdby_id],
+	[createdby_app_id],
+	[createdon],
+	[modifiedby_id],
+	[modifiedon],
+	[modifiedby_app_id]
+FROM [simsig].[TLOCATIONNODE]
+WHERE
+	[id] = @id;</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

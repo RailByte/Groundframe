@@ -145,6 +145,17 @@ BEGIN
 		THROW 50000, 'No valid location was supplied for the location node.', 1;
 	END
 
+	IF NOT EXISTS (SELECT 1 FROM [simsig].[TVERSION] WHERE [id] = @version_id)
+	BEGIN;
+		IF @debug = 1
+		BEGIN
+			SET @debug_message = 'No valid @version_id parameter was supplied';
+			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+		END;
+
+		THROW 50000, 'No valid version was supplied for the location node.', 1;
+	END
+
 	IF NOT EXISTS (SELECT 1 FROM [simsig].[TLOCATIONTYPE] WHERE [id] = @location_type_id)
 	BEGIN;
 		IF @debug = 1
