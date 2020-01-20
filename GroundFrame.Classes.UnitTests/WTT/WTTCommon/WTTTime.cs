@@ -13,7 +13,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [Fact]
         public void WTTTime_Prop_ArgumentException_Seconds()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new GroundFrame.Classes.Time(-1, "H"));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new GroundFrame.Classes.WTTTime(-1, "H"));
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [InlineData(172890, "48:01H")]
         public void WTTTime_Prop_FormattedShortTime(int Input, string ExpectedValue)
         {
-            GroundFrame.Classes.Time TestTime = new Classes.Time(Input, "H");
+            GroundFrame.Classes.WTTTime TestTime = new Classes.WTTTime(Input, "H");
             Assert.Equal(ExpectedValue, TestTime.FormattedShortTime);
         }
 
@@ -48,7 +48,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [InlineData(172890, "(+2 Days) 00:01H")]
         public void WTTTime_Prop_FormattedLongTime(int Input, string ExpectedValue)
         {
-            GroundFrame.Classes.Time TestTime = new Classes.Time(Input, "H");
+            GroundFrame.Classes.WTTTime TestTime = new Classes.WTTTime(Input, "H");
             Assert.Equal(ExpectedValue, TestTime.FormattedLongTime);
         }
 
@@ -58,7 +58,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [Fact]
         public void WTTTime_Prop_DateAndTime()
         {
-            GroundFrame.Classes.Time TestTime = new Classes.Time(60, "H");
+            GroundFrame.Classes.WTTTime TestTime = new Classes.WTTTime(60, "H");
             DateTime DateTimeResult = new DateTime(1850, 1, 1, 0, 1, 0);
 
             Assert.Equal(DateTimeResult, TestTime.DateAndTime);
@@ -69,7 +69,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [Fact]
         public void WTTTime_Prop_Seconds()
         {
-            GroundFrame.Classes.Time TestTime = new Classes.Time(60, "H");
+            GroundFrame.Classes.WTTTime TestTime = new Classes.WTTTime(60, "H");
             int SecondsResult = 60;
 
             Assert.Equal(SecondsResult, TestTime.Seconds);
@@ -81,7 +81,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [Fact]
         public void WTTTime_Method_ArgumentOutOfRangeException_FormattedTime()
         {
-            GroundFrame.Classes.Time TestTime = new Classes.Time(60, "H");
+            GroundFrame.Classes.WTTTime TestTime = new Classes.WTTTime(60, "H");
             Assert.Throws<ArgumentOutOfRangeException>(() => TestTime.FormatTime(WTTTimeFormat.ShortFormat,""));
             Assert.Throws<ArgumentOutOfRangeException>(() => TestTime.FormatTime(WTTTimeFormat.ShortFormat, "::"));
             Assert.Throws<ArgumentNullException>(() => TestTime.FormatTime(WTTTimeFormat.ShortFormat, null));
@@ -93,7 +93,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [Fact]
         public void WTTTime_Method_ArgumentNullException_FormattedTime()
         {
-            GroundFrame.Classes.Time TestTime = new Classes.Time(60, "H");
+            GroundFrame.Classes.WTTTime TestTime = new Classes.WTTTime(60, "H");
             Assert.Throws<ArgumentNullException>(() => TestTime.FormatTime(WTTTimeFormat.ShortFormat, null));
         }
 
@@ -109,7 +109,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [InlineData(172890, WTTTimeFormat.LongFormat, @"w", "(+2 Days) 00w01H")]
         public void WTTTime_Method_FormattedTime(int Input, WTTTimeFormat Format, string Delimiter, string ExpectedValue)
         {
-            GroundFrame.Classes.Time TestTime = new Classes.Time(Input, "H");
+            GroundFrame.Classes.WTTTime TestTime = new Classes.WTTTime(Input, "H");
             Assert.Equal(ExpectedValue, TestTime.FormatTime(Format, Delimiter));
         }
     }

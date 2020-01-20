@@ -142,6 +142,15 @@ namespace GroundFrame.Classes.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The speed must be greater than zero.
+        /// </summary>
+        internal static string InvalidMPHArgument {
+            get {
+                return ResourceManager.GetString("InvalidMPHArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Name argument cannot be &lt;NULL&gt; or empty.
         /// </summary>
         internal static string InvalidNameArgument {
@@ -246,6 +255,15 @@ namespace GroundFrame.Classes.Resources {
         internal static string InvalidXMLArgument {
             get {
                 return ResourceManager.GetString("InvalidXMLArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot Parse the WTT Train Category from the Source SimSig WTT XML.
+        /// </summary>
+        internal static string ParseFromXElementWTTTrainCategoryException {
+            get {
+                return ResourceManager.GetString("ParseFromXElementWTTTrainCategoryException", resourceCulture);
             }
         }
         

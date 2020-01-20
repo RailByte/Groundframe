@@ -17,7 +17,7 @@ namespace GroundFrame.Classes
     /// <summary>
     /// Class which represents a SimSig time unit
     /// </summary>
-    public class Time
+    public class WTTTime
     {
         #region Constants
 
@@ -63,7 +63,7 @@ namespace GroundFrame.Classes
         /// </summary>
         /// <param name="Seconds">The number of seconds since midnight</param>
         /// <param name="HalfMinuteCharacter">A string representing the half minute character</param>
-        public Time(int Seconds, string HalfMinuteCharacter, string Culture = "en-GB")
+        public WTTTime(int Seconds, string HalfMinuteCharacter, string Culture = "en-GB")
         {
             //Get Exception Messasge Resources
             this._Culture = new CultureInfo(Culture);
@@ -81,7 +81,7 @@ namespace GroundFrame.Classes
         /// </summary>
         /// <param name="Seconds">The number of seconds since midnight</param>
         /// <param name="HalfMinuteCharacterASCII">The ASCII number representing the half minute character</param>
-        public Time(int Seconds, int HalfMinuteCharacterASCII, string Culture = "en-GB")
+        public WTTTime(int Seconds, int HalfMinuteCharacterASCII, string Culture = "en-GB")
         {
             //Get Exception Messasge Resources
             this._Culture = new CultureInfo(Culture);
@@ -100,7 +100,7 @@ namespace GroundFrame.Classes
         /// <param name="Seconds">The number of seconds since midnight</param>
         /// <param name="WTTStartDate">The WTT Start Date - allows the WTTTime object to calculate the correct date for the timetable</param>
         /// <param name="HalfMinuteCharacter">A string representing the half minute character</param>
-        public Time(int Seconds, DateTime WTTStartDate, string HalfMinuteCharacter = "H", string Culture = "en-GB")
+        public WTTTime(int Seconds, DateTime WTTStartDate, string HalfMinuteCharacter = "H", string Culture = "en-GB")
         {
             //Get Exception Messasge Resources
             this._Culture = new CultureInfo(Culture);
@@ -118,7 +118,7 @@ namespace GroundFrame.Classes
         /// <param name="Seconds">The number of seconds since midnight</param>
         /// <param name="WTTStartDate">The WTT Start Date - allows the WTTTime object to calculate the correct date for the timetable</param>
         /// <param name="HalfMinuteCharacterASCII">The ASCII number representing the half minute character</param>
-        public Time(int Seconds, DateTime WTTStartDate, int HalfMinuteCharacterASCII = 72, string Culture = "en-GB")
+        public WTTTime(int Seconds, DateTime WTTStartDate, int HalfMinuteCharacterASCII = 72, string Culture = "en-GB")
         {
             //Get Exception Messasge Resources
             this._Culture = new CultureInfo(Culture);

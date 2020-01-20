@@ -33,12 +33,12 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Gets or sets the WTT start time
         /// </summary>
-        public Time StartTime { get; set; }
+        public WTTTime StartTime { get; set; }
 
         /// <summary>
         /// Gets or sets the WTT finish time
         /// </summary>
-        public Time FinishTime { get; set; }
+        public WTTTime FinishTime { get; set; }
 
         /// <summary>
         /// Gets or sets the WTT major version
@@ -82,8 +82,8 @@ namespace GroundFrame.Classes
         {
             this._Culture = new CultureInfo(Culture);
             this.Name = Name;
-            this.StartTime = new Time(0,"H");
-            this.FinishTime = new Time(0, "H");
+            this.StartTime = new WTTTime(0,"H");
+            this.FinishTime = new WTTTime(0, "H");
             this.VersionMajor = 1;
             this.TrainDescriptionTemplate = "$originTime $originName-$destName $operator ($stock)";
         }
@@ -102,8 +102,8 @@ namespace GroundFrame.Classes
             {
                 this.Name = XMLMethods.GetValueFromXElement<string>(Header, @"Name");
                 this.Description = XMLMethods.GetValueFromXElement<string>(Header, @"Description", string.Empty);
-                this.StartTime = new Time(XMLMethods.GetValueFromXElement<int>(Header, @"StartTime", 0), "H");
-                this.FinishTime = new Time(XMLMethods.GetValueFromXElement<int>(Header, @"FinishTime", 0), "H");
+                this.StartTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(Header, @"StartTime", 0), "H");
+                this.FinishTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(Header, @"FinishTime", 0), "H");
                 this.VersionMajor = XMLMethods.GetValueFromXElement<int>(Header, @"VMajor", 1);
                 this.VersionMinor = XMLMethods.GetValueFromXElement<int>(Header, @"VMinor", 0);
                 this._VersionBuild = XMLMethods.GetValueFromXElement<int>(Header, @"VBuild", 0);

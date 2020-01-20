@@ -144,6 +144,9 @@
   <data name="InvalidMeterArgument" xml:space="preserve">
     <value>The meters argument must be greater than zero</value>
   </data>
+  <data name="InvalidMPHArgument" xml:space="preserve">
+    <value>The speed must be greater than zero</value>
+  </data>
   <data name="InvalidNameArgument" xml:space="preserve">
     <value>The Name argument cannot be &lt;NULL&gt; or empty</value>
   </data>
@@ -179,6 +182,9 @@
   </data>
   <data name="InvalidXMLArgument" xml:space="preserve">
     <value>The XML argument cannot be &lt;NULL&gt;</value>
+  </data>
+  <data name="ParseFromXElementWTTTrainCategoryException" xml:space="preserve">
+    <value>Cannot Parse the WTT Train Category from the Source SimSig WTT XML</value>
   </data>
   <data name="ParseWTTHeaderException" xml:space="preserve">
     <value>Cannot Parse the WTT Header from the Source SimSig WTT XML</value>

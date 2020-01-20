@@ -8,7 +8,7 @@ namespace GroundFrame.Classes
     /// <summary>
     /// A class representing a length. All SimgSig WTT lengths are in meters 
     /// </summary>
-    public class WTTLength
+    public class Length
     {
         #region Constants
 
@@ -49,7 +49,7 @@ namespace GroundFrame.Classes
         /// Instantiates a new instance of a WTTLength from the supplied meters
         /// </summary>
         /// <param name="Meters">The length in meters</param>
-        public WTTLength(int Meters, string Culture = "en-GB")
+        public Length(int Meters, string Culture = "en-GB")
         {
             this._Culture = new CultureInfo(Culture);
 

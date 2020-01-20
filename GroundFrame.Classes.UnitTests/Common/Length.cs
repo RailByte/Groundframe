@@ -16,7 +16,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.Common
         [InlineData(10000, 6.2137000)]
         public void Length_Prop_DecimalMiles(int Meters, decimal ExpectedValue)
         {
-            GroundFrame.Classes.WTTLength TestLength = new GroundFrame.Classes.WTTLength(Meters);
+            GroundFrame.Classes.Length TestLength = new GroundFrame.Classes.Length(Meters);
             Assert.Equal(ExpectedValue, TestLength.DecimalMiles);
         }
 
@@ -29,7 +29,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.Common
         [InlineData(10000, "6M 17CH")]
         public void Length_Prop_MilesAndChains(int Meters, string ExpectedValue)
         {
-            GroundFrame.Classes.WTTLength TestLength = new GroundFrame.Classes.WTTLength(Meters);
+            GroundFrame.Classes.Length TestLength = new GroundFrame.Classes.Length(Meters);
             Assert.Equal(ExpectedValue, TestLength.MilesAndChains);
         }
     }
