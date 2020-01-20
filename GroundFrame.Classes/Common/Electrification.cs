@@ -38,6 +38,36 @@ namespace GroundFrame.Classes
         /// </summary>
         public bool FourthRail { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Overhead DC electrification flag
+        /// </summary>
+        public bool OverheadDC { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Tramway electrification flag
+        /// </summary>
+        public bool Tramway { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Sim 1 electrification flag
+        /// </summary>
+        public bool Sim1 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Sim 2 electrification flag
+        /// </summary>
+        public bool Sim2 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Sim 1 electrification flag
+        /// </summary>
+        public bool Sim3 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Sim 4 electrification flag
+        /// </summary>
+        public bool Sim4 { get; set; }
+
         #endregion Properties
 
         #region Constructors
@@ -73,6 +103,12 @@ namespace GroundFrame.Classes
                 Overhead = false;
                 ThirdRail = false;
                 FourthRail = false;
+                OverheadDC = false;
+                Tramway = false;
+                Sim1 = false;
+                Sim2 = false;
+                Sim3 = false;
+                Sim4 = false;
                 HasMatch = true;
             }
 
@@ -93,6 +129,48 @@ namespace GroundFrame.Classes
             if (Code.IndexOf("4", StringComparison.OrdinalIgnoreCase)>=0)
             {
                 FourthRail = true;
+                HasMatch = true;
+                CharactersParsed++;
+            }
+
+            if (Code.IndexOf("V", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                OverheadDC = true;
+                HasMatch = true;
+                CharactersParsed++;
+            }
+
+            if (Code.IndexOf("T", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                Tramway = true;
+                HasMatch = true;
+                CharactersParsed++;
+            }
+
+            if (Code.IndexOf("X1", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                Sim1 = true;
+                HasMatch = true;
+                CharactersParsed++;
+            }
+
+            if (Code.IndexOf("X2", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                Sim2 = true;
+                HasMatch = true;
+                CharactersParsed++;
+            }
+
+            if (Code.IndexOf("X3", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                Sim3 = true;
+                HasMatch = true;
+                CharactersParsed++;
+            }
+
+            if (Code.IndexOf("X4", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                Sim4 = true;
                 HasMatch = true;
                 CharactersParsed++;
             }
