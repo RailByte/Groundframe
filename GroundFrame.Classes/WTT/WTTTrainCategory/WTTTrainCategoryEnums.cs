@@ -19,7 +19,7 @@ namespace GroundFrame.Classes
     /// <summary>
     /// An emum representing the SimSig Speed Class
     /// </summary>
-    public enum WTTSpeedClass
+    public enum WTTSpeedClassBitWise
     {
         EPSE=1,
         EPSD=2,

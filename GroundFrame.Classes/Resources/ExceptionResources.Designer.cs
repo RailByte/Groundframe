@@ -97,6 +97,24 @@ namespace GroundFrame.Classes.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must pass an Enum as the type parameter.
+        /// </summary>
+        internal static string EnumTypeException {
+            get {
+                return ResourceManager.GetString("EnumTypeException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} argument cannot be &lt;NULL&gt;.
+        /// </summary>
+        internal static string GeneralNullArgument {
+            get {
+                return ResourceManager.GetString("GeneralNullArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The DataReader argument cannot be &lt;NULL&gt;.
         /// </summary>
         internal static string InvalidDataReaderArgument {

@@ -97,6 +97,7 @@ namespace GroundFrame.Classes
         {
             bool HasMatch = false; //Flag to indicates the character has matched an expected value
             int CharactersParsed = 0; //Variable to store the number of varibles parsed
+            string OriginalCode = Code;
 
             if (string.IsNullOrEmpty(Code))
             {
@@ -112,11 +113,44 @@ namespace GroundFrame.Classes
                 HasMatch = true;
             }
 
+            if (Code.IndexOf("X1", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                Sim1 = true;
+                HasMatch = true;
+                CharactersParsed = CharactersParsed + 2;
+                Code = Code.Replace("X1", "", true, this._Culture);
+            }
+
+            if (Code.IndexOf("X2", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                Sim2 = true;
+                HasMatch = true;
+                CharactersParsed = CharactersParsed + 2;
+                Code = Code.Replace("X2", "", true, this._Culture);
+            }
+
+            if (Code.IndexOf("X3", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                Sim3 = true;
+                HasMatch = true;
+                CharactersParsed = CharactersParsed + 2;
+                Code = Code.Replace("X3", "", true, this._Culture);
+            }
+
+            if (Code.IndexOf("X4", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                Sim4 = true;
+                HasMatch = true;
+                CharactersParsed = CharactersParsed + 2;
+                Code = Code.Replace("X4", "", true, this._Culture);
+            }
+
             if (Code.IndexOf("O", StringComparison.OrdinalIgnoreCase)>=0)
             {
                 Overhead = true;
                 HasMatch = true;
                 CharactersParsed ++;
+                Code = Code.Replace("O", "", true, this._Culture);
             }
 
             if (Code.IndexOf("3", StringComparison.OrdinalIgnoreCase)>=0)
@@ -124,6 +158,7 @@ namespace GroundFrame.Classes
                 ThirdRail = true;
                 HasMatch = true;
                 CharactersParsed++;
+                Code = Code.Replace("3", "", true, this._Culture);
             }
 
             if (Code.IndexOf("4", StringComparison.OrdinalIgnoreCase)>=0)
@@ -131,6 +166,7 @@ namespace GroundFrame.Classes
                 FourthRail = true;
                 HasMatch = true;
                 CharactersParsed++;
+                Code = Code.Replace("4", "", true, this._Culture);
             }
 
             if (Code.IndexOf("V", StringComparison.OrdinalIgnoreCase) >= 0)
@@ -138,6 +174,7 @@ namespace GroundFrame.Classes
                 OverheadDC = true;
                 HasMatch = true;
                 CharactersParsed++;
+                Code = Code.Replace("V", "", true, this._Culture);
             }
 
             if (Code.IndexOf("T", StringComparison.OrdinalIgnoreCase) >= 0)
@@ -145,37 +182,10 @@ namespace GroundFrame.Classes
                 Tramway = true;
                 HasMatch = true;
                 CharactersParsed++;
+                Code = Code.Replace("T", "", true, this._Culture);
             }
 
-            if (Code.IndexOf("X1", StringComparison.OrdinalIgnoreCase) >= 0)
-            {
-                Sim1 = true;
-                HasMatch = true;
-                CharactersParsed++;
-            }
-
-            if (Code.IndexOf("X2", StringComparison.OrdinalIgnoreCase) >= 0)
-            {
-                Sim2 = true;
-                HasMatch = true;
-                CharactersParsed++;
-            }
-
-            if (Code.IndexOf("X3", StringComparison.OrdinalIgnoreCase) >= 0)
-            {
-                Sim3 = true;
-                HasMatch = true;
-                CharactersParsed++;
-            }
-
-            if (Code.IndexOf("X4", StringComparison.OrdinalIgnoreCase) >= 0)
-            {
-                Sim4 = true;
-                HasMatch = true;
-                CharactersParsed++;
-            }
-
-            if (!HasMatch || (CharactersParsed != Code.Length))
+            if (!HasMatch || (CharactersParsed != OriginalCode.Length))
             {
                 throw new ArgumentException(ExceptionHelper.GetStaticException("InvalidSimSigCodeError", null, this._Culture));
             }

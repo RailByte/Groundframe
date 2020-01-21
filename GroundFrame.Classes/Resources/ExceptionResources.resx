@@ -129,6 +129,12 @@
   <data name="DeleteSimulationZeroIDError" xml:space="preserve">
     <value>You cannot delete a Simulation from the GroundFrame.SQL Database when the ID is zero</value>
   </data>
+  <data name="EnumTypeException" xml:space="preserve">
+    <value>You must pass an Enum as the type parameter</value>
+  </data>
+  <data name="GeneralNullArgument" xml:space="preserve">
+    <value>The {0} argument cannot be &lt;NULL&gt;</value>
+  </data>
   <data name="InvalidDataReaderArgument" xml:space="preserve">
     <value>The DataReader argument cannot be &lt;NULL&gt;</value>
   </data>

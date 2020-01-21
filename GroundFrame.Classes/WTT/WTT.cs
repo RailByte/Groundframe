@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Xml.Linq;
@@ -48,6 +49,11 @@ namespace GroundFrame.Classes
         /// Gets or sets the Simulation Version the timetable was written for
         /// </summary>
         public string SimulationVersion { get; set; }
+
+        /// <summary>
+        /// Gets or sets the WTT Train Categories
+        /// </summary>
+        public List<WTTTrainCategory> TrainCategories { get; set; }
 
         #endregion Properties
 
@@ -117,8 +123,26 @@ namespace GroundFrame.Classes
             //Parse the WTT Attributes
             this.Simulation = (SimSigSimulation)Enum.Parse(typeof(SimSigSimulation), this._SourceWTTXML.Element("SimSigTimetable").Attribute("ID").Value.ToString(), true);
             this.SimulationVersion = this._SourceWTTXML.Element("SimSigTimetable").Attribute("Version").Value.ToString();
-
+            //Get the Header
             this.Header = new WTTHeader(this._SourceWTTXML.Element("SimSigTimetable"));
+
+            XElement Test = this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories");
+
+            //Parse the train categories
+            if (this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories").Elements("TrainCategory") != null)
+            {
+                this.ParseWTTTrainCategories();
+            }
+        }
+
+        private void ParseWTTTrainCategories()
+        {
+            this.TrainCategories = new List<WTTTrainCategory>();
+
+            foreach (XElement XML in this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories").Elements("TrainCategory"))
+            {
+                this.TrainCategories.Add(new WTTTrainCategory(XML, "en-GB"));
+            }
         }
 
         #endregion Methods

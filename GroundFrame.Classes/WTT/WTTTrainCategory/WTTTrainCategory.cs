@@ -79,9 +79,9 @@ namespace GroundFrame.Classes
         #region Constructors
 
         /// <summary>
-        /// Instantiates a new instance of a WTTTraction object
+        /// Instantiates a new instance of a WTTTrainobject object
         /// </summary>
-        public WTTTrainCategory(string Description, int AccelBrakeIndex, bool IsFreight, bool CanUseGoodsLines, int SpeedMPH, int LengthMeters, int SpeedClass, int PowerToWeightCategory, string Electrification, string Culture = "en-GB")
+        public WTTTrainCategory(string Description, int AccelBrakeIndex, bool IsFreight, bool CanUseGoodsLines, int SpeedMPH, int LengthMeters, int SpeedClassBitWise, int PowerToWeightCategory, string Electrification, string Culture = "en-GB")
         {
             this._Culture = new CultureInfo(Culture ?? "en-GB");
             this.GenerateSimSigID();
@@ -91,15 +91,23 @@ namespace GroundFrame.Classes
             this.CanUseGoodsLines = CanUseGoodsLines;
             this.MaxSpeed = new WTTSpeed(SpeedMPH);
             this.TrainLength = new Length(LengthMeters);
-            this.SpeedClass = (WTTSpeedClass)SpeedClass;
+            this.SpeedClass = new WTTSpeedClass(SpeedClassBitWise);
             this.PowerToWeightCategory = (WTTPowerToWeightCategory)PowerToWeightCategory;
             this.Electrification = new Electrification(Electrification);
         }
 
-        public WTTTrainCategory(XElement Header, string Culture = "en-GB")
+        public WTTTrainCategory(XElement TrainCategoryXML, string Culture = "en-GB")
         {
             this._Culture = new CultureInfo(Culture ?? "en-GB");
-            this.ParseHeaderXML(Header);
+
+            //Check Header Argument
+            if (TrainCategoryXML == null)
+            {
+                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new object[] { "TrainCategoryXML" }, this._Culture));
+            }
+
+            //Parse the XML
+            this.ParseHeaderXML(TrainCategoryXML);
         }
 
         #endregion Constructors
@@ -110,17 +118,19 @@ namespace GroundFrame.Classes
         /// Parses the WTTHeader from the SimSigTimeable element from a SimSig SavedTimetable.xml document
         /// </summary>
         /// <param name="Header"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
         private void ParseHeaderXML(XElement Header)
         {
             try
             {
+                this._SimSigID = Header.Attribute("ID") == null ? null : Header.Attribute("ID").Value.ToString();
                 this.Description = XMLMethods.GetValueFromXElement<string>(Header, @"Description", string.Empty, this._Culture.Name);
                 this.AccelBrakeIndex = (WTTAccelBrakeIndex)XMLMethods.GetValueFromXElement<int>(Header, @"AccelBrakeIndex", null, this._Culture.Name);
                 this.IsFreight = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(Header, @"IsFreight", null, this._Culture.Name));
                 this.CanUseGoodsLines = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(Header, @"CanUseGoodsLines", null, this._Culture.Name));
                 this.MaxSpeed = new WTTSpeed(XMLMethods.GetValueFromXElement<int>(Header, @"MaxSpeed", null, this._Culture.Name));
                 this.TrainLength = new Length(XMLMethods.GetValueFromXElement<int>(Header, @"TrainLength", null, this._Culture.Name));
-                this.SpeedClass = (WTTSpeedClass)XMLMethods.GetValueFromXElement<int>(Header, @"SpeedClass", null, this._Culture.Name);
+                this.SpeedClass = new WTTSpeedClass(XMLMethods.GetValueFromXElement<int>(Header, @"SpeedClass", null, this._Culture.Name), this._Culture.Name);
                 this.PowerToWeightCategory = (WTTPowerToWeightCategory)XMLMethods.GetValueFromXElement<int>(Header, @"PowerToWeightCategory", null, this._Culture.Name);
                 this.Electrification = new Electrification(XMLMethods.GetValueFromXElement<string>(Header, @"Electrification", null, this._Culture.Name));
 
