@@ -67,7 +67,10 @@ namespace GroundFrame.Classes
         /// </summary>
         public WTTPowerToWeightCategory PowerToWeightCategory { get; set; }
 
-        //TODO: Add Dwell Times    
+        /// <summary>
+        /// Gets or sets the dwell times
+        /// </summary>
+        public WTTDwell DwellTimes { get; set; }
 
         /// <summary>
         /// Gets or sets the electrification
@@ -117,22 +120,35 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Parses the WTTHeader from the SimSigTimeable element from a SimSig SavedTimetable.xml document
         /// </summary>
-        /// <param name="Header"></param>
+        /// <param name="TrainCategoryXML"></param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
-        private void ParseHeaderXML(XElement Header)
+        private void ParseHeaderXML(XElement TrainCategoryXML)
         {
             try
             {
-                this._SimSigID = Header.Attribute("ID") == null ? null : Header.Attribute("ID").Value.ToString();
-                this.Description = XMLMethods.GetValueFromXElement<string>(Header, @"Description", string.Empty, this._Culture.Name);
-                this.AccelBrakeIndex = (WTTAccelBrakeIndex)XMLMethods.GetValueFromXElement<int>(Header, @"AccelBrakeIndex", null, this._Culture.Name);
-                this.IsFreight = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(Header, @"IsFreight", null, this._Culture.Name));
-                this.CanUseGoodsLines = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(Header, @"CanUseGoodsLines", null, this._Culture.Name));
-                this.MaxSpeed = new WTTSpeed(XMLMethods.GetValueFromXElement<int>(Header, @"MaxSpeed", null, this._Culture.Name));
-                this.TrainLength = new Length(XMLMethods.GetValueFromXElement<int>(Header, @"TrainLength", null, this._Culture.Name));
-                this.SpeedClass = new WTTSpeedClass(XMLMethods.GetValueFromXElement<int>(Header, @"SpeedClass", null, this._Culture.Name), this._Culture.Name);
-                this.PowerToWeightCategory = (WTTPowerToWeightCategory)XMLMethods.GetValueFromXElement<int>(Header, @"PowerToWeightCategory", null, this._Culture.Name);
-                this.Electrification = new Electrification(XMLMethods.GetValueFromXElement<string>(Header, @"Electrification", null, this._Culture.Name));
+                this._SimSigID = TrainCategoryXML.Attribute("ID") == null ? null : TrainCategoryXML.Attribute("ID").Value.ToString();
+                this.Description = XMLMethods.GetValueFromXElement<string>(TrainCategoryXML, @"Description", string.Empty, this._Culture.Name);
+                this.AccelBrakeIndex = (WTTAccelBrakeIndex)XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"AccelBrakeIndex", null, this._Culture.Name);
+                this.IsFreight = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"IsFreight", null, this._Culture.Name));
+                this.CanUseGoodsLines = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"CanUseGoodsLines", null, this._Culture.Name));
+                this.MaxSpeed = new WTTSpeed(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"MaxSpeed", null, this._Culture.Name));
+                this.TrainLength = new Length(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"TrainLength", null, this._Culture.Name));
+                this.SpeedClass = new WTTSpeedClass(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"SpeedClass", null, this._Culture.Name), this._Culture.Name);
+                this.PowerToWeightCategory = (WTTPowerToWeightCategory)XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"PowerToWeightCategory", null, this._Culture.Name);
+                this.Electrification = new Electrification(XMLMethods.GetValueFromXElement<string>(TrainCategoryXML, @"Electrification", null, this._Culture.Name));
+
+                //Load any dwell times
+                XElement DwellXML = TrainCategoryXML.Element("DwellTimes");
+
+                //If the Dwell times XML is <NULL> then just make the DwellTimes property null
+                if (!DwellXML.HasElements)
+                {
+                    this.DwellTimes = null;
+                }
+                else
+                {
+                    this.DwellTimes = new WTTDwell(DwellXML, this._Culture.Name);
+                }
 
             }
             catch (Exception Ex)

@@ -46,6 +46,7 @@ namespace GroundFrame.Classes.UnitTests.WTTTrainCategory
             Assert.Equal(new GroundFrame.Classes.WTTSpeedClass(Convert.ToInt32(XMLTestTrainCategory.Element("SpeedClass").Value.ToString())).Bitwise, TestCategory.SpeedClass.Bitwise);
             Assert.Equal((WTTPowerToWeightCategory)Convert.ToInt32(XMLTestTrainCategory.Element("PowerToWeightCategory").Value), TestCategory.PowerToWeightCategory);
             Assert.Equal(new GroundFrame.Classes.Electrification(XMLTestTrainCategory.Element("Electrification").Value.ToString()).Overhead, TestCategory.Electrification.Overhead);
+            Assert.Null(TestCategory.DwellTimes);
         }
 
         /// <summary>
