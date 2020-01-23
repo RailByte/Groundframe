@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace GroundFrame.Classes
 
         #region Private Variables 
 
-        private CultureInfo _Culture; //Stores the culture the user wishes to use
+        private readonly CultureInfo _Culture; //Stores the culture the user wishes to use
 
         #endregion Private Variables
 
@@ -66,6 +67,19 @@ namespace GroundFrame.Classes
 
         #region Constructors
 
+        /// <summary>
+        /// Default constructor which is used the Json Deserializer constructor
+        /// </summary>
+        [JsonConstructor]
+        private WTTDwell()
+        {
+        }
+
+        /// <summary>
+        /// Instantiates a WTTDwell object from an XML Snippet
+        /// </summary>
+        /// <param name="DwellXML">The source XML as an XElement</param>
+        /// <param name="Culture">The users culture used to ensure error messages are in the correct language</param>
         public WTTDwell (XElement DwellXML, string Culture = "en-GB")
         {
             //Set the culture

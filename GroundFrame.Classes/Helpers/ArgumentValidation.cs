@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.IO;
 using System.Reflection;
 using System.Resources;
 using System.Text;
@@ -29,6 +30,22 @@ namespace GroundFrame.Classes
             if (HalfMinuteCharacter.Length != 1)
             {
                 throw new ArgumentOutOfRangeException(ExceptionMessageResources.GetString("InvalidHalfMinuteCharacterLengthArgument", Culture));
+            }
+        }
+
+        internal static void ValidateFilename(string FileName, CultureInfo Culture)
+        {
+            ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
+            
+            if (string.IsNullOrEmpty(FileName))
+            {
+
+                throw new ArgumentNullException(ExceptionMessageResources.GetString("InvalidFileNameNullArgument", Culture));
+            }
+
+            if (File.Exists(FileName) == false)
+            {
+                throw new FileNotFoundException(ExceptionMessageResources.GetString("FileNotFoundArgument", Culture));
             }
         }
 

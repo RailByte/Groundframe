@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
@@ -41,6 +42,14 @@ namespace GroundFrame.Classes
         #endregion Properties
 
         #region Constructors
+
+        /// <summary>
+        /// Default constructor which is used the Json Deserializer constructor
+        /// </summary>
+        [JsonConstructor]
+        private WTTDuration()
+        {
+        }
 
         /// <summary>
         /// Initialises a WTTDuration object. The WTT start date 1850-01-01
@@ -92,9 +101,7 @@ namespace GroundFrame.Classes
         {
             ArgumentValidation.ValidateDelimiter(Delimiter, this._Culture);
             TimeSpan TimeDifference = this._WTTStartDate.AddSeconds(Math.Abs(this._Seconds)).Subtract(this._WTTStartDate);
-            int TotalDays = (int)Math.Floor((decimal)TimeDifference.TotalDays);
             int TotalHours = (int)Math.Floor((decimal)TimeDifference.TotalHours);
-            int Hours = (int)Math.Floor((decimal)TimeDifference.Hours);
             int Minutes = (int)Math.Floor((decimal)TimeDifference.Minutes);
             int Seconds = (int)Math.Floor((decimal)TimeDifference.Seconds);
             string HalfMinuteCharacter = Seconds == 0 ? "" : this._HalfMinuteCharacter.ToString(this._Culture);    

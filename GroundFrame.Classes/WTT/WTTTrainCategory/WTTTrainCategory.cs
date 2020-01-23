@@ -4,6 +4,7 @@ using System.Text;
 using System.Linq;
 using System.Xml.Linq;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace GroundFrame.Classes
 {
@@ -80,6 +81,14 @@ namespace GroundFrame.Classes
         #endregion Properties
 
         #region Constructors
+
+        /// <summary>
+        /// Default constructor which is used the Json Deserializer constructor
+        /// </summary>
+        [JsonConstructor]
+        private WTTTrainCategory()
+        {
+        }
 
         /// <summary>
         /// Instantiates a new instance of a WTTTrainobject object

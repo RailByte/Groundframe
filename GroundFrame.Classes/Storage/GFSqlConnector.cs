@@ -106,7 +106,7 @@ namespace GroundFrame.Classes
         /// Instatiates a new GFSqlConnector as a copy of the supplied one. Stops conflicts between connectors on sub query execution
         /// </summary>
         /// <param name="SQLConnector"></param>
-        public GFSqlConnector(GFSqlConnector SQLConnector)
+        internal GFSqlConnector(GFSqlConnector SQLConnector)
         {
             //Validate argument
             ArgumentValidation.ValidateSQLConnector(SQLConnector, new CultureInfo("en-GB"));

@@ -106,6 +106,15 @@ namespace GroundFrame.Classes.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The FileName cannot be found.
+        /// </summary>
+        internal static string FileNotFoundArgument {
+            get {
+                return ResourceManager.GetString("FileNotFoundArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The {0} argument cannot be &lt;NULL&gt;.
         /// </summary>
         internal static string GeneralNullArgument {
@@ -120,6 +129,15 @@ namespace GroundFrame.Classes.Resources {
         internal static string InvalidDataReaderArgument {
             get {
                 return ResourceManager.GetString("InvalidDataReaderArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The FileName argument cannot be &lt;NULL&gt; or empty.
+        /// </summary>
+        internal static string InvalidFileNameNullArgument {
+            get {
+                return ResourceManager.GetString("InvalidFileNameNullArgument", resourceCulture);
             }
         }
         

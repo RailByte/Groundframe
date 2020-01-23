@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
@@ -37,26 +38,51 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Gets the number of seconds since midnight.
         /// </summary>
+        [JsonProperty("seconds")]
         public int Seconds { get { return this._Seconds; } }
 
         /// <summary>
         /// Gets the WTTTime formatted as ShortTime (HH:mmC)
         /// </summary>
+        [JsonIgnore]
         public string FormattedShortTime { get { return this.FormatTime(WTTTimeFormat.ShortFormat); } }
 
         /// <summary>
         /// Gets the WTTTime formatted as LongTime (DD HH:mmC)
         /// </summary>
+        [JsonIgnore]
         public string FormattedLongTime { get { return this.FormatTime(WTTTimeFormat.LongFormat); } }
 
         /// <summary>
         /// Gets the WTTTime as a DateTime object calculated from the WTT Start Date (if no WTT Start Date is specified then this will be defaulted to 01/01/1850)
         /// </summary>
+        [JsonIgnore]
         public DateTime DateAndTime { get { return this.CalculateDateTime(); } }
+
+        /// <summary>
+        /// Gets the WTT Start Date
+        /// </summary>
+        [JsonProperty("wttStartDate")]
+        public DateTime WTTStartDate { get { return this._WTTStartDate; } }
 
         #endregion Properties
 
         #region Constructors
+
+        /// <summary>
+        /// Default constructor which is used the Json Deserializer constructor
+        /// </summary>
+        [JsonConstructor]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
+        private WTTTime(DateTime WTTStartDate, int Seconds)
+        {
+            //Get Exception Messasge Resources
+            this._Culture = new CultureInfo("en-GB");
+
+            this._WTTStartDate = WTTStartDate;
+            this._Seconds = Seconds;
+            this._HalfMinuteCharacter = "H"[0];
+        }
 
         /// <summary>
         /// Initialises a WTTTime object. The WTT start date 1850-01-01
@@ -134,8 +160,6 @@ namespace GroundFrame.Classes
         #endregion Constructors
 
         #region Methods
-
-
 
         /// <summary>
         /// Caclualtes the DateTime value for the WTTTime object from the WTTStartDate property

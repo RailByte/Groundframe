@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -38,6 +39,14 @@ namespace GroundFrame.Classes
         #endregion Properties
 
         #region Constructors
+
+        /// <summary>
+        /// Default constructor which is used the Json Deserializer constructor
+        /// </summary>
+        [JsonConstructor]
+        private WTTSpeed()
+        {
+        }
 
         /// <summary>
         /// Instantiates a WTTSpeed object from the the supplied MPH

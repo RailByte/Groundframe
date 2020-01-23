@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -14,7 +15,7 @@ namespace GroundFrame.Classes
         #region Private Variables
 
         private int _VersionBuild; //Stores the Build Version Number
-        private CultureInfo _Culture; //Stores the culture info
+        private readonly CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
@@ -23,46 +24,63 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Gets or sets the WTT name
         /// </summary>
+        [JsonProperty("name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the WTT description
         /// </summary>
+        [JsonProperty("description")]
         public string Description { get; set; }
 
         /// <summary>
         /// Gets or sets the WTT start time
         /// </summary>
+        [JsonProperty("startTime")]
         public WTTTime StartTime { get; set; }
 
         /// <summary>
         /// Gets or sets the WTT finish time
         /// </summary>
+        [JsonProperty("finishTime")]
         public WTTTime FinishTime { get; set; }
 
         /// <summary>
         /// Gets or sets the WTT major version
         /// </summary>
+        [JsonProperty("versionMajor")]
         public int VersionMajor { get; set; }
 
         /// <summary>
         /// Gets or sets the WTT minor version
         /// </summary>
+        [JsonProperty("versionMinor")]
         public int VersionMinor { get; set; }
 
         /// <summary>
         /// Gets or sets the WTT version build number
         /// </summary>
+        [JsonProperty("versionBuild")]
         public int VersionBuild { get { return this._VersionBuild; } }
 
         /// <summary>
         /// Gets or sets the WTT Train Decsrption Template
         /// </summary>
+        [JsonProperty("trainDescriptionTemplate")]
         public string TrainDescriptionTemplate { get; set; }
 
         #endregion Properties
 
         #region Constructors
+
+        /// <summary>
+        /// Default constructor which is used the Json Deserializer constructor
+        /// </summary>
+        [JsonConstructor]
+        private WTTHeader()
+        {
+
+        }
 
         /// <summary>
         /// Instantiates a WTTHeader object from the SimSigTimeable element from a SimSig SavedTimetable.xml document

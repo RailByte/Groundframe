@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -73,6 +74,15 @@ namespace GroundFrame.Classes
         #region Constructors
 
         /// <summary>
+        /// Default constructor which is used the Json Deserializer constru
+        /// </summary>
+        [JsonConstructor]
+        private Electrification()
+        {
+        }
+
+
+        /// <summary>
         /// Instantiates a WTTElectrification object from the supplied SimSig code
         /// </summary>
         /// <param name="SimSimCode"></param>
@@ -117,7 +127,7 @@ namespace GroundFrame.Classes
             {
                 Sim1 = true;
                 HasMatch = true;
-                CharactersParsed = CharactersParsed + 2;
+                CharactersParsed += 2;
                 Code = Code.Replace("X1", "", true, this._Culture);
             }
 
@@ -125,7 +135,7 @@ namespace GroundFrame.Classes
             {
                 Sim2 = true;
                 HasMatch = true;
-                CharactersParsed = CharactersParsed + 2;
+                CharactersParsed += 2;
                 Code = Code.Replace("X2", "", true, this._Culture);
             }
 
@@ -133,7 +143,7 @@ namespace GroundFrame.Classes
             {
                 Sim3 = true;
                 HasMatch = true;
-                CharactersParsed = CharactersParsed + 2;
+                CharactersParsed += 2;
                 Code = Code.Replace("X3", "", true, this._Culture);
             }
 
@@ -141,7 +151,7 @@ namespace GroundFrame.Classes
             {
                 Sim4 = true;
                 HasMatch = true;
-                CharactersParsed = CharactersParsed + 2;
+                CharactersParsed += 2;
                 Code = Code.Replace("X4", "", true, this._Culture);
             }
 
@@ -182,7 +192,6 @@ namespace GroundFrame.Classes
                 Tramway = true;
                 HasMatch = true;
                 CharactersParsed++;
-                Code = Code.Replace("T", "", true, this._Culture);
             }
 
             if (!HasMatch || (CharactersParsed != OriginalCode.Length))

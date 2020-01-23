@@ -22,7 +22,7 @@ namespace GroundFrame.Classes
             object?[] Args = Arguments ?? Array.Empty<object>();
 
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
-            string? ExceptionMessage = ExceptionMessageResources.GetString("InvalidSimSigCodeArgument", Culture);
+            string? ExceptionMessage = ExceptionMessageResources.GetString(Key, Culture);
             
             //Set Format to be the key if the returned string == NULL
             string Format = string.IsNullOrEmpty(ExceptionMessage) ? Key : ExceptionMessage;

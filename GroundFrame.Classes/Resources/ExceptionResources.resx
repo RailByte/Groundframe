@@ -132,11 +132,17 @@
   <data name="EnumTypeException" xml:space="preserve">
     <value>You must pass an Enum as the type parameter</value>
   </data>
+  <data name="FileNotFoundArgument" xml:space="preserve">
+    <value>The FileName cannot be found</value>
+  </data>
   <data name="GeneralNullArgument" xml:space="preserve">
     <value>The {0} argument cannot be &lt;NULL&gt;</value>
   </data>
   <data name="InvalidDataReaderArgument" xml:space="preserve">
     <value>The DataReader argument cannot be &lt;NULL&gt;</value>
+  </data>
+  <data name="InvalidFileNameNullArgument" xml:space="preserve">
+    <value>The FileName argument cannot be &lt;NULL&gt; or empty</value>
   </data>
   <data name="InvalidHalfMinuteCharacterArgument" xml:space="preserve">
     <value>The HalfMinuteCharacter cannot be &lt;NULL&gt; or empty</value>

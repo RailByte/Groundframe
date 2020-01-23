@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -44,6 +45,15 @@ namespace GroundFrame.Classes
         #endregion Properties
 
         #region Constructors
+
+        /// <summary>
+        /// Default constructor which is used the Json Deserializer constru
+        /// </summary>
+        [JsonConstructor]
+        private Length()
+        {
+        }
+
 
         /// <summary>
         /// Instantiates a new instance of a WTTLength from the supplied meters
