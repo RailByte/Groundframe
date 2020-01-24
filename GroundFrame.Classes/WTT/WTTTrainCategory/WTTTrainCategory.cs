@@ -25,57 +25,68 @@ namespace GroundFrame.Classes.WTT
         /// <summary>
         /// Gets the SimSig ID
         /// </summary>
+        [JsonProperty("simsigId")]
         public string SimSigID { get { return this._SimSigID; } }
 
         /// <summary>
         /// Gets or sets the description
         /// </summary>
+        [JsonProperty("description")]
         public string Description { get; set; }
 
         /// <summary>
         /// Gets or sets the Acceleration / Break Index
         /// </summary>
+        [JsonProperty("accelBrakeIndex")]
         public WTTAccelBrakeIndex AccelBrakeIndex { get; set; }
 
         /// <summary>
         /// Gets or sets the freight flag
         /// </summary>
+        [JsonProperty("isFreight")]
         public bool IsFreight { get; set; }
 
         /// <summary>
         /// Gets or sets the Can Use Goods Lines flag
         /// </summary>
+        [JsonProperty("canUseGoodLines")]
         public bool CanUseGoodsLines { get; set; }
 
 
         /// <summary>
         /// Gets or sets the max speed
         /// </summary>
+        [JsonProperty("maxSpeed")]
         public WTTSpeed MaxSpeed { get; set; }
 
         /// <summary>
         /// Gets or sets the train length
         /// </summary>
+        [JsonProperty("trainLength")]
         public Length TrainLength { get; set; }
 
         /// <summary>
         /// Gets or sets the speed class
         /// </summary>
+        [JsonProperty("speedClass")]
         public WTTSpeedClass SpeedClass { get; set; }
 
         /// <summary>
         /// Gets or sets the power to weight category
         /// </summary>
+        [JsonProperty("powerToWeightCategory")]
         public WTTPowerToWeightCategory PowerToWeightCategory { get; set; }
 
         /// <summary>
         /// Gets or sets the dwell times
         /// </summary>
+        [JsonProperty("dwellTimes")]
         public WTTDwell DwellTimes { get; set; }
 
         /// <summary>
         /// Gets or sets the electrification
         /// </summary>
+        [JsonProperty("electrification")]
         public Electrification Electrification { get; set; }
 
         #endregion Properties

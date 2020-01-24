@@ -32,11 +32,13 @@ namespace GroundFrame.Classes.WTT
         /// <summary>
         /// Gets the number of seconds since midnight.
         /// </summary>
+        [JsonProperty("seconds")]
         public int Seconds { get { return this._Seconds; } }
 
         /// <summary>
         /// Gets the WTTDuration formatted as ShortTime (HH:mmC)
         /// </summary>
+        [JsonProperty("formattedDuration")]
         public string FormattedDuration { get { return this.FormatTime(); } }
 
         #endregion Properties

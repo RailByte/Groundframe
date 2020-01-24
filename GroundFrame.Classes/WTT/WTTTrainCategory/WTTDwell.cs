@@ -27,41 +27,49 @@ namespace GroundFrame.Classes.WTT
         /// <summary>
         /// Gets or sets the red signal move off dwell time
         /// </summary>
+        [JsonProperty("redSignalMoveOff")]
         public WTTDuration RedSignalMoveOff { get; set; }
 
         /// <summary>
         /// Gets or sets the station forward dwell time
         /// </summary>
+        [JsonProperty("stationForward")]
         public WTTDuration StationForward { get; set; }
 
         /// <summary>
         /// Gets or sets the station reverse dwell time
         /// </summary>
+        [JsonProperty("stationReverse")]
         public WTTDuration StationReverse { get; set; }
 
         /// <summary>
         /// Gets or sets the terminate forward dwell time
         /// </summary>
+        [JsonProperty("terminateForward")]
         public WTTDuration TerminateForward { get; set; }
 
         /// <summary>
         /// Gets or sets the terminate reverse dwell time
         /// </summary>
+        [JsonProperty("terminalReverse")]
         public WTTDuration TerminateReverse { get; set; }
 
         /// <summary>
         /// Gets or sets the join dwell time
         /// </summary>
+        [JsonProperty("join")]
         public WTTDuration Join { get; set; }
 
         /// <summary>
         /// Gets or sets the divide dwell time
         /// </summary>
+        [JsonProperty("divide")]
         public WTTDuration Divide { get; set; }
 
         /// <summary>
         /// Gets or sets the crew change dwell time
         /// </summary>
+        [JsonProperty("crewChange")]
         public WTTDuration CrewChange { get; set; }
         #endregion Properties
 

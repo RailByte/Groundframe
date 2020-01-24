@@ -73,6 +73,7 @@ namespace GroundFrame.Classes.WTT
         /// <summary>
         /// Gets the timetable start date
         /// </summary>
+        [JsonProperty("startDate")]
         public DateTime StartDate { get { return this._StartDate; } }
 
         #endregion Properties
@@ -154,6 +155,16 @@ namespace GroundFrame.Classes.WTT
                 throw new Exception(ExceptionHelper.GetStaticException("ParseWTTHeaderException", null, this._Culture), Ex);
             }
         }
+
+        public List<UserSetting> GetSimulationUserSettings()
+        {
+            if (OnRequestUserSettings == null)
+                throw new Exception("OnRequestUserSettings handler is not assigned");
+
+            return OnRequestUserSettings();
+        }
+
+        internal Func<List<UserSetting>> OnRequestUserSettings;
 
         #endregion Methods
     }

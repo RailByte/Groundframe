@@ -37,6 +37,8 @@ namespace GroundFrame.Classes.SimSig
         public VersionCollection(GFSqlConnector SQLConnector, string Culture = "en-GB")
         {
             this._Culture = new CultureInfo(Culture);
+            //Validate Arguments
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
 
             //Set the SQL Connector
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiated as a new copy of the SQLConnector to stop conflict issues with open connections, commands and DataReaders

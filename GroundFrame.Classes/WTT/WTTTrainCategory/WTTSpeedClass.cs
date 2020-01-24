@@ -26,10 +26,12 @@ namespace GroundFrame.Classes.WTT
         /// <summary>
         /// Gets the bitwise value for the speed class
         /// </summary>
+        [JsonProperty("bitWise")]
         public int Bitwise { get { return this._Bitwise; } }
         /// <summary>
         /// Gets a list of the selected bitwise values
         /// </summary>
+        [JsonProperty("speedClassList")]
         public List<WTTSpeedClassBitWise> SpeedClassList { get { return BitwiseHelper.MaskToList<WTTSpeedClassBitWise>((WTTSpeedClassBitWise)this._Bitwise, this._Culture); } }
 
         #endregion Properties

@@ -29,11 +29,13 @@ namespace GroundFrame.Classes.WTT
         /// <summary>
         /// Gets the speed in MPH
         /// </summary>
+        [JsonProperty("mph")]
         public int MPH { get { return this._MPH; } }
 
         /// <summary>
         /// Gets the speed in KPH
         /// </summary>
+        [JsonProperty("kph")]
         public decimal KPH { get { return this._MPH * _MPHToKPH;  } }
 
         #endregion Properties

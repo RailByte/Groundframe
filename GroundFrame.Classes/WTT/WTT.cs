@@ -21,7 +21,8 @@ namespace GroundFrame.Classes.WTT
         private XDocument _SourceWTTXML;
         private readonly GFSqlConnector _SQLConnector; //Stores the connection to the GroundFrame.SQL database
         private readonly CultureInfo _Culture; //Stores the users culture
-        private readonly DateTime _StartDate; //Stores the start date of the timetable
+        private DateTime _StartDate; //Stores the start date of the timetable
+        private readonly List<UserSetting> _UserSettings;
 
         #endregion Private Variables
 
@@ -72,6 +73,12 @@ namespace GroundFrame.Classes.WTT
         [JsonProperty("timeTables")]
         public List<WTTTimeTable> TimeTables { get; set; }
 
+        /// <summary>
+        /// Gets the timetable start date
+        /// </summary>
+        [JsonProperty("startDate")]
+        public DateTime StartDate { get { return this._StartDate; } set { this._StartDate = value; } }
+
         #endregion Properties
 
         #region Constructors
@@ -115,8 +122,9 @@ namespace GroundFrame.Classes.WTT
         /// Default constructor which is used the Json Deserializer constructor
         /// </summary>
         [JsonConstructor]
-        private WTT ()
+        private WTT (DateTime StartDate)
         {
+            this._StartDate = StartDate;
         }
 
         /// <summary>
@@ -124,10 +132,11 @@ namespace GroundFrame.Classes.WTT
         /// </summary>
         /// <param name="SQLConnector"></param>
         /// <param name="Culture"></param>
-        public WTT (string Culture = "en-GB")
+        public WTT(List<UserSetting> UserSettings, string Culture = "en-GB")
         {
             //Set Culture
             this._Culture = new CultureInfo(string.IsNullOrEmpty(Culture) ? "en-GB" : Culture);
+            this._UserSettings = UserSettings;
             //Validate Arguments
             //ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
 
@@ -237,9 +246,15 @@ namespace GroundFrame.Classes.WTT
         /// Populates the object from the supplied JSON
         /// </summary>
         /// <param name="JSON">The JSON string representing the WTT object</param>
-        private void PopulateFromJSON(string JSON)
+        public void PopulateFromJSON(string JSON)
         {
             JsonConvert.PopulateObject(JSON, this);
+
+            //Set the UserSetting function
+            if (this.Header != null)
+            {
+                this.Header.OnRequestUserSettings += new Func<List<UserSetting>>(delegate { return this._UserSettings; });
+            }
         }
 
         /// <summary>
