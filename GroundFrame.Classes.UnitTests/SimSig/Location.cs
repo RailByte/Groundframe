@@ -15,7 +15,7 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         #region Private Variables
 
         private readonly GFSqlConnector _SQLConnection;
-        private readonly Classes.Simulation _TestSimulation;
+        private readonly Classes.SimSig.Simulation _TestSimulation;
 
         #endregion Private Variables
 
@@ -37,7 +37,7 @@ namespace GroundFrame.Classes.UnitTests.SimSig
 
             //Create a Test Simulation and save to DB
 
-            this._TestSimulation = new Classes.Simulation("Test Location Sim Name", "Test Location Sim Desc", null, "Test Location Sim Code", this._SQLConnection);
+            this._TestSimulation = new Classes.SimSig.Simulation("Test Location Sim Name", "Test Location Sim Desc", null, "Test Location Sim Code", this._SQLConnection);
             this._TestSimulation.SaveToSQLDB();
         }
 
@@ -62,7 +62,7 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         [InlineData("TIPLOC2", "Test Location Name 2", false, "TestLocCode2")]
         public void Location_Constructor_ByProperties(string TIPLOC, string Name, bool EntryPoint, string SimSigCode)
         {
-            Classes.Location TestLocation = new Classes.Location(this._TestSimulation, Name, TIPLOC, SimSigCode, EntryPoint, this._SQLConnection);
+            Classes.SimSig.Location TestLocation = new Classes.SimSig.Location(this._TestSimulation, Name, TIPLOC, SimSigCode, EntryPoint, this._SQLConnection);
             TestLocation.SaveToSQLDB();
             Assert.Equal(Name, TestLocation.Name);
             Assert.Equal(TIPLOC, TestLocation.TIPLOC);
@@ -79,7 +79,7 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         [InlineData("TIPLOC4", "Test Location Name 4", false, "TestLocCode4")]
         public void Location_Method_CheckUpdate(string TIPLOC, string Name, bool EntryPoint, string SimSigCode)
         {
-            Classes.Location TestLocation = new Classes.Location(this._TestSimulation, Name, TIPLOC, SimSigCode, EntryPoint, this._SQLConnection);
+            Classes.SimSig.Location TestLocation = new Classes.SimSig.Location(this._TestSimulation, Name, TIPLOC, SimSigCode, EntryPoint, this._SQLConnection);
             TestLocation.SaveToSQLDB();
             
             Assert.Equal(Name, TestLocation.Name);
@@ -106,12 +106,12 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         [InlineData("TIPLOC6", "Test Location Name 6", false, "TestLocCode6")]
         public void Location_Method_CheckRefresh(string TIPLOC, string Name, bool EntryPoint, string SimSigCode)
         {
-            Classes.Location TestLocation = new Classes.Location(this._TestSimulation, Name, TIPLOC, SimSigCode, EntryPoint, this._SQLConnection);
+            Classes.SimSig.Location TestLocation = new Classes.SimSig.Location(this._TestSimulation, Name, TIPLOC, SimSigCode, EntryPoint, this._SQLConnection);
             TestLocation.SaveToSQLDB();
 
             //Now load into a new object and compare
 
-            Classes.Location CheckLocation = new Classes.Location(TestLocation.ID, this._SQLConnection);
+            Classes.SimSig.Location CheckLocation = new Classes.SimSig.Location(TestLocation.ID, this._SQLConnection);
             Assert.Equal(TestLocation.ID, CheckLocation.ID);
             Assert.Equal(TestLocation.Name, CheckLocation.Name);
             Assert.Equal(TestLocation.SimSigCode, CheckLocation.SimSigCode);

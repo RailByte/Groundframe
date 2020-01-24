@@ -7,7 +7,7 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GroundFrame.Classes
+namespace GroundFrame.Classes.WTT
 {
     /// <summary>
     /// Class which represents a SimSig duration unit. This is similar to time but allows negative seconds to be passed. Negative seconds are used to indicate whether a train should run early

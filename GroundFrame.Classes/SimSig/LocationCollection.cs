@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.Text;
 
-namespace GroundFrame.Classes
+namespace GroundFrame.Classes.SimSig
 {
     /// <summary>
     /// Class representing a collection of locations

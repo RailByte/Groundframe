@@ -7,7 +7,7 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GroundFrame.Classes
+namespace GroundFrame.Classes.WTT
 {
     public enum WTTTimeFormat
     {

@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Text;
 using System.Xml.Linq;
 
-namespace GroundFrame.Classes
+namespace GroundFrame.Classes.WTT
 {
     /// <summary>
     /// A Class representing a SimSig Trip

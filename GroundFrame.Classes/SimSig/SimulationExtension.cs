@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GroundFrame.Classes
+namespace GroundFrame.Classes.SimSig
 {
     /// <summary>
     /// Class which represents a simulation together with it's extension data of eras, and locations

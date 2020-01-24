@@ -6,7 +6,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Xml.Linq;
 
-namespace GroundFrame.Classes
+namespace GroundFrame.Classes.WTT
 {
     public enum SimSigSimulation
     {

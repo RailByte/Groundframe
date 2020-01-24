@@ -6,7 +6,7 @@ using System.Xml.Linq;
 using System.Globalization;
 using Newtonsoft.Json;
 
-namespace GroundFrame.Classes
+namespace GroundFrame.Classes.WTT
 {
     public class WTTTimeTable
     {

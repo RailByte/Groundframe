@@ -58,15 +58,15 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         public void LocationCollection_Constructor_Default()
         {
             //Populate some data
-            Classes.Simulation TestSim = new Classes.Simulation("LocColl Sim Name", "LocColl Sim Desc", null, "LocCollCode", this._SQLConnection);
+            Classes.SimSig.Simulation TestSim = new Classes.SimSig.Simulation("LocColl Sim Name", "LocColl Sim Desc", null, "LocCollCode", this._SQLConnection);
             TestSim.SaveToSQLDB();
-            Classes.Location TestLocation1 = new Classes.Location(TestSim, "LocColl Loc Name", null, "LocCollLocCode1", true, this._SQLConnection);
+            Classes.SimSig.Location TestLocation1 = new Classes.SimSig.Location(TestSim, "LocColl Loc Name", null, "LocCollLocCode1", true, this._SQLConnection);
             TestLocation1.SaveToSQLDB();
-            Classes.Location TestLocation2 = new Classes.Location(TestSim, "LocCol2 Loc Name", "LocCollTIPLOC2", "LocCollLocCode2", false, this._SQLConnection);
+            Classes.SimSig.Location TestLocation2 = new Classes.SimSig.Location(TestSim, "LocCol2 Loc Name", "LocCollTIPLOC2", "LocCollLocCode2", false, this._SQLConnection);
             TestLocation2.SaveToSQLDB();
 
             //Get Collection
-            Classes.LocationCollection TestLocCollection = new Classes.LocationCollection(TestSim, this._SQLConnection);
+            Classes.SimSig.LocationCollection TestLocCollection = new Classes.SimSig.LocationCollection(TestSim, this._SQLConnection);
             //Check 5 records are returned
             Assert.Equal(2, TestLocCollection.Count);
         }

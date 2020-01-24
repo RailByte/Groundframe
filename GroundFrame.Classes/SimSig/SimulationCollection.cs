@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.Text;
 
-namespace GroundFrame.Classes
+namespace GroundFrame.Classes.SimSig
 {
 
     public class SimulationCollection : IEnumerable<Simulation>, IDisposable
@@ -35,6 +35,8 @@ namespace GroundFrame.Classes
         public SimulationCollection(GFSqlConnector SQLConnector, string Culture = "en-GB")
         {
             this._Culture = new CultureInfo(Culture);
+            //Validate Arguments
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
 
             //Set the SQL Connector
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiated as a new copy of the SQLConnector to stop conflict issues with open connections, commands and DataReaders

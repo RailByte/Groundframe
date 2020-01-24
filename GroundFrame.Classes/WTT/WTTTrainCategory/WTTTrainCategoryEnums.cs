@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GroundFrame.Classes
+namespace GroundFrame.Classes.WTT
 {
     /// <summary>
     /// An enum representing the SimSig Accel Brake Index

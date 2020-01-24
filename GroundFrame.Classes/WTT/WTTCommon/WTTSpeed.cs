@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace GroundFrame.Classes
+namespace GroundFrame.Classes.WTT
 {
     /// <summary>
     /// Class representing a WTT Speed object

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Xml.Linq;
 using Xunit;
+using GroundFrame.Classes.WTT;
 
 namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
 {
@@ -15,7 +16,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         [Fact]
         public void XMLMethods_WTTHeader_Constructor_Name_CheckPropName()
         {
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader("Test Timetable");
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader("Test Timetable");
             Assert.Equal("Test Timetable", TestHeader.Name);
         }
 
@@ -25,7 +26,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         [Fact]
         public void XMLMethods_WTTHeader_Constructor_Name_CheckPropDescription()
         {
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader("Test Timetable");
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader("Test Timetable");
             Assert.Null(TestHeader.Description);
         }
 
@@ -34,7 +35,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         [Fact]
         public void XMLMethods_WTTHeader_Constructor_Name_CheckPropStartTime()
         {
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader("Test Timetable");
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader("Test Timetable");
             Assert.Equal(0, TestHeader.StartTime.Seconds);
         }
 
@@ -43,7 +44,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         [Fact]
         public void XMLMethods_WTTHeader_Constructor_Name_CheckPropFinishTime()
         {
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader("Test Timetable");
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader("Test Timetable");
             Assert.Equal(0, TestHeader.FinishTime.Seconds);
         }
 
@@ -52,7 +53,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         [Fact]
         public void XMLMethods_WTTHeader_Constructor_Name_CheckPropMajorVersion()
         {
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader("Test Timetable");
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader("Test Timetable");
             Assert.Equal(1, TestHeader.VersionMajor);
         }
 
@@ -61,7 +62,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         [Fact]
         public void XMLMethods_WTTHeader_Constructor_Name_CheckPropMinorVersion()
         {
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader("Test Timetable");
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader("Test Timetable");
             Assert.Equal(0, TestHeader.VersionMinor);
         }
 
@@ -70,7 +71,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         [Fact]
         public void XMLMethods_WTTHeader_Constructor_Name_CheckPropBuildVersion()
         {
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader("Test Timetable");
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader("Test Timetable");
             Assert.Equal(0, TestHeader.VersionBuild);
         }
 
@@ -79,7 +80,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         [Fact]
         public void XMLMethods_WTTHeader_Constructor_Name_CheckPropTrainDescriptionTemplate()
         {
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader("Test Timetable");
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader("Test Timetable");
             Assert.Equal("$originTime $originName-$destName $operator ($stock)", TestHeader.TrainDescriptionTemplate);
         }
 
@@ -89,7 +90,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         [Fact]
         public void XMLMethods_WTTHeader_Prop_CheckVersionBuildReadOnly()
         {
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader("Test Timetable");
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader("Test Timetable");
             AttributeCollection attributes = TypeDescriptor.GetProperties(TestHeader)["VersionBuild"].Attributes;
             Assert.True(attributes[typeof(ReadOnlyAttribute)].Equals(ReadOnlyAttribute.Yes));
         }
@@ -103,7 +104,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         {
             string FullPath = new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}{FileName}").LocalPath;
             XElement TestXML = XDocument.Load(FullPath).Element("SimSigTimetable");
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader(TestXML);
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader(TestXML);
             Assert.Equal(ExpectedValue, TestHeader.Name);
         }
 
@@ -117,7 +118,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         {
             string FullPath = new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}{FileName}").LocalPath;
             XElement TestXML = XDocument.Load(FullPath).Element("SimSigTimetable");
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader(TestXML);
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader(TestXML);
             Assert.Equal(ExpectedValue, TestHeader.Description);
         }
 
@@ -130,7 +131,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         {
             string FullPath = new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}{FileName}").LocalPath;
             XElement TestXML = XDocument.Load(FullPath).Element("SimSigTimetable");
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader(TestXML);
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader(TestXML);
             Assert.Equal(ExpectedValue, TestHeader.StartTime.Seconds);
         }
 
@@ -143,7 +144,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         {
             string FullPath = new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}{FileName}").LocalPath;
             XElement TestXML = XDocument.Load(FullPath).Element("SimSigTimetable");
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader(TestXML);
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader(TestXML);
             Assert.Equal(ExpectedValue, TestHeader.FinishTime.Seconds);
         }
 
@@ -156,7 +157,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         {
             string FullPath = new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}{FileName}").LocalPath;
             XElement TestXML = XDocument.Load(FullPath).Element("SimSigTimetable");
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader(TestXML);
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader(TestXML);
             Assert.Equal(ExpectedValue, TestHeader.VersionMajor);
         }
 
@@ -169,7 +170,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         {
             string FullPath = new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}{FileName}").LocalPath;
             XElement TestXML = XDocument.Load(FullPath).Element("SimSigTimetable");
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader(TestXML);
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader(TestXML);
             Assert.Equal(ExpectedValue, TestHeader.VersionMinor);
         }
 
@@ -182,7 +183,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         {
             string FullPath = new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}{FileName}").LocalPath;
             XElement TestXML = XDocument.Load(FullPath).Element("SimSigTimetable");
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader(TestXML);
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader(TestXML);
             Assert.Equal(ExpectedValue, TestHeader.VersionBuild);
         }
 
@@ -195,7 +196,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
         {
             string FullPath = new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}{FileName}").LocalPath;
             XElement TestXML = XDocument.Load(FullPath).Element("SimSigTimetable");
-            GroundFrame.Classes.WTTHeader TestHeader = new GroundFrame.Classes.WTTHeader(TestXML);
+            GroundFrame.Classes.WTT.WTTHeader TestHeader = new GroundFrame.Classes.WTT.WTTHeader(TestXML);
             Assert.Equal(ExpectedValue, TestHeader.TrainDescriptionTemplate);
         }
     }

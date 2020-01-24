@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace GroundFrame.Classes
+namespace GroundFrame.Classes.WTT
 {
     /// <summary>
     /// Class which represents the various dwell times for a train category

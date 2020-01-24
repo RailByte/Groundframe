@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Text;
 using System.Xml.Linq;
 
-namespace GroundFrame.Classes
+namespace GroundFrame.Classes.WTT
 {
     public class WTTHeader
     {
@@ -83,6 +83,7 @@ namespace GroundFrame.Classes
         /// Default constructor which is used the Json Deserializer constructor
         /// </summary>
         [JsonConstructor]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
         private WTTHeader(DateTime StartDate)
         {
             this._StartDate = StartDate;
@@ -92,10 +93,24 @@ namespace GroundFrame.Classes
         /// Instantiates a WTTHeader object from the SimSigTimeable element from a SimSig SavedTimetable.xml document
         /// </summary>
         /// <param name="Header">XElement containing the WTT XML defining this header object</param>
+        /// <param name="StartDate">The start date of the timetable</param>
+        /// <param name="Culture">The preferred culture of the user</param>
         public WTTHeader(XElement Header, DateTime StartDate, string Culture = "en-GB")
         {
             this._Culture = new CultureInfo(Culture);
             this._StartDate = StartDate;
+            this.ParseHeaderXML(Header); //Parse the header XML
+        }
+
+        /// <summary>
+        /// Instantiates a WTTHeader object from the SimSigTimeable element from a SimSig SavedTimetable.xml document
+        /// </summary>
+        /// <param name="Header">XElement containing the WTT XML defining this header object</param>
+        /// <param name="Culture">The preferred culture of the user</param>
+        public WTTHeader(XElement Header, string Culture = "en-GB")
+        {
+            this._Culture = new CultureInfo(Culture);
+            this._StartDate = new DateTime(1850,1,1);
             this.ParseHeaderXML(Header); //Parse the header XML
         }
 

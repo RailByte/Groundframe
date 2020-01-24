@@ -55,7 +55,7 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         [InlineData("Test Version Name 1", "Test Version Description 1", 1.0)]
         public void Version_Constructor_ByProperties(string Name, string Description, Decimal Version)
         {
-            Classes.Version TestVersion = new Classes.Version(Name, Description, Version, this._SQLConnection);
+            Classes.SimSig.Version TestVersion = new Classes.SimSig.Version(Name, Description, Version, this._SQLConnection);
             TestVersion.SaveToSQLDB();
             Assert.Equal(Name, TestVersion.Name);
             Assert.Equal(Description, TestVersion.Description);
@@ -71,10 +71,10 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         [InlineData("Test Version Name 2", "Test Version Description 2", 2.0)]
         public void Version_Constructor_ByID(string Name, string Description, Decimal Version)
         {
-            Classes.Version TestVersion = new Classes.Version(Name, Description, Version, this._SQLConnection);
+            Classes.SimSig.Version TestVersion = new Classes.SimSig.Version(Name, Description, Version, this._SQLConnection);
             TestVersion.SaveToSQLDB();
 
-            Classes.Version ComparisonVersion = new Classes.Version(TestVersion.ID, this._SQLConnection);
+            Classes.SimSig.Version ComparisonVersion = new Classes.SimSig.Version(TestVersion.ID, this._SQLConnection);
             Assert.Equal(TestVersion.ID, ComparisonVersion.ID);
             Assert.Equal(TestVersion.Name, ComparisonVersion.Name);
             Assert.Equal(TestVersion.Description, ComparisonVersion.Description);
@@ -89,7 +89,7 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         public void Version_Constructor_CheckVersionToUpdatesCorrectly(string Name, string Description, Decimal Version)
         {
             //Create initial version
-            Classes.Version TestVersion = new Classes.Version(Name, Description, Version, this._SQLConnection);
+            Classes.SimSig.Version TestVersion = new Classes.SimSig.Version(Name, Description, Version, this._SQLConnection);
             TestVersion.SaveToSQLDB();
             Assert.NotEqual(0, TestVersion.ID);
             Assert.Equal(Name, TestVersion.Name);
@@ -98,7 +98,7 @@ namespace GroundFrame.Classes.UnitTests.SimSig
             Assert.Null(TestVersion.VersionTo);
 
             //Create and check next verion
-            Classes.Version ComparisonVersion = new Classes.Version(string.Format(@"{0}_U", Name), string.Format(@"{0}_U", Description), Version + 1, this._SQLConnection);
+            Classes.SimSig.Version ComparisonVersion = new Classes.SimSig.Version(string.Format(@"{0}_U", Name), string.Format(@"{0}_U", Description), Version + 1, this._SQLConnection);
             ComparisonVersion.SaveToSQLDB();
             Assert.NotEqual(0, ComparisonVersion.ID);
             Assert.Equal(string.Format(@"{0}_U", Name), ComparisonVersion.Name);

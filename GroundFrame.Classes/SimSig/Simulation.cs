@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Resources;
 using System.Text;
 
-namespace GroundFrame.Classes
+namespace GroundFrame.Classes.SimSig
 {
     public class Simulation : IDisposable
     {

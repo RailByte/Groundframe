@@ -57,7 +57,7 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         [Fact]
         public void SimulationCollection_Constructor_Default()
         {
-            Classes.SimulationCollection TestSimCollection = new Classes.SimulationCollection(this._SQLConnection);
+            Classes.SimSig.SimulationCollection TestSimCollection = new Classes.SimSig.SimulationCollection(this._SQLConnection);
             //Check 5 records are returned
             Assert.Equal(5, TestSimCollection.Count);
         }

@@ -56,7 +56,7 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         [InlineData("Test Name 2", "Test Description 2", "Test SimSig Wiki Line 2", "Test SimSig Code 2")]
         public void Simulation_Constructor_FromValues_CheckProperties(string Name, string Description, string SimSigWikiLink, string SimSigCode)
         {
-            Classes.Simulation TestSim = new Classes.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
+            Classes.SimSig.Simulation TestSim = new Classes.SimSig.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
             Assert.Equal(Name, TestSim.Name);
             Assert.Equal(Description, TestSim.Description);
             Assert.Equal(SimSigWikiLink, TestSim.SimSigWikiLink);
@@ -72,7 +72,7 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         [InlineData("Test Name 4", "Test Description 4", "Test SimSig Wiki Line 4", "Test SimSig Code 4")]
         public void Simulation_Method_SaveToSQLDB_NoDateTime(string Name, string Description, string SimSigWikiLink, string SimSigCode)
         {
-            Classes.Simulation TestSim = new Classes.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
+            Classes.SimSig.Simulation TestSim = new Classes.SimSig.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
             TestSim.SaveToSQLDB();
             Assert.Equal(Name, TestSim.Name);
             Assert.Equal(Description, TestSim.Description);
@@ -90,12 +90,12 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         [InlineData("Test Name 6", "Test Description 6", "Test SimSig Wiki Line 6", "Test SimSig Code 6")]
         public void Simulation_Method_SaveToSQLDB_NoDateTime_CheckDuplicateUpdatesExistingRecord(string Name, string Description, string SimSigWikiLink, string SimSigCode)
         {
-            Classes.Simulation TestSim = new Classes.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
+            Classes.SimSig.Simulation TestSim = new Classes.SimSig.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
             TestSim.SaveToSQLDB();
             int TestID = TestSim.ID;
 
             //Create a new object with same properties. The ID returned when saving should be the same as the first record saved
-            Classes.Simulation DupeTestSim = new Classes.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
+            Classes.SimSig.Simulation DupeTestSim = new Classes.SimSig.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
             DupeTestSim.SaveToSQLDB();
             Assert.Equal(TestID, DupeTestSim.ID);
         }
@@ -107,12 +107,12 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         [InlineData("Test Name 7", "Test Description 7", "Test SimSig Wiki Line 7", "Test SimSig Code 7")]
         public void Simulation_Method_SaveToSQLDB_NoDateTime_CheckGetFromSQLDatabase(string Name, string Description, string SimSigWikiLink, string SimSigCode)
         {
-            Classes.Simulation SetUpSim = new Classes.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
+            Classes.SimSig.Simulation SetUpSim = new Classes.SimSig.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
             SetUpSim.SaveToSQLDB();
             int SetupSimID = SetUpSim.ID;
 
             //Retrieve the simulation record from the Groundframe.SQL database
-            Classes.Simulation TestSim = new Classes.Simulation(SetupSimID, this._SQLConnection);
+            Classes.SimSig.Simulation TestSim = new Classes.SimSig.Simulation(SetupSimID, this._SQLConnection);
             Assert.Equal(Name, TestSim.Name);
             Assert.Equal(Description, TestSim.Description);
             Assert.Equal(SimSigWikiLink, TestSim.SimSigWikiLink);
@@ -128,7 +128,7 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         [InlineData("Test Name 9", "Test Description 9", "Test SimSig Wiki Line 9", "Test SimSig Code 9")]
         public void Simulation_Method_SaveToSQLDB_WithDateTime(string Name, string Description, string SimSigWikiLink, string SimSigCode)
         {
-            Classes.Simulation TestSim = new Classes.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
+            Classes.SimSig.Simulation TestSim = new Classes.SimSig.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
 
             DateTimeOffset TestDateTime = new DateTimeOffset(new DateTime(2019, 1, 1), TimeSpan.FromHours(-8));
             TestSim.SaveToSQLDB(TestDateTime);
@@ -168,7 +168,7 @@ namespace GroundFrame.Classes.UnitTests.SimSig
         [InlineData("Test Name 11", "Test Description 11", "Test SimSig Wiki Line 11", "Test SimSig Code 11")]
         public void Simulation_Constructor_Check_CreateEra_On_UnsavedSim(string Name, string Description, string SimSigWikiLink, string SimSigCode)
         {
-            Classes.Simulation TestSim = new Classes.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
+            Classes.SimSig.Simulation TestSim = new Classes.SimSig.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
             Assert.Equal(Name, TestSim.Name);
             Assert.Equal(Description, TestSim.Description);
             Assert.Equal(SimSigWikiLink, TestSim.SimSigWikiLink);
