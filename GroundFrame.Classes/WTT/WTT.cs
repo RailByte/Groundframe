@@ -21,6 +21,7 @@ namespace GroundFrame.Classes
         private XDocument _SourceWTTXML;
         private readonly GFSqlConnector _SQLConnector; //Stores the connection to the GroundFrame.SQL database
         private readonly CultureInfo _Culture; //Stores the users culture
+        private readonly DateTime _StartDate; //Stores the start date of the timetable
 
         #endregion Private Variables
 
@@ -60,10 +61,16 @@ namespace GroundFrame.Classes
         public string SimulationVersion { get; set; }
 
         /// <summary>
-        /// Gets or sets the WTT Train Categories
+        /// Gets or sets the WTT train categories
         /// </summary>
         [JsonProperty("trainCategories")]
         public List<WTTTrainCategory> TrainCategories { get; set; }
+
+        /// <summary>
+        /// Gets or sets the WTT timetables
+        /// </summary>
+        [JsonProperty("timeTables")]
+        public List<WTTTimeTable> TimeTables { get; set; }
 
         #endregion Properties
 
@@ -73,10 +80,12 @@ namespace GroundFrame.Classes
         /// Inititialises a new WTT object from a SimSig WTT file
         /// </summary>
         /// <param name="Filename">Full path to the WTT file</param>
+        /// <param name="Culture">The preferred culture of the user</param>
         public WTT (string Filename, string Culture = "en-GB")
         {
             //Set Culture
             this._Culture = new CultureInfo(string.IsNullOrEmpty(Culture) ? "en-GB" : Culture);
+            this._StartDate = new DateTime(1850, 1, 1);
             //Validate Arguments
             ArgumentValidation.ValidateFilename(Filename, this._Culture);
 
@@ -85,7 +94,25 @@ namespace GroundFrame.Classes
         }
 
         /// <summary>
-        /// Default constructor which is used the Json Deserializer constru
+        /// Inititialises a new WTT object from a SimSig WTT file
+        /// </summary>
+        /// <param name="Filename">Full path to the WTT file</param>
+        /// <param name="StartDate">The start date of the timetable</param>
+        /// <param name="Culture">The preferred culture of the user</param>
+        public WTT(string Filename, DateTime StartDate, string Culture = "en-GB")
+        {
+            //Set Culture
+            this._Culture = new CultureInfo(string.IsNullOrEmpty(Culture) ? "en-GB" : Culture);
+            this._StartDate = StartDate;
+            //Validate Arguments
+            ArgumentValidation.ValidateFilename(Filename, this._Culture);
+
+            this._SourceWTTFileName = Filename;
+            this.ReadWTTFile(); //Read the WTT
+        }
+
+        /// <summary>
+        /// Default constructor which is used the Json Deserializer constructor
         /// </summary>
         [JsonConstructor]
         private WTT ()
@@ -97,14 +124,14 @@ namespace GroundFrame.Classes
         /// </summary>
         /// <param name="SQLConnector"></param>
         /// <param name="Culture"></param>
-        public WTT (GFSqlConnector SQLConnector, string Culture = "en-GB")
+        public WTT (string Culture = "en-GB")
         {
             //Set Culture
             this._Culture = new CultureInfo(string.IsNullOrEmpty(Culture) ? "en-GB" : Culture);
             //Validate Arguments
-            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+            //ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
 
-            this._SQLConnector = SQLConnector;
+            //this._SQLConnector = SQLConnector;
         }
 
         #endregion Constructors
@@ -155,6 +182,9 @@ namespace GroundFrame.Classes
             return XDocument.Load(WTTStream);
         }
 
+        /// <summary>
+        /// Parses a SimSig WTT XML file stored in _SourceWTTXML into the WTT object
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
         private void ParseWTTXML()
         {
@@ -162,19 +192,38 @@ namespace GroundFrame.Classes
             this.Simulation = (SimSigSimulation)Enum.Parse(typeof(SimSigSimulation), this._SourceWTTXML.Element("SimSigTimetable").Attribute("ID").Value.ToString(), true);
             this.SimulationVersion = this._SourceWTTXML.Element("SimSigTimetable").Attribute("Version").Value.ToString();
             //Get the Header
-            this.Header = new WTTHeader(this._SourceWTTXML.Element("SimSigTimetable"));
+            this.Header = new WTTHeader(this._SourceWTTXML.Element("SimSigTimetable"), this._StartDate, this._Culture.Name);
 
             //Parse the train categories
             if (this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories").Elements("TrainCategory") != null)
             {
-                this.ParseWTTTrainCategories();
+                this.ParseWTTTrainCategoriesXML();
+            }
+
+            //Parse the timetables
+            if (this._SourceWTTXML.Element("SimSigTimetable").Element("Timetables").Elements("Timetable") != null)
+            {
+                this.ParseWTTTimeTablesXML();
+            }
+        }
+
+        /// <summary>
+        /// Parses the WTT Timetables from the source XML
+        /// </summary>
+        private void ParseWTTTimeTablesXML()
+        {
+            this.TimeTables = new List<WTTTimeTable>();
+
+            foreach (XElement XML in this._SourceWTTXML.Element("SimSigTimetable").Element("Timetables").Elements("Timetable"))
+            {
+                this.TimeTables.Add(new WTTTimeTable(XML, this._StartDate, "en-GB"));
             }
         }
 
         /// <summary>
         /// Parses the WTT Train Categories from the source XML
         /// </summary>
-        private void ParseWTTTrainCategories()
+        private void ParseWTTTrainCategoriesXML()
         {
             this.TrainCategories = new List<WTTTrainCategory>();
 
@@ -187,7 +236,7 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Populates the object from the supplied JSON
         /// </summary>
-        /// <param name="JSON"></param>
+        /// <param name="JSON">The JSON string representing the WTT object</param>
         private void PopulateFromJSON(string JSON)
         {
             JsonConvert.PopulateObject(JSON, this);

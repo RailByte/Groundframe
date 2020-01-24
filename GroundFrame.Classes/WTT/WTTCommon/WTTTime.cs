@@ -44,26 +44,26 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Gets the WTTTime formatted as ShortTime (HH:mmC)
         /// </summary>
-        [JsonIgnore]
+        [JsonProperty("formattedShortTime")]
         public string FormattedShortTime { get { return this.FormatTime(WTTTimeFormat.ShortFormat); } }
 
         /// <summary>
         /// Gets the WTTTime formatted as LongTime (DD HH:mmC)
         /// </summary>
-        [JsonIgnore]
+        [JsonProperty("formattedLongTime")]
         public string FormattedLongTime { get { return this.FormatTime(WTTTimeFormat.LongFormat); } }
 
         /// <summary>
         /// Gets the WTTTime as a DateTime object calculated from the WTT Start Date (if no WTT Start Date is specified then this will be defaulted to 01/01/1850)
         /// </summary>
-        [JsonIgnore]
+        [JsonProperty("dateAndTime")]
         public DateTime DateAndTime { get { return this.CalculateDateTime(); } }
 
         /// <summary>
         /// Gets the WTT Start Date
         /// </summary>
         [JsonProperty("wttStartDate")]
-        public DateTime WTTStartDate { get { return this._WTTStartDate; } }
+        private DateTime WTTStartDate { get { return this._WTTStartDate; } }
 
         #endregion Properties
 

@@ -205,6 +205,15 @@ namespace GroundFrame.Classes.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The percentage argument must be between 0 and 100.
+        /// </summary>
+        internal static string InvalidPercentageArgument {
+            get {
+                return ResourceManager.GetString("InvalidPercentageArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Seconds argument must be equal or greater than 0.
         /// </summary>
         internal static string InvalidSecondsArgument {
@@ -295,11 +304,29 @@ namespace GroundFrame.Classes.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot Parse the WTT TimeTable from the Source SimSig WTT XML.
+        /// </summary>
+        internal static string ParseFromXElementWTTTimeTableException {
+            get {
+                return ResourceManager.GetString("ParseFromXElementWTTTimeTableException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot Parse the WTT Train Category from the Source SimSig WTT XML.
         /// </summary>
         internal static string ParseFromXElementWTTTrainCategoryException {
             get {
                 return ResourceManager.GetString("ParseFromXElementWTTTrainCategoryException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot Parse the WTT Trip from the Source SimSig WTT XML.
+        /// </summary>
+        internal static string ParseFromXElementWTTTripException {
+            get {
+                return ResourceManager.GetString("ParseFromXElementWTTTripException", resourceCulture);
             }
         }
         

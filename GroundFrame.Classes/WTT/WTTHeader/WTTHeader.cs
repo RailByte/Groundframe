@@ -16,6 +16,7 @@ namespace GroundFrame.Classes
 
         private int _VersionBuild; //Stores the Build Version Number
         private readonly CultureInfo _Culture; //Stores the culture info
+        private readonly DateTime _StartDate; //Stores the timetable start date
 
         #endregion Private Variables
 
@@ -69,6 +70,11 @@ namespace GroundFrame.Classes
         [JsonProperty("trainDescriptionTemplate")]
         public string TrainDescriptionTemplate { get; set; }
 
+        /// <summary>
+        /// Gets the timetable start date
+        /// </summary>
+        public DateTime StartDate { get { return this._StartDate; } }
+
         #endregion Properties
 
         #region Constructors
@@ -77,18 +83,19 @@ namespace GroundFrame.Classes
         /// Default constructor which is used the Json Deserializer constructor
         /// </summary>
         [JsonConstructor]
-        private WTTHeader()
+        private WTTHeader(DateTime StartDate)
         {
-
+            this._StartDate = StartDate;
         }
 
         /// <summary>
         /// Instantiates a WTTHeader object from the SimSigTimeable element from a SimSig SavedTimetable.xml document
         /// </summary>
         /// <param name="Header">XElement containing the WTT XML defining this header object</param>
-        public WTTHeader(XElement Header, string Culture = "en-GB")
+        public WTTHeader(XElement Header, DateTime StartDate, string Culture = "en-GB")
         {
             this._Culture = new CultureInfo(Culture);
+            this._StartDate = StartDate;
             this.ParseHeaderXML(Header); //Parse the header XML
         }
 
@@ -120,8 +127,8 @@ namespace GroundFrame.Classes
             {
                 this.Name = XMLMethods.GetValueFromXElement<string>(Header, @"Name");
                 this.Description = XMLMethods.GetValueFromXElement<string>(Header, @"Description", string.Empty);
-                this.StartTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(Header, @"StartTime", 0), "H");
-                this.FinishTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(Header, @"FinishTime", 0), "H");
+                this.StartTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(Header, @"StartTime", 0), this._StartDate, "H");
+                this.FinishTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(Header, @"FinishTime", 0), this._StartDate, "H");
                 this.VersionMajor = XMLMethods.GetValueFromXElement<int>(Header, @"VMajor", 1);
                 this.VersionMinor = XMLMethods.GetValueFromXElement<int>(Header, @"VMinor", 0);
                 this._VersionBuild = XMLMethods.GetValueFromXElement<int>(Header, @"VBuild", 0);

@@ -33,6 +33,27 @@ namespace GroundFrame.Classes
             }
         }
 
+        /// <summary>
+        /// Validates a Perentage to ensure it's between 0 and 100
+        /// </summary>
+        /// <param name="Percentage">The percentage to validate</param>
+        /// <param name="Culture">The culture in which any error message should be returned</param>
+        internal static void ValidatePercentage(int Percentage, CultureInfo Culture)
+        {
+            ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
+
+            if (Percentage < 0 || Percentage > 100)
+            {
+
+                throw new ArgumentOutOfRangeException(ExceptionMessageResources.GetString("InvalidPercentageArgument", Culture));
+            }
+        }
+
+        /// <summary>
+        /// Validates a FileName to ensure the file exists
+        /// </summary>
+        /// <param name="FileName">The path to the file to validate</param>
+        /// <param name="Culture">The culture in which any error message should be returned</param>
         internal static void ValidateFilename(string FileName, CultureInfo Culture)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());

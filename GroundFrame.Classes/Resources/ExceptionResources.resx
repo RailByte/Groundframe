@@ -165,6 +165,9 @@
   <data name="InvalidNameLengthArgument" xml:space="preserve">
     <value>The name argument cannot be longer than {0} characters</value>
   </data>
+  <data name="InvalidPercentageArgument" xml:space="preserve">
+    <value>The percentage argument must be between 0 and 100</value>
+  </data>
   <data name="InvalidSecondsArgument" xml:space="preserve">
     <value>The Seconds argument must be equal or greater than 0</value>
   </data>
@@ -195,8 +198,14 @@
   <data name="InvalidXMLArgument" xml:space="preserve">
     <value>The XML argument cannot be &lt;NULL&gt;</value>
   </data>
+  <data name="ParseFromXElementWTTTimeTableException" xml:space="preserve">
+    <value>Cannot Parse the WTT TimeTable from the Source SimSig WTT XML</value>
+  </data>
   <data name="ParseFromXElementWTTTrainCategoryException" xml:space="preserve">
     <value>Cannot Parse the WTT Train Category from the Source SimSig WTT XML</value>
+  </data>
+  <data name="ParseFromXElementWTTTripException" xml:space="preserve">
+    <value>Cannot Parse the WTT Trip from the Source SimSig WTT XML</value>
   </data>
   <data name="ParseWTTHeaderException" xml:space="preserve">
     <value>Cannot Parse the WTT Header from the Source SimSig WTT XML</value>
