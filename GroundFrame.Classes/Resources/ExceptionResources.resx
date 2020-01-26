@@ -153,6 +153,9 @@
   <data name="InvalidHalfMinuteCharacterLengthArgument" xml:space="preserve">
     <value>The HalfMinuteCharacter argument must only be 1 character</value>
   </data>
+  <data name="InvalidJSONError" xml:space="preserve">
+    <value>The supplied JSON is not in the correct format</value>
+  </data>
   <data name="InvalidMeterArgument" xml:space="preserve">
     <value>The meters argument must be greater than zero</value>
   </data>
@@ -195,8 +198,14 @@
   <data name="InvalidTimeDelimiterLengthArgument" xml:space="preserve">
     <value>The Time Delimiter argument must be a single character</value>
   </data>
+  <data name="InvalidWTTStartDateArgument" xml:space="preserve">
+    <value>The WTT Start Date cannot be before 01/01/1850</value>
+  </data>
   <data name="InvalidXMLArgument" xml:space="preserve">
     <value>The XML argument cannot be &lt;NULL&gt;</value>
+  </data>
+  <data name="OnRequestUserSettingsHandlerNotAssigned" xml:space="preserve">
+    <value>The OnRequestUserSettings handler not assigned</value>
   </data>
   <data name="ParseFromXElementWTTTimeTableException" xml:space="preserve">
     <value>Cannot Parse the WTT TimeTable from the Source SimSig WTT XML</value>
@@ -206,6 +215,9 @@
   </data>
   <data name="ParseFromXElementWTTTripException" xml:space="preserve">
     <value>Cannot Parse the WTT Trip from the Source SimSig WTT XML</value>
+  </data>
+  <data name="ParseUserSettingsJSONError" xml:space="preserve">
+    <value>An error has occured trying read the user settings from the supplied JSON string</value>
   </data>
   <data name="ParseWTTHeaderException" xml:space="preserve">
     <value>Cannot Parse the WTT Header from the Source SimSig WTT XML</value>
@@ -221,6 +233,9 @@
   </data>
   <data name="RetrieveSimulationZeroIDError" xml:space="preserve">
     <value>You cannot load a Simulation from the GroundFrame.SQL Database when the ID is zero</value>
+  </data>
+  <data name="RetrieveUserSettingsRecordsError" xml:space="preserve">
+    <value>An error has occurred trying to retrieve all User setting records from the GroundFrame.SQL database</value>
   </data>
   <data name="RetrieveVersionRecordsError" xml:space="preserve">
     <value>An error has occurred trying to retrieve all Version records from the GroundFrame.SQL database.</value>

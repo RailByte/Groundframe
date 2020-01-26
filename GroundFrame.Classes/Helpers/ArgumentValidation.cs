@@ -8,6 +8,7 @@ using System.Resources;
 using System.Text;
 using System.Xml.Linq;
 using GroundFrame.Classes.SimSig;
+using Newtonsoft.Json.Linq;
 
 namespace GroundFrame.Classes
 {
@@ -35,6 +36,53 @@ namespace GroundFrame.Classes
         }
 
         /// <summary>
+        /// Validates a WTT Start Date argument
+        /// </summary>
+        /// <param name="WTTStartDate"></param>
+        internal static void ValidateWTTStartDate(DateTime WTTStartDate, CultureInfo Culture)
+        {
+            ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
+
+            if (WTTStartDate < new DateTime(1850,1,1))
+            {
+                throw new ArgumentOutOfRangeException(ExceptionMessageResources.GetString("InvalidWTTStartDateArgument", Culture));
+            }
+        }
+
+        /// <summary>
+        /// Validates a JSON string
+        /// </summary>
+        /// <param name="JSON">The JSON string to validate</param>
+        internal static void ValidateJSON(string JSON, CultureInfo Culture)
+        {
+            ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
+
+            try
+            {
+                JToken.Parse(JSON);
+            }
+            catch
+            {
+                throw new FormatException(ExceptionMessageResources.GetString("InvalidJSONError", Culture));
+            }
+        }
+
+        /// <summary>
+        /// Validates a UserSettingCollection argument
+        /// </summary>
+        /// <param name="UserSettings"></param>
+        internal static void ValidateUserSettings(UserSettingCollection UserSettings)
+        {
+            ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
+
+            if (UserSettings == null)
+            {
+
+                throw new ArgumentNullException(ExceptionMessageResources.GetString("InvalidHalfMinuteCharacterArgument", new CultureInfo("en-GB")));
+            }
+        }
+
+        /// <summary>
         /// Validates a Perentage to ensure it's between 0 and 100
         /// </summary>
         /// <param name="Percentage">The percentage to validate</param>
@@ -55,17 +103,17 @@ namespace GroundFrame.Classes
         /// </summary>
         /// <param name="FileName">The path to the file to validate</param>
         /// <param name="Culture">The culture in which any error message should be returned</param>
-        internal static void ValidateFilename(string FileName, CultureInfo Culture)
+        internal static void ValidateFilename(FileInfo FileName, CultureInfo Culture)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
             
-            if (string.IsNullOrEmpty(FileName))
+            if (FileName == null)
             {
 
                 throw new ArgumentNullException(ExceptionMessageResources.GetString("InvalidFileNameNullArgument", Culture));
             }
 
-            if (File.Exists(FileName) == false)
+            if (File.Exists(FileName.FullName) == false)
             {
                 throw new FileNotFoundException(ExceptionMessageResources.GetString("FileNotFoundArgument", Culture));
             }

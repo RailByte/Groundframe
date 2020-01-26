@@ -13,6 +13,12 @@ namespace GroundFrame.Classes.WTT
         Royston = 1
     }
 
+    public enum WTTStringType
+    {
+        FilePath = 1,
+        JSON = 2
+    }
+
     public class WTT
     {
         #region Private Variables
@@ -20,9 +26,8 @@ namespace GroundFrame.Classes.WTT
         private readonly string _SourceWTTFileName; //If the WTT is read from a WTT file the source file path will be stored here
         private XDocument _SourceWTTXML;
         private readonly GFSqlConnector _SQLConnector; //Stores the connection to the GroundFrame.SQL database
-        private readonly CultureInfo _Culture; //Stores the users culture
         private DateTime _StartDate; //Stores the start date of the timetable
-        private readonly List<UserSetting> _UserSettings;
+        private readonly UserSettingCollection _UserSettings;
 
         #endregion Private Variables
 
@@ -86,36 +91,43 @@ namespace GroundFrame.Classes.WTT
         /// <summary>
         /// Inititialises a new WTT object from a SimSig WTT file
         /// </summary>
-        /// <param name="Filename">Full path to the WTT file</param>
-        /// <param name="Culture">The preferred culture of the user</param>
-        public WTT (string Filename, string Culture = "en-GB")
-        {
-            //Set Culture
-            this._Culture = new CultureInfo(string.IsNullOrEmpty(Culture) ? "en-GB" : Culture);
-            this._StartDate = new DateTime(1850, 1, 1);
-            //Validate Arguments
-            ArgumentValidation.ValidateFilename(Filename, this._Culture);
+        /// <param name="Filename">FileInfo object representing the path to the .WTT file</param>
+        /// <param name="UserSettings">The users settings</param>
+        public WTT (FileInfo Filename, UserSettingCollection UserSettings)
+        {           
+            //Set the user settings
+            this._UserSettings = UserSettings ?? UserSettingHelper.GetDefaultSettings();
 
-            this._SourceWTTFileName = Filename;
-            this.ReadWTTFile(); //Read the WTT
+            //Validate the FileName
+            ArgumentValidation.ValidateFilename(Filename, new CultureInfo(this._UserSettings.GetValueByKey("CULTURE").ToString()));
+
+            //Set Start Date of GroundFrame default
+            this._StartDate = new DateTime(1850, 1, 1);
+
+            this._SourceWTTFileName = Filename.FullName;
+            //Read the WTT
+            this.ReadWTTFile();
         }
 
         /// <summary>
         /// Inititialises a new WTT object from a SimSig WTT file
         /// </summary>
-        /// <param name="Filename">Full path to the WTT file</param>
-        /// <param name="StartDate">The start date of the timetable</param>
-        /// <param name="Culture">The preferred culture of the user</param>
-        public WTT(string Filename, DateTime StartDate, string Culture = "en-GB")
+        /// <param name="Filename">FileInfo object representing the path to the .WTT file</param>
+        /// <param name="StartDate">The start date of the timetable (cannot be before 01/01/1850</param>
+        /// <param name="UserSettings">The users settings</param>
+        public WTT(FileInfo Filename, DateTime StartDate, UserSettingCollection UserSettings)
         {
-            //Set Culture
-            this._Culture = new CultureInfo(string.IsNullOrEmpty(Culture) ? "en-GB" : Culture);
-            this._StartDate = StartDate;
-            //Validate Arguments
-            ArgumentValidation.ValidateFilename(Filename, this._Culture);
+            this._UserSettings = UserSettings ?? UserSettingHelper.GetDefaultSettings();
+            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this._UserSettings);
 
-            this._SourceWTTFileName = Filename;
-            this.ReadWTTFile(); //Read the WTT
+            //Validate Arguments
+            ArgumentValidation.ValidateFilename(Filename, Culture);
+            ArgumentValidation.ValidateWTTStartDate(StartDate, Culture);
+
+            this._StartDate = StartDate;
+            this._SourceWTTFileName = Filename.FullName;
+            //Read the WTT
+            this.ReadWTTFile(); 
         }
 
         /// <summary>
@@ -132,15 +144,15 @@ namespace GroundFrame.Classes.WTT
         /// </summary>
         /// <param name="SQLConnector"></param>
         /// <param name="Culture"></param>
-        public WTT(List<UserSetting> UserSettings, string Culture = "en-GB")
+        public WTT(string JSON, UserSettingCollection UserSettings)
         {
-            //Set Culture
-            this._Culture = new CultureInfo(string.IsNullOrEmpty(Culture) ? "en-GB" : Culture);
-            this._UserSettings = UserSettings;
-            //Validate Arguments
-            //ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+            this._UserSettings = UserSettings ?? UserSettingHelper.GetDefaultSettings();
 
-            //this._SQLConnector = SQLConnector;
+            //Validate settings
+            ArgumentValidation.ValidateJSON(JSON, UserSettingHelper.GetCultureInfo(this._UserSettings));
+
+            //Populate from JSON
+            this.PopulateFromJSON(JSON);
         }
 
         #endregion Constructors
@@ -201,7 +213,7 @@ namespace GroundFrame.Classes.WTT
             this.Simulation = (SimSigSimulation)Enum.Parse(typeof(SimSigSimulation), this._SourceWTTXML.Element("SimSigTimetable").Attribute("ID").Value.ToString(), true);
             this.SimulationVersion = this._SourceWTTXML.Element("SimSigTimetable").Attribute("Version").Value.ToString();
             //Get the Header
-            this.Header = new WTTHeader(this._SourceWTTXML.Element("SimSigTimetable"), this._StartDate, this._Culture.Name);
+            this.Header = new WTTHeader(this._SourceWTTXML.Element("SimSigTimetable"), this._StartDate, "en-GB");
 
             //Parse the train categories
             if (this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories").Elements("TrainCategory") != null)
@@ -248,12 +260,20 @@ namespace GroundFrame.Classes.WTT
         /// <param name="JSON">The JSON string representing the WTT object</param>
         public void PopulateFromJSON(string JSON)
         {
-            JsonConvert.PopulateObject(JSON, this);
+            //JSON argument will already have been validated in the constructor
+            try
+            {
+                JsonConvert.PopulateObject(JSON, this);
+            }
+            catch (Exception Ex)
+            {
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseUserSettingsJSONError", null, UserSettingHelper.GetCultureInfo(this._UserSettings)), Ex);
+            }
 
             //Set the UserSetting function
             if (this.Header != null)
             {
-                this.Header.OnRequestUserSettings += new Func<List<UserSetting>>(delegate { return this._UserSettings; });
+                this.Header.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this._UserSettings; });
             }
         }
 

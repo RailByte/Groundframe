@@ -11,7 +11,7 @@ namespace GroundFrame.Classes.SimSig
     /// <summary>
     /// Class representing a collection of versions
     /// </summary>
-    public class VersionCollection : IEnumerable<Version>, IDisposable
+    public class UserSettingCollection : IEnumerable<Version>, IDisposable
     {
         #region Constants
         #endregion Constants
@@ -34,7 +34,7 @@ namespace GroundFrame.Classes.SimSig
         /// Instantiates a VersionCollection object the supplied GroundFrame.SQL Connection
         /// </summary>
         /// <param name="SQLConnector"></param>
-        public VersionCollection(GFSqlConnector SQLConnector, string Culture = "en-GB")
+        public UserSettingCollection(GFSqlConnector SQLConnector, string Culture = "en-GB")
         {
             this._Culture = new CultureInfo(Culture);
             //Validate Arguments
@@ -131,7 +131,7 @@ namespace GroundFrame.Classes.SimSig
             }
         }
 
-        ~VersionCollection()
+        ~UserSettingCollection()
         {
             // The object went out of scope and finalized is called
             // Lets call dispose in to release unmanaged resources 

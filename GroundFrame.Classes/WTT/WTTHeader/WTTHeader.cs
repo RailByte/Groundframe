@@ -156,15 +156,14 @@ namespace GroundFrame.Classes.WTT
             }
         }
 
-        public List<UserSetting> GetSimulationUserSettings()
+        public UserSettingCollection GetSimulationUserSettings()
         {
             if (OnRequestUserSettings == null)
-                throw new Exception("OnRequestUserSettings handler is not assigned");
-
+                throw new ApplicationException(ExceptionHelper.GetStaticException("OnRequestUserSettingsHandlerNotAssigned", null, this._Culture));
             return OnRequestUserSettings();
         }
 
-        internal Func<List<UserSetting>> OnRequestUserSettings;
+        internal Func<UserSettingCollection> OnRequestUserSettings;
 
         #endregion Methods
     }

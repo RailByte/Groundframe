@@ -31,6 +31,8 @@ Print '.\Post Deployment\Data Population\Script.Populate simsig.TVERSIONSTATUS.s
 :r ".\Post Deployment\Data Population\Script.Populate simsig.TLOCATIONTYPE.sql"
 Print '.\Post Deployment\Data Population\Script.Populate simsig.TLOCATIONTYPE.sql completed (' + CAST(SYSDATETIME() AS NVARCHAR(200)) + ')';
 --Populate internal users and app
+:r ".\Post Deployment\Data Population\Script.Populate app.TSETTING.sql"
+Print '.\Post Deployment\Data Population\Script.Populate app.TSETTING.sql completed (' + CAST(SYSDATETIME() AS NVARCHAR(200)) + ')';
 :r ".\Post Deployment\Data Population\Script.Populate app.TROLE.sql"
 Print '.\Post Deployment\Data Population\Script.Populate app.TROLE.sql completed (' + CAST(SYSDATETIME() AS NVARCHAR(200)) + ')';
 :r ".\Post Deployment\Data Population\Script.Populate app.TUSER.sql"

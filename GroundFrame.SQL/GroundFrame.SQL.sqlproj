@@ -85,6 +85,7 @@
     <Folder Include="Functions\Scalar\app" />
     <Folder Include="Indexes\simsig" />
     <Folder Include="Indexes\simsig\TVERSION" />
+    <Folder Include="Stored Procedures\app" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\simsig.sql" />
@@ -140,6 +141,10 @@
     <Build Include="Stored Procedures\simsig\simsig.Usp_GET_TLOCATION_BY_SIM.sql" />
     <None Include="Scripts\Post Deployment\Data Population\Script.Populate simsig.TLOCATIONTYPE.sql" />
     <Build Include="Stored Procedures\simsig\simsig.Usp_UPSERT_TLOCATIONNODE.sql" />
+    <Build Include="Tables\app\app.TSETTING.sql" />
+    <Build Include="Tables\app\app.TUSERSETTING.sql" />
+    <None Include="Scripts\Post Deployment\Data Population\Script.Populate app.TSETTING.sql" />
+    <Build Include="Stored Procedures\app\app.Usp_GET_USER_SETTINGS.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\SQLDB\Extensions\SqlServer\140\SqlSchemas\master.dacpac">

@@ -56,7 +56,7 @@ namespace GroundFrame.API.Controllers
         {
             try
             {
-                GroundFrame.Classes.SimSig.VersionCollection VerCollection = new GroundFrame.Classes.SimSig.VersionCollection(this._SQLConnection);
+                GroundFrame.Classes.SimSig.UserSettingCollection VerCollection = new GroundFrame.Classes.SimSig.UserSettingCollection(this._SQLConnection);
                 return Ok(VerCollection);
             }
             catch (Exception Ex)

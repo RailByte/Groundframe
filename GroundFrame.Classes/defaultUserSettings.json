@@ -1,0 +1,20 @@
+[
+  {
+    "key": "CULTURE",
+    "description": "The culture of the user",
+    "value": "en-GB",
+    "dataTypeName": "System.String"
+  },
+  {
+    "key": "PASSTIMECHAR",
+    "description": "The character to indicate a passing time",
+    "value": ":",
+    "dataTypeName": "System.String"
+  },
+  {
+    "key": "TIMEHALFCHAR",
+    "description": "The character to indicate a half minute",
+    "value": 72,
+    "dataTypeName": "System.Int32"
+  }
+]

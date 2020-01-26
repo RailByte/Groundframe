@@ -169,6 +169,15 @@ namespace GroundFrame.Classes.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The supplied JSON is not in the correct format.
+        /// </summary>
+        internal static string InvalidJSONError {
+            get {
+                return ResourceManager.GetString("InvalidJSONError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The meters argument must be greater than zero.
         /// </summary>
         internal static string InvalidMeterArgument {
@@ -295,11 +304,29 @@ namespace GroundFrame.Classes.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The WTT Start Date cannot be before 01/01/1850.
+        /// </summary>
+        internal static string InvalidWTTStartDateArgument {
+            get {
+                return ResourceManager.GetString("InvalidWTTStartDateArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The XML argument cannot be &lt;NULL&gt;.
         /// </summary>
         internal static string InvalidXMLArgument {
             get {
                 return ResourceManager.GetString("InvalidXMLArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The OnRequestUserSettings handler not assigned.
+        /// </summary>
+        internal static string OnRequestUserSettingsHandlerNotAssigned {
+            get {
+                return ResourceManager.GetString("OnRequestUserSettingsHandlerNotAssigned", resourceCulture);
             }
         }
         
@@ -327,6 +354,15 @@ namespace GroundFrame.Classes.Resources {
         internal static string ParseFromXElementWTTTripException {
             get {
                 return ResourceManager.GetString("ParseFromXElementWTTTripException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occured trying read the user settings from the supplied JSON string.
+        /// </summary>
+        internal static string ParseUserSettingsJSONError {
+            get {
+                return ResourceManager.GetString("ParseUserSettingsJSONError", resourceCulture);
             }
         }
         
@@ -372,6 +408,15 @@ namespace GroundFrame.Classes.Resources {
         internal static string RetrieveSimulationZeroIDError {
             get {
                 return ResourceManager.GetString("RetrieveSimulationZeroIDError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occurred trying to retrieve all User setting records from the GroundFrame.SQL database.
+        /// </summary>
+        internal static string RetrieveUserSettingsRecordsError {
+            get {
+                return ResourceManager.GetString("RetrieveUserSettingsRecordsError", resourceCulture);
             }
         }
         
