@@ -220,10 +220,13 @@
     <value>Cannot Parse the WTT Trip from the Source SimSig WTT XML</value>
   </data>
   <data name="ParseUserSettingsJSONError" xml:space="preserve">
-    <value>An error has occured trying read the user settings from the supplied JSON string</value>
+    <value>An error has occured trying to read the user settings from the supplied JSON string</value>
   </data>
   <data name="ParseWTTHeaderException" xml:space="preserve">
     <value>Cannot Parse the WTT Header from the Source SimSig WTT XML</value>
+  </data>
+  <data name="ParseWTTTrainCategoryCollectionJSONError" xml:space="preserve">
+    <value>An error has occured trying to read the WTT Train Category collection from the supplied JSON string</value>
   </data>
   <data name="RefreshSimulationError" xml:space="preserve">
     <value>You cannot refresh a simulation from the GroundFrame.SQL database if it hasn't yet been saved to the GroundFrame.SQL database</value>

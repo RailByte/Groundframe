@@ -367,7 +367,7 @@ namespace GroundFrame.Classes.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error has occured trying read the user settings from the supplied JSON string.
+        ///   Looks up a localized string similar to An error has occured trying to read the user settings from the supplied JSON string.
         /// </summary>
         internal static string ParseUserSettingsJSONError {
             get {
@@ -381,6 +381,15 @@ namespace GroundFrame.Classes.Resources {
         internal static string ParseWTTHeaderException {
             get {
                 return ResourceManager.GetString("ParseWTTHeaderException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occured trying to read the WTT Train Category collection from the supplied JSON string.
+        /// </summary>
+        internal static string ParseWTTTrainCategoryCollectionJSONError {
+            get {
+                return ResourceManager.GetString("ParseWTTTrainCategoryCollectionJSONError", resourceCulture);
             }
         }
         

@@ -13,24 +13,22 @@ using System.Xml.Linq;
 namespace GroundFrame.Classes.Timetables
 {
     /// <summary>
-    /// Class representing a collection of user settings
+    /// Class representing a collection of train categories
     /// </summary>
-    public class WTTTimeTableCollection : IEnumerable<WTTTimeTable>, IDisposable
+    public class WTTTrainCategoryCollection : IEnumerable<WTTTrainCategory>, IDisposable
     {
         #region Constants
         #endregion Constants
 
         #region Private Variables
 
-        private List<WTTTimeTable> _TimeTables = new List<WTTTimeTable>(); //List to store all the time tables
-        private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
+        private List<WTTTrainCategory> _TrainCategories = new List<WTTTrainCategory>(); //List to store all the train categories
         private readonly UserSettingCollection _UserSettings; //Stores the culture info
-        private readonly DateTime _StartDate; //Stores the WTT Start Date
 
         #endregion Private Variables
 
         #region Properties
-        public IEnumerator<WTTTimeTable> GetEnumerator() { return this._TimeTables.GetEnumerator(); }
+        public IEnumerator<WTTTrainCategory> GetEnumerator() { return this._TrainCategories.GetEnumerator(); }
 
         /// <summary>
         /// Gets the user settings
@@ -43,47 +41,42 @@ namespace GroundFrame.Classes.Timetables
         #region Constructors
 
         /// <summary>
-        /// Private constructor to handle the deserialization of a WTTTimeTable object from JSON
+        /// Private constructor to handle the deserialization of a WTTTrainCategoryCollection object from JSON
         /// </summary>
-        /// <param name="WTTTimeTables">An IEnumerable<WTTTimeTable> which represents the collection of timetables</param>
+        /// <param name="WTTTrainCategories">An IEnumerable<WTTTrainCategory> which represents the collection of timetables</param>
         [JsonConstructor]
-        private WTTTimeTableCollection(IEnumerable<WTTTimeTable> WTTTimeTables)
+        private WTTTrainCategoryCollection(IEnumerable<WTTTrainCategory> WTTTrainCategories)
         {
-            this._TimeTables = new List<WTTTimeTable>();
+            this._TrainCategories = new List<WTTTrainCategory>();
 
-            foreach (WTTTimeTable WTT in WTTTimeTables)
+            foreach (WTTTrainCategory TrainCategory in WTTTrainCategories)
             {
-                WTTTimeTable NewWTTTimeTable = WTT;
-                NewWTTTimeTable.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
-                this._TimeTables.Add(NewWTTTimeTable);
+                WTTTrainCategory NewWTTTrainCategory = TrainCategory;
+                NewWTTTrainCategory.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
+                this._TrainCategories.Add(NewWTTTrainCategory);
             }
         }
 
         /// <summary>
-        /// Instantiates a WTTTimeTableCollection from the supplied XElement object represening a SimSig timetable collection and timetable start date
+        /// Instantiates a WTTTimeTableCollection
         /// </summary>
-        /// <param name="WTTTimeTableXML">The XML object representing the SimSig timetable collection</param>
-        /// <param name="StartDate">The start date of the timetable. Must be after 01/01/1850</param>
-        /// <param name="UserSettings">The user settings</param>
-        public WTTTimeTableCollection(XElement WTTTimeTableXML, DateTime StartDate, UserSettingCollection UserSettings)
+        /// <param name="User">The name of the user's preferred culture. If an empty string supplied en-GB will be used</param>
+        public WTTTrainCategoryCollection(XElement WTTTrainCategoryXML, UserSettingCollection UserSettings)
         {
             this._UserSettings = UserSettings ?? new UserSettingCollection();
             CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
             //Validate arguments
-            ArgumentValidation.ValidateXElement(WTTTimeTableXML, Culture);
-            ArgumentValidation.ValidateWTTStartDate(StartDate, Culture);
+            ArgumentValidation.ValidateXElement(WTTTrainCategoryXML, Culture);
 
-            this._StartDate = StartDate;
-            this._TimeTables = new List<WTTTimeTable>();
-            ParseWTTTimeTablesXML(WTTTimeTableXML);
+            this._TrainCategories = new List<WTTTrainCategory>();
+            ParseWTTTrainCategoriesXML(WTTTrainCategoryXML);
         }
 
         /// <summary>
-        /// Instantiates a WTTTimeTableCollection from a JSON file.
+        /// Instantiates a WTTTrainCategoryCollection from a JSON file.
         /// </summary>
-        /// <param name="JSON">A JSON string representing the timetable collection</param>
-        /// <param name="UserSettings">The user settings</param>
-        public WTTTimeTableCollection(string JSON, UserSettingCollection UserSettings)
+        /// <param name="JSON">A JSON string representing a collection of train categories</param>
+        public WTTTrainCategoryCollection(string JSON, UserSettingCollection UserSettings)
         {
             this._UserSettings = UserSettings ?? new UserSettingCollection();
             CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
@@ -107,7 +100,7 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Gets the total number of versions in the collection
         /// </summary>
-        public int Count { get { return this._TimeTables.Count; } }
+        public int Count { get { return this._TrainCategories.Count; } }
 
         #endregion Constructors
 
@@ -122,19 +115,23 @@ namespace GroundFrame.Classes.Timetables
             //JSON argument will already have been validated in the constructor
             try
             {
-                JsonConvert.PopulateObject(JSON, this);
+                JsonConvert.PopulateObject(JSON, this, new JsonSerializerSettings{ ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor });
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseUserSettingsJSONError", null, UserSettingHelper.GetCultureInfo(this._UserSettings)), Ex);
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTrainCategoryCollectionJSONError", null, UserSettingHelper.GetCultureInfo(this._UserSettings)), Ex);
             }
         }
 
-        private void ParseWTTTimeTablesXML(XElement WTTTimeTablesXML)
+        /// <summary>
+        /// Parses an XElement object representing a SimSig collection of train categories
+        /// </summary>
+        /// <param name="WTTTrainCatoriesXML">The XML representing tthe SimSig collection of train categories</param>
+        private void ParseWTTTrainCategoriesXML(XElement WTTTrainCatoriesXML)
         {
-            foreach (XElement WTTTimeTableXML in WTTTimeTablesXML.Elements("Timetable"))
+            foreach (XElement WTTTimeTableXML in WTTTrainCatoriesXML.Elements("TrainCategory"))
             {
-                this._TimeTables.Add(new WTTTimeTable(WTTTimeTableXML, this._StartDate, this.UserSettings));
+                this._TrainCategories.Add(new WTTTrainCategory(WTTTimeTableXML, this.UserSettings));
             }
         }
 
@@ -144,13 +141,13 @@ namespace GroundFrame.Classes.Timetables
         }
 
         /// <summary>
-        /// Returns the UserSetting for the supplied Index
+        /// Returns the Train Category for the supplied Index
         /// </summary>
         /// <param name="Index">The index ordinal</param>
         /// <returns></returns>
-        public WTTTimeTable IndexOf(int Index)
+        public WTTTrainCategory IndexOf(int Index)
         {
-            return this._TimeTables[Index];
+            return this._TrainCategories[Index];
         }
 
         /// <summary>
@@ -198,14 +195,11 @@ namespace GroundFrame.Classes.Timetables
             }
             else
             {
-                if (this._SQLConnector != null)
-                {
-                    this._SQLConnector.Dispose();
-                }
+
             }
         }
 
-        ~WTTTimeTableCollection()
+        ~WTTTrainCategoryCollection()
         {
             // The object went out of scope and finalized is called
             // Lets call dispose in to release unmanaged resources 

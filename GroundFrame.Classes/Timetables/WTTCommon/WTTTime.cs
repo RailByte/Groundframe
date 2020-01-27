@@ -69,7 +69,7 @@ namespace GroundFrame.Classes.Timetables
         /// Gets the user settings
         /// </summary>
         [JsonIgnore]
-        public UserSettingCollection UserSettings { get { return this._UserSettings; } }
+        public UserSettingCollection UserSettings { get { return this.GetSimulationUserSettings(); } }
 
         #endregion Properties
 
@@ -97,11 +97,11 @@ namespace GroundFrame.Classes.Timetables
             //Get Exception Messasge Resources
             this._UserSettings = UserSettings ?? new UserSettingCollection();
             //Valdiate Arguments
-            ArgumentValidation.ValidateSeconds(Seconds, UserSettingHelper.GetCultureInfo(this._UserSettings));
+            ArgumentValidation.ValidateSeconds(Seconds, UserSettingHelper.GetCultureInfo(this.UserSettings));
 
             this._Seconds = Seconds;
             this._WTTStartDate = new DateTime(1850, 1, 1);
-            this._HalfMinuteCharacter = Convert.ToInt32(this._UserSettings.GetValueByKey("TIMEHALFCHAR"), UserSettingHelper.GetCultureInfo(this.UserSettings));
+            this._HalfMinuteCharacter = Convert.ToInt32(this.UserSettings.GetValueByKey("TIMEHALFCHAR"), UserSettingHelper.GetCultureInfo(this.UserSettings));
         }
 
 
@@ -115,11 +115,11 @@ namespace GroundFrame.Classes.Timetables
         {
             //Get Exception Messasge Resources
             this._UserSettings = UserSettings ?? new UserSettingCollection();
-            ArgumentValidation.ValidateSeconds(Seconds, UserSettingHelper.GetCultureInfo(this._UserSettings));
+            ArgumentValidation.ValidateSeconds(Seconds, UserSettingHelper.GetCultureInfo(this.UserSettings));
 
             this._Seconds = Seconds;
             this._WTTStartDate = WTTStartDate;
-            this._HalfMinuteCharacter = Convert.ToInt32(this._UserSettings.GetValueByKey("TIMEHALFCHAR"), UserSettingHelper.GetCultureInfo(this.UserSettings));
+            this._HalfMinuteCharacter = Convert.ToInt32(this.UserSettings.GetValueByKey("TIMEHALFCHAR"), UserSettingHelper.GetCultureInfo(this.UserSettings));
         }
 
         #endregion Constructors
@@ -147,7 +147,7 @@ namespace GroundFrame.Classes.Timetables
             {
                 Delimiter = this.UserSettings.GetValueByKey("TIMEDELIMITER").ToString();
             }
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this._UserSettings);
+            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
             char HalfChar = (char)Convert.ToInt32(this.UserSettings.GetValueByKey("TIMEHALFCHAR"), Culture);
             TimeSpan TimeDifference = this._WTTStartDate.AddSeconds(this._Seconds).Subtract(this._WTTStartDate);
             int TotalDays = (int)Math.Floor((decimal)TimeDifference.TotalDays);
@@ -191,6 +191,24 @@ namespace GroundFrame.Classes.Timetables
                 return "(+2 Days) ";
             }
         }
+
+        //Calculates where to grab the UserSettings from
+        private UserSettingCollection GetSimulationUserSettings()
+        {
+            if (OnRequestUserSettings == null)
+            {
+                return this._UserSettings ?? new UserSettingCollection();
+            }
+            else
+            {
+                return OnRequestUserSettings();
+            }
+        }
+
+        /// <summary>
+        /// Function to return the user setting from a parent object
+        /// </summary>
+        internal Func<UserSettingCollection> OnRequestUserSettings;
 
         #endregion Methods
     }

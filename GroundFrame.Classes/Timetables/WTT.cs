@@ -63,7 +63,7 @@ namespace GroundFrame.Classes.Timetables
         /// Gets or sets the WTT train categories
         /// </summary>
         [JsonProperty("trainCategories")]
-        public List<WTTTrainCategory> TrainCategories { get; set; }
+        public WTTTrainCategoryCollection TrainCategories { get; set; }
 
         /// <summary>
         /// Gets or sets the WTT timetables
@@ -242,13 +242,12 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         private void ParseWTTTrainCategoriesXML()
         {
-            this.TrainCategories = new List<WTTTrainCategory>();
-
-            foreach (XElement XML in this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories").Elements("TrainCategory"))
+            if (this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories") != null)
             {
-                this.TrainCategories.Add(new WTTTrainCategory(XML, this.UserSettings));
+                this.TrainCategories = new WTTTrainCategoryCollection(this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories"), this.UserSettings);
             }
         }
+
 
         /// <summary>
         /// Populates the object from the supplied JSON

@@ -123,7 +123,7 @@ namespace GroundFrame.Classes.Timetables
         /// <param name="UserSettings">The users settings</param>
         public WTTHeader(string JSON, UserSettingCollection UserSettings)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection(); ;
+            this._UserSettings = UserSettings ?? new UserSettingCollection();
 
             //Validate settings
             ArgumentValidation.ValidateJSON(JSON, UserSettingHelper.GetCultureInfo(this._UserSettings));
@@ -176,10 +176,12 @@ namespace GroundFrame.Classes.Timetables
         /// <param name="Header"></param>
         private void ParseHeaderXML(XElement Header)
         {
+            //Set Culture
+            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
+
             try
             {
-                //Set Culture
-                CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
+
                 //Parse XML
                 this.Name = XMLMethods.GetValueFromXElement<string>(Header, @"Name", Culture);
                 this.Description = XMLMethods.GetValueFromXElement<string>(Header, @"Description", Culture, string.Empty);
@@ -192,7 +194,7 @@ namespace GroundFrame.Classes.Timetables
             }
             catch (Exception Ex)
             {
-                throw new Exception(ExceptionHelper.GetStaticException("ParseWTTHeaderException", null, UserSettingHelper.GetCultureInfo(this._UserSettings)), Ex);
+                throw new Exception(ExceptionHelper.GetStaticException("ParseWTTHeaderException", null, Culture), Ex);
             }
         }
 
@@ -200,17 +202,37 @@ namespace GroundFrame.Classes.Timetables
         /// Populates the object from the supplied JSON
         /// </summary>
         /// <param name="JSON">The JSON string representing the WTTHeader object</param>
-        public void PopulateFromJSON(string JSON)
+        private void PopulateFromJSON(string JSON)
         {
             //JSON argument will already have been validated in the constructor
             try
             {
                 JsonConvert.PopulateObject(JSON, this);
+                
+                //Pass UserSettings
+                if(this.StartTime != null)
+                {
+                    this.StartTime.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
+                }
+
+                if (this.FinishTime != null)
+                {
+                    this.FinishTime.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
+                }
             }
             catch (Exception Ex)
             {
                 throw new ApplicationException(ExceptionHelper.GetStaticException("ParseUserSettingsJSONError", null, UserSettingHelper.GetCultureInfo(this._UserSettings)), Ex);
             }
+        }
+
+        /// <summary>
+        /// Serializes the WTTHeader object to JSON
+        /// </summary>
+        /// <returns></returns>
+        public string ToJSON()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         private UserSettingCollection GetSimulationUserSettings()

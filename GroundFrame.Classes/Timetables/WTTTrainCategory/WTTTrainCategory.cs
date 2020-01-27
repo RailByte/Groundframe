@@ -211,6 +211,20 @@ namespace GroundFrame.Classes.Timetables
             }
         }
 
+        private UserSettingCollection GetSimulationUserSettings()
+        {
+            if (OnRequestUserSettings == null)
+            {
+                return this._UserSettings ?? new UserSettingCollection();
+            }
+            else
+            {
+                return OnRequestUserSettings();
+            }
+        }
+
+        internal Func<UserSettingCollection> OnRequestUserSettings;
+
         #endregion Methods
     }
 }
