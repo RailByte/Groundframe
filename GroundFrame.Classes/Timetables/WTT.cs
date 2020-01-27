@@ -6,17 +6,11 @@ using System.IO;
 using System.IO.Compression;
 using System.Xml.Linq;
 
-namespace GroundFrame.Classes.WTT
+namespace GroundFrame.Classes.Timetables
 {
     public enum SimSigSimulation
     {
         Royston = 1
-    }
-
-    public enum WTTStringType
-    {
-        FilePath = 1,
-        JSON = 2
     }
 
     public class WTT
@@ -25,7 +19,6 @@ namespace GroundFrame.Classes.WTT
 
         private readonly string _SourceWTTFileName; //If the WTT is read from a WTT file the source file path will be stored here
         private XDocument _SourceWTTXML;
-        private readonly GFSqlConnector _SQLConnector; //Stores the connection to the GroundFrame.SQL database
         private DateTime _StartDate; //Stores the start date of the timetable
         private readonly UserSettingCollection _UserSettings;
 
@@ -76,13 +69,19 @@ namespace GroundFrame.Classes.WTT
         /// Gets or sets the WTT timetables
         /// </summary>
         [JsonProperty("timeTables")]
-        public List<WTTTimeTable> TimeTables { get; set; }
+        public WTTTimeTableCollection TimeTables { get; set; }
 
         /// <summary>
         /// Gets the timetable start date
         /// </summary>
         [JsonProperty("startDate")]
         public DateTime StartDate { get { return this._StartDate; } set { this._StartDate = value; } }
+
+        /// <summary>
+        /// Gets the user settings
+        /// </summary>
+        [JsonIgnore]
+        public UserSettingCollection UserSettings { get { return this._UserSettings; } }
 
         #endregion Properties
 
@@ -94,12 +93,12 @@ namespace GroundFrame.Classes.WTT
         /// <param name="Filename">FileInfo object representing the path to the .WTT file</param>
         /// <param name="UserSettings">The users settings</param>
         public WTT (FileInfo Filename, UserSettingCollection UserSettings)
-        {           
+        {
             //Set the user settings
-            this._UserSettings = UserSettings ?? UserSettingHelper.GetDefaultSettings();
+            this._UserSettings = UserSettings ?? new UserSettingCollection();
 
             //Validate the FileName
-            ArgumentValidation.ValidateFilename(Filename, new CultureInfo(this._UserSettings.GetValueByKey("CULTURE").ToString()));
+            ArgumentValidation.ValidateFilename(Filename, new CultureInfo(this.UserSettings.GetValueByKey("CULTURE").ToString()));
 
             //Set Start Date of GroundFrame default
             this._StartDate = new DateTime(1850, 1, 1);
@@ -113,12 +112,12 @@ namespace GroundFrame.Classes.WTT
         /// Inititialises a new WTT object from a SimSig WTT file
         /// </summary>
         /// <param name="Filename">FileInfo object representing the path to the .WTT file</param>
-        /// <param name="StartDate">The start date of the timetable (cannot be before 01/01/1850</param>
+        /// <param name="StartDate">The start date of the timetable (cannot be before 01/01/1850)</param>
         /// <param name="UserSettings">The users settings</param>
         public WTT(FileInfo Filename, DateTime StartDate, UserSettingCollection UserSettings)
         {
-            this._UserSettings = UserSettings ?? UserSettingHelper.GetDefaultSettings();
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this._UserSettings);
+            this._UserSettings = UserSettings ?? new UserSettingCollection();
+            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
 
             //Validate Arguments
             ArgumentValidation.ValidateFilename(Filename, Culture);
@@ -131,7 +130,7 @@ namespace GroundFrame.Classes.WTT
         }
 
         /// <summary>
-        /// Default constructor which is used the Json Deserializer constructor
+        /// Default constructor which is used as the Json Deserializer constructor
         /// </summary>
         [JsonConstructor]
         private WTT (DateTime StartDate)
@@ -140,16 +139,15 @@ namespace GroundFrame.Classes.WTT
         }
 
         /// <summary>
-        /// Instantiates an empty WTT object
+        /// Instantiates a WTT object from JSON
         /// </summary>
-        /// <param name="SQLConnector"></param>
-        /// <param name="Culture"></param>
+        /// <param name="JSON">The JSON string</param>
+        /// <param name="UserSettings">The users settings</param>
         public WTT(string JSON, UserSettingCollection UserSettings)
         {
-            this._UserSettings = UserSettings ?? UserSettingHelper.GetDefaultSettings();
-
+            this._UserSettings = UserSettings ?? new UserSettingCollection();
             //Validate settings
-            ArgumentValidation.ValidateJSON(JSON, UserSettingHelper.GetCultureInfo(this._UserSettings));
+            ArgumentValidation.ValidateJSON(JSON, UserSettingHelper.GetCultureInfo(this.UserSettings));
 
             //Populate from JSON
             this.PopulateFromJSON(JSON);
@@ -213,7 +211,7 @@ namespace GroundFrame.Classes.WTT
             this.Simulation = (SimSigSimulation)Enum.Parse(typeof(SimSigSimulation), this._SourceWTTXML.Element("SimSigTimetable").Attribute("ID").Value.ToString(), true);
             this.SimulationVersion = this._SourceWTTXML.Element("SimSigTimetable").Attribute("Version").Value.ToString();
             //Get the Header
-            this.Header = new WTTHeader(this._SourceWTTXML.Element("SimSigTimetable"), this._StartDate, "en-GB");
+            this.Header = new WTTHeader(this._SourceWTTXML.Element("SimSigTimetable"), this._StartDate, this.UserSettings);
 
             //Parse the train categories
             if (this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories").Elements("TrainCategory") != null)
@@ -233,11 +231,9 @@ namespace GroundFrame.Classes.WTT
         /// </summary>
         private void ParseWTTTimeTablesXML()
         {
-            this.TimeTables = new List<WTTTimeTable>();
-
-            foreach (XElement XML in this._SourceWTTXML.Element("SimSigTimetable").Element("Timetables").Elements("Timetable"))
+            if(this._SourceWTTXML.Element("SimSigTimetable").Element("Timetables") != null)
             {
-                this.TimeTables.Add(new WTTTimeTable(XML, this._StartDate, "en-GB"));
+                this.TimeTables = new WTTTimeTableCollection(this._SourceWTTXML.Element("SimSigTimetable").Element("Timetables"), this.StartDate, this.UserSettings);
             }
         }
 
@@ -250,7 +246,7 @@ namespace GroundFrame.Classes.WTT
 
             foreach (XElement XML in this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories").Elements("TrainCategory"))
             {
-                this.TrainCategories.Add(new WTTTrainCategory(XML, "en-GB"));
+                this.TrainCategories.Add(new WTTTrainCategory(XML, this.UserSettings));
             }
         }
 
@@ -258,7 +254,7 @@ namespace GroundFrame.Classes.WTT
         /// Populates the object from the supplied JSON
         /// </summary>
         /// <param name="JSON">The JSON string representing the WTT object</param>
-        public void PopulateFromJSON(string JSON)
+        private void PopulateFromJSON(string JSON)
         {
             //JSON argument will already have been validated in the constructor
             try
@@ -267,13 +263,18 @@ namespace GroundFrame.Classes.WTT
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseUserSettingsJSONError", null, UserSettingHelper.GetCultureInfo(this._UserSettings)), Ex);
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseUserSettingsJSONError", null, UserSettingHelper.GetCultureInfo(this.UserSettings)), Ex);
             }
 
             //Set the UserSetting function
             if (this.Header != null)
             {
-                this.Header.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this._UserSettings; });
+                this.Header.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
+            }
+
+            if (this.TimeTables != null)
+            {
+                this.TimeTables.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
             }
         }
 
@@ -283,7 +284,7 @@ namespace GroundFrame.Classes.WTT
         /// <returns></returns>
         public string ToJSON()
         {
-            return JsonConvert.SerializeObject(this);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         #endregion Methods

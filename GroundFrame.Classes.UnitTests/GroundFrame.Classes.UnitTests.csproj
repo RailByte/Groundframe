@@ -26,8 +26,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="UnitTestWTT_4.8.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="Resources\TestWTT_4.8.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\TestWTT_4.8.WTT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\TestWTT_4.8.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="xunit.config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

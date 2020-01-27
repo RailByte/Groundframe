@@ -16,5 +16,11 @@
     "description": "The character to indicate a half minute",
     "value": 72,
     "dataTypeName": "System.Int32"
+  },
+  {
+    "key": "TIMEDELIMITER",
+    "description": "The character to indicate a half minute",
+    "value": ":",
+    "dataTypeName": "System.String"
   }
 ]

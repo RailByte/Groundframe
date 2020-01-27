@@ -198,6 +198,9 @@
   <data name="InvalidTimeDelimiterLengthArgument" xml:space="preserve">
     <value>The Time Delimiter argument must be a single character</value>
   </data>
+  <data name="InvalidUserSettingsArgument" xml:space="preserve">
+    <value>The UserSettings argument cannot be &lt;NULL&gt;</value>
+  </data>
   <data name="InvalidWTTStartDateArgument" xml:space="preserve">
     <value>The WTT Start Date cannot be before 01/01/1850</value>
   </data>

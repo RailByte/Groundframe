@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Xml.Linq;
 
@@ -16,13 +17,14 @@ namespace GroundFrame.Classes
         /// <typeparam name="T">The return type</typeparam>
         /// <param name="XML">The Source XML</param>
         /// <param name="ElementName">The name of the element for whose value is to be return</param>
+        /// <param name="Culture">The culture in which any error message should be return</param>
         /// <param name="DefaultValue">The default value which should be returned if the element isn't found in the XML</param>
         /// <returns></returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
-        public static T GetValueFromXElement<T>(XElement XML, string ElementName, object DefaultValue = null, string Culture = "en-GB")
+        public static T GetValueFromXElement<T>(XElement XML, string ElementName, CultureInfo Culture, object DefaultValue = null)
         {
             //Validate XML
-            ArgumentValidation.ValidateXElement(XML, new System.Globalization.CultureInfo(Culture));
+            ArgumentValidation.ValidateXElement(XML, Culture);
 
             //Throw an ApplicationException if the element cannot be found and no default value is provided
             if (XML.Element(ElementName) == null && DefaultValue == null)

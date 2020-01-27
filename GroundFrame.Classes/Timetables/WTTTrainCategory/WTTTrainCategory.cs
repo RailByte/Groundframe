@@ -6,7 +6,7 @@ using System.Xml.Linq;
 using System.Globalization;
 using Newtonsoft.Json;
 
-namespace GroundFrame.Classes.WTT
+namespace GroundFrame.Classes.Timetables
 {
     public class WTTTrainCategory
     {
@@ -16,7 +16,7 @@ namespace GroundFrame.Classes.WTT
         #region Private Variables
 
         private string _SimSigID; //Stores the SimSig ID
-        private readonly CultureInfo _Culture; //Stores the culture
+        private readonly UserSettingCollection _UserSettings; //Stores the user settings
 
         #endregion Private Variables
 
@@ -51,7 +51,6 @@ namespace GroundFrame.Classes.WTT
         /// </summary>
         [JsonProperty("canUseGoodLines")]
         public bool CanUseGoodsLines { get; set; }
-
 
         /// <summary>
         /// Gets or sets the max speed
@@ -89,6 +88,12 @@ namespace GroundFrame.Classes.WTT
         [JsonProperty("electrification")]
         public Electrification Electrification { get; set; }
 
+        /// <summary>
+        /// Gets the user settings
+        /// </summary>
+        [JsonIgnore]
+        public UserSettingCollection UserSettings { get { return this._UserSettings; } }
+
         #endregion Properties
 
         #region Constructors
@@ -104,29 +109,34 @@ namespace GroundFrame.Classes.WTT
         /// <summary>
         /// Instantiates a new instance of a WTTTrainobject object
         /// </summary>
-        public WTTTrainCategory(string Description, int AccelBrakeIndex, bool IsFreight, bool CanUseGoodsLines, int SpeedMPH, int LengthMeters, int SpeedClassBitWise, int PowerToWeightCategory, string Electrification, string Culture = "en-GB")
+        public WTTTrainCategory(string Description, int AccelBrakeIndex, bool IsFreight, bool CanUseGoodsLines, int SpeedMPH, int LengthMeters, int SpeedClassBitWise, int PowerToWeightCategory, string Electrification, UserSettingCollection UserSettings)
         {
-            this._Culture = new CultureInfo(Culture ?? "en-GB");
+            this._UserSettings = UserSettings ?? new UserSettingCollection();
             this.GenerateSimSigID();
             this.Description = Description;
             this.AccelBrakeIndex = (WTTAccelBrakeIndex)AccelBrakeIndex;
             this.IsFreight = IsFreight;
             this.CanUseGoodsLines = CanUseGoodsLines;
-            this.MaxSpeed = new WTTSpeed(SpeedMPH);
+            this.MaxSpeed = new WTTSpeed(SpeedMPH, this.UserSettings);
             this.TrainLength = new Length(LengthMeters);
-            this.SpeedClass = new WTTSpeedClass(SpeedClassBitWise);
+            this.SpeedClass = new WTTSpeedClass(SpeedClassBitWise, this.UserSettings);
             this.PowerToWeightCategory = (WTTPowerToWeightCategory)PowerToWeightCategory;
             this.Electrification = new Electrification(Electrification);
         }
 
-        public WTTTrainCategory(XElement TrainCategoryXML, string Culture = "en-GB")
+        /// <summary>
+        /// Instantiates a WTTTrainCategoet object from the supplied SimSig xml  snippet as an XElement
+        /// </summary>
+        /// <param name="TrainCategoryXML">The SimSig xml snippet</param>
+        /// <param name="UserSettings">The user settignd</param>
+        public WTTTrainCategory(XElement TrainCategoryXML, UserSettingCollection UserSettings)
         {
-            this._Culture = new CultureInfo(Culture ?? "en-GB");
+            this._UserSettings = UserSettings ?? new UserSettingCollection();
 
             //Check Header Argument
             if (TrainCategoryXML == null)
             {
-                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new object[] { "TrainCategoryXML" }, this._Culture));
+                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new object[] { "TrainCategoryXML" }, UserSettingHelper.GetCultureInfo(this.UserSettings)));
             }
 
             //Parse the XML
@@ -144,18 +154,20 @@ namespace GroundFrame.Classes.WTT
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
         private void ParseHeaderXML(XElement TrainCategoryXML)
         {
+            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
+
             try
             {
                 this._SimSigID = TrainCategoryXML.Attribute("ID") == null ? null : TrainCategoryXML.Attribute("ID").Value.ToString();
-                this.Description = XMLMethods.GetValueFromXElement<string>(TrainCategoryXML, @"Description", string.Empty, this._Culture.Name);
-                this.AccelBrakeIndex = (WTTAccelBrakeIndex)XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"AccelBrakeIndex", null, this._Culture.Name);
-                this.IsFreight = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"IsFreight", null, this._Culture.Name));
-                this.CanUseGoodsLines = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"CanUseGoodsLines", null, this._Culture.Name));
-                this.MaxSpeed = new WTTSpeed(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"MaxSpeed", null, this._Culture.Name));
-                this.TrainLength = new Length(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"TrainLength", null, this._Culture.Name));
-                this.SpeedClass = new WTTSpeedClass(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"SpeedClass", null, this._Culture.Name), this._Culture.Name);
-                this.PowerToWeightCategory = (WTTPowerToWeightCategory)XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"PowerToWeightCategory", null, this._Culture.Name);
-                this.Electrification = new Electrification(XMLMethods.GetValueFromXElement<string>(TrainCategoryXML, @"Electrification", null, this._Culture.Name));
+                this.Description = XMLMethods.GetValueFromXElement<string>(TrainCategoryXML, @"Description", Culture, string.Empty);
+                this.AccelBrakeIndex = (WTTAccelBrakeIndex)XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"AccelBrakeIndex", Culture, null);
+                this.IsFreight = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"IsFreight", Culture, null));
+                this.CanUseGoodsLines = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"CanUseGoodsLines", Culture, null));
+                this.MaxSpeed = new WTTSpeed(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"MaxSpeed", Culture, null), this.UserSettings);
+                this.TrainLength = new Length(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"TrainLength", Culture, null));
+                this.SpeedClass = new WTTSpeedClass(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"SpeedClass", Culture, null), this.UserSettings);
+                this.PowerToWeightCategory = (WTTPowerToWeightCategory)XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"PowerToWeightCategory", Culture, null);
+                this.Electrification = new Electrification(XMLMethods.GetValueFromXElement<string>(TrainCategoryXML, @"Electrification", Culture, null));
 
                 //Load any dwell times
                 XElement DwellXML = TrainCategoryXML.Element("DwellTimes");
@@ -167,13 +179,13 @@ namespace GroundFrame.Classes.WTT
                 }
                 else
                 {
-                    this.DwellTimes = new WTTDwell(DwellXML, this._Culture.Name);
+                    this.DwellTimes = new WTTDwell(DwellXML, this.UserSettings);
                 }
 
             }
             catch (Exception Ex)
             {
-                throw new Exception(ExceptionHelper.GetStaticException("ParseFromXElementWTTTrainCategoryException", null, this._Culture), Ex);
+                throw new Exception(ExceptionHelper.GetStaticException("ParseFromXElementWTTTrainCategoryException", null, UserSettingHelper.GetCultureInfo(this.UserSettings)), Ex);
             }
         }
 

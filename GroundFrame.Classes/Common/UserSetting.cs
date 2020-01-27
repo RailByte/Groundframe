@@ -164,7 +164,10 @@ namespace GroundFrame.Classes
             }
             else
             {
-                this._SQLConnector.Dispose();
+                if (this._SQLConnector != null)
+                {
+                    this._SQLConnector.Dispose();
+                }
             }
         }
 

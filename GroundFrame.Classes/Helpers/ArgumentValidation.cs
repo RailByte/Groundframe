@@ -78,7 +78,7 @@ namespace GroundFrame.Classes
             if (UserSettings == null)
             {
 
-                throw new ArgumentNullException(ExceptionMessageResources.GetString("InvalidHalfMinuteCharacterArgument", new CultureInfo("en-GB")));
+                throw new ArgumentNullException(ExceptionMessageResources.GetString("InvalidUserSettingsArgument", new CultureInfo("en-GB")));
             }
         }
 

@@ -5,11 +5,24 @@ using System.Xml.Linq;
 using Xunit;
 using GroundFrame.Classes;
 using System.Reflection;
+using System.Globalization;
 
 namespace GroundFrame.Classes.UnitTests.Helpers
 {
     public class XMLMethods
     {
+        #region Private Variables
+
+        CultureInfo _Culture; //Stores the Culture
+
+        #endregion Private Variables
+
+        public XMLMethods()
+        {
+            this._Culture = new CultureInfo("en-GB");
+        }
+
+        #region Methods
         /// <summary>
         /// Checks that the GetValueFromXElement method returns an int when specified 
         /// </summary>
@@ -21,7 +34,7 @@ namespace GroundFrame.Classes.UnitTests.Helpers
         {
             XDocument SourceXMLDoc = XDocument.Parse("<TestXML><TestString>Test</TestString><TestInt>0</TestInt><TestDate>2000-01-01</TestDate></TestXML>");
             XElement SourceXML = SourceXMLDoc.Element("TestXML");
-            Assert.IsType<int>(GroundFrame.Classes.XMLMethods.GetValueFromXElement<int>(SourceXML, ElementName, DefaultValue));
+            Assert.IsType<int>(GroundFrame.Classes.XMLMethods.GetValueFromXElement<int>(SourceXML, ElementName, this._Culture, DefaultValue));
         }
 
         /// <summary>
@@ -35,7 +48,7 @@ namespace GroundFrame.Classes.UnitTests.Helpers
         {
             XDocument SourceXMLDoc = XDocument.Parse("<TestXML><TestString>Test</TestString><TestInt>0</TestInt><TestDate>2000-01-01</TestDate></TestXML>");
             XElement SourceXML = SourceXMLDoc.Element("TestXML");
-            Assert.IsType<string>(GroundFrame.Classes.XMLMethods.GetValueFromXElement<string>(SourceXML, ElementName, DefaultValue));
+            Assert.IsType<string>(GroundFrame.Classes.XMLMethods.GetValueFromXElement<string>(SourceXML, ElementName, this._Culture, DefaultValue));
         }
 
         /// <summary>
@@ -48,7 +61,7 @@ namespace GroundFrame.Classes.UnitTests.Helpers
         {
             XDocument SourceXMLDoc = XDocument.Parse("<TestXML><TestString>Test</TestString><TestInt>0</TestInt><TestDate>2000-01-01</TestDate></TestXML>");
             XElement SourceXML = SourceXMLDoc.Element("TestXML");
-            Assert.IsType<DateTime>(GroundFrame.Classes.XMLMethods.GetValueFromXElement<DateTime>(SourceXML, ElementName, DateTime.Parse(DefaultValue.ToString())));
+            Assert.IsType<DateTime>(GroundFrame.Classes.XMLMethods.GetValueFromXElement<DateTime>(SourceXML, ElementName, this._Culture, DateTime.Parse(DefaultValue.ToString())));
         }
 
         /// <summary>
@@ -62,7 +75,7 @@ namespace GroundFrame.Classes.UnitTests.Helpers
         {
             XDocument SourceXMLDoc = XDocument.Parse("<TestXML><TestString>Test</TestString><TestInt>0</TestInt><TestDate>2000-01-01</TestDate></TestXML>");
             XElement SourceXML = SourceXMLDoc.Element("TestXML");
-            Assert.Equal(ExpectedValue, GroundFrame.Classes.XMLMethods.GetValueFromXElement<int>(SourceXML, ElementName, DefaultValue));
+            Assert.Equal(ExpectedValue, GroundFrame.Classes.XMLMethods.GetValueFromXElement<int>(SourceXML, ElementName, this._Culture, DefaultValue));
         }
 
         /// <summary>
@@ -76,7 +89,7 @@ namespace GroundFrame.Classes.UnitTests.Helpers
         {
             XDocument SourceXMLDoc = XDocument.Parse("<TestXML><TestString>Test</TestString><TestInt>0</TestInt><TestDate>2000-01-01</TestDate></TestXML>");
             XElement SourceXML = SourceXMLDoc.Element("TestXML");
-            Assert.Equal(ExpectedValue, GroundFrame.Classes.XMLMethods.GetValueFromXElement<string>(SourceXML, ElementName, DefaultValue));
+            Assert.Equal(ExpectedValue, GroundFrame.Classes.XMLMethods.GetValueFromXElement<string>(SourceXML, ElementName, this._Culture, DefaultValue));
         }
 
         /// <summary>
@@ -89,7 +102,7 @@ namespace GroundFrame.Classes.UnitTests.Helpers
         {
             XDocument SourceXMLDoc = XDocument.Parse("<TestXML><TestString>Test</TestString><TestInt>0</TestInt><TestDate>2000-01-01</TestDate></TestXML>");
             XElement SourceXML = SourceXMLDoc.Element("TestXML");
-            Assert.Equal(DateTime.Parse(ExpectedValue), GroundFrame.Classes.XMLMethods.GetValueFromXElement<DateTime>(SourceXML, ElementName, DateTime.Parse(DefaultValue.ToString())));
+            Assert.Equal(DateTime.Parse(ExpectedValue), GroundFrame.Classes.XMLMethods.GetValueFromXElement<DateTime>(SourceXML, ElementName, this._Culture, DateTime.Parse(DefaultValue.ToString())));
         }
 
         /// <summary>
@@ -100,7 +113,9 @@ namespace GroundFrame.Classes.UnitTests.Helpers
         {
             XDocument SourceXMLDoc = XDocument.Parse("<TestXML><TestString>Test</TestString><TestInt>0</TestInt><TestDate>2000-01-01</TestDate></TestXML>");
             XElement SourceXML = SourceXMLDoc.Element("TestXML");
-            Assert.Throws<InvalidCastException>(() => GroundFrame.Classes.XMLMethods.GetValueFromXElement<DateTime>(SourceXML, "TestInt", "1999-12-31"));
+            Assert.Throws<InvalidCastException>(() => GroundFrame.Classes.XMLMethods.GetValueFromXElement<DateTime>(SourceXML, "TestInt", this._Culture, "1999-12-31"));
         }
+
+        #endregion Methods
     }
 }

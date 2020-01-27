@@ -1,6 +1,6 @@
 using System;
 using Xunit;
-using GroundFrame.Classes.WTT;
+using GroundFrame.Classes.Timetables;
 
 namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
 {
@@ -24,7 +24,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [InlineData(-60, "-00:01")]
         public void WTTTime_Prop_FormattedDuration(int Input, string ExpectedValue)
         {
-            GroundFrame.Classes.WTT.WTTDuration TestDuration = new Classes.WTT.WTTDuration(Input, "H");
+            GroundFrame.Classes.Timetables.WTTDuration TestDuration = new Classes.Timetables.WTTDuration(Input, new UserSettingCollection());
             Assert.Equal(ExpectedValue, TestDuration.FormattedDuration);
         }
     }

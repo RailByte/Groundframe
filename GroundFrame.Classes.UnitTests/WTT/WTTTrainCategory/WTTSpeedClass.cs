@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
-using GroundFrame.Classes.WTT;
+using GroundFrame.Classes.Timetables;
 
 namespace GroundFrame.Classes.UnitTests.WTTTrainCategory
 {
@@ -36,7 +36,7 @@ namespace GroundFrame.Classes.UnitTests.WTTTrainCategory
         [InlineData(12, new WTTSpeedClassBitWise[] { WTTSpeedClassBitWise.HST, WTTSpeedClassBitWise.EMU })]
         public void WTTSpeed_Prop_BitWise(int BitWise, WTTSpeedClassBitWise[] BitWiseArray)
         {
-            GroundFrame.Classes.WTT.WTTSpeedClass TestSpeedClass = new GroundFrame.Classes.WTT.WTTSpeedClass(BitWise);
+            GroundFrame.Classes.Timetables.WTTSpeedClass TestSpeedClass = new GroundFrame.Classes.Timetables.WTTSpeedClass(BitWise, new UserSettingCollection());
             Assert.Equal(BitWiseArray, TestSpeedClass.SpeedClassList.ToArray());
             Assert.Equal(BitWise, TestSpeedClass.Bitwise);
         }

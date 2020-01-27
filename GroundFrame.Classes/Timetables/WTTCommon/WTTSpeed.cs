@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace GroundFrame.Classes.WTT
+namespace GroundFrame.Classes.Timetables
 {
     /// <summary>
     /// Class representing a WTT Speed object
@@ -20,7 +20,7 @@ namespace GroundFrame.Classes.WTT
         #region Private Variables
 
         private readonly int _MPH; //Private variable to store the speed in MPH (the WTTSpeed base unit)
-        private readonly CultureInfo _Culture; //Private variable to store the culture
+        private readonly UserSettingCollection _UserSettings; //Private variable to store the user settings
 
         #endregion Private Variables
 
@@ -38,6 +38,12 @@ namespace GroundFrame.Classes.WTT
         [JsonProperty("kph")]
         public decimal KPH { get { return this._MPH * _MPHToKPH;  } }
 
+        /// <summary>
+        /// Gets the user settings
+        /// </summary>
+        [JsonIgnore]
+        public UserSettingCollection UserSettings { get { return this._UserSettings; } }
+
         #endregion Properties
 
         #region Constructors
@@ -54,13 +60,13 @@ namespace GroundFrame.Classes.WTT
         /// Instantiates a WTTSpeed object from the the supplied MPH
         /// </summary>
         /// <param name="MPH">The Speed in MPH</param>
-        public WTTSpeed (int MPH, string Culture = "en-GB")
+        public WTTSpeed (int MPH, UserSettingCollection UserSettings)
         {
-            this._Culture = new CultureInfo(Culture ?? "en-GB");
+            this._UserSettings = UserSettings ?? new UserSettingCollection();
 
             if (MPH<=0)
             {
-                throw new ArgumentOutOfRangeException(ExceptionHelper.GetStaticException("InvalidMPHArgument", null, this._Culture));
+                throw new ArgumentOutOfRangeException(ExceptionHelper.GetStaticException("InvalidMPHArgument", null, UserSettingHelper.GetCultureInfo(this.UserSettings)));
             }
 
             this._MPH = MPH;

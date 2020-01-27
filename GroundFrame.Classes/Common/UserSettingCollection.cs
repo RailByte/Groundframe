@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -50,6 +51,14 @@ namespace GroundFrame.Classes
         }
 
         /// <summary>
+        /// Instantiates a new UserSettingCollection using the default values shipped with the library
+        /// </summary>
+        public UserSettingCollection()
+        {
+            this.GetDefaultSettings();
+        }
+
+        /// <summary>
         /// Instantiates a UserSettingCollection from a JSON file.
         /// </summary>
         /// <param name="JSON">A JSON string representing a collection of user settings</param>
@@ -80,6 +89,19 @@ namespace GroundFrame.Classes
         #endregion Constructors
 
         #region Methods
+
+        /// <summary>
+        /// Gets the Default User Settings from the defaultUserSettins.json file shipped with the solution
+        /// </summary>
+        private void GetDefaultSettings()
+        {
+            //Get the path to the default JSON file
+            string JSONPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\defaultUserSettings.json";
+            //Read JSON
+            string JSON = File.ReadAllText(JSONPath);
+            this._UserSettings = JsonConvert.DeserializeObject<List<UserSetting>>(JSON);
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
@@ -171,7 +193,10 @@ namespace GroundFrame.Classes
             }
             else
             {
-                this._SQLConnector.Dispose();
+                if (this._SQLConnector != null)
+                {
+                    this._SQLConnector.Dispose();
+                }
             }
         }
 

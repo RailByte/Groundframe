@@ -304,6 +304,15 @@ namespace GroundFrame.Classes.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The UserSettings argument cannot be &lt;NULL&gt;.
+        /// </summary>
+        internal static string InvalidUserSettingsArgument {
+            get {
+                return ResourceManager.GetString("InvalidUserSettingsArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The WTT Start Date cannot be before 01/01/1850.
         /// </summary>
         internal static string InvalidWTTStartDateArgument {

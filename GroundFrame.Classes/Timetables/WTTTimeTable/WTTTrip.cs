@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Text;
 using System.Xml.Linq;
 
-namespace GroundFrame.Classes.WTT
+namespace GroundFrame.Classes.Timetables
 {
     /// <summary>
     /// A Class representing a SimSig Trip
@@ -17,7 +17,7 @@ namespace GroundFrame.Classes.WTT
 
         #region Private Variables
 
-        private readonly CultureInfo _Culture; //Stores the Culture Info for the instance
+        private readonly UserSettingCollection _UserSettings; //Stores the user settings
         private readonly DateTime _StartDate; //Stores the timetable start date
 
         #endregion Private
@@ -79,6 +79,12 @@ namespace GroundFrame.Classes.WTT
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
         private DateTime StartDate { get { return this._StartDate; } }
 
+        /// <summary>
+        /// Gets the user settings
+        /// </summary>
+        [JsonIgnore]
+        public UserSettingCollection UserSettings { get { return this._UserSettings; } }
+
         #endregion Properties
 
         #region Constructors
@@ -88,16 +94,16 @@ namespace GroundFrame.Classes.WTT
         /// </summary>
         /// <param name="WTTTripXML">The XML element representing a SimSig trip</param>
         /// <param name="StartDate">The timetable start date</param>
-        /// <param name="Culture">The culture in which any error messages should be returned</param>
-        public WTTTrip (XElement WTTTripXML, DateTime StartDate, string Culture = "en-GB")
+        /// <param name="UserSettings">The users settings. If NULL then default settings are applied</param>
+        public WTTTrip (XElement WTTTripXML, DateTime StartDate, UserSettingCollection UserSettings)
         {
-            this._Culture = new CultureInfo(string.IsNullOrEmpty(Culture) ? "en-GB" : Culture);
+            this._UserSettings = UserSettings ?? new UserSettingCollection();
             this._StartDate = StartDate;
 
             //Check Header Argument
             if (WTTTripXML == null)
             {
-                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new object[] { "WTTTripXML" }, this._Culture));
+                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new object[] { "WTTTripXML" }, UserSettingHelper.GetCultureInfo(this.UserSettings)));
             }
 
             //Parse the XML
@@ -124,20 +130,22 @@ namespace GroundFrame.Classes.WTT
         /// <param name="WTTTripXML"></param>
         private void ParseWTTTripXML(XElement WTTTripXML)
         {
+            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
+
             try
             {
-                this.Location = XMLMethods.GetValueFromXElement<string>(WTTTripXML, @"Location", string.Empty, this._Culture.Name);
-                this.DepPassTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"DepPassTime", 0, this._Culture.Name), this._StartDate, "H", this._Culture.Name);
-                this.ArrTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"ArrTime", 0, this._Culture.Name), this._StartDate, "H", this._Culture.Name);
-                this.IsPassTime = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"IsPassTime", 0, this._Culture.Name));
-                this.Platform = XMLMethods.GetValueFromXElement<string>(WTTTripXML, @"Platform", string.Empty, this._Culture.Name);
-                this.DownDirection = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"DownDirection", 0, this._Culture.Name));
-                this.PrevPathEndDown = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"PrevPathEndDown", 0, this._Culture.Name));
-                this.NextPathStartDown = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"NextPathStartown", 0, this._Culture.Name));
+                this.Location = XMLMethods.GetValueFromXElement<string>(WTTTripXML, @"Location", Culture, string.Empty);
+                this.DepPassTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"DepPassTime", Culture, 0), this.StartDate, this.UserSettings);
+                this.ArrTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"ArrTime", Culture, 0), this.StartDate, this.UserSettings);
+                this.IsPassTime = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"IsPassTime", Culture, 0));
+                this.Platform = XMLMethods.GetValueFromXElement<string>(WTTTripXML, @"Platform", Culture, string.Empty);
+                this.DownDirection = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"DownDirection", Culture, 0));
+                this.PrevPathEndDown = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"PrevPathEndDown", Culture, 0));
+                this.NextPathStartDown = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"NextPathStartown", Culture, 0));
             }
             catch (Exception Ex)
             {
-                throw new Exception(ExceptionHelper.GetStaticException("ParseFromXElementWTTTripException", null, this._Culture), Ex);
+                throw new Exception(ExceptionHelper.GetStaticException("ParseFromXElementWTTTripException", null, Culture), Ex);
             }
         }
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace GroundFrame.Classes.WTT
+namespace GroundFrame.Classes.Timetables
 {
     /// <summary>
     /// Class which represents a SimSig Speed Class
@@ -16,7 +16,7 @@ namespace GroundFrame.Classes.WTT
 
         #region Private Variables
 
-        private readonly CultureInfo _Culture; //Stores the Culture
+        private readonly UserSettingCollection _UserSettings; //Stores the user settings
         private int _Bitwise; //Stores the Bitwise value for the Speed Class
 
         #endregion Private Variables
@@ -32,7 +32,13 @@ namespace GroundFrame.Classes.WTT
         /// Gets a list of the selected bitwise values
         /// </summary>
         [JsonProperty("speedClassList")]
-        public List<WTTSpeedClassBitWise> SpeedClassList { get { return BitwiseHelper.MaskToList<WTTSpeedClassBitWise>((WTTSpeedClassBitWise)this._Bitwise, this._Culture); } }
+        public List<WTTSpeedClassBitWise> SpeedClassList { get { return BitwiseHelper.MaskToList<WTTSpeedClassBitWise>((WTTSpeedClassBitWise)this.Bitwise, this.UserSettings); } }
+
+        /// <summary>
+        /// Gets the user settings
+        /// </summary>
+        [JsonIgnore]
+        public UserSettingCollection UserSettings { get { return this._UserSettings; } }
 
         #endregion Properties
 
@@ -50,11 +56,11 @@ namespace GroundFrame.Classes.WTT
         /// Instantiates a WTTSpeedClass object from the selected Bitwise
         /// </summary>
         /// <param name="Bitwise">The bitwise value representing the selected speed class values</param>
-        /// <param name="Culture">Optional - the name of the culture to determine language of error messages</param>
-        public WTTSpeedClass (int Bitwise, string Culture = "en-GB")
+        /// <param name="UserSettings">The user settings. If null then the default user settings will be used</param>
+        public WTTSpeedClass (int Bitwise, UserSettingCollection UserSettings)
         {
             this._Bitwise = Bitwise;
-            this._Culture = new CultureInfo(Culture ?? "en-GB");
+            this._UserSettings = UserSettings ?? new UserSettingCollection();
         }
 
         #endregion Constructor
