@@ -25,7 +25,7 @@ namespace GroundFrame.Classes.Timetables
         private List<WTTTimeTable> _TimeTables = new List<WTTTimeTable>(); //List to store all the time tables
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private readonly UserSettingCollection _UserSettings; //Stores the culture info
-        private readonly DateTime _StartDate; //Stores the WTT Start Date
+        private DateTime _StartDate; //Stores the WTT Start Date
 
         #endregion Private Variables
 
@@ -37,6 +37,11 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         [JsonIgnore]
         public UserSettingCollection UserSettings { get { return this.GetSimulationUserSettings(); } }
+
+        /// <summary>
+        /// Gets the timetable start date
+        /// </summary>
+        public DateTime StartDate { get { return this._StartDate; } }
 
         #endregion Properties
 
@@ -105,6 +110,17 @@ namespace GroundFrame.Classes.Timetables
         }
 
         /// <summary>
+        /// Instantiates a WTTTimeTableCollection object with the supplied start date. Used by the WTTTimeTableCollectionConverter class to convert JSON to WTTTableCollection
+        /// </summary>
+        /// <param name="StartDate"></param>
+        internal WTTTimeTableCollection(DateTime StartDate)
+        {
+            ArgumentValidation.ValidateWTTStartDate(StartDate, UserSettingHelper.GetCultureInfo(this.UserSettings));
+            this._StartDate = StartDate;
+            this._TimeTables = new List<WTTTimeTable>();
+        }
+
+        /// <summary>
         /// Gets the total number of versions in the collection
         /// </summary>
         public int Count { get { return this._TimeTables.Count; } }
@@ -122,11 +138,13 @@ namespace GroundFrame.Classes.Timetables
             //JSON argument will already have been validated in the constructor
             try
             {
-                JsonConvert.PopulateObject(JSON, this);
+                WTTTimeTableCollection Temp = JsonConvert.DeserializeObject< WTTTimeTableCollection>(JSON, new WTTTimeTableCollectionConverter());
+                this._StartDate = Temp.StartDate;
+                this._TimeTables = Temp.ToList();
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseUserSettingsJSONError", null, UserSettingHelper.GetCultureInfo(this._UserSettings)), Ex);
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTimeTableCollectionJSONError", null, UserSettingHelper.GetCultureInfo(this._UserSettings)), Ex);
             }
         }
 
@@ -154,12 +172,33 @@ namespace GroundFrame.Classes.Timetables
         }
 
         /// <summary>
+        /// Adds at WTTTimeTable to the collection
+        /// </summary>
+        /// <param name="TimeTable">The WTTTimeTable object to add to the collection</param>
+        public void Add(WTTTimeTable TimeTable)
+        {
+            if (this._TimeTables == null)
+            {
+                this._TimeTables = new List<WTTTimeTable>();
+            }
+            this._TimeTables.Add(TimeTable);
+        }
+
+        /// <summary>
+        /// Get the list of WTTTimetables
+        /// </summary>
+        public List<WTTTimeTable> ToList()
+        {
+            return this._TimeTables;
+        }
+
+        /// <summary>
         /// Gets a JSON string that represents the UserSetting Collection
         /// </summary>
         /// <returns></returns>
         public string ToJSON()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.Indented, new WTTTimeTableCollectionConverter());
         }
 
         private UserSettingCollection GetSimulationUserSettings()

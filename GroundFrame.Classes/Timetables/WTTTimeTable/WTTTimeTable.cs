@@ -169,14 +169,28 @@ namespace GroundFrame.Classes.Timetables
             this._UserSettings = UserSettings ?? new UserSettingCollection();
             this._StartDate = StartDate;
 
-            //Check Header Argument
-            if (TimeTableXML == null)
-            {
-                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new object[] { "TimeTableXML" }, UserSettingHelper.GetCultureInfo(this.UserSettings)));
-            }
+            //Validate arguments
+            ArgumentValidation.ValidateXElement(TimeTableXML, UserSettingHelper.GetCultureInfo(this.UserSettings));
+            ArgumentValidation.ValidateWTTStartDate(StartDate, UserSettingHelper.GetCultureInfo(this.UserSettings));
 
             //Parse the XML
             this.ParseWTTTimeTable(TimeTableXML);
+        }
+
+        /// <summary>
+        /// Instantiates a WTTTimeTable object from the supplied JSON string
+        /// </summary>
+        /// <param name="JSON">The JSON string representing the WTTTimeTable object</param>
+        /// <param name="UserSettings">The user settignd</param>
+        public WTTTimeTable(string JSON, UserSettingCollection UserSettings)
+        {
+            this._UserSettings = UserSettings ?? new UserSettingCollection();
+
+            //Valdate Arguments
+            ArgumentValidation.ValidateJSON(JSON, UserSettingHelper.GetCultureInfo(this.UserSettings));
+
+            //Parse the JSON
+            this.PopulateFromJSON(JSON);
         }
 
         #endregion Constructors
@@ -250,18 +264,54 @@ namespace GroundFrame.Classes.Timetables
             }
         }
 
+        /// <summary>
+        /// Populates the object from the supplied JSON
+        /// </summary>
+        /// <param name="JSON">The JSON string representing the WTTimeTable object</param>
+        private void PopulateFromJSON(string JSON)
+        {
+            //JSON argument will already have been validated in the constructor
+            try
+            {
+                JsonConvert.PopulateObject(JSON, this);
+            }
+            catch (Exception Ex)
+            {
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTimeTableJSONError", null, UserSettingHelper.GetCultureInfo(this.UserSettings)), Ex);
+            }
+        }
+
+        /// <summary>
+        /// Serializes the WTTTimeTable object to JSON
+        /// </summary>
+        /// <returns></returns>
+        public string ToJSON()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
+        /// Returns the UserSettingCollection from the various sources
+        /// </summary>
+        /// <returns></returns>
         private UserSettingCollection GetSimulationUserSettings()
         {
+            //First check to see if the user settings have been passed down from the parent WTT object via then event function
             if (OnRequestUserSettings == null)
             {
+                //If not return the user settings from this object. If this is null then create a default set of user settings
                 return this._UserSettings ?? new UserSettingCollection();
             }
             else
             {
+                //Otherwise return user settings frm the WTT object
                 return OnRequestUserSettings();
             }
         }
 
+        /// <summary>
+        /// Function which is defined by the parent object to retreive the user settings from the parent object
+        /// </summary>
         internal Func<UserSettingCollection> OnRequestUserSettings;
 
         #endregion Methods

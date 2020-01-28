@@ -57,6 +57,11 @@ namespace GroundFrame.Classes
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
 
+            if (string.IsNullOrEmpty(JSON))
+            {
+                throw new ArgumentNullException(ExceptionMessageResources.GetString("NullOrEmptyJSONError", Culture));
+            }
+
             try
             {
                 JToken.Parse(JSON);
@@ -259,7 +264,7 @@ namespace GroundFrame.Classes
 
             if (XML == null)
             {
-                throw new ArgumentException(ExceptionMessageResources.GetString("InvalidXMLArgument", Culture));
+                throw new ArgumentNullException(ExceptionMessageResources.GetString("InvalidXMLArgument", Culture));
             }
         }
 

@@ -331,6 +331,15 @@ namespace GroundFrame.Classes.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The JSON string cannot be &lt;NULL&gt; or empty.
+        /// </summary>
+        internal static string NullOrEmptyJSONError {
+            get {
+                return ResourceManager.GetString("NullOrEmptyJSONError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The OnRequestUserSettings handler not assigned.
         /// </summary>
         internal static string OnRequestUserSettingsHandlerNotAssigned {
@@ -385,11 +394,38 @@ namespace GroundFrame.Classes.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error has occured trying to read the WTT Train Category collection from the supplied JSON string.
+        ///   Looks up a localized string similar to An error has occured trying to parse the Timetable collection from the supplied JSON string.
+        /// </summary>
+        internal static string ParseWTTTimeTableCollectionJSONError {
+            get {
+                return ResourceManager.GetString("ParseWTTTimeTableCollectionJSONError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occured trying to read the Timetable from the supplied JSON string.
+        /// </summary>
+        internal static string ParseWTTTimeTableJSONError {
+            get {
+                return ResourceManager.GetString("ParseWTTTimeTableJSONError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occured trying to parse the Train Category collection from the supplied JSON string.
         /// </summary>
         internal static string ParseWTTTrainCategoryCollectionJSONError {
             get {
                 return ResourceManager.GetString("ParseWTTTrainCategoryCollectionJSONError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occured trying to read the Train Category from the supplied JSON string.
+        /// </summary>
+        internal static string ParseWTTTrainCategoryJSONError {
+            get {
+                return ResourceManager.GetString("ParseWTTTrainCategoryJSONError", resourceCulture);
             }
         }
         

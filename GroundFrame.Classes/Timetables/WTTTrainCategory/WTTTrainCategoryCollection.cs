@@ -115,7 +115,8 @@ namespace GroundFrame.Classes.Timetables
             //JSON argument will already have been validated in the constructor
             try
             {
-                JsonConvert.PopulateObject(JSON, this, new JsonSerializerSettings{ ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor });
+                IEnumerable<WTTTrainCategory> TrainCategoryList = JsonConvert.DeserializeObject<IEnumerable<WTTTrainCategory>>(JSON);
+                this._TrainCategories = TrainCategoryList.ToList();
             }
             catch (Exception Ex)
             {

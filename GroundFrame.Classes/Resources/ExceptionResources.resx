@@ -207,6 +207,9 @@
   <data name="InvalidXMLArgument" xml:space="preserve">
     <value>The XML argument cannot be &lt;NULL&gt;</value>
   </data>
+  <data name="NullOrEmptyJSONError" xml:space="preserve">
+    <value>The JSON string cannot be &lt;NULL&gt; or empty</value>
+  </data>
   <data name="OnRequestUserSettingsHandlerNotAssigned" xml:space="preserve">
     <value>The OnRequestUserSettings handler not assigned</value>
   </data>
@@ -225,8 +228,17 @@
   <data name="ParseWTTHeaderException" xml:space="preserve">
     <value>Cannot Parse the WTT Header from the Source SimSig WTT XML</value>
   </data>
+  <data name="ParseWTTTimeTableCollectionJSONError" xml:space="preserve">
+    <value>An error has occured trying to parse the Timetable collection from the supplied JSON string</value>
+  </data>
+  <data name="ParseWTTTimeTableJSONError" xml:space="preserve">
+    <value>An error has occured trying to read the Timetable from the supplied JSON string</value>
+  </data>
   <data name="ParseWTTTrainCategoryCollectionJSONError" xml:space="preserve">
-    <value>An error has occured trying to read the WTT Train Category collection from the supplied JSON string</value>
+    <value>An error has occured trying to parse the Train Category collection from the supplied JSON string</value>
+  </data>
+  <data name="ParseWTTTrainCategoryJSONError" xml:space="preserve">
+    <value>An error has occured trying to read the Train Category from the supplied JSON string</value>
   </data>
   <data name="RefreshSimulationError" xml:space="preserve">
     <value>You cannot refresh a simulation from the GroundFrame.SQL database if it hasn't yet been saved to the GroundFrame.SQL database</value>

@@ -125,7 +125,7 @@ namespace GroundFrame.Classes.Timetables
         }
 
         /// <summary>
-        /// Instantiates a WTTTrainCategoet object from the supplied SimSig xml  snippet as an XElement
+        /// Instantiates a WTTTrainCategort object from the supplied SimSig xml snippet as an XElement
         /// </summary>
         /// <param name="TrainCategoryXML">The SimSig xml snippet</param>
         /// <param name="UserSettings">The user settignd</param>
@@ -133,14 +133,27 @@ namespace GroundFrame.Classes.Timetables
         {
             this._UserSettings = UserSettings ?? new UserSettingCollection();
 
-            //Check Header Argument
-            if (TrainCategoryXML == null)
-            {
-                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new object[] { "TrainCategoryXML" }, UserSettingHelper.GetCultureInfo(this.UserSettings)));
-            }
+            //Valdate Arguments
+            ArgumentValidation.ValidateXElement(TrainCategoryXML, UserSettingHelper.GetCultureInfo(this.UserSettings));
 
             //Parse the XML
             this.ParseHeaderXML(TrainCategoryXML);
+        }
+
+        /// <summary>
+        /// Instantiates a WTTTrainCategory object from the supplied JSON string
+        /// </summary>
+        /// <param name="JSON">The JSON string representing the WTTTrainCategory object</param>
+        /// <param name="UserSettings">The user settignd</param>
+        public WTTTrainCategory(string JSON, UserSettingCollection UserSettings)
+        {
+            this._UserSettings = UserSettings ?? new UserSettingCollection();
+
+            //Valdate Arguments
+            ArgumentValidation.ValidateJSON(JSON, UserSettingHelper.GetCultureInfo(this.UserSettings));
+
+            //Parse the JSON
+            this.PopulateFromJSON(JSON);
         }
 
         #endregion Constructors
@@ -190,6 +203,23 @@ namespace GroundFrame.Classes.Timetables
         }
 
         /// <summary>
+        /// Populates the object from the supplied JSON
+        /// </summary>
+        /// <param name="JSON">The JSON string representing the WTTTrainCategory object</param>
+        private void PopulateFromJSON(string JSON)
+        {
+            //JSON argument will already have been validated in the constructor
+            try
+            {
+                JsonConvert.PopulateObject(JSON, this);
+            }
+            catch (Exception Ex)
+            {
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTrainCategoryJSONError", null, UserSettingHelper.GetCultureInfo(this.UserSettings)), Ex);
+            }
+        }
+
+        /// <summary>
         /// Generates a 6 character long random hex string
         /// </summary>
         /// <param name="ReplaceExisting">Flag to indicate whether the existing SimSig should be replaced if it exists</param>
@@ -209,6 +239,15 @@ namespace GroundFrame.Classes.Timetables
 
                 this._SimSigID = SimSigID;
             }
+        }
+
+        /// <summary>
+        /// Serializes the WTTTrainCategory object to JSON
+        /// </summary>
+        /// <returns></returns>
+        public string ToJSON()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         private UserSettingCollection GetSimulationUserSettings()

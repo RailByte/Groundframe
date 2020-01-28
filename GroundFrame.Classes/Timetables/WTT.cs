@@ -133,6 +133,7 @@ namespace GroundFrame.Classes.Timetables
         /// Default constructor which is used as the Json Deserializer constructor
         /// </summary>
         [JsonConstructor]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
         private WTT (DateTime StartDate)
         {
             this._StartDate = StartDate;
