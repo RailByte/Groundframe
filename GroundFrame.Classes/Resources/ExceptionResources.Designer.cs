@@ -430,6 +430,24 @@ namespace GroundFrame.Classes.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error has occured trying to parse the Trip collection from the supplied JSON string.
+        /// </summary>
+        internal static string ParseWTTTripCollectionJSONError {
+            get {
+                return ResourceManager.GetString("ParseWTTTripCollectionJSONError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occured trying to read the Trip from the supplied JSON string.
+        /// </summary>
+        internal static string ParseWTTTripJSONError {
+            get {
+                return ResourceManager.GetString("ParseWTTTripJSONError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You cannot refresh a simulation from the GroundFrame.SQL database if it hasn&apos;t yet been saved to the GroundFrame.SQL database.
         /// </summary>
         internal static string RefreshSimulationError {

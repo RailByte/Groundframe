@@ -17,7 +17,7 @@ namespace GroundFrame.Classes.Timetables
 
         private readonly UserSettingCollection _UserSettings; //Stores the user settings
         private int _RunAsRequiredPercentage; //Stores the run and required percentage
-        private readonly DateTime _StartDate; //Stores the start date of the timetable
+        private DateTime _StartDate; //Stores the start date of the timetable
 
         #endregion Private Variables
 
@@ -129,7 +129,7 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Gets or sets the trip for this service
         /// </summary>
-        public List<WTTTrip> Trip { get; set; }
+        public WTTTripCollection Trip { get; set; }
 
         /// <summary>
         /// Gets the user settings
@@ -142,7 +142,7 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         [JsonProperty("startDate")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
-        private DateTime StartDate { get { return this._StartDate; } }
+        public DateTime StartDate { get { return this._StartDate; } set { this._StartDate = value; } }
 
         #endregion Properties
 
@@ -254,13 +254,7 @@ namespace GroundFrame.Classes.Timetables
         {
             if (WTTTripsXML.Descendants() != null)
             {
-                Trip = new List<WTTTrip>();
-
-                ///Loop around each trip and add to the Trips Collection
-                foreach (XElement WTTTripXML in WTTTripsXML.Elements("Trip"))
-                {
-                    Trip.Add(new WTTTrip(WTTTripXML, this._StartDate, this.UserSettings));
-                }
+                Trip = new WTTTripCollection(WTTTripsXML, this.StartDate, this.UserSettings);
             }
         }
 
@@ -273,7 +267,7 @@ namespace GroundFrame.Classes.Timetables
             //JSON argument will already have been validated in the constructor
             try
             {
-                JsonConvert.PopulateObject(JSON, this);
+                JsonConvert.PopulateObject(JSON, this, new JsonSerializerSettings { ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor });
             }
             catch (Exception Ex)
             {

@@ -13,16 +13,16 @@ using System.Xml.Linq;
 namespace GroundFrame.Classes.Timetables
 {
     /// <summary>
-    /// Class representing a collection of WTTTimeTable objects
+    /// Class representing a collection of WTTTrip objects
     /// </summary>
-    public class WTTTimeTableCollection : IEnumerable<WTTTimeTable>, IDisposable
+    public class WTTTripCollection : IEnumerable<WTTTrip>, IDisposable
     {
         #region Constants
         #endregion Constants
 
         #region Private Variables
 
-        private List<WTTTimeTable> _TimeTables = new List<WTTTimeTable>(); //List to store all the time tables
+        private List<WTTTrip> _Trips = new List<WTTTrip>(); //List to store all the time tables
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private readonly UserSettingCollection _UserSettings; //Stores the culture info
         private DateTime _StartDate; //Stores the WTT Start Date
@@ -30,7 +30,7 @@ namespace GroundFrame.Classes.Timetables
         #endregion Private Variables
 
         #region Properties
-        public IEnumerator<WTTTimeTable> GetEnumerator() { return this._TimeTables.GetEnumerator(); }
+        public IEnumerator<WTTTrip> GetEnumerator() { return this._Trips.GetEnumerator(); }
 
         /// <summary>
         /// Gets the user settings
@@ -48,47 +48,47 @@ namespace GroundFrame.Classes.Timetables
         #region Constructors
 
         /// <summary>
-        /// Private constructor to handle the deserialization of a WTTTimeTable object from JSON
+        /// Private constructor to handle the deserialization of a WTTTripCollection object from JSON
         /// </summary>
-        /// <param name="WTTTimeTables">An IEnumerable<WTTTimeTable> which represents the collection of timetables</param>
+        /// <param name="WTTTrips">An IEnumerable<WTTTrip> which represents the collection of trips</param>
         [JsonConstructor]
-        private WTTTimeTableCollection(IEnumerable<WTTTimeTable> WTTTimeTables)
+        private WTTTripCollection(IEnumerable<WTTTrip> WTTTrips)
         {
-            this._TimeTables = new List<WTTTimeTable>();
+            this._Trips = new List<WTTTrip>();
 
-            foreach (WTTTimeTable WTT in WTTTimeTables)
+            foreach (WTTTrip WTTTrip in WTTTrips)
             {
-                WTTTimeTable NewWTTTimeTable = WTT;
-                NewWTTTimeTable.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
-                this._TimeTables.Add(NewWTTTimeTable);
+                WTTTrip NewWTTTrip = WTTTrip;
+                NewWTTTrip.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
+                this._Trips.Add(NewWTTTrip);
             }
         }
 
         /// <summary>
-        /// Instantiates a WTTTimeTableCollection from the supplied XElement object represening a SimSig timetable collection and timetable start date
+        /// Instantiates a WTTTripCollection from the supplied XElement object represening a SimSig trip collection and timetable start date
         /// </summary>
-        /// <param name="WTTTimeTableXML">The XML object representing the SimSig timetable collection</param>
+        /// <param name="WTTTripXML">The XML object representing the SimSig trip collection</param>
         /// <param name="StartDate">The start date of the timetable. Must be after 01/01/1850</param>
         /// <param name="UserSettings">The user settings</param>
-        public WTTTimeTableCollection(XElement WTTTimeTableXML, DateTime StartDate, UserSettingCollection UserSettings)
+        public WTTTripCollection(XElement WTTTripXML, DateTime StartDate, UserSettingCollection UserSettings)
         {
             this._UserSettings = UserSettings ?? new UserSettingCollection();
             CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
             //Validate arguments
-            ArgumentValidation.ValidateXElement(WTTTimeTableXML, Culture);
+            ArgumentValidation.ValidateXElement(WTTTripXML, Culture);
             ArgumentValidation.ValidateWTTStartDate(StartDate, Culture);
 
             this._StartDate = StartDate;
-            this._TimeTables = new List<WTTTimeTable>();
-            ParseWTTTimeTablesXML(WTTTimeTableXML);
+            this._Trips = new List<WTTTrip>();
+            ParseWTTTripsXML(WTTTripXML);
         }
 
         /// <summary>
-        /// Instantiates a WTTTimeTableCollection from a JSON file.
+        /// Instantiates a WTTTripCollection from a JSON file.
         /// </summary>
-        /// <param name="JSON">A JSON string representing the timetable collection</param>
+        /// <param name="JSON">A JSON string representing the trip collection</param>
         /// <param name="UserSettings">The user settings</param>
-        public WTTTimeTableCollection(string JSON, UserSettingCollection UserSettings)
+        public WTTTripCollection(string JSON, UserSettingCollection UserSettings)
         {
             this._UserSettings = UserSettings ?? new UserSettingCollection();
             CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
@@ -105,25 +105,25 @@ namespace GroundFrame.Classes.Timetables
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTimeTableCollectionJSONError", null, Culture), Ex);
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTripCollectionJSONError", null, Culture), Ex);
             }
         }
 
         /// <summary>
-        /// Instantiates a WTTTimeTableCollection object with the supplied start date. Used by the WTTTimeTableCollectionConverter class to convert JSON to WTTTableCollection
+        /// Instantiates a WTTTripCollection object with the supplied start date. Used by the WTTTripCollectionConverter class to convert JSON to WTTTripCollection
         /// </summary>
         /// <param name="StartDate"></param>
-        internal WTTTimeTableCollection(DateTime StartDate)
+        internal WTTTripCollection(DateTime StartDate)
         {
             ArgumentValidation.ValidateWTTStartDate(StartDate, UserSettingHelper.GetCultureInfo(this.UserSettings));
             this._StartDate = StartDate;
-            this._TimeTables = new List<WTTTimeTable>();
+            this._Trips = new List<WTTTrip>();
         }
 
         /// <summary>
         /// Gets the total number of versions in the collection
         /// </summary>
-        public int Count { get { return this._TimeTables.Count; } }
+        public int Count { get { return this._Trips.Count; } }
 
         #endregion Constructors
 
@@ -138,21 +138,21 @@ namespace GroundFrame.Classes.Timetables
             //JSON argument will already have been validated in the constructor
             try
             {
-                WTTTimeTableCollection Temp = JsonConvert.DeserializeObject< WTTTimeTableCollection>(JSON, new WTTTimeTableCollectionConverter());
+                WTTTripCollection Temp = JsonConvert.DeserializeObject<WTTTripCollection>(JSON, new WTTTripCollectionConverter());
                 this._StartDate = Temp.StartDate;
-                this._TimeTables = Temp.ToList();
+                this._Trips = Temp.ToList();
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTimeTableCollectionJSONError", null, UserSettingHelper.GetCultureInfo(this._UserSettings)), Ex);
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTripCollectionJSONError", null, UserSettingHelper.GetCultureInfo(this._UserSettings)), Ex);
             }
         }
 
-        private void ParseWTTTimeTablesXML(XElement WTTTimeTablesXML)
+        private void ParseWTTTripsXML(XElement WTTTripsXML)
         {
-            foreach (XElement WTTTimeTableXML in WTTTimeTablesXML.Elements("Timetable"))
+            foreach (XElement WTTTripXML in WTTTripsXML.Elements("Trip"))
             {
-                this._TimeTables.Add(new WTTTimeTable(WTTTimeTableXML, this._StartDate, this.UserSettings));
+                this._Trips.Add(new WTTTrip(WTTTripXML, this._StartDate, this.UserSettings));
             }
         }
 
@@ -162,34 +162,34 @@ namespace GroundFrame.Classes.Timetables
         }
 
         /// <summary>
-        /// Returns the UserSetting for the supplied Index
+        /// Returns the WTTTrip for the supplied Index
         /// </summary>
         /// <param name="Index">The index ordinal</param>
         /// <returns></returns>
-        public WTTTimeTable IndexOf(int Index)
+        public WTTTrip IndexOf(int Index)
         {
-            return this._TimeTables[Index];
+            return this._Trips[Index];
         }
 
         /// <summary>
-        /// Adds at WTTTimeTable to the collection
+        /// Adds at WTTTrip to the collection
         /// </summary>
-        /// <param name="TimeTable">The WTTTimeTable object to add to the collection</param>
-        public void Add(WTTTimeTable TimeTable)
+        /// <param name="Trip">The WTTTrip object to add to the collection</param>
+        public void Add(WTTTrip Trip)
         {
-            if (this._TimeTables == null)
+            if (this._Trips == null)
             {
-                this._TimeTables = new List<WTTTimeTable>();
+                this._Trips = new List<WTTTrip>();
             }
-            this._TimeTables.Add(TimeTable);
+            this._Trips.Add(Trip);
         }
 
         /// <summary>
-        /// Get the list of WTTTimetables
+        /// Get the list of WTTTrips
         /// </summary>
-        public List<WTTTimeTable> ToList()
+        public List<WTTTrip> ToList()
         {
-            return this._TimeTables;
+            return this._Trips;
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace GroundFrame.Classes.Timetables
         /// <returns></returns>
         public string ToJSON()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented, new WTTTimeTableCollectionConverter());
+            return JsonConvert.SerializeObject(this, Formatting.Indented, new WTTTripCollectionConverter());
         }
 
         private UserSettingCollection GetSimulationUserSettings()
@@ -244,7 +244,7 @@ namespace GroundFrame.Classes.Timetables
             }
         }
 
-        ~WTTTimeTableCollection()
+        ~WTTTripCollection()
         {
             // The object went out of scope and finalized is called
             // Lets call dispose in to release unmanaged resources 

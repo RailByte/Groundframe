@@ -60,7 +60,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTable
         }
 
         /// <summary>
-        /// Checks passing an invalidate to the DateStart argument throws an out of range exception
+        /// Checks passing an invalid to the DateStart argument throws an out of range exception
         /// </summary>
         [Fact]
         public void WTTTimeTable_Prop_InValidStartDateException()
@@ -84,8 +84,9 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTable
             //Create JSON
             string TestJSON = TestTimeTable.ToJSON();
             //Create new ojbect from JSON
-            GroundFrame.Classes.Timetables.WTTTimeTable TestJSONCategory = new Timetables.WTTTimeTable(TestJSON, new UserSettingCollection());
-            Assert.Equal(TestTimeTable.ToString(), TestJSONCategory.ToString());
+            GroundFrame.Classes.Timetables.WTTTimeTable TestJSONTimeTable = new Timetables.WTTTimeTable(TestJSON, new UserSettingCollection());
+            Assert.Equal(TestTimeTable.ToString(), TestJSONTimeTable.ToString());
+            Assert.Equal(TestTimeTable.StartDate, TestJSONTimeTable.StartDate);
         }
 
         /// <summary>

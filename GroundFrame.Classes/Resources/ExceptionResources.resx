@@ -240,6 +240,12 @@
   <data name="ParseWTTTrainCategoryJSONError" xml:space="preserve">
     <value>An error has occured trying to read the Train Category from the supplied JSON string</value>
   </data>
+  <data name="ParseWTTTripCollectionJSONError" xml:space="preserve">
+    <value>An error has occured trying to parse the Trip collection from the supplied JSON string</value>
+  </data>
+  <data name="ParseWTTTripJSONError" xml:space="preserve">
+    <value>An error has occured trying to read the Trip from the supplied JSON string</value>
+  </data>
   <data name="RefreshSimulationError" xml:space="preserve">
     <value>You cannot refresh a simulation from the GroundFrame.SQL database if it hasn't yet been saved to the GroundFrame.SQL database</value>
   </data>

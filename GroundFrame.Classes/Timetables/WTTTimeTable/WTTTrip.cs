@@ -18,7 +18,7 @@ namespace GroundFrame.Classes.Timetables
         #region Private Variables
 
         private readonly UserSettingCollection _UserSettings; //Stores the user settings
-        private readonly DateTime _StartDate; //Stores the timetable start date
+        private DateTime _StartDate; //Stores the timetable start date
 
         #endregion Private
 
@@ -71,19 +71,19 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         [JsonProperty("nextPathStartDown")]
         public bool NextPathStartDown { get; set; }
-        
+
         /// <summary>
         /// Gets the start date
         /// </summary>
         [JsonProperty("startDate")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
-        private DateTime StartDate { get { return this._StartDate; } }
+        public DateTime StartDate { get { return this._StartDate; } set { this._StartDate = value; } }
 
         /// <summary>
         /// Gets the user settings
         /// </summary>
         [JsonIgnore]
-        public UserSettingCollection UserSettings { get { return this._UserSettings; } }
+        public UserSettingCollection UserSettings { get { return this.GetSimulationUserSettings(); } }
 
         #endregion Properties
 
@@ -98,16 +98,31 @@ namespace GroundFrame.Classes.Timetables
         public WTTTrip (XElement WTTTripXML, DateTime StartDate, UserSettingCollection UserSettings)
         {
             this._UserSettings = UserSettings ?? new UserSettingCollection();
-            this._StartDate = StartDate;
 
-            //Check Header Argument
-            if (WTTTripXML == null)
-            {
-                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new object[] { "WTTTripXML" }, UserSettingHelper.GetCultureInfo(this.UserSettings)));
-            }
+            //Validate Arguments
+            ArgumentValidation.ValidateXElement(WTTTripXML, UserSettingHelper.GetCultureInfo(this.UserSettings));
+            ArgumentValidation.ValidateWTTStartDate(StartDate, UserSettingHelper.GetCultureInfo(this.UserSettings));
+
+            this._StartDate = StartDate;
 
             //Parse the XML
             this.ParseWTTTripXML(WTTTripXML);
+        }
+
+        /// <summary>
+        /// Instantiates a WTTTrip object from the supplied JSON string
+        /// </summary>
+        /// <param name="JSON">The JSON string representing the WTTTrip object</param>
+        /// <param name="UserSettings">The user settignd</param>
+        public WTTTrip(string JSON, UserSettingCollection UserSettings)
+        {
+            this._UserSettings = UserSettings ?? new UserSettingCollection();
+
+            //Valdate Arguments
+            ArgumentValidation.ValidateJSON(JSON, UserSettingHelper.GetCultureInfo(this.UserSettings));
+
+            //Parse the JSON
+            this.PopulateFromJSON(JSON);
         }
 
         /// <summary>
@@ -148,6 +163,56 @@ namespace GroundFrame.Classes.Timetables
                 throw new Exception(ExceptionHelper.GetStaticException("ParseFromXElementWTTTripException", null, Culture), Ex);
             }
         }
+
+        /// <summary>
+        /// Populates the object from the supplied JSON
+        /// </summary>
+        /// <param name="JSON">The JSON string representing the WTTTrip object</param>
+        private void PopulateFromJSON(string JSON)
+        {
+            //JSON argument will already have been validated in the constructor
+            try
+            {
+                JsonConvert.PopulateObject(JSON, this);
+            }
+            catch (Exception Ex)
+            {
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTripJSONError", null, UserSettingHelper.GetCultureInfo(this.UserSettings)), Ex);
+            }
+        }
+
+        /// <summary>
+        /// Serializes the WTTrip object to JSON
+        /// </summary>
+        /// <returns></returns>
+        public string ToJSON()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
+        /// Returns the UserSettingCollection from the various sources
+        /// </summary>
+        /// <returns></returns>
+        private UserSettingCollection GetSimulationUserSettings()
+        {
+            //First check to see if the user settings have been passed down from the parent WTT object via then event function
+            if (OnRequestUserSettings == null)
+            {
+                //If not return the user settings from this object. If this is null then create a default set of user settings
+                return this._UserSettings ?? new UserSettingCollection();
+            }
+            else
+            {
+                //Otherwise return user settings frm the WTT object
+                return OnRequestUserSettings();
+            }
+        }
+
+        /// <summary>
+        /// Function which is defined by the parent object to retreive the user settings from the parent object
+        /// </summary>
+        internal Func<UserSettingCollection> OnRequestUserSettings;
 
         #endregion Methods
     }
