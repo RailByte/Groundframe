@@ -5,6 +5,10 @@
     <NeutralLanguage>en-GB</NeutralLanguage>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\tcaceres\Documents\GitHub\GroundFrame\GroundFrame.Classes\GroundFrame.Classes.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <EmbeddedResource Remove="ExceptionResources.resx" />
   </ItemGroup>

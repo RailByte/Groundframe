@@ -1,0 +1,2370 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GroundFrame.Classes</name>
+    </assembly>
+    <members>
+        <member name="T:GroundFrame.Classes.Electrification">
+            <summary>
+            An object representing the SimSig Electrification options
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Electrification.Overhead">
+            <summary>
+            Gets or sets the Overhead electrification flag
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Electrification.ThirdRail">
+            <summary>
+            Gets or sets the Third Rail electrification flag
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Electrification.FourthRail">
+            <summary>
+            Gets or sets the 4th Rail electrification flag
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Electrification.OverheadDC">
+            <summary>
+            Gets or sets the Overhead DC electrification flag
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Electrification.Tramway">
+            <summary>
+            Gets or sets the Tramway electrification flag
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Electrification.Sim1">
+            <summary>
+            Gets or sets the Sim 1 electrification flag
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Electrification.Sim2">
+            <summary>
+            Gets or sets the Sim 2 electrification flag
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Electrification.Sim3">
+            <summary>
+            Gets or sets the Sim 1 electrification flag
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Electrification.Sim4">
+            <summary>
+            Gets or sets the Sim 4 electrification flag
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Electrification.#ctor">
+            <summary>
+            Default constructor which is used the Json Deserializer constru
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Electrification.#ctor(System.String,System.String)">
+            <summary>
+            Instantiates a WTTElectrification object from the supplied SimSig code
+            </summary>
+            <param name="SimSimCode"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.Electrification.ConvertSimSigCode(System.String)">
+            <summary>
+            Converts the supplied SimSig code into the WTTElectrification object
+            </summary>
+            <param name="Code"></param>
+        </member>
+        <member name="T:GroundFrame.Classes.Length">
+            <summary>
+            A class representing a length. All SimgSig WTT lengths are in meters 
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Length.Meters">
+            <summary>
+            Gets the length in meters
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Length.DecimalMiles">
+            <summary>
+            Gets the length in decimal miles
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Length.MilesAndChains">
+            <summary>
+            Gets the length in miles and chains
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Length.#ctor">
+            <summary>
+            Default constructor which is used the Json Deserializer constru
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Length.#ctor(System.Int32,System.String)">
+            <summary>
+            Instantiates a new instance of a WTTLength from the supplied meters
+            </summary>
+            <param name="Meters">The length in meters</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Length.ConvertToDecimalMiles">
+            <summary>
+            Converts the meters to decimal miles
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Length.ConvertToMilesAndChains">
+            <summary>
+            Converts the meters to miles and chains
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:GroundFrame.Classes.UserSetting">
+            <summary>
+            Class which represents a user setting
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.UserSetting.Key">
+            <summary>
+            Gets the key of the user setting
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.UserSetting.Description">
+            <summary>
+            Gets the description of the user setting
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.UserSetting.Value">
+            <summary>
+            Gets the value of the user setting
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.UserSetting.DataType">
+            <summary>
+            Gets the data type of the user setting
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.UserSetting.#ctor(System.String,System.String,System.String,System.String,GroundFrame.Classes.GFSqlConnector)">
+            <summary>
+            Instantiates a user setting from the supplied arguments
+            </summary>
+            <param name="Key"></param>
+            <param name="Description"></param>
+            <param name="Value"></param>
+            <param name="DefaultValue"></param>
+            <param name="DataTypeName"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.UserSetting.ParseSqlDataReader(System.Data.SqlClient.SqlDataReader)">
+            <summary>
+            Parses a SqlDataReader object into a user setting
+            </summary>
+            <param name="DataReader">The SqlDataReader to convert to a user setting</param>
+        </member>
+        <member name="M:GroundFrame.Classes.UserSetting.SetValues(System.String,System.String)">
+            <summary>
+            Sets the values from the supplied string eviquivalent and converts to the correct type
+            </summary>
+            <param name="DataTypeName"></param>
+            <param name="Value"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.UserSetting.Dispose">
+            <summary>
+            Disposes the VersionCollection object
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.UserSettingCollection">
+            <summary>
+            Class representing a collection of user settings
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.UserSettingCollection.#ctor(GroundFrame.Classes.GFSqlConnector)">
+            <summary>
+            Instantiates a UserSettingCollection object the supplied GroundFrame.SQL Connection
+            </summary>
+            <param name="SQLConnector">A SQL Connector the GroundFrame.SQL database</param>
+            <param name="CultureName">The name of the user's preferred culture. If an empty string supplied en-GB will be used</param>
+        </member>
+        <member name="M:GroundFrame.Classes.UserSettingCollection.#ctor">
+            <summary>
+            Instantiates a new UserSettingCollection using the default values shipped with the library
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.UserSettingCollection.#ctor(System.String)">
+            <summary>
+            Instantiates a UserSettingCollection from a JSON file.
+            </summary>
+            <param name="JSON">A JSON string representing a collection of user settings</param>
+        </member>
+        <member name="P:GroundFrame.Classes.UserSettingCollection.Count">
+            <summary>
+            Gets the total number of versions in the collection
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.UserSettingCollection.GetDefaultSettings">
+            <summary>
+            Gets the Default User Settings from the defaultUserSettins.json file shipped with the solution
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.UserSettingCollection.IndexOf(System.Int32)">
+            <summary>
+            Returns the UserSetting for the supplied Index
+            </summary>
+            <param name="Index">The index ordinal</param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.UserSettingCollection.GetValueByKey(System.String)">
+            <summary>
+            Returns the UserSetting for the supplied key
+            </summary>
+            <param name="Key">The key of the setting</param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.UserSettingCollection.GetAllUserSettingsFromSQLDB">
+            <summary>
+            Loads all user settings from the GroundFrame.SQL database
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.UserSettingCollection.ToJSON">
+            <summary>
+            Gets a JSON string that represents the UserSetting Collection
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.UserSettingCollection.Dispose">
+            <summary>
+            Disposes the VersionCollection object
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.ExceptionHelper.GetStaticException(System.String,System.Object[],System.Globalization.CultureInfo)">
+            <summary>
+            Returns a translated Exception message with arguments
+            </summary>
+            <param name="Key">The resouce key for the exception</param>
+            <param name="Arguments">An array of arguments which can be passed to the string. See comments in RESX file for details</param>
+            <param name="Culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:GroundFrame.Classes.SqlDataReaderExtensions">
+            <summary>
+            Static class which provides extension methods for a SqlDataReader
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SqlDataReaderExtensions.GetNullableDecimal(System.Data.SqlClient.SqlDataReader,System.String)">
+            <summary>
+            Gets a Nullable Decimal value from a SqlDataReader
+            </summary>
+            <param name="DataReader"></param>
+            <param name="FieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.SqlDataReaderExtensions.GetNullableString(System.Data.SqlClient.SqlDataReader,System.String)">
+            <summary>
+            Gets a Nullable Decimal value from a SqlDataReader
+            </summary>
+            <param name="DataReader"></param>
+            <param name="FieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidateHalfMinute(System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Validates the Half Minute Character as a string argument
+            </summary>
+            <param name="HalfMinuteCharacter"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidateWTTStartDate(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Validates a WTT Start Date argument
+            </summary>
+            <param name="WTTStartDate"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidateJSON(System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Validates a JSON string
+            </summary>
+            <param name="JSON">The JSON string to validate</param>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidateUserSettings(GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Validates a UserSettingCollection argument
+            </summary>
+            <param name="UserSettings"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidatePercentage(System.Int32,System.Globalization.CultureInfo)">
+            <summary>
+            Validates a Perentage to ensure it's between 0 and 100
+            </summary>
+            <param name="Percentage">The percentage to validate</param>
+            <param name="Culture">The culture in which any error message should be returned</param>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidateFilename(System.IO.FileInfo,System.Globalization.CultureInfo)">
+            <summary>
+            Validates a FileName to ensure the file exists
+            </summary>
+            <param name="FileName">The path to the file to validate</param>
+            <param name="Culture">The culture in which any error message should be returned</param>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidateHalfMinute(System.Int32,System.Globalization.CultureInfo)">
+            <summary>
+            Validates the Half Minute Character as a ASCII character argument
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidateSeconds(System.Int32,System.Globalization.CultureInfo)">
+            <summary>
+            Valudates the seconds argument
+            </summary>
+            <param name="Seconds"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidateDelimiter(System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Valudates the delimiter argument
+            </summary>
+            <param name="Seconds"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidateSqlDataReader(System.Data.SqlClient.SqlDataReader,System.Globalization.CultureInfo)">
+            <summary>
+            Validates the SqlDataReader argument
+            </summary>
+            <param name="DataReader">The SqlDataReader object to validate</param>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidateSQLConnector(GroundFrame.Classes.GFSqlConnector,System.Globalization.CultureInfo)">
+            <summary>
+            Validates the SqlDataReader argument
+            </summary>
+            <param name="DataReader">The SqlDataReader object to validate</param>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidateName(System.String,System.Globalization.CultureInfo,System.Int32)">
+            <summary>
+            Validates the SqlDataReader argument
+            </summary>
+            <param name="DataReader">The SqlDataReader object to validate</param>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidateSimSigCode(System.String,System.Globalization.CultureInfo,System.Int32)">
+            <summary>
+            Validates the SimSig Code argument
+            </summary>
+            <param name="SimSigCode">The SimSig Code to validate</param>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidateMeters(System.Int32,System.Globalization.CultureInfo)">
+            <summary>
+            Validates the Meters argument
+            </summary>
+            <param name="Meters">The SimSig Code to validate</param>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidateXElement(System.Xml.Linq.XElement,System.Globalization.CultureInfo)">
+            <summary>
+            Validates the XML argument
+            </summary>
+            <param name="XML">The XML to validate</param>
+        </member>
+        <member name="M:GroundFrame.Classes.ArgumentValidation.ValidateSimulation(GroundFrame.Classes.SimSig.Simulation,System.Globalization.CultureInfo)">
+            <summary>
+            Validates the Simulation argument
+            </summary>
+            <param name="XML">The Simulation to validate</param>
+        </member>
+        <member name="T:GroundFrame.Classes.UserSettingHelper">
+            <summary>
+            Helper class to manage some common UserSetting actions
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.UserSettingHelper.GetCultureInfo(GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Returns a CultureInfo object from the supplied UserSettingCollection. Will return an "en-GB" object if not found
+            </summary>
+            <param name="UserSettings">THe UserSettingCollection from which to extract the CultureInfo</param>
+            <returns></returns>
+        </member>
+        <member name="T:GroundFrame.Classes.XMLMethods">
+            <summary>
+            Static class containing XML helper methods
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.XMLMethods.GetValueFromXElement``1(System.Xml.Linq.XElement,System.String,System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            Gets the value from an XML Element and returns it converted to the supplied return type. A Default value can also be provided which is return this the element is not found in the XML
+            </summary>
+            <typeparam name="T">The return type</typeparam>
+            <param name="XML">The Source XML</param>
+            <param name="ElementName">The name of the element for whose value is to be return</param>
+            <param name="Culture">The culture in which any error message should be return</param>
+            <param name="DefaultValue">The default value which should be returned if the element isn't found in the XML</param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.XMLMethods.CanChangeType(System.Object,System.Type)">
+            <summary>
+            Helper method to check whether the change won't throw an error
+            </summary>
+            <param name="Value">The value to be converted</param>
+            <param name="ConversionType">The target type of the conversion</param>
+            <returns></returns>
+        </member>
+        <member name="T:GroundFrame.Classes.Resources.ExceptionResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.CannotConnectGFSQLDb">
+            <summary>
+              Looks up a localized string similar to Cannot connect to GroundFrame Microsoft SQL Database.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.CreateLocationUnsavedSimError">
+            <summary>
+              Looks up a localized string similar to The Simulation must be saved to the GroundFrame.SQL database before a Location can be created.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.DeleteLocationZeroIDError">
+            <summary>
+              Looks up a localized string similar to You cannot delete a Location from the GroundFrame.SQL Database when the ID is zero.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.DeleteSimulationZeroIDError">
+            <summary>
+              Looks up a localized string similar to You cannot delete a Simulation from the GroundFrame.SQL Database when the ID is zero.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.EnumTypeException">
+            <summary>
+              Looks up a localized string similar to You must pass an Enum as the type parameter.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.FileNotFoundArgument">
+            <summary>
+              Looks up a localized string similar to The FileName cannot be found.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.GeneralNullArgument">
+            <summary>
+              Looks up a localized string similar to The {0} argument cannot be &lt;NULL&gt;.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidDataReaderArgument">
+            <summary>
+              Looks up a localized string similar to The DataReader argument cannot be &lt;NULL&gt;.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidFileNameNullArgument">
+            <summary>
+              Looks up a localized string similar to The FileName argument cannot be &lt;NULL&gt; or empty.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidHalfMinuteCharacterArgument">
+            <summary>
+              Looks up a localized string similar to The HalfMinuteCharacter cannot be &lt;NULL&gt; or empty.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidHalfMinuteCharacterASCIIArgument">
+            <summary>
+              Looks up a localized string similar to The HalfMinuteCharacterASCII argument must be between 32 and 255.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidHalfMinuteCharacterLengthArgument">
+            <summary>
+              Looks up a localized string similar to The HalfMinuteCharacter argument must only be 1 character.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidJSONError">
+            <summary>
+              Looks up a localized string similar to The supplied JSON is not in the correct format.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidMeterArgument">
+            <summary>
+              Looks up a localized string similar to The meters argument must be greater than zero.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidMPHArgument">
+            <summary>
+              Looks up a localized string similar to The speed must be greater than zero.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidNameArgument">
+            <summary>
+              Looks up a localized string similar to The Name argument cannot be &lt;NULL&gt; or empty.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidNameLengthArgument">
+            <summary>
+              Looks up a localized string similar to The name argument cannot be longer than {0} characters.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidPercentageArgument">
+            <summary>
+              Looks up a localized string similar to The percentage argument must be between 0 and 100.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidSecondsArgument">
+            <summary>
+              Looks up a localized string similar to The Seconds argument must be equal or greater than 0.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidSimSigCodeArgument">
+            <summary>
+              Looks up a localized string similar to The SimSigCode argument cannot be &lt;NULL&gt; or empty.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidSimSigCodeError">
+            <summary>
+              Looks up a localized string similar to The code provided is not a valid SimSig code.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidSimSigCodeLengthArgument">
+            <summary>
+              Looks up a localized string similar to The SimSig code argument cannot be longer than {0} characters.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidSimulationArgument">
+            <summary>
+              Looks up a localized string similar to The Simulation argument cannot be &lt;NULL&gt;.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidSimulationNotSavedToDBArgument">
+            <summary>
+              Looks up a localized string similar to The Simulation hasn&apos;t been saved to the GroundFrame.SQL database.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidSQLConnectorArgument">
+            <summary>
+              Looks up a localized string similar to The SQLConnector argument cannot be &lt;NULL&gt;.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidTimeDelimiterArgument">
+            <summary>
+              Looks up a localized string similar to The Time Delimiter argument cannot be &lt;NULL&gt;.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidTimeDelimiterLengthArgument">
+            <summary>
+              Looks up a localized string similar to The Time Delimiter argument must be a single character.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidUserSettingsArgument">
+            <summary>
+              Looks up a localized string similar to The UserSettings argument cannot be &lt;NULL&gt;.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidWTTStartDateArgument">
+            <summary>
+              Looks up a localized string similar to The WTT Start Date cannot be before 01/01/1850.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.InvalidXMLArgument">
+            <summary>
+              Looks up a localized string similar to The XML argument cannot be &lt;NULL&gt;.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.NullOrEmptyJSONError">
+            <summary>
+              Looks up a localized string similar to The JSON string cannot be &lt;NULL&gt; or empty.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.OnRequestUserSettingsHandlerNotAssigned">
+            <summary>
+              Looks up a localized string similar to The OnRequestUserSettings handler not assigned.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.ParseFromXElementWTTTimeTableException">
+            <summary>
+              Looks up a localized string similar to Cannot Parse the WTT TimeTable from the Source SimSig WTT XML.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.ParseFromXElementWTTTrainCategoryException">
+            <summary>
+              Looks up a localized string similar to Cannot Parse the WTT Train Category from the Source SimSig WTT XML.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.ParseFromXElementWTTTripException">
+            <summary>
+              Looks up a localized string similar to Cannot Parse the WTT Trip from the Source SimSig WTT XML.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.ParseUserSettingsJSONError">
+            <summary>
+              Looks up a localized string similar to An error has occured trying to read the user settings from the supplied JSON string.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.ParseWTTHeaderException">
+            <summary>
+              Looks up a localized string similar to Cannot Parse the WTT Header from the Source SimSig WTT XML.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.ParseWTTTimeTableCollectionJSONError">
+            <summary>
+              Looks up a localized string similar to An error has occured trying to parse the Timetable collection from the supplied JSON string.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.ParseWTTTimeTableJSONError">
+            <summary>
+              Looks up a localized string similar to An error has occured trying to read the Timetable from the supplied JSON string.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.ParseWTTTrainCategoryCollectionJSONError">
+            <summary>
+              Looks up a localized string similar to An error has occured trying to parse the Train Category collection from the supplied JSON string.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.ParseWTTTrainCategoryJSONError">
+            <summary>
+              Looks up a localized string similar to An error has occured trying to read the Train Category from the supplied JSON string.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.ParseWTTTripCollectionJSONError">
+            <summary>
+              Looks up a localized string similar to An error has occured trying to parse the Trip collection from the supplied JSON string.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.ParseWTTTripJSONError">
+            <summary>
+              Looks up a localized string similar to An error has occured trying to read the Trip from the supplied JSON string.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.RefreshSimulationError">
+            <summary>
+              Looks up a localized string similar to You cannot refresh a simulation from the GroundFrame.SQL database if it hasn&apos;t yet been saved to the GroundFrame.SQL database.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.RetieveAllSimsError">
+            <summary>
+              Looks up a localized string similar to An error has occurred trying to retrieve all Simulation records from the GroundFrame.SQL database.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.RetrieveLocationZeroIDError">
+            <summary>
+              Looks up a localized string similar to You cannot delete a Simulation from the GroundFrame.SQL Database when the ID is zero.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.RetrieveSimulationZeroIDError">
+            <summary>
+              Looks up a localized string similar to You cannot load a Simulation from the GroundFrame.SQL Database when the ID is zero.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.RetrieveUserSettingsRecordsError">
+            <summary>
+              Looks up a localized string similar to An error has occurred trying to retrieve all User setting records from the GroundFrame.SQL database.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.RetrieveVersionRecordsError">
+            <summary>
+              Looks up a localized string similar to An error has occurred trying to retrieve all Version records from the GroundFrame.SQL database..
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.RetrieveVersionZeroIDError">
+            <summary>
+              Looks up a localized string similar to You cannot load a Version from the GroundFrame.SQL Database when the ID is zero.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Resources.ExceptionResources.TearDownError">
+            <summary>
+              Looks up a localized string similar to The connection is figured to be part of a test therefore you cannot tear down the data.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.Location.ID">
+            <summary>
+            Gets the Microsoft SQL Database ID of the Location record
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.Location.Name">
+            <summary>
+            Gets the Location Name
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.Location.SimSigCode">
+            <summary>
+            Gets ot sets the SimSig code for the Location
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.Location.TIPLOC">
+            <summary>
+            Gets or sets the TIPLOC code for the location
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.Location.EntryPoint">
+            <summary>
+            Gets or sets the entry point flag for the Location
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Location.#ctor(GroundFrame.Classes.SimSig.Simulation,System.String,System.String,System.String,System.Boolean,GroundFrame.Classes.GFSqlConnector,System.String)">
+            <summary>
+            Instantiates a new Location object from the supplied arguements
+            </summary>
+            <param name="Simulation">The location to which the location belongs</param>
+            <param name="Name">The location name</param>
+            <param name="TIPLOC">The TIPLOC code for the location.</param>
+            <param name="SimSigCode">The SimSig code for the location.</param>
+            <param name="EntryPoint">Indicates whether the location is an entry point for the location</param>
+            <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Location.#ctor(System.Int32,GroundFrame.Classes.GFSqlConnector,System.String)">
+            <summary>
+            Instantiates a new Location object from the GroundFrame.SQL database
+            </summary>
+            <param name="ID">The ID of the location record to be retreived</param>
+            <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Location.#ctor(System.Data.SqlClient.SqlDataReader,GroundFrame.Classes.GFSqlConnector,System.String)">
+            <summary>
+            Instantiates a new Location object from the supplied SqlDataReader object
+            </summary>
+            <param name="DataReader">A SqlDataReader object representing a location</param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Location.SaveToSQLDB">
+            <summary>
+            Saves the location object to the Microsoft SQL database using application DateTimeOffset as the execution date / time
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Location.SaveToSQLDB(System.DateTimeOffset)">
+            <summary>
+            Saves the location object to the GroundFrame.SQL database using the supplied DateTimeOffset
+            </summary>
+            <param name="ExecutionDateTimeOffSet">The exection DateTimOffset</param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Location.DeleteFromSQLDB">
+            <summary>
+            Deletes the location from the GroundFrame.SQL Database
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Location.GetLocationFromSQLDBByID">
+            <summary>
+            Gets the location object from the GroundFrame.SQL database based on the ID
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Location.ParseSqlDataReader(System.Data.SqlClient.SqlDataReader)">
+            <summary>
+            Parses a SqlDataReader object into a location object
+            </summary>
+            <param name="DataReader"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Location.SaveLocationToSQLDB(System.Nullable{System.DateTimeOffset})">
+            <summary>
+            Saves the object the Microsoft SQL database
+            </summary>
+            <param name="CurrentDateTime"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Location.Dispose">
+            <summary>
+            Disposes the Simulation object
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.SimSig.LocationCollection">
+            <summary>
+            Class representing a collection of locations
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.LocationCollection.#ctor(GroundFrame.Classes.SimSig.Simulation,GroundFrame.Classes.GFSqlConnector,System.String)">
+            <summary>
+            Instantiates a LocationCollection collection for the supplied Simulation from the supplied GroundFrame.SQL Connection
+            </summary>
+            <param name="SQLConnector"></param>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.LocationCollection.Count">
+            <summary>
+            Gets the total number of locations in the collection
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.LocationCollection.IndexOf(System.Int32)">
+            <summary>
+            Returns the Location for the supplied Index
+            </summary>
+            <param name="Item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.LocationCollection.GetAllLocationssBySimFromSQLDB">
+            <summary>
+            Gets alls the locations from the GroundFrame.SQL database
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.LocationCollection.Dispose">
+            <summary>
+            Disposes the Simulation object
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.Simulation.ID">
+            <summary>
+            Gets the Microsoft SQL Database ID of the Simulation record
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.Simulation.Name">
+            <summary>
+            Gets the Simulation Name
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.Simulation.Description">
+            <summary>
+            Gets or sets the Simulation Description
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.Simulation.SimSigWikiLink">
+            <summary>
+            Gets or sets the Simulation Wiki URL
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.Simulation.SimSigCode">
+            <summary>
+            Gets the SimSig code for the Simulation
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Simulation.#ctor(System.String,System.String,System.String,System.String,GroundFrame.Classes.GFSqlConnector,System.String)">
+            <summary>
+            Instantiates a new Simulation object from the supplied arguements
+            </summary>
+            <param name="Name">The simulation name. This cannot be altered once set</param>
+            <param name="Description">A description of the simulation</param>
+            <param name="SimSigWikiLink">The URL to the simulation manula on the SimSig wiki</param>
+            <param name="SimSigCode">The SimSig code for the simulation. This cannot be altered once set</param>
+            <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Simulation.#ctor(System.Int32,GroundFrame.Classes.GFSqlConnector,System.String)">
+            <summary>
+            Instantiates a new Simulation object from the GroundFrame.SQL database
+            </summary>
+            <param name="ID">The ID of the Simulation record to be retreived</param>
+            <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Simulation.#ctor(System.Data.SqlClient.SqlDataReader,GroundFrame.Classes.GFSqlConnector,System.String)">
+            <summary>
+            Instantiates a new Simulation object from the supplied SqlDataReader object
+            </summary>
+            <param name="DataReader">A SqlDataReader object representing a Simulation</param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Simulation.LoadResource(System.String)">
+            <summary>
+            Loads resources needed by the class
+            </summary>
+            <param name="Culture"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Simulation.RefreshFromSQLDB">
+            <summary>
+            Refreshes the Simulation data from the GroundFrame.SQL database
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Simulation.SaveToSQLDB">
+            <summary>
+            Saves the Simulation object to the Microsoft SQL database using application DateTimeOffset as the execution date / time
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Simulation.SaveToSQLDB(System.DateTimeOffset)">
+            <summary>
+            Saves the Simulation object to the GroundFrame.SQL database using the supplied DateTimeOffset
+            </summary>
+            <param name="ExecutionDateTimeOffSet">The exection DateTimOffset</param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Simulation.DeleteFromSQLDB">
+            <summary>
+            Deletes the Simulation from the GroundFrame.SQL Database
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Simulation.GetSimulationFromSQLDBByID">
+            <summary>
+            Gets the simulation object from the GroundFrame.SQL database based on the ID
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Simulation.ParseSqlDataReader(System.Data.SqlClient.SqlDataReader)">
+            <summary>
+            Parses a SqlDataReader object into a simulation object
+            </summary>
+            <param name="DataReader"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Simulation.SaveSimulationToSQLDB(System.Nullable{System.DateTimeOffset})">
+            <summary>
+            Saves the object the Microsoft SQL database
+            </summary>
+            <param name="CurrentDateTime"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Simulation.Dispose">
+            <summary>
+            Disposes the Simulation object
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.SimulationCollection.#ctor(GroundFrame.Classes.GFSqlConnector,System.String)">
+            <summary>
+            Instantiates a SimulationCollection object the supplied GroundFrame.SQL Connection
+            </summary>
+            <param name="SQLConnector"></param>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.SimulationCollection.Count">
+            <summary>
+            Gets the total number of simulations in the collection
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.SimulationCollection.IndexOf(System.Int32)">
+            <summary>
+            Returns the Simulation for the supplied Index
+            </summary>
+            <param name="Item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.SimulationCollection.Dispose">
+            <summary>
+            Disposes the object
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.SimSig.SimulationEra">
+            <summary>
+            A class representing a Simulation Era
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.SimulationEra.ID">
+            <summary>
+            Get the GroundFrame.SQL Database ID
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.SimulationEra.Name">
+            <summary>
+            Gets the Name of the Simulation Era
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.SimulationEra.Description">
+            <summary>
+            Gets the Description of the Simulation Era
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.SimulationEra.Type">
+            <summary>
+            Gets the Type of the Simulation Era
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.SimulationEra.#ctor(System.Data.SqlClient.SqlDataReader,System.String)">
+            <summary>
+            Instantiates a Simulation Era object from the supplied SqlDataReader object
+            </summary>
+            <param name="DataReader"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.SimulationEra.#ctor(GroundFrame.Classes.SimSig.Simulation,GroundFrame.Classes.SimSig.EraType,System.String,System.String,GroundFrame.Classes.GFSqlConnector,System.String)">
+            <summary>
+            Instantiates a Simulation Era object for the supplied arguements
+            </summary>
+            <param name="Simulation"></param>
+            <param name="Type"></param>
+            <param name="Name"></param>
+            <param name="Description"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.SimulationEra.LoadResource(System.String)">
+            <summary>
+            Loads resources needed by the class
+            </summary>
+            <param name="Culture"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.SimulationEra.ParseDataReader(System.Data.SqlClient.SqlDataReader)">
+            <summary>
+            Parses a SqlDataReader object into a simulation era object
+            </summary>
+            <param name="DataReader"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.SimulationEra.SaveToSQLDB">
+            <summary>
+            Saves the Simualtion Era to the Groundframe.SQL database
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.SimulationEra.SaveSimulationEraToSQLDB">
+            <summary>
+            Saves the Simualtion Era to the Groundframe.SQL database
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.SimulationEra.Dispose">
+            <summary>
+            Disposes the Simulation Era object
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.SimSig.SimulationExtension">
+            <summary>
+            Class which represents a simulation together with it's extension data of eras, and locations
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.SimulationExtension.Eras">
+            <summary>
+            Gets the Eras available in the Simulation
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.SimulationExtension.Locations">
+            <summary>
+            Gets the Locations available in the Simulation
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.SimulationExtension.#ctor(System.Int32,GroundFrame.Classes.GFSqlConnector,System.String)">
+            <summary>
+            Instantiates a new Simulation Extension from the GroundFrame.SQL database
+            </summary>
+            <param name="ID">The ID of the GroundFrame.SQL database simulation record</param>
+            <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.SimulationExtension.RefreshFromSQLDB">
+            <summary>
+            Refreshes the simulation extension data from the GroundFrame.SQL database
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.SimSig.VersionStatus">
+            <summary>
+            Enum represneting the status a version can have
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.SimSig.Version">
+            <summary>
+            A class representing a SimSig version. One Version can cover multiple SimSig versions and there should be one Version for each version of the SimSig TimeTable Schema
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.Version.ID">
+            <summary>
+            Gets the GroundFrame.SQL database ID for the version
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.Version.Name">
+            <summary>
+            Gets or sets the name of the version
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.Version.Description">
+            <summary>
+            Gets or sets the description of the version
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.Version.VersionFrom">
+            <summary>
+            Gets or sets the lower SimSig version this version covers
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:GroundFrame.Classes.SimSig.Version.VersionTo" -->
+        <member name="P:GroundFrame.Classes.SimSig.Version.Status">
+            <summary>
+            Gets or sets the version statis
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Version.#ctor(System.String,System.String,System.Decimal,GroundFrame.Classes.GFSqlConnector,System.String)">
+            <summary>
+            Instantiates a new Version object the supplied values
+            </summary>
+            <param name="Name">The name of the verison</param>
+            <param name="Description">A description of the version</param>
+            <param name="Version">The version number. This must be greater the latest version stored in the GroundFrame.SQL database</param>
+            <param name="SQLConnector">A Connector to the GroundFrame.SQL Database</param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Version.#ctor(System.Int32,GroundFrame.Classes.GFSqlConnector,System.String)">
+            <summary>
+            Instantiates a new Version object from the GroundFrame.SQL database for the supplied Record ID
+            </summary>
+            <param name="ID">The ID of the version record to get from the GroundFrame.SQL database</param>
+            <param name="SQLConnector">A Connector to the GroundFrame.SQL Database</param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Version.#ctor(System.Data.SqlClient.SqlDataReader,GroundFrame.Classes.GFSqlConnector,System.String)">
+            <summary>
+            Instatiates a Version object from a SqlDataReader object
+            </summary>
+            <param name="DataReader">The source SqlDataReader</param>
+            <param name="SQLConnector">A Connector to the GroundFrame.SQL Database</param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Version.SaveToSQLDB">
+            <summary>
+            Saves the Version to the GroundFrame.SQL database
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Version.RefreshFromDB">
+            <summary>
+            Refresh the Version from the GroundFrame.SQL database
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Version.SaveVersionToSQLDB">
+            <summary>
+            Saves the Version to the GroundFrame.SQL database
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Version.GetVersionFromSQLDBByID">
+            <summary>
+            Gets the Version from the GroundFrame.SQL database
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Version.ParseSqlDataReader(System.Data.SqlClient.SqlDataReader)">
+            <summary>
+            Parses a SqlDataReader object into a Version object
+            </summary>
+            <param name="DataReader"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.Version.Dispose">
+            <summary>
+            Disposes the Version object
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.SimSig.UserSettingCollection">
+            <summary>
+            Class representing a collection of versions
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.UserSettingCollection.#ctor(GroundFrame.Classes.GFSqlConnector,System.String)">
+            <summary>
+            Instantiates a VersionCollection object the supplied GroundFrame.SQL Connection
+            </summary>
+            <param name="SQLConnector"></param>
+        </member>
+        <member name="P:GroundFrame.Classes.SimSig.UserSettingCollection.Count">
+            <summary>
+            Gets the total number of versions in the collection
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.UserSettingCollection.IndexOf(System.Int32)">
+            <summary>
+            Returns the Version for the supplied Index
+            </summary>
+            <param name="Item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.UserSettingCollection.GetAllVersionsFromSQLDB">
+            <summary>
+            Loads all versions from the GroundFrame.SQL database
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.SimSig.UserSettingCollection.Dispose">
+            <summary>
+            Disposes the VersionCollection object
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.GFSqlConnector">
+            <summary>
+            A object representing a connection to a SQL database. Wrapped around SqlConnector object. Designed to enable a consistent approach to connecting to a SQL database
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.GFSqlConnector.SQLServer">
+            <summary>
+            Gets the Microsoft SQL Server name
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.GFSqlConnector.DBName">
+            <summary>
+            Gets the database name
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.GFSqlConnector.TestDataID">
+            <summary>
+            Gets the Test Data ID. Generated from calling GenerateTestData to generate a set of test data.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.GFSqlConnector.IsTest">
+            <summary>
+            Gets the Test Data Flag to indicate whether connection is being used for running a test
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.GFSqlConnector.ApplicationAPIKey">
+            <summary>
+            Gets the Application key
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.GFSqlConnector.ApplicationUserAPIKey">
+            <summary>
+            Gets the Application User Key
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.GFSqlConnector.Timeout">
+            <summary>
+            Gets the Timeout of the connection in seconds
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.GFSqlConnector.Culture">
+            <summary>
+            Returns the culture of the connection
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.GFSqlConnector.#ctor(System.String,System.String,System.String,System.String,System.Boolean,System.Int32,System.String)">
+            <summary>
+            Instantiates a new GFSqlConnector object from the supplied arguments
+            </summary>
+            <param name="AppAPIKey"></param>
+            <param name="AppUserAPIKey"></param>
+            <param name="SQLServer"></param>
+            <param name="DBName"></param>
+            <param name="IsTest">This is used by the testing environment and will delete any data added whilst the connection is open to leave a clean database. Default = false</param>
+            <param name="Timeout">The number of seconds before the connection times out. Default 30.</param>
+        </member>
+        <member name="M:GroundFrame.Classes.GFSqlConnector.#ctor(GroundFrame.Classes.GFSqlConnector)">
+            <summary>
+            Instatiates a new GFSqlConnector as a copy of the supplied one. Stops conflicts between connectors on sub query execution
+            </summary>
+            <param name="SQLConnector"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.GFSqlConnector.BuildSQLConnectionString">
+            <summary>
+            Builds the SQL Connection String
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.GFSqlConnector.TestConnection">
+            <summary>
+            Method to test the connection. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.GFSqlConnector.Open">
+            <summary>
+            Opens the Connection to the SQL database
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.GFSqlConnector.Close">
+            <summary>
+            Closes the Connection to the SQL database
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.GFSqlConnector.SQLCommand(System.String,System.Data.CommandType)">
+            <summary>
+            Gets a SqlCommand object build from a command string and command type
+            </summary>
+            <param name="CommandString">The command string to execute</param>
+            <param name="Type">The command type</param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.GFSqlConnector.Dispose">
+            <summary>
+            Disposes the GFSqlConnector object
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.GFSqlConnector.TearDownData">
+            <summary>
+            Tears down any test data but will only work if the GFSqlConnector is configured for a test
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.GFSqlConnector.GenerateTestData(System.Int32)">
+            <summary>
+            Generates a set of test data and returns an ID which can be passed to the TearDown method
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTT.SourceWTTXML">
+            <summary>
+            Gets or Sets the XML which was extracted from the Source SimSig WTT
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTT.SourceWTTFileName">
+            <summary>
+            Gets the full path which was used as the source SimSig WTT file to instantiate the WTT object
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTT.Header">
+            <summary>
+            Gets or sets the WTT Header
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTT.Simulation">
+            <summary>
+            Gets or sets the Simulation
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTT.SimulationVersion">
+            <summary>
+            Gets or sets the Simulation Version the timetable was written for
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTT.TrainCategories">
+            <summary>
+            Gets or sets the WTT train categories
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTT.TimeTables">
+            <summary>
+            Gets or sets the WTT timetables
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTT.StartDate">
+            <summary>
+            Gets the timetable start date
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTT.UserSettings">
+            <summary>
+            Gets the user settings
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTT.#ctor(System.IO.FileInfo,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Inititialises a new WTT object from a SimSig WTT file
+            </summary>
+            <param name="Filename">FileInfo object representing the path to the .WTT file</param>
+            <param name="UserSettings">The users settings</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTT.#ctor(System.IO.FileInfo,System.DateTime,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Inititialises a new WTT object from a SimSig WTT file
+            </summary>
+            <param name="Filename">FileInfo object representing the path to the .WTT file</param>
+            <param name="StartDate">The start date of the timetable (cannot be before 01/01/1850)</param>
+            <param name="UserSettings">The users settings</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTT.#ctor(System.DateTime)">
+            <summary>
+            Default constructor which is used as the Json Deserializer constructor
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTT.#ctor(System.String,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTT object from JSON
+            </summary>
+            <param name="JSON">The JSON string</param>
+            <param name="UserSettings">The users settings</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTT.ReadWTTFile">
+            <summary>
+            Reads a SimSig WTT File and returns an XDocument represent the SavedTimeable.xml file inside the WTT file
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTT.ConvertStreamToXDocument(System.IO.Stream)">
+            <summary>
+            Converts a Stream to an XDocument
+            </summary>
+            <param name="WTTStream"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTT.ParseWTTXML">
+            <summary>
+            Parses a SimSig WTT XML file stored in _SourceWTTXML into the WTT object
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTT.ParseWTTTimeTablesXML">
+            <summary>
+            Parses the WTT Timetables from the source XML
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTT.ParseWTTTrainCategoriesXML">
+            <summary>
+            Parses the WTT Train Categories from the source XML
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTT.PopulateFromJSON(System.String)">
+            <summary>
+            Populates the object from the supplied JSON
+            </summary>
+            <param name="JSON">The JSON string representing the WTT object</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTT.ToJSON">
+            <summary>
+            Serializes the WTT object to JSON
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTDuration">
+            <summary>
+            Class which represents a SimSig duration unit. This is similar to time but allows negative seconds to be passed. Negative seconds are used to indicate whether a train should run early
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTDuration.Seconds">
+            <summary>
+            Gets the number of seconds since midnight.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTDuration.FormattedDuration">
+            <summary>
+            Gets the WTTDuration formatted as ShortTime (HH:mmC)
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTDuration.UserSettings">
+            <summary>
+            Gets the user settings
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTDuration.#ctor">
+            <summary>
+            Default constructor which is used the Json Deserializer constructor
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTDuration.#ctor(System.Int32,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Initialises a WTTDuration object. The WTT start date 1850-01-01
+            </summary>
+            <param name="Seconds">The number of seconds (can be negative)</param>
+            <param name="UserSettings">The users settings</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTDuration.FormatTime">
+            <summary>
+            Formats the WTTTime object based on the WTT Format Type and Delimiter passed.
+            </summary>
+            <param name="Format">WTTFormatType to determine how the WTTTime object should be formatted</param>
+            <param name="Delimiter">The hour / minute delimiter. Defaults to ":"</param>
+            <returns></returns>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTSpeed">
+            <summary>
+            Class representing a WTT Speed object
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTSpeed.MPH">
+            <summary>
+            Gets the speed in MPH
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTSpeed.KPH">
+            <summary>
+            Gets the speed in KPH
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTSpeed.UserSettings">
+            <summary>
+            Gets the user settings
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTSpeed.#ctor">
+            <summary>
+            Default constructor which is used the Json Deserializer constructor
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTSpeed.#ctor(System.Int32,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTSpeed object from the the supplied MPH
+            </summary>
+            <param name="MPH">The Speed in MPH</param>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTSpeedClass">
+            <summary>
+            Class which represents a SimSig Speed Class
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTSpeedClass.Bitwise">
+            <summary>
+            Gets the bitwise value for the speed class
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTSpeedClass.SpeedClassList">
+            <summary>
+            Gets a list of the selected bitwise values
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTSpeedClass.UserSettings">
+            <summary>
+            Gets the user settings
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTSpeedClass.#ctor">
+            <summary>
+            Default constructor which is used the Json Deserializer constructor
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTSpeedClass.#ctor(System.Int32,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTSpeedClass object from the selected Bitwise
+            </summary>
+            <param name="Bitwise">The bitwise value representing the selected speed class values</param>
+            <param name="UserSettings">The user settings. If null then the default user settings will be used</param>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTTime">
+            <summary>
+            Class which represents a SimSig time unit
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTime.Seconds">
+            <summary>
+            Gets the number of seconds since midnight.
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTime.FormattedShortTime">
+            <summary>
+            Gets the WTTTime formatted as ShortTime (HH:mmC)
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTime.FormattedLongTime">
+            <summary>
+            Gets the WTTTime formatted as LongTime (DD HH:mmC)
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTime.DateAndTime">
+            <summary>
+            Gets the WTTTime as a DateTime object calculated from the WTT Start Date (if no WTT Start Date is specified then this will be defaulted to 01/01/1850)
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTime.WTTStartDate">
+            <summary>
+            Gets the WTT Start Date
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTime.UserSettings">
+            <summary>
+            Gets the user settings
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTime.#ctor(System.DateTime,System.Int32)">
+            <summary>
+            Default constructor which is used the Json Deserializer constructor
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTime.#ctor(System.Int32,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Initialises a WTTTime object. The WTT start date 1850-01-01
+            </summary>
+            <param name="Seconds">The number of seconds since midnight</param>
+            <param name="HalfMinuteCharacter">A string representing the half minute character</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTime.#ctor(System.Int32,System.DateTime,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Initialises a WTTTime object.
+            </summary>
+            <param name="Seconds">The number of seconds since midnight</param>
+            <param name="WTTStartDate">The WTT Start Date - allows the WTTTime object to calculate the correct date for the timetable</param>
+            <param name="HalfMinuteCharacter">A string representing the half minute character</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTime.CalculateDateTime">
+            <summary>
+            Caclualtes the DateTime value for the WTTTime object from the WTTStartDate property
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTime.FormatTime(GroundFrame.Classes.Timetables.WTTTimeFormat,System.String)">
+            <summary>
+            Formats the WTTTime object based on the WTT Format Type and Delimiter passed.
+            </summary>
+            <param name="Format">WTTFormatType to determine how the WTTTime object should be formatted</param>
+            <param name="Delimiter">The hour / minute delimiter. Defaults to ":"</param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTime.FormatDays(System.Int32)">
+            <summary>
+            Converts the number of days to a string. Used the in the FormatTime method(s)
+            </summary>
+            <param name="Days"></param>
+            <returns></returns>
+        </member>
+        <member name="F:GroundFrame.Classes.Timetables.WTTTime.OnRequestUserSettings">
+            <summary>
+            Function to return the user setting from a parent object
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTHeader.Name">
+            <summary>
+            Gets or sets the WTT name
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTHeader.Description">
+            <summary>
+            Gets or sets the WTT description
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTHeader.StartTime">
+            <summary>
+            Gets or sets the WTT start time
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTHeader.FinishTime">
+            <summary>
+            Gets or sets the WTT finish time
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTHeader.VersionMajor">
+            <summary>
+            Gets or sets the WTT major version
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTHeader.VersionMinor">
+            <summary>
+            Gets or sets the WTT minor version
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTHeader.VersionBuild">
+            <summary>
+            Gets or sets the WTT version build number
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTHeader.TrainDescriptionTemplate">
+            <summary>
+            Gets or sets the WTT Train Decsrption Template
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTHeader.StartDate">
+            <summary>
+            Gets the timetable start date
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTHeader.UserSettings">
+            <summary>
+            Gets the user settings
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTHeader.#ctor(System.DateTime)">
+            <summary>
+            Default constructor which is used the Json Deserializer constructor
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTHeader.#ctor(System.Xml.Linq.XElement,System.DateTime,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTHeader object from the SimSigTimeable element from a SimSig SavedTimetable.xml document
+            </summary>
+            <param name="Header">XElement containing the WTT XML defining this header object</param>
+            <param name="StartDate">The start date of the timetable (cannot be before 01/01/1850)</param>
+            <param name="UserSettings">The users settings</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTHeader.#ctor(System.String,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates an empty WTTheader from a JSON string
+            </summary>
+            <param name="UserSettings">The users settings</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTHeader.#ctor(System.Xml.Linq.XElement,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTHeader object from the SimSigTimeable element from a SimSig SavedTimetable.xml document
+            </summary>
+            <param name="Header">XElement containing the WTT XML defining this header object</param>
+            <param name="UserSettings">The users settings</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTHeader.#ctor(System.String,System.Int32,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a new WTTHeader object
+            </summary>
+            <param name="Name">The WTT Name</param>
+            <param name="StartTimeSeconds">The start time of the WTT (number of seconds after midnight)</param>
+            <param name="UserSettings">The users settings</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTHeader.ParseHeaderXML(System.Xml.Linq.XElement)">
+            <summary>
+            Parses the WTTHeader from the SimSigTimeable element from a SimSig SavedTimetable.xml document
+            </summary>
+            <param name="Header"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTHeader.PopulateFromJSON(System.String)">
+            <summary>
+            Populates the object from the supplied JSON
+            </summary>
+            <param name="JSON">The JSON string representing the WTTHeader object</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTHeader.ToJSON">
+            <summary>
+            Serializes the WTTHeader object to JSON
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.Headcode">
+            <summary>
+            Gets or sets the Timetable Headcode
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.AccelBrakeIndex">
+            <summary>
+            Gets or sets the Acceleration / Break Index
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.RunAsRequiredPercentage">
+            <summary>
+            Gets or sets the run as required percentage
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.Delay">
+            <summary>
+            Gets or sets the dely of the service
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.DepartTime">
+            <summary>
+            Gets or sets the departure time of the service
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.Description">
+            <summary>
+            Gets or sets the description of the service
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.SeedingGap">
+            <summary>
+            Gets or sets the seeding gap
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.EntryPoint">
+            <summary>
+            Gets or sets the entry point
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.ActualEntryPoint">
+            <summary>
+            Gets or sets the actual entry point
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.MaxSpeed">
+            <summary>
+            Gets or sets the max speed
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.SpeedClass">
+            <summary>
+            Gets or sets the speed class
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.Started">
+            <summary>
+            Gets or sets whether the service has started
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.TrainLength">
+            <summary>
+            Gets or sets the train length
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.Electrification">
+            <summary>
+            Gets or sets the electrification
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.RunAsRequiredTested">
+            <summary>
+            Gets or sets whether run as required has been tested
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.StartTraction">
+            <summary>
+            Gets or sets the traction type at the start of the timetable
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.SimSigTrainCategoryID">
+            <summary>
+            Gets or sets the WTTTrainCategory ID
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.Trip">
+            <summary>
+            Gets or sets the trip for this service
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.UserSettings">
+            <summary>
+            Gets the user settings
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTable.StartDate">
+            <summary>
+            Gets the start date
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTable.#ctor(System.DateTime)">
+            <summary>
+            Default constructor which is used the Json Deserializer constructor
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTable.#ctor(System.Xml.Linq.XElement,System.DateTime,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTTimeTable object from the supplied SimSig XML timeTable defininition snippet
+            </summary>
+            <param name="TimeTableXML">The SimSig timetable XML snippet</param>
+            <param name="StartDate">The start date of the timetable</param>
+            <param name="UserSettings">The users settings</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTable.#ctor(System.String,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTTimeTable object from the supplied JSON string
+            </summary>
+            <param name="JSON">The JSON string representing the WTTTimeTable object</param>
+            <param name="UserSettings">The user settignd</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTable.ParseWTTTimeTable(System.Xml.Linq.XElement)">
+            <summary>
+            Parses the WTTTimeTable object from the SimSig timeable XML element
+            </summary>
+            <param name="TimeTableXML"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTable.ParseTripsXML(System.Xml.Linq.XElement)">
+            <summary>
+            Parses the WTT Trips SimSig XML
+            </summary>
+            <param name="WTTTripsXML"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTable.PopulateFromJSON(System.String)">
+            <summary>
+            Populates the object from the supplied JSON
+            </summary>
+            <param name="JSON">The JSON string representing the WTTimeTable object</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTable.ToJSON">
+            <summary>
+            Serializes the WTTTimeTable object to JSON
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTable.GetSimulationUserSettings">
+            <summary>
+            Returns the UserSettingCollection from the various sources
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:GroundFrame.Classes.Timetables.WTTTimeTable.OnRequestUserSettings">
+            <summary>
+            Function which is defined by the parent object to retreive the user settings from the parent object
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTTimeTableCollection">
+            <summary>
+            Class representing a collection of WTTTimeTable objects
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTableCollection.UserSettings">
+            <summary>
+            Gets the user settings
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTableCollection.StartDate">
+            <summary>
+            Gets the timetable start date
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:GroundFrame.Classes.Timetables.WTTTimeTableCollection.#ctor(System.Collections.Generic.IEnumerable{GroundFrame.Classes.Timetables.WTTTimeTable})" -->
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTableCollection.#ctor(System.Xml.Linq.XElement,System.DateTime,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTTimeTableCollection from the supplied XElement object represening a SimSig timetable collection and timetable start date
+            </summary>
+            <param name="WTTTimeTableXML">The XML object representing the SimSig timetable collection</param>
+            <param name="StartDate">The start date of the timetable. Must be after 01/01/1850</param>
+            <param name="UserSettings">The user settings</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTableCollection.#ctor(System.String,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTTimeTableCollection from a JSON file.
+            </summary>
+            <param name="JSON">A JSON string representing the timetable collection</param>
+            <param name="UserSettings">The user settings</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTableCollection.#ctor(System.DateTime)">
+            <summary>
+            Instantiates a WTTTimeTableCollection object with the supplied start date. Used by the WTTTimeTableCollectionConverter class to convert JSON to WTTTableCollection
+            </summary>
+            <param name="StartDate"></param>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTableCollection.Count">
+            <summary>
+            Gets the total number of versions in the collection
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTableCollection.PopulateFromJSON(System.String)">
+            <summary>
+            Populates the object from the supplied JSON
+            </summary>
+            <param name="JSON">The JSON string representing the WTTHeader object</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTableCollection.IndexOf(System.Int32)">
+            <summary>
+            Returns the UserSetting for the supplied Index
+            </summary>
+            <param name="Index">The index ordinal</param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTableCollection.Add(GroundFrame.Classes.Timetables.WTTTimeTable)">
+            <summary>
+            Adds at WTTTimeTable to the collection
+            </summary>
+            <param name="TimeTable">The WTTTimeTable object to add to the collection</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTableCollection.ToList">
+            <summary>
+            Get the list of WTTTimetables
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTableCollection.ToJSON">
+            <summary>
+            Gets a JSON string that represents the UserSetting Collection
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTableCollection.Dispose">
+            <summary>
+            Disposes the VersionCollection object
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTTimeTableCollectionSurrogate">
+            <summary>
+            A surrogate class which mimcs the WTTTimeTableCollection class and is used as part of the custom JsonConverter for a WTTTimeTableCollection object
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTableCollectionSurrogate.TimeTables">
+            <summary>
+            The list of timetables
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTimeTableCollectionSurrogate.StartDate">
+            <summary>
+            The timetable start date
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTTimeTableCollectionConverter">
+            <summary>
+            JsonConverter class for a WTTTimeTableCollection object
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTableCollectionConverter.CanConvert(System.Type)">
+            <summary>
+            Flag to indicate whether the class a WTTTimeTableCollection
+            </summary>
+            <param name="objectType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTableCollectionConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <summary>
+            Override method to deserialize a JSON string into a WTTTimeTableCollection
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTimeTableCollectionConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <summary>
+            Override method to serialize a WTTTimeTableCollection object to a JSON string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTTrip">
+            <summary>
+            A Class representing a SimSig Trip
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrip.Location">
+            <summary>
+            Gets or sets the trip location
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrip.DepPassTime">
+            <summary>
+            Gets or sets the departure / pass time
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrip.ArrTime">
+            <summary>
+            Gets or sets the arrival time
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrip.IsPassTime">
+            <summary>
+            Gets or sets the is pass time flag
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrip.Platform">
+            <summary>
+            Gets or sets the platform
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrip.DownDirection">
+            <summary>
+            Gets or sets the down direction flag
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrip.PrevPathEndDown">
+            <summary>
+            Gets or sets the previous path end down flag
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrip.NextPathStartDown">
+            <summary>
+            Gets or sets the next path start down flag
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrip.StartDate">
+            <summary>
+            Gets the start date
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrip.UserSettings">
+            <summary>
+            Gets the user settings
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrip.#ctor(System.Xml.Linq.XElement,System.DateTime,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTTrip object from an XML element representing a SimSig trip
+            </summary>
+            <param name="WTTTripXML">The XML element representing a SimSig trip</param>
+            <param name="StartDate">The timetable start date</param>
+            <param name="UserSettings">The users settings. If NULL then default settings are applied</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrip.#ctor(System.String,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTTrip object from the supplied JSON string
+            </summary>
+            <param name="JSON">The JSON string representing the WTTTrip object</param>
+            <param name="UserSettings">The user settignd</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrip.#ctor(System.DateTime)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrip.ParseWTTTripXML(System.Xml.Linq.XElement)">
+            <summary>
+            Parses a WTTTrip SimSig XML Xlement into the WTTTrip object
+            </summary>
+            <param name="WTTTripXML"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrip.PopulateFromJSON(System.String)">
+            <summary>
+            Populates the object from the supplied JSON
+            </summary>
+            <param name="JSON">The JSON string representing the WTTTrip object</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrip.ToJSON">
+            <summary>
+            Serializes the WTTrip object to JSON
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrip.GetSimulationUserSettings">
+            <summary>
+            Returns the UserSettingCollection from the various sources
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:GroundFrame.Classes.Timetables.WTTTrip.OnRequestUserSettings">
+            <summary>
+            Function which is defined by the parent object to retreive the user settings from the parent object
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTTripCollection">
+            <summary>
+            Class representing a collection of WTTTrip objects
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTripCollection.UserSettings">
+            <summary>
+            Gets the user settings
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTripCollection.StartDate">
+            <summary>
+            Gets the timetable start date
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:GroundFrame.Classes.Timetables.WTTTripCollection.#ctor(System.Collections.Generic.IEnumerable{GroundFrame.Classes.Timetables.WTTTrip})" -->
+        <member name="M:GroundFrame.Classes.Timetables.WTTTripCollection.#ctor(System.Xml.Linq.XElement,System.DateTime,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTTripCollection from the supplied XElement object represening a SimSig trip collection and timetable start date
+            </summary>
+            <param name="WTTTripXML">The XML object representing the SimSig trip collection</param>
+            <param name="StartDate">The start date of the timetable. Must be after 01/01/1850</param>
+            <param name="UserSettings">The user settings</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTripCollection.#ctor(System.String,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTTripCollection from a JSON file.
+            </summary>
+            <param name="JSON">A JSON string representing the trip collection</param>
+            <param name="UserSettings">The user settings</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTripCollection.#ctor(System.DateTime)">
+            <summary>
+            Instantiates a WTTTripCollection object with the supplied start date. Used by the WTTTripCollectionConverter class to convert JSON to WTTTripCollection
+            </summary>
+            <param name="StartDate"></param>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTripCollection.Count">
+            <summary>
+            Gets the total number of versions in the collection
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTripCollection.PopulateFromJSON(System.String)">
+            <summary>
+            Populates the object from the supplied JSON
+            </summary>
+            <param name="JSON">The JSON string representing the WTTHeader object</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTripCollection.IndexOf(System.Int32)">
+            <summary>
+            Returns the WTTTrip for the supplied Index
+            </summary>
+            <param name="Index">The index ordinal</param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTripCollection.Add(GroundFrame.Classes.Timetables.WTTTrip)">
+            <summary>
+            Adds at WTTTrip to the collection
+            </summary>
+            <param name="Trip">The WTTTrip object to add to the collection</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTripCollection.ToList">
+            <summary>
+            Get the list of WTTTrips
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTripCollection.ToJSON">
+            <summary>
+            Gets a JSON string that represents the UserSetting Collection
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTripCollection.Dispose">
+            <summary>
+            Disposes the VersionCollection object
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTTripCollectionSurrogate">
+            <summary>
+            A surrogate class which mimcs the WTTTripCollection class and is used as part of the custom JsonConverter for a WTTTripCollection object
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTripCollectionSurrogate.Trips">
+            <summary>
+            The list of trips
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTripCollectionSurrogate.StartDate">
+            <summary>
+            The timetable start date
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTTripCollectionConverter">
+            <summary>
+            JsonConverter class for a WTTTripCollection object
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTripCollectionConverter.CanConvert(System.Type)">
+            <summary>
+            Flag to indicate whether the class a WTTTripCollection
+            </summary>
+            <param name="objectType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTripCollectionConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <summary>
+            Override method to deserialize a JSON string into a WTTTripCollection
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTripCollectionConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <summary>
+            Override method to serialize a WTTTimeTableCollection object to a JSON string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTDwell">
+            <summary>
+            Class which represents the various dwell times for a train category
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTDwell.RedSignalMoveOff">
+            <summary>
+            Gets or sets the red signal move off dwell time
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTDwell.StationForward">
+            <summary>
+            Gets or sets the station forward dwell time
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTDwell.StationReverse">
+            <summary>
+            Gets or sets the station reverse dwell time
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTDwell.TerminateForward">
+            <summary>
+            Gets or sets the terminate forward dwell time
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTDwell.TerminateReverse">
+            <summary>
+            Gets or sets the terminate reverse dwell time
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTDwell.Join">
+            <summary>
+            Gets or sets the join dwell time
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTDwell.Divide">
+            <summary>
+            Gets or sets the divide dwell time
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTDwell.CrewChange">
+            <summary>
+            Gets or sets the crew change dwell time
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTDwell.UserSettings">
+            <summary>
+            Gets the user settings
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTDwell.#ctor">
+            <summary>
+            Default constructor which is used the Json Deserializer constructor
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTDwell.#ctor(System.Xml.Linq.XElement,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTDwell object from an XML Snippet
+            </summary>
+            <param name="DwellXML">The source XML as an XElement</param>
+            <param name="UserSettings">The users settings. If null is pass then the default user settings will be used</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTDwell.ParseHeaderXML(System.Xml.Linq.XElement)">
+            <summary>
+            Parses Dwell element from the SimSigTimeable ? WTTTrainCategory element from a SimSig SavedTimetable.xml document
+            </summary>
+            <param name="Header"></param>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrainCategory.SimSigID">
+            <summary>
+            Gets the SimSig ID
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrainCategory.Description">
+            <summary>
+            Gets or sets the description
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrainCategory.AccelBrakeIndex">
+            <summary>
+            Gets or sets the Acceleration / Break Index
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrainCategory.IsFreight">
+            <summary>
+            Gets or sets the freight flag
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrainCategory.CanUseGoodsLines">
+            <summary>
+            Gets or sets the Can Use Goods Lines flag
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrainCategory.MaxSpeed">
+            <summary>
+            Gets or sets the max speed
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrainCategory.TrainLength">
+            <summary>
+            Gets or sets the train length
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrainCategory.SpeedClass">
+            <summary>
+            Gets or sets the speed class
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrainCategory.PowerToWeightCategory">
+            <summary>
+            Gets or sets the power to weight category
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrainCategory.DwellTimes">
+            <summary>
+            Gets or sets the dwell times
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrainCategory.Electrification">
+            <summary>
+            Gets or sets the electrification
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrainCategory.UserSettings">
+            <summary>
+            Gets the user settings
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrainCategory.#ctor">
+            <summary>
+            Default constructor which is used the Json Deserializer constructor
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrainCategory.#ctor(System.String,System.Int32,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.String,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a new instance of a WTTTrainobject object
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrainCategory.#ctor(System.Xml.Linq.XElement,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTTrainCategort object from the supplied SimSig xml snippet as an XElement
+            </summary>
+            <param name="TrainCategoryXML">The SimSig xml snippet</param>
+            <param name="UserSettings">The user settignd</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrainCategory.#ctor(System.String,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTTrainCategory object from the supplied JSON string
+            </summary>
+            <param name="JSON">The JSON string representing the WTTTrainCategory object</param>
+            <param name="UserSettings">The user settignd</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrainCategory.ParseHeaderXML(System.Xml.Linq.XElement)">
+            <summary>
+            Parses the WTTHeader from the SimSigTimeable element from a SimSig SavedTimetable.xml document
+            </summary>
+            <param name="TrainCategoryXML"></param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrainCategory.PopulateFromJSON(System.String)">
+            <summary>
+            Populates the object from the supplied JSON
+            </summary>
+            <param name="JSON">The JSON string representing the WTTTrainCategory object</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrainCategory.GenerateSimSigID(System.Boolean)">
+            <summary>
+            Generates a 6 character long random hex string
+            </summary>
+            <param name="ReplaceExisting">Flag to indicate whether the existing SimSig should be replaced if it exists</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrainCategory.ToJSON">
+            <summary>
+            Serializes the WTTTrainCategory object to JSON
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTTrainCategoryCollection">
+            <summary>
+            Class representing a collection of train categories
+            </summary>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrainCategoryCollection.UserSettings">
+            <summary>
+            Gets the user settings
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:GroundFrame.Classes.Timetables.WTTTrainCategoryCollection.#ctor(System.Collections.Generic.IEnumerable{GroundFrame.Classes.Timetables.WTTTrainCategory})" -->
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrainCategoryCollection.#ctor(System.Xml.Linq.XElement,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTTimeTableCollection
+            </summary>
+            <param name="User">The name of the user's preferred culture. If an empty string supplied en-GB will be used</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrainCategoryCollection.#ctor(System.String,GroundFrame.Classes.UserSettingCollection)">
+            <summary>
+            Instantiates a WTTTrainCategoryCollection from a JSON file.
+            </summary>
+            <param name="JSON">A JSON string representing a collection of train categories</param>
+        </member>
+        <member name="P:GroundFrame.Classes.Timetables.WTTTrainCategoryCollection.Count">
+            <summary>
+            Gets the total number of versions in the collection
+            </summary>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrainCategoryCollection.PopulateFromJSON(System.String)">
+            <summary>
+            Populates the object from the supplied JSON
+            </summary>
+            <param name="JSON">The JSON string representing the WTTHeader object</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrainCategoryCollection.ParseWTTTrainCategoriesXML(System.Xml.Linq.XElement)">
+            <summary>
+            Parses an XElement object representing a SimSig collection of train categories
+            </summary>
+            <param name="WTTTrainCatoriesXML">The XML representing tthe SimSig collection of train categories</param>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrainCategoryCollection.IndexOf(System.Int32)">
+            <summary>
+            Returns the Train Category for the supplied Index
+            </summary>
+            <param name="Index">The index ordinal</param>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrainCategoryCollection.ToJSON">
+            <summary>
+            Gets a JSON string that represents the UserSetting Collection
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GroundFrame.Classes.Timetables.WTTTrainCategoryCollection.Dispose">
+            <summary>
+            Disposes the VersionCollection object
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTAccelBrakeIndex">
+            <summary>
+            An enum representing the SimSig Accel Brake Index
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTSpeedClassBitWise">
+            <summary>
+            An emum representing the SimSig Speed Class
+            </summary>
+        </member>
+        <member name="T:GroundFrame.Classes.Timetables.WTTPowerToWeightCategory">
+            <summary>
+            An emum representing the SimSig Power To Weight Class
+            </summary>
+        </member>
+    </members>
+</doc>
