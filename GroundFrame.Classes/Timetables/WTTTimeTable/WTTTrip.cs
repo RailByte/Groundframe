@@ -77,7 +77,7 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         [JsonProperty("startDate")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
-        public DateTime StartDate { get { return this._StartDate; } set { this._StartDate = value; } }
+        public DateTime StartDate { get { return this._StartDate; } }
 
         /// <summary>
         /// Gets the user settings
@@ -124,20 +124,72 @@ namespace GroundFrame.Classes.Timetables
             //Parse the JSON
             this.PopulateFromJSON(JSON);
         }
-
+        
         /// <summary>
-        /// 
+        /// Instantiates a WTTTrip from the supplied start date. Used the WTTTRipConverter class
         /// </summary>
+        /// <param name="StartDate">The timetable start date</param>
         [JsonConstructor]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
-        private WTTTrip(DateTime StartDate)
+        internal WTTTrip(DateTime StartDate)
         {
             this._StartDate = StartDate;
+        }
+
+        /// <summary>
+        /// Instantiates a WTTTrip object from a WTTTripSurrogate object and start date
+        /// </summary>
+        /// <param name="SurrogateTrip">The WTTTripSurrogate object</param>
+        internal WTTTrip(WTTTripSurrogate SurrogateTrip, UserSettingCollection UserSettings)
+        {
+            this._UserSettings = UserSettings ?? new UserSettingCollection();
+            ParseSurrogateWTTTrip(SurrogateTrip);
         }
 
         #endregion Constructors
 
         #region Methods
+
+        /// <summary>
+        /// Parses a WTTTripSurrogate object into a WTTTrip Object
+        /// </summary>
+        /// <param name="SurrogateTrip"></param>
+        private void ParseSurrogateWTTTrip(WTTTripSurrogate SurrogateTrip)
+        {
+            this._StartDate = SurrogateTrip.StartDate;
+            this.Location = SurrogateTrip.Location;
+            this.DepPassTime = new WTTTime(SurrogateTrip.DepPassTime.Seconds, this.StartDate, this._UserSettings);
+
+            if (SurrogateTrip.ArrTime != null)
+            {
+                this.ArrTime = new WTTTime(SurrogateTrip.ArrTime.Seconds, this.StartDate, this._UserSettings);
+            }
+
+            this.IsPassTime = SurrogateTrip.IsPassTime;
+            this.Platform = SurrogateTrip.Platform;
+            this.DownDirection = SurrogateTrip.DownDirection;
+            this.PrevPathEndDown = SurrogateTrip.PrevPathEndDown;
+            this.NextPathStartDown = SurrogateTrip.NextPathStartDown;
+        }
+
+        /// <summary>
+        /// Converts the WTTTrip object to a WTTTripSurrogate object
+        /// </summary>
+        /// <returns>WTTTripSurrogate</returns>
+        internal WTTTripSurrogate ToSurrogateWTTTrip()
+        {
+            return new WTTTripSurrogate()
+            {
+                Location = this.Location,
+                DepPassTime = this.DepPassTime,
+                ArrTime = this.ArrTime,
+                IsPassTime = this.IsPassTime,
+                Platform = this.Platform,
+                DownDirection = this.DownDirection,
+                PrevPathEndDown = this.PrevPathEndDown,
+                NextPathStartDown = this.NextPathStartDown,
+                StartDate = this.StartDate
+            };
+        }
 
         /// <summary>
         /// Parses a WTTTrip SimSig XML Xlement into the WTTTrip object
@@ -173,7 +225,25 @@ namespace GroundFrame.Classes.Timetables
             //JSON argument will already have been validated in the constructor
             try
             {
-                JsonConvert.PopulateObject(JSON, this);
+                WTTTrip TempTrip = JsonConvert.DeserializeObject<WTTTrip>(JSON, new WTTTripConverter(this.UserSettings));
+                this._StartDate = TempTrip.StartDate;
+                this.Location = TempTrip.Location;
+
+                if (TempTrip.DepPassTime != null)
+                {
+                    this.DepPassTime = new WTTTime(TempTrip.DepPassTime.Seconds, this.StartDate, this.UserSettings);
+                }
+
+                if (TempTrip.ArrTime != null)
+                {
+                    this.ArrTime = new WTTTime(TempTrip.ArrTime.Seconds, this.StartDate, this.UserSettings);
+                }
+                
+                this.IsPassTime = TempTrip.IsPassTime;
+                this.Platform = TempTrip.Platform;
+                this.DownDirection = TempTrip.DownDirection;
+                this.PrevPathEndDown = TempTrip.PrevPathEndDown;
+                this.NextPathStartDown = TempTrip.NextPathStartDown;
             }
             catch (Exception Ex)
             {
@@ -184,10 +254,10 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Serializes the WTTrip object to JSON
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns>s
         public string ToJSON()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.Indented, new WTTTripConverter(this.UserSettings));
         }
 
         /// <summary>

@@ -133,6 +133,7 @@
   ],
   "timeTables": [
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1C00",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -287,10 +288,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1C02",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -445,10 +446,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1C76",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -603,10 +604,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1C93",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -761,10 +762,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1C97",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -919,10 +920,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1R05",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -1054,10 +1055,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1R09",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -1189,10 +1190,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1R48",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -1301,10 +1302,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1R52",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -1413,10 +1414,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T01",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -1571,10 +1572,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T02",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -1729,10 +1730,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T03",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -1887,10 +1888,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T05",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -2045,10 +2046,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T06",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -2203,10 +2204,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T07",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -2361,10 +2362,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T08",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -2519,10 +2520,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T09",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -2677,10 +2678,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T10",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -2835,10 +2836,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T11",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -2993,10 +2994,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T12",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -3151,10 +3152,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T13",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -3309,10 +3310,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T14",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -3467,10 +3468,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T15",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -3579,10 +3580,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T16",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -3691,10 +3692,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T17",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -3803,10 +3804,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T18",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -3961,10 +3962,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T19",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -4073,10 +4074,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T20",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -4185,10 +4186,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T21",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -4297,10 +4298,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T22",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -4455,10 +4456,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T23",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -4567,10 +4568,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T24",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -4679,10 +4680,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T25",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -4791,10 +4792,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T26",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -4949,10 +4950,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T27",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -5061,10 +5062,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T28",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -5173,10 +5174,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T29",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -5285,10 +5286,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T30",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -5443,10 +5444,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T31",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -5555,10 +5556,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T32",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -5667,10 +5668,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T33",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -5779,10 +5780,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T34",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -5937,10 +5938,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T35",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -6049,10 +6050,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T36",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -6161,10 +6162,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T37",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -6273,10 +6274,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T38",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -6431,10 +6432,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T39",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -6543,10 +6544,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T40",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -6655,10 +6656,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T41",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -6767,10 +6768,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T42",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -6925,10 +6926,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T43",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -7037,10 +7038,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T44",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -7149,10 +7150,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T45",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -7261,10 +7262,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T46",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -7419,10 +7420,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T47",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -7531,10 +7532,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T48",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -7666,10 +7667,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T49",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -7778,10 +7779,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T50",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -7936,10 +7937,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T51",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -8048,10 +8049,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T52",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -8206,10 +8207,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T53",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -8318,10 +8319,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T54",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -8476,10 +8477,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T55",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -8588,10 +8589,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T56",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -8746,10 +8747,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T57",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -8858,10 +8859,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T58",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -9016,10 +9017,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T59",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -9128,10 +9129,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T60",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -9286,10 +9287,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T61",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -9398,10 +9399,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T62",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -9556,10 +9557,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T63",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -9668,10 +9669,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T64",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -9826,10 +9827,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T65",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -9938,10 +9939,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T66",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -10096,10 +10097,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T67",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -10208,10 +10209,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T68",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -10366,10 +10367,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T69",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -10478,10 +10479,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T70",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -10636,10 +10637,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T71",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -10748,10 +10749,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T72",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -10906,10 +10907,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "1T74",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -11064,10 +11065,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C00",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -11222,10 +11223,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C02",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -11380,10 +11381,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C03",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -11515,10 +11516,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C04",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -11673,10 +11674,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C05",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -11831,10 +11832,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C06",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -11989,10 +11990,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C07",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -12147,10 +12148,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C08",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -12305,10 +12306,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C09",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -12463,10 +12464,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C10",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -12621,10 +12622,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C11",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -12779,10 +12780,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C12",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -12937,10 +12938,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C13",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -13095,10 +13096,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C14",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -13253,10 +13254,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C15",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -13411,10 +13412,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C17",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -13569,10 +13570,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C18",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -13727,10 +13728,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C19",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -13885,10 +13886,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C21",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -14043,10 +14044,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C22",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -14201,10 +14202,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C23",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -14359,10 +14360,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C25",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -14517,10 +14518,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C26",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -14675,10 +14676,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C27",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -14833,10 +14834,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C29",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -14991,10 +14992,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C30",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -15149,10 +15150,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C31",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -15307,10 +15308,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C32",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -15465,10 +15466,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C34",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -15623,10 +15624,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C35",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -15781,10 +15782,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C36",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -15939,10 +15940,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C37",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -16097,10 +16098,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C38",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -16255,10 +16256,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C39",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -16413,10 +16414,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C40",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -16571,10 +16572,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C41",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -16729,10 +16730,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C42",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -16887,10 +16888,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C43",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -17045,10 +17046,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C44",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -17203,10 +17204,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C45",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -17361,10 +17362,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C46",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -17519,10 +17520,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C47",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -17677,10 +17678,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C48",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -17835,10 +17836,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C49",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -17993,10 +17994,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C50",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -18151,10 +18152,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C51",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -18309,10 +18310,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C52",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -18467,10 +18468,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C53",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -18625,10 +18626,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C54",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -18783,10 +18784,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C55",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -18941,10 +18942,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C56",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -19099,10 +19100,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C57",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -19257,10 +19258,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C58",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -19415,10 +19416,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C59",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -19573,10 +19574,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C60",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -19731,10 +19732,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C61",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -19889,10 +19890,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C63",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -20047,10 +20048,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C64",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -20205,10 +20206,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C65",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -20363,10 +20364,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C67",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -20521,10 +20522,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C68",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -20679,10 +20680,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C68",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -20837,10 +20838,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C69",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -20995,10 +20996,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C70",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -21153,10 +21154,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C71",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -21311,10 +21312,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C72",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -21469,10 +21470,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C73",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -21627,10 +21628,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C75",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -21785,10 +21786,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C77",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -21943,10 +21944,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C80",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -22101,10 +22102,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2C82",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -22259,10 +22260,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2R66",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -22348,10 +22349,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2R72",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -22460,10 +22461,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "2R74",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -22572,10 +22573,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "3E51",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -22730,10 +22731,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "3E52",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -22842,10 +22843,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "3R05",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -22931,10 +22932,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "3R09",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -23043,10 +23044,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "3R58",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -23155,10 +23156,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "3T04",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -23290,10 +23291,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "5C03",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -23402,10 +23403,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "5E66",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -23537,10 +23538,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "5R52",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -23649,10 +23650,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "5R73",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -23784,10 +23785,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "5R74",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -23919,10 +23920,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "5R99",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -24054,10 +24055,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "5S12",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -24166,10 +24167,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "5U62",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -24301,10 +24302,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "5U90",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -24436,10 +24437,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S00",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -24594,10 +24595,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S01",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -24752,10 +24753,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S04",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -24910,10 +24911,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S05",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -25068,10 +25069,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S08",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -25203,10 +25204,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S09",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -25361,10 +25362,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S12",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -25496,10 +25497,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S13",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -25654,10 +25655,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S16",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -25789,10 +25790,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S17",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -25947,10 +25948,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S20",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -26082,10 +26083,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S21",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -26240,10 +26241,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S24",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -26375,10 +26376,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S28",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -26510,10 +26511,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S29",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -26668,10 +26669,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S32",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -26803,10 +26804,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S33",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -26961,10 +26962,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S36",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -27096,10 +27097,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S37",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -27254,10 +27255,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S40",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -27389,10 +27390,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S41",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -27547,10 +27548,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S44",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -27682,10 +27683,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S45",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -27840,10 +27841,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S48",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -27975,10 +27976,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S49",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -28133,10 +28134,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S52",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -28268,10 +28269,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S53",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -28426,10 +28427,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S56",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -28561,10 +28562,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S57",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -28719,10 +28720,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S60",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -28854,10 +28855,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S61",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -29012,10 +29013,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S64",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -29147,10 +29148,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S65",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -29305,10 +29306,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S68",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -29463,10 +29464,10 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     },
     {
+      "startDate": "2018-07-01T00:00:00",
       "headcode": "9S69",
       "accelBrakeIndex": 3,
       "runAsRequiredPercentage": 50,
@@ -29621,8 +29622,7 @@
           "nextPathStartDown": false,
           "startDate": "2018-07-01T00:00:00"
         }
-      ],
-      "startDate": "2018-07-01T00:00:00"
+      ]
     }
   ],
   "startDate": "2018-07-01T00:00:00"

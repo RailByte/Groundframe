@@ -70,5 +70,14 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTableCollection
             Assert.Equal(TestTimeTableCollection.StartDate, JSONWTTTTimeTableCollection.StartDate);
             Assert.Equal(TestTimeTableCollection.Count, JSONWTTTTimeTableCollection.Count);
         }
+
+        /// <summary>
+        /// Check the Start Date property is read only
+        /// </summary>
+        [Fact]
+        public void WTTTimeTableCollection_Property_StartDate()
+        {
+            Assert.False(typeof(GroundFrame.Classes.Timetables.WTTTimeTableCollection).GetProperty("StartDate").CanWrite);
+        }
     }
 }

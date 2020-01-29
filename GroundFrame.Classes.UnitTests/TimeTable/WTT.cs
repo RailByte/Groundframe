@@ -14,7 +14,7 @@ namespace GroundFrame.Classes.UnitTests.WTT
         /// Check instantiating a new WTT from JSON
         /// </summary>
         [Fact]
-        public void WTTTrainCategory_Constructor_JSON()
+        public void WTT_Constructor_JSON()
         {
             //Get XElement from test .xml
             string TestJSONPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.json";
@@ -23,13 +23,14 @@ namespace GroundFrame.Classes.UnitTests.WTT
             Assert.Equal("Royston Weekday July 2018 Timetable", TestWTT.Header.Name);
             Assert.Equal(3, TestWTT.TrainCategories.Count);
             Assert.Equal(TestWTT.Header.UserSettings.ToJSON(), new UserSettingCollection().ToJSON());
+            //Assert.Equal(JSON, TestWTT.ToJSON());
         }
 
         /// <summary>
         /// Check instantiating a new WTT from JSON but with specific user settings
         /// </summary>
         [Fact]
-        public void WTTTrainCategory_Constructor_JSONSpecificUserSettings()
+        public void WTT_Constructor_JSONSpecificUserSettings()
         {
             //Get XElement from test .xml
             string TestJSONPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.json";
@@ -71,7 +72,7 @@ namespace GroundFrame.Classes.UnitTests.WTT
         /// Check instantiating a new WTT from a File
         /// </summary>
         [Fact]
-        public void WTTTrainCategory_Constructor_FileInfo()
+        public void WTT_Constructor_FileInfo()
         {
             //Get XElement from test .xml
             string TestFilePath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.WTT";
@@ -86,7 +87,7 @@ namespace GroundFrame.Classes.UnitTests.WTT
         /// Check instantiating a new WTT from a File With Date
         /// </summary>
         [Fact]
-        public void WTTTrainCategory_Constructor_FileInfoWithDate()
+        public void WTT_Constructor_FileInfoWithDate()
         {
             //Get XElement from test .xml
             string TestFilePath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.WTT";
@@ -101,7 +102,7 @@ namespace GroundFrame.Classes.UnitTests.WTT
         /// Check instantiating a new WTT from non JSON file
         /// </summary>
         [Fact]
-        public void WTTTrainCategory_Constructor_JSONInvalidJSON()
+        public void WTT_Constructor_JSONInvalidJSON()
         {
             //Get JSON from .json file
             string TestJSONPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.xml";
@@ -113,7 +114,7 @@ namespace GroundFrame.Classes.UnitTests.WTT
         /// Check generating JSON matches the expected output
         /// </summary>
         [Fact]
-        public void WTTTrainCategory_Method_ToJSON()
+        public void WTT_Method_ToJSON()
         {
             //Create WTT From test .WTT file
             string TestFilePath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.WTT";
@@ -125,7 +126,7 @@ namespace GroundFrame.Classes.UnitTests.WTT
             string ComparisonJSONPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.json";
             string ComparisonJSON = File.ReadAllText(ComparisonJSONPath);
 
-            Assert.Equal(ComparisonJSON, TestJSON);
+            Assert.True(TestJSON.Equals(ComparisonJSON));
         }
     }
 }

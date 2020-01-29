@@ -121,6 +121,26 @@ namespace GroundFrame.Classes.Timetables
         }
 
         /// <summary>
+        /// Instantiates a WTTTripCollection object from WTTTripCollectionSurrogate object
+        /// </summary>
+        /// <param name="SurrogateWTTTripCollection">The source WTTTripCollectionSurrogate object</param>
+        /// <param name="UserSettings">The user settings+/param>
+        internal WTTTripCollection(WTTTripCollectionSurrogate SurrogateWTTTripCollection, UserSettingCollection UserSettings)
+        {
+            this._UserSettings = UserSettings ?? new UserSettingCollection();
+            this._StartDate = SurrogateWTTTripCollection.StartDate;
+
+            if (SurrogateWTTTripCollection.Trips != null)
+            {
+                this._Trips = new List<WTTTrip>();
+                foreach (WTTTrip Trip in this._Trips)
+                {
+                    this._Trips.Add(Trip);
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets the total number of versions in the collection
         /// </summary>
         public int Count { get { return this._Trips.Count; } }
@@ -138,7 +158,7 @@ namespace GroundFrame.Classes.Timetables
             //JSON argument will already have been validated in the constructor
             try
             {
-                WTTTripCollection Temp = JsonConvert.DeserializeObject<WTTTripCollection>(JSON, new WTTTripCollectionConverter());
+                WTTTripCollection Temp = JsonConvert.DeserializeObject<WTTTripCollection>(JSON, new WTTTripCollectionConverter(this.UserSettings));
                 this._StartDate = Temp.StartDate;
                 this._Trips = Temp.ToList();
             }
@@ -193,12 +213,25 @@ namespace GroundFrame.Classes.Timetables
         }
 
         /// <summary>
+        /// Converts this WTTTripCollection object to a WTTTripCollectionSurrogate object
+        /// </summary>
+        /// <returns></returns>
+        internal WTTTripCollectionSurrogate ToWTTTripCollectionSurrogate()
+        {
+            return new WTTTripCollectionSurrogate
+            {
+                StartDate = this._StartDate,
+                Trips = this._Trips
+            };
+        }
+
+        /// <summary>
         /// Gets a JSON string that represents the UserSetting Collection
         /// </summary>
         /// <returns></returns>
         public string ToJSON()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented, new WTTTripCollectionConverter());
+            return JsonConvert.SerializeObject(this, Formatting.Indented, new WTTTripCollectionConverter(this.UserSettings));
         }
 
         private UserSettingCollection GetSimulationUserSettings()

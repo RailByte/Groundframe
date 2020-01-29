@@ -8,6 +8,9 @@ using Newtonsoft.Json;
 
 namespace GroundFrame.Classes.Timetables
 {
+    /// <summary>
+    /// A class that represents a single train service
+    /// </summary>
     public class WTTTimeTable
     {
         #region Constants
@@ -22,6 +25,14 @@ namespace GroundFrame.Classes.Timetables
         #endregion Private Variables
 
         #region Properties
+
+        /// <summary>
+        /// Gets the start date
+        /// </summary>
+        [JsonProperty("startDate")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
+        public DateTime StartDate { get { return this._StartDate; } }
+
         /// <summary>
         /// Gets or sets the Timetable Headcode
         /// </summary>
@@ -137,13 +148,6 @@ namespace GroundFrame.Classes.Timetables
         [JsonIgnore]
         public UserSettingCollection UserSettings { get { return this.GetSimulationUserSettings(); } }
 
-        /// <summary>
-        /// Gets the start date
-        /// </summary>
-        [JsonProperty("startDate")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
-        public DateTime StartDate { get { return this._StartDate; } set { this._StartDate = value; } }
-
         #endregion Properties
 
         #region Constructors
@@ -153,7 +157,7 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         [JsonConstructor]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
-        private WTTTimeTable(DateTime StartDate)
+        internal WTTTimeTable(DateTime StartDate)
         {
             this._StartDate = StartDate;
         }
@@ -193,11 +197,71 @@ namespace GroundFrame.Classes.Timetables
             this.PopulateFromJSON(JSON);
         }
 
+        /// <summary>
+        /// Instantiates a new WTTTimeTable object from a WTTTimeTableSurrogate object
+        /// </summary>
+        /// <param name="SurrogateWTTTimeTable">The source WTTTimeTableSurrogate object</param>
+        /// <param name="UserSettings">The user settings</param>
+        internal WTTTimeTable(WTTTimeTableSurrogate SurrogateWTTTimeTable, UserSettingCollection UserSettings)
+        {
+            this._UserSettings = UserSettings ?? new UserSettingCollection();
+            this.ParseSurrogateWTTTimeTable(SurrogateWTTTimeTable);
+        }
+
         #endregion Constructors
 
         #region Methods
 
-        //Parses the Run As Required Percentage argument
+        /// <summary>
+        /// Parses a WTTTimwTableSurrogate object into a WTTTimeTable Object
+        /// </summary>
+        /// <param name="SurrogateWTTTimeTable">The source WTTTimwTableSurrogate object</param>
+        private void ParseSurrogateWTTTimeTable(WTTTimeTableSurrogate SurrogateWTTTimeTable)
+        {
+            this._StartDate = SurrogateWTTTimeTable.StartDate;
+            this.Headcode = SurrogateWTTTimeTable.Headcode;
+            this.AccelBrakeIndex = SurrogateWTTTimeTable.AccelBrakeIndex;
+            this.RunAsRequiredPercentage = SurrogateWTTTimeTable.RunAsRequiredPercentage;
+
+            if (SurrogateWTTTimeTable.Delay != null)
+            {
+                this.Delay = new WTTDuration(SurrogateWTTTimeTable.Delay.Seconds, this._UserSettings);
+            }
+
+            if (SurrogateWTTTimeTable.DepartTime != null)
+            {
+                this.DepartTime = new WTTTime(SurrogateWTTTimeTable.DepartTime.Seconds, this._UserSettings);
+            }
+
+            this.Description = SurrogateWTTTimeTable.Description;
+
+            if (SurrogateWTTTimeTable.SeedingGap != null)
+            {
+                this.SeedingGap = new WTTDuration(SurrogateWTTTimeTable.SeedingGap.Seconds, this._UserSettings);
+            }
+
+            this.EntryPoint = SurrogateWTTTimeTable.EntryPoint;
+            this.ActualEntryPoint = SurrogateWTTTimeTable.ActualEntryPoint;
+            this.MaxSpeed = SurrogateWTTTimeTable.MaxSpeed;
+            this.SpeedClass = SurrogateWTTTimeTable.SpeedClass;
+            this.Started = SurrogateWTTTimeTable.Started;
+            this.TrainLength = SurrogateWTTTimeTable.TrainLength;
+            this.Electrification = SurrogateWTTTimeTable.Electrification;
+            this.RunAsRequiredTested = SurrogateWTTTimeTable.RunAsRequiredTested;
+            this.StartTraction = SurrogateWTTTimeTable.StartTraction;
+            this.SimSigTrainCategoryID = SurrogateWTTTimeTable.SimSigTrainCategoryID;
+            this.Trip = new WTTTripCollection(SurrogateWTTTimeTable.StartDate);
+
+            foreach (WTTTrip Trip in SurrogateWTTTimeTable.Trip.ToList())
+            {
+                this.Trip.Add(new WTTTrip(Trip.ToSurrogateWTTTrip(), this._UserSettings));
+            }
+        }
+
+        /// <summary>
+        /// Parses the Run As Required Percentage argument
+        /// </summary>
+        /// <param name="Percentage">The Run as Required Percentage</param>
         private void ParseRunAsRequiredPercentage (int Percentage)
         {
             ArgumentValidation.ValidatePercentage(Percentage, UserSettingHelper.GetCultureInfo(this.UserSettings));
@@ -267,7 +331,26 @@ namespace GroundFrame.Classes.Timetables
             //JSON argument will already have been validated in the constructor
             try
             {
-                JsonConvert.PopulateObject(JSON, this, new JsonSerializerSettings { ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor });
+                WTTTimeTable TempTimeTable = JsonConvert.DeserializeObject<WTTTimeTable>(JSON, new JsonConverter[] { new WTTTimeTableConverter(this.UserSettings), new WTTTripCollectionConverter(this._UserSettings)} );
+                this._StartDate = TempTimeTable.StartDate;
+                this.Headcode = TempTimeTable.Headcode;
+                this.AccelBrakeIndex = TempTimeTable.AccelBrakeIndex;
+                this.RunAsRequiredPercentage = TempTimeTable.RunAsRequiredPercentage;
+                this.Delay = TempTimeTable.Delay;
+                this.DepartTime = TempTimeTable.DepartTime;
+                this.Description = TempTimeTable.Description;
+                this.SeedingGap = TempTimeTable.SeedingGap;
+                this.EntryPoint = TempTimeTable.EntryPoint;
+                this.ActualEntryPoint = TempTimeTable.ActualEntryPoint;
+                this.MaxSpeed = TempTimeTable.MaxSpeed;
+                this.SpeedClass = TempTimeTable.SpeedClass;
+                this.Started = TempTimeTable.Started;
+                this.TrainLength = TempTimeTable.TrainLength;
+                this.Electrification = TempTimeTable.Electrification;
+                this.RunAsRequiredTested = TempTimeTable.RunAsRequiredTested;
+                this.StartTraction = TempTimeTable.StartTraction;
+                this.SimSigTrainCategoryID = TempTimeTable.SimSigTrainCategoryID;
+                this.Trip = TempTimeTable.Trip;
             }
             catch (Exception Ex)
             {
@@ -281,7 +364,37 @@ namespace GroundFrame.Classes.Timetables
         /// <returns></returns>
         public string ToJSON()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.Indented, new WTTTimeTableConverter(this.UserSettings));
+        }
+
+        /// <summary>
+        /// Converts the WTTTimeTable object to a WTTTimeTableSurrogate object
+        /// </summary>
+        /// <returns>WTTTimeTableSurrogate</returns>
+        internal WTTTimeTableSurrogate ToSurrogateWTTTimeTable()
+        {
+            return new WTTTimeTableSurrogate
+            {
+                Headcode = this.Headcode,
+                AccelBrakeIndex = this.AccelBrakeIndex,
+                RunAsRequiredPercentage = this.RunAsRequiredPercentage,
+                Delay = this.Delay,
+                DepartTime = this.DepartTime,
+                Description = this.Description,
+                SeedingGap = this.SeedingGap,
+                EntryPoint = this.EntryPoint,
+                ActualEntryPoint = this.ActualEntryPoint,
+                MaxSpeed = this.MaxSpeed,
+                SpeedClass = this.SpeedClass,
+                Started = this.Started,
+                TrainLength = this.TrainLength,
+                Electrification = this.Electrification,
+                RunAsRequiredTested = this.RunAsRequiredTested,
+                StartTraction = this.StartTraction,
+                SimSigTrainCategoryID = this.SimSigTrainCategoryID,
+                Trip = this.Trip,
+                StartDate = this.StartDate
+            };
         }
 
         /// <summary>

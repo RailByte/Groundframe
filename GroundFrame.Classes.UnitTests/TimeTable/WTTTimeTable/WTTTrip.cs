@@ -120,7 +120,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTable
         /// Check instantiating a new WTTTrip object from a JSON string
         /// </summary>
         [Fact]
-        public void WTTTrip_Prop_JSON()
+        public void WTTTrip_Constructor_JSON()
         {
             //Get XElement from test .xml
             string TestXMLPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.xml";
@@ -133,6 +133,15 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTable
             GroundFrame.Classes.Timetables.WTTTrip TestJSONTrip = new Classes.Timetables.WTTTrip(TestJSON, new UserSettingCollection());
             Assert.Equal(TestTrip.ToString(), TestJSONTrip.ToString());
             Assert.Equal(TestTrip.StartDate, TestJSONTrip.StartDate);
+        }
+
+        /// <summary>
+        /// Check the Start Date property is read only
+        /// </summary>
+        [Fact]
+        public void WTTTrip_Property_StartDate()
+        {
+            Assert.False(typeof(GroundFrame.Classes.Timetables.WTTTrip).GetProperty("StartDate").CanWrite);
         }
 
         /// <summary>

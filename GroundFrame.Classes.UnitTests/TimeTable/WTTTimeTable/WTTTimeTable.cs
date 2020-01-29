@@ -87,6 +87,8 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTable
             GroundFrame.Classes.Timetables.WTTTimeTable TestJSONTimeTable = new Timetables.WTTTimeTable(TestJSON, new UserSettingCollection());
             Assert.Equal(TestTimeTable.ToString(), TestJSONTimeTable.ToString());
             Assert.Equal(TestTimeTable.StartDate, TestJSONTimeTable.StartDate);
+            Assert.Equal(TestTimeTable.Trip.IndexOf(0).StartDate, TestJSONTimeTable.Trip.IndexOf(0).StartDate);
+            Assert.Equal(TestTimeTable.Trip.IndexOf(0).ToJSON(), TestJSONTimeTable.Trip.IndexOf(0).ToJSON());
         }
 
         /// <summary>
@@ -107,6 +109,15 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTable
         {
             string JSON = "Invalid JSON";
             Assert.Throws<FormatException>(() => new GroundFrame.Classes.Timetables.WTTTimeTable(JSON, new UserSettingCollection()));
+        }
+
+        /// <summary>
+        /// Check the Start Date property is read only
+        /// </summary>
+        [Fact]
+        public void WTTTimeTable_Property_StartDate()
+        {
+            Assert.False(typeof(GroundFrame.Classes.Timetables.WTTTimeTable).GetProperty("StartDate").CanWrite);
         }
 
         #endregion Methods
