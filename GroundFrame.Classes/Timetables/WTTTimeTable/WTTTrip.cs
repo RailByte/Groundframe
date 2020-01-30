@@ -72,6 +72,13 @@ namespace GroundFrame.Classes.Timetables
         [JsonProperty("nextPathStartDown")]
         public bool NextPathStartDown { get; set; }
 
+
+        /// <summary>
+        /// Gets or sets the activities associated with this trip
+        /// </summary>
+        [JsonProperty("activities")]
+        public WTTActivityCollection Activities { get; set; }
+
         /// <summary>
         /// Gets the start date
         /// </summary>
@@ -169,6 +176,7 @@ namespace GroundFrame.Classes.Timetables
             this.DownDirection = SurrogateTrip.DownDirection;
             this.PrevPathEndDown = SurrogateTrip.PrevPathEndDown;
             this.NextPathStartDown = SurrogateTrip.NextPathStartDown;
+            this.Activities = SurrogateTrip.Activities;
         }
 
         /// <summary>
@@ -187,7 +195,8 @@ namespace GroundFrame.Classes.Timetables
                 DownDirection = this.DownDirection,
                 PrevPathEndDown = this.PrevPathEndDown,
                 NextPathStartDown = this.NextPathStartDown,
-                StartDate = this.StartDate
+                StartDate = this.StartDate,
+                Activities = this.Activities
             };
         }
 
@@ -209,6 +218,14 @@ namespace GroundFrame.Classes.Timetables
                 this.DownDirection = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"DownDirection", Culture, 0));
                 this.PrevPathEndDown = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"PrevPathEndDown", Culture, 0));
                 this.NextPathStartDown = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"NextPathStartown", Culture, 0));
+
+                //Parse Activties
+
+                if (WTTTripXML.Element("Activities") != null)
+                {
+                    this.Activities = new WTTActivityCollection(WTTTripXML.Element("Activities"), this.StartDate, this.UserSettings);
+                    this.Activities.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
+                }
             }
             catch (Exception Ex)
             {

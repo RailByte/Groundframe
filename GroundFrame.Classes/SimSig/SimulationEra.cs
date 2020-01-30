@@ -10,9 +10,14 @@ using System.Text;
 
 namespace GroundFrame.Classes.SimSig
 {
+    /// <summary>
+    /// Enum representing the different types of eras avialable
+    /// </summary>
     public enum EraType
     {
+        /// <summary>A standard era used by publicly visible era</summary>
         WTT = 1,
+        /// <summary>A default era, not publicly visible but can be used as a template from which to generate new WTT era templates</summary>
         Template = 2
     }
 
@@ -67,7 +72,8 @@ namespace GroundFrame.Classes.SimSig
         /// <summary>
         /// Instantiates a Simulation Era object from the supplied SqlDataReader object
         /// </summary>
-        /// <param name="DataReader"></param>
+        /// <param name="DataReader">The SqlDataReader object</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         public SimulationEra(SqlDataReader DataReader, string Culture)
         {
             this._Culture = new CultureInfo(Culture);
@@ -80,10 +86,12 @@ namespace GroundFrame.Classes.SimSig
         /// <summary>
         /// Instantiates a Simulation Era object for the supplied arguements
         /// </summary>
-        /// <param name="Simulation"></param>
-        /// <param name="Type"></param>
-        /// <param name="Name"></param>
-        /// <param name="Description"></param>
+        /// <param name="Simulation">The simulation to which the era belongs</param>
+        /// <param name="Type">The era type</param>
+        /// <param name="Name">The era name</param>
+        /// <param name="Description">The era decription</param>
+        /// <param name="SQLConnector">A GFSqlConnector object representing a connection to the GroundFrame.SQL database</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         public SimulationEra(Simulation Simulation, EraType Type, string Name, string Description, GFSqlConnector SQLConnector, string Culture = "en-GB")
         {
             //Load Resources
@@ -126,7 +134,7 @@ namespace GroundFrame.Classes.SimSig
         /// <summary>
         /// Loads resources needed by the class
         /// </summary>
-        /// <param name="Culture"></param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         private void LoadResource(string Culture)
         {
             //Get Exception Message Resources
@@ -204,6 +212,10 @@ namespace GroundFrame.Classes.SimSig
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Protect implementation of the Dispose Pattern
+        /// </summary>
+        /// <param name="disposing">Indivates whether the SimulationEra object is being disposed</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing == true)
@@ -214,15 +226,6 @@ namespace GroundFrame.Classes.SimSig
             {
                 this._SQLConnector.Dispose();
             }
-        }
-
-        ~SimulationEra()
-        {
-            // The object went out of scope and finalized is called
-            // Lets call dispose in to release unmanaged resources 
-            // the managed resources will anyways be released when GC 
-            // runs the next time.
-            Dispose(false);
         }
 
         #endregion Methods  

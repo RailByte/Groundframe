@@ -5,6 +5,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Globalization;
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace GroundFrame.Classes.Timetables
 {
@@ -36,6 +37,7 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Gets or sets the Timetable Headcode
         /// </summary>
+        [Key]
         [JsonProperty("headcode")]
         public string Headcode { get; set; }
 

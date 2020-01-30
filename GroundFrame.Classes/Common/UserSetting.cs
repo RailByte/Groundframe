@@ -58,11 +58,11 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Instantiates a user setting from the supplied arguments
         /// </summary>
-        /// <param name="Key"></param>
-        /// <param name="Description"></param>
-        /// <param name="Value"></param>
-        /// <param name="DefaultValue"></param>
-        /// <param name="DataTypeName"></param>
+        /// <param name="Key">The setting key</param>
+        /// <param name="Description">The setting description</param>
+        /// <param name="Value">The setting value</param>
+        /// <param name="DataTypeName">The data type of the setting expressed as a .net full name (e.g. "system.string")</param>
+        /// <param name="SQLConnector">A GFSqlConnector object representing a connection to the GroundFrame.SQL database</param>
         public UserSetting (string Key, string Description, string Value, string DataTypeName, GFSqlConnector SQLConnector)
         {
             //Set the culture
@@ -94,6 +94,7 @@ namespace GroundFrame.Classes
         }
 
         [JsonConstructor]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
         private UserSetting(string Key, string Description, object Value, string DataTypeName)
         {
             this._Key = Key;

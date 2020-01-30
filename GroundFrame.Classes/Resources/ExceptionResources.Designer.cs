@@ -385,6 +385,24 @@ namespace GroundFrame.Classes.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error has occured trying to parse the Activity collection from the supplied JSON string.
+        /// </summary>
+        internal static string ParseWTTActivityCollectionJSONError {
+            get {
+                return ResourceManager.GetString("ParseWTTActivityCollectionJSONError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occured trying to parse the Activity from the supplied JSON string.
+        /// </summary>
+        internal static string ParseWTTActivityJSONError {
+            get {
+                return ResourceManager.GetString("ParseWTTActivityJSONError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot Parse the WTT Header from the Source SimSig WTT XML.
         /// </summary>
         internal static string ParseWTTHeaderException {

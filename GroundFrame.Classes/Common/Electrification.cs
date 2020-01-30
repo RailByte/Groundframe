@@ -85,7 +85,7 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Instantiates a WTTElectrification object from the supplied SimSig code
         /// </summary>
-        /// <param name="SimSimCode"></param>
+        /// <param name="SimSigCode">A string representing the available types of electrification</param>
         public Electrification(string SimSigCode, string Culture = "en-GB")
         {
             this._Culture = new CultureInfo(Culture);

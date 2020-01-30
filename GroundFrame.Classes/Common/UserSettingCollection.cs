@@ -28,6 +28,10 @@ namespace GroundFrame.Classes
         #endregion Private Variables
 
         #region Properties
+        /// <summary>
+        /// Gets the user setting collection
+        /// </summary>
+        /// <returns>An IEnumerator of the user settings</returns>
         public IEnumerator<UserSetting> GetEnumerator() { return this._UserSettings.GetEnumerator(); }
 
         #endregion Properties
@@ -37,7 +41,6 @@ namespace GroundFrame.Classes
         /// Instantiates a UserSettingCollection object the supplied GroundFrame.SQL Connection
         /// </summary>
         /// <param name="SQLConnector">A SQL Connector the GroundFrame.SQL database</param>
-        /// <param name="CultureName">The name of the user's preferred culture. If an empty string supplied en-GB will be used</param>
         public UserSettingCollection(GFSqlConnector SQLConnector)
         {
             this._Culture = new CultureInfo("en-GB");
@@ -102,6 +105,10 @@ namespace GroundFrame.Classes
             this._UserSettings = JsonConvert.DeserializeObject<List<UserSetting>>(JSON);
         }
 
+        /// <summary>
+        /// Returns the collection Enumerator
+        /// </summary>
+        /// <returns>An Enumerator representing the collection of user settings</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
@@ -124,6 +131,17 @@ namespace GroundFrame.Classes
         public object GetValueByKey(string Key)
         {
             return this._UserSettings.Where(s => s.Key == Key).First().Value;
+        }
+
+        /// <summary>
+        /// Gets the users culture
+        /// </summary>
+        /// <returns>Returns a CultureInfo representing the users culure preference</returns>
+        public CultureInfo GetCultureInfo()
+        {
+            string CultureName = GetValueByKey("CULTURE").ToString();
+
+            return new CultureInfo(string.IsNullOrEmpty(CultureName) ? "en-GB" : CultureName);
         }
 
 
@@ -172,7 +190,7 @@ namespace GroundFrame.Classes
         }
 
         /// <summary>
-        /// Disposes the VersionCollection object
+        /// Disposes the UserSettingCollection object
         /// </summary>
         public void Dispose()
         {
@@ -185,6 +203,10 @@ namespace GroundFrame.Classes
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Protect implementation of the Dispose Pattern
+        /// </summary>
+        /// <param name="disposing">Indivates whether the UserSettingCollection object is being disposed</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing == true)
@@ -198,15 +220,6 @@ namespace GroundFrame.Classes
                     this._SQLConnector.Dispose();
                 }
             }
-        }
-
-        ~UserSettingCollection()
-        {
-            // The object went out of scope and finalized is called
-            // Lets call dispose in to release unmanaged resources 
-            // the managed resources will anyways be released when GC 
-            // runs the next time.
-            Dispose(false);
         }
 
         #endregion Methods

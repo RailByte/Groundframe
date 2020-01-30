@@ -91,6 +91,15 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTable
             {
                 Assert.Equal(Convert.ToBoolean(Convert.ToInt32(XMLTestTrip.Element("NextPathStartDown").Value.ToString())), TestTrip.NextPathStartDown);
             }
+
+            if (XMLTestTrip.Element("Activites") == null)
+            {
+                Assert.Null(TestTrip.Activities);
+            }
+            else
+            {
+                Assert.Equal(XMLTestTrip.Element("Activites").Descendants("Activity").Count(), TestTrip.Activities.Count());
+            }
         }
 
         /// <summary>

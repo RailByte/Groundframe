@@ -29,6 +29,10 @@ namespace GroundFrame.Classes.Timetables
 
         #endregion Private Variables
 
+        /// <summary>
+        /// Gets the WTTTimeTableCollection enumerator
+        /// </summary>
+        /// <returns></returns>
         #region Properties
         public IEnumerator<WTTTimeTable> GetEnumerator() { return this._TimeTables.GetEnumerator(); }
 
@@ -182,6 +186,16 @@ namespace GroundFrame.Classes.Timetables
                 this._TimeTables = new List<WTTTimeTable>();
             }
             this._TimeTables.Add(TimeTable);
+        }
+
+        /// <summary>
+        /// Returns a list of WTTTimetables with the supplied headcode
+        /// </summary>
+        /// <param name="Headcode">The headcode to search</param>
+        /// <returns>A list of WTTTimetable objects with the matching headcode</returns>
+        public List<WTTTimeTable> GetByHeadCode(string Headcode)
+        {
+            return this._TimeTables.Where(h => string.Equals(h.Headcode, Headcode, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
         /// <summary>

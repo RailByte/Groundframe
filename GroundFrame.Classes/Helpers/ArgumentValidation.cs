@@ -17,7 +17,8 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Validates the Half Minute Character as a string argument
         /// </summary>
-        /// <param name="HalfMinuteCharacter"></param>
+        /// <param name="HalfMinuteCharacter">The half minute character to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         internal static void ValidateHalfMinute(string HalfMinuteCharacter, CultureInfo Culture)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
@@ -38,7 +39,8 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Validates a WTT Start Date argument
         /// </summary>
-        /// <param name="WTTStartDate"></param>
+        /// <param name="WTTStartDate">The WTT Start Date to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         internal static void ValidateWTTStartDate(DateTime WTTStartDate, CultureInfo Culture)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
@@ -53,6 +55,7 @@ namespace GroundFrame.Classes
         /// Validates a JSON string
         /// </summary>
         /// <param name="JSON">The JSON string to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         internal static void ValidateJSON(string JSON, CultureInfo Culture)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
@@ -75,7 +78,7 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Validates a UserSettingCollection argument
         /// </summary>
-        /// <param name="UserSettings"></param>
+        /// <param name="UserSettings">The UserSettingCollection to validate</param>
         internal static void ValidateUserSettings(UserSettingCollection UserSettings)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
@@ -91,7 +94,7 @@ namespace GroundFrame.Classes
         /// Validates a Perentage to ensure it's between 0 and 100
         /// </summary>
         /// <param name="Percentage">The percentage to validate</param>
-        /// <param name="Culture">The culture in which any error message should be returned</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         internal static void ValidatePercentage(int Percentage, CultureInfo Culture)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
@@ -107,7 +110,7 @@ namespace GroundFrame.Classes
         /// Validates a FileName to ensure the file exists
         /// </summary>
         /// <param name="FileName">The path to the file to validate</param>
-        /// <param name="Culture">The culture in which any error message should be returned</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         internal static void ValidateFilename(FileInfo FileName, CultureInfo Culture)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
@@ -127,6 +130,8 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Validates the Half Minute Character as a ASCII character argument
         /// </summary>
+        /// <param name="ASCII">The ASCII character to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         internal static void ValidateHalfMinute(int ASCII, CultureInfo Culture)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
@@ -142,7 +147,8 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Valudates the seconds argument
         /// </summary>
-        /// <param name="Seconds"></param>
+        /// <param name="Seconds">The number of seconds to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         internal static void ValidateSeconds(int Seconds, CultureInfo Culture)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
@@ -155,9 +161,10 @@ namespace GroundFrame.Classes
         }
 
         /// <summary>
-        /// Valudates the delimiter argument
+        /// Validates the delimiter argument
         /// </summary>
-        /// <param name="Seconds"></param>
+        /// <param name="Delimiter">The time delimiter to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         internal static void ValidateDelimiter(string Delimiter, CultureInfo Culture)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
@@ -178,6 +185,7 @@ namespace GroundFrame.Classes
         /// Validates the SqlDataReader argument
         /// </summary>
         /// <param name="DataReader">The SqlDataReader object to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         internal static void ValidateSqlDataReader(SqlDataReader DataReader, CultureInfo Culture)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
@@ -191,7 +199,8 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Validates the SqlDataReader argument
         /// </summary>
-        /// <param name="DataReader">The SqlDataReader object to validate</param>
+        /// <param name="SQLConnector">The GFSqlConnector object to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         internal static void ValidateSQLConnector(GFSqlConnector SQLConnector, CultureInfo Culture)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
@@ -203,9 +212,11 @@ namespace GroundFrame.Classes
         }
 
         /// <summary>
-        /// Validates the SqlDataReader argument
+        /// Validates the Name argument
         /// </summary>
-        /// <param name="DataReader">The SqlDataReader object to validate</param>
+        /// <param name="Name">The name string to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
+        /// <param name="MaxLength">The allowable max length of the name. Default is zero. If zero then there is no limiation on length</param>      
         internal static void ValidateName(string Name, CultureInfo Culture, int MaxLength = 0)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
@@ -224,7 +235,9 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Validates the SimSig Code argument
         /// </summary>
-        /// <param name="SimSigCode">The SimSig Code to validate</param>
+        /// <param name="SimSigCode">The SimSig code to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
+        /// <param name="MaxLength">The allowable max length of the SimSig code. Default is zero. If zero then there is no limiation on length</param>  
         internal static void ValidateSimSigCode(string SimSigCode, CultureInfo Culture, int MaxLength = 0)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
@@ -243,7 +256,8 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Validates the Meters argument
         /// </summary>
-        /// <param name="Meters">The SimSig Code to validate</param>
+        /// <param name="Meters">The number of meters to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         internal static void ValidateMeters(int Meters, CultureInfo Culture)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
@@ -255,9 +269,10 @@ namespace GroundFrame.Classes
         }
 
         /// <summary>
-        /// Validates the XML argument
+        /// Validates the XML (XElement) argument
         /// </summary>
-        /// <param name="XML">The XML to validate</param>
+        /// <param name="XML">The XML (XElemnt) to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         internal static void ValidateXElement(XElement XML, CultureInfo Culture)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
@@ -271,7 +286,8 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Validates the Simulation argument
         /// </summary>
-        /// <param name="XML">The Simulation to validate</param>
+        /// <param name="Simulation">The Simulation to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
         internal static void ValidateSimulation(Simulation Simulation, CultureInfo Culture)
         {
             ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Classes.Resources.ExceptionResources", Assembly.GetExecutingAssembly());

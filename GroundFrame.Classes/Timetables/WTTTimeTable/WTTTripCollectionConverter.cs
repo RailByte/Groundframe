@@ -43,7 +43,7 @@ namespace GroundFrame.Classes.Timetables
 
         #region Private Variables
 
-        UserSettingCollection _UserSettings; //Stores the user settings
+        private readonly UserSettingCollection _UserSettings; //Stores the user settings
 
         #endregion Private Variables
 
@@ -112,6 +112,11 @@ namespace GroundFrame.Classes.Timetables
             if (Writer == null)
             {
                 throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new string[] { "Writer" }, new System.Globalization.CultureInfo("en-GB")));
+            }
+
+            if (Value == null)
+            {
+                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new string[] { "Value" }, new System.Globalization.CultureInfo("en-GB")));
             }
 
             WTTTripCollection TripCollection = (WTTTripCollection)Value;

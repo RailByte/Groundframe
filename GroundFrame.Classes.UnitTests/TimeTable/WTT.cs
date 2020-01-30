@@ -81,6 +81,10 @@ namespace GroundFrame.Classes.UnitTests.WTT
             Assert.Equal("Royston Weekday July 2018 Timetable", TestWTT.Header.Name);
             Assert.Equal(3, TestWTT.TrainCategories.Count);
             Assert.Equal(new DateTime(1850, 1, 1), TestWTT.StartDate);
+
+            List<Classes.Timetables.WTTTimeTable> TimeTables = TestWTT.TimeTables.GetByHeadCode("1R48");
+            Classes.Timetables.WTTActivityCollection TestActivities = TimeTables[0].Trip.IndexOf(1).Activities;
+            Assert.Equal(1, TestActivities.Count);
         }
 
         /// <summary>
