@@ -21,7 +21,6 @@ namespace GroundFrame.Classes
         #region Private Variables
 
         private readonly int _Meters; //Stores the length in meters
-        private readonly CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
@@ -47,24 +46,13 @@ namespace GroundFrame.Classes
         #region Constructors
 
         /// <summary>
-        /// Default constructor which is used the Json Deserializer constru
-        /// </summary>
-        [JsonConstructor]
-        private Length()
-        {
-        }
-
-
-        /// <summary>
         /// Instantiates a new instance of a WTTLength from the supplied meters
         /// </summary>
         /// <param name="Meters">The length in meters</param>
-        public Length(int Meters, string Culture = "en-GB")
+        public Length(int Meters)
         {
-            this._Culture = new CultureInfo(Culture);
-
             //Validate arguments
-            ArgumentValidation.ValidateMeters(Meters, this._Culture);
+            ArgumentValidation.ValidateMeters(Meters, Globals.UserSettings.GetCultureInfo());
 
             this._Meters = Meters;
         }

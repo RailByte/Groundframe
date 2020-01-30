@@ -38,14 +38,6 @@ namespace GroundFrame.Classes.Timetables
         #region Constructor
 
         /// <summary>
-        /// Default constructor which is used the Json Deserializer constructor
-        /// </summary>
-        [JsonConstructor]
-        private WTTSpeedClass()
-        {
-        }
-
-        /// <summary>
         /// Instantiates a WTTSpeedClass object from the selected Bitwise
         /// </summary>
         /// <param name="Bitwise">The bitwise value representing the selected speed class values</param>
@@ -57,6 +49,15 @@ namespace GroundFrame.Classes.Timetables
         #endregion Constructor
 
         #region Methods
+
+        /// <summary>
+        /// Adds the supplied speedclass to the speed classes already captures as the logical bitwise
+        /// </summary>
+        /// <param name="SpeedClass">The speed class enum to add to the bitwise</param>
+        public void Add(WTTSpeedClassBitWise SpeedClass)
+        {
+            this._Bitwise += (int)SpeedClass;
+        }
 
         #endregion Methods
     }

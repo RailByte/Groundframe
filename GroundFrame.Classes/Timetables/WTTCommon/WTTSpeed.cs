@@ -42,14 +42,6 @@ namespace GroundFrame.Classes.Timetables
         #region Constructors
 
         /// <summary>
-        /// Default constructor which is used the Json Deserializer constructor
-        /// </summary>
-        [JsonConstructor]
-        private WTTSpeed()
-        {
-        }
-
-        /// <summary>
         /// Instantiates a WTTSpeed object from the the supplied MPH
         /// </summary>
         /// <param name="MPH">The Speed in MPH</param>

@@ -22,7 +22,6 @@ namespace GroundFrame.Classes.UnitTests.WTT
             Classes.Timetables.WTT TestWTT = new Classes.Timetables.WTT(JSON);
             Assert.Equal("Royston Weekday July 2018 Timetable", TestWTT.Header.Name);
             Assert.Equal(3, TestWTT.TrainCategories.Count);
-            string TestJSON = TestWTT.ToJSON();
             Assert.Equal(JSON, TestWTT.ToJSON());
         }
 

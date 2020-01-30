@@ -104,9 +104,11 @@ namespace GroundFrame.Classes.Timetables
         /// <param name="StartDate">The start date of the timetable (cannot be before 01/01/1850)</param>
         public WTT(FileInfo Filename, DateTime StartDate)
         {
+            CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
+
             //Validate Arguments
-            ArgumentValidation.ValidateFilename(Filename, Globals.UserSettings.GetCultureInfo());
-            ArgumentValidation.ValidateWTTStartDate(StartDate, Globals.UserSettings.GetCultureInfo());
+            ArgumentValidation.ValidateFilename(Filename, Culture);
+            ArgumentValidation.ValidateWTTStartDate(StartDate, Culture);
 
             this._StartDate = StartDate;
             this._SourceWTTFileName = Filename.FullName;

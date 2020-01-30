@@ -28,9 +28,6 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         /// <summary>
         /// Check instantiating a new WTTSpeed Class Correctly
         /// </summary>
-        /// <summary>
-        /// Checks that a WTTElectrification object returns the correct flags from the supplied SimSig code
-        /// </summary>
         [Theory]
         [InlineData(1, new WTTSpeedClassBitWise[] { WTTSpeedClassBitWise.EPSE })]
         [InlineData(12, new WTTSpeedClassBitWise[] { WTTSpeedClassBitWise.HST, WTTSpeedClassBitWise.EMU })]
@@ -39,6 +36,23 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
             GroundFrame.Classes.Timetables.WTTSpeedClass TestSpeedClass = new GroundFrame.Classes.Timetables.WTTSpeedClass(BitWise);
             Assert.Equal(BitWiseArray, TestSpeedClass.SpeedClassList.ToArray());
             Assert.Equal(BitWise, TestSpeedClass.Bitwise);
+        }
+
+        /// <summary>
+        /// Check that adding an additional WTTSpeedClassBitWise to a WTTSpeedClass returned the correct array of values
+        /// </summary>
+        [Theory]
+        [InlineData(1, new WTTSpeedClassBitWise[] { WTTSpeedClassBitWise.EPSE, WTTSpeedClassBitWise.DMU })]
+        [InlineData(12, new WTTSpeedClassBitWise[] { WTTSpeedClassBitWise.HST, WTTSpeedClassBitWise.EMU, WTTSpeedClassBitWise.DMU })]
+        public void WTTSpeed_Method_Add(int BitWise, WTTSpeedClassBitWise[] BitWiseArray)
+        {
+            GroundFrame.Classes.Timetables.WTTSpeedClass TestSpeedClass = new GroundFrame.Classes.Timetables.WTTSpeedClass(BitWise);
+
+            //Add DMU
+            TestSpeedClass.Add(WTTSpeedClassBitWise.DMU);
+            //Check DMU added
+            Assert.Equal(BitWiseArray, TestSpeedClass.SpeedClassList.ToArray());
+            
         }
 
         #endregion Methods

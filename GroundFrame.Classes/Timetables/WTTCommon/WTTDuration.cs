@@ -21,7 +21,6 @@ namespace GroundFrame.Classes.Timetables
         #region Private Variables
 
         private readonly int _Seconds; //Stores the number of seconds since midnight.
-        private readonly int _HalfMinuteCharacter; //Stores the character which represents a half minute.
         private readonly DateTime _WTTStartDate; //Stores the start date of the timetable.
 
         #endregion Private Variables
@@ -45,14 +44,6 @@ namespace GroundFrame.Classes.Timetables
         #region Constructors
 
         /// <summary>
-        /// Default constructor which is used the Json Deserializer constructor
-        /// </summary>
-        [JsonConstructor]
-        private WTTDuration()
-        {
-        }
-
-        /// <summary>
         /// Initialises a WTTDuration object. The WTT start date 1850-01-01
         /// </summary>
         /// <param name="Seconds">The number of seconds (can be negative)</param>
@@ -61,7 +52,6 @@ namespace GroundFrame.Classes.Timetables
             //Get Exception Messasge Resources
             this._Seconds = Seconds;
             this._WTTStartDate = new DateTime(1850, 1, 1);
-            this._HalfMinuteCharacter = Convert.ToInt32(Globals.UserSettings.GetValueByKey("TIMEHALFCHAR"), Globals.UserSettings.GetCultureInfo());
         }
 
         #endregion Constructors
