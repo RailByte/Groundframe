@@ -41,6 +41,7 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Gets the timetable start date
         /// </summary>
+        [JsonProperty("startDate")]
         public DateTime StartDate { get { return this._StartDate; } }
 
         #endregion Properties
@@ -134,22 +135,20 @@ namespace GroundFrame.Classes.Timetables
             if (SurrogateWTTTripCollection.Trips != null)
             {
                 this._Trips = new List<WTTTrip>();
-                foreach (WTTTrip Trip in this._Trips)
+                foreach (WTTTrip Trip in SurrogateWTTTripCollection.Trips)
                 {
                     this._Trips.Add(Trip);
                 }
             }
         }
+        #endregion Constructors
+
+        #region Methods
 
         /// <summary>
         /// Gets the total number of versions in the collection
         /// </summary>
         public int Count { get { return this._Trips.Count; } }
-
-        #endregion Constructors
-
-        #region Methods
-
         /// <summary>
         /// Populates the object from the supplied JSON
         /// </summary>

@@ -25,7 +25,6 @@ namespace GroundFrame.Classes.Timetables
         private List<WTTActivity> _Activities = new List<WTTActivity>(); //List to store all the activities
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private readonly UserSettingCollection _UserSettings; //Stores the culture info
-        private DateTime _StartDate; //Stores the WTT Start Date
 
         #endregion Private Variables
 
@@ -42,11 +41,6 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         [JsonIgnore]
         public UserSettingCollection UserSettings { get { return this.GetSimulationUserSettings(); } }
-
-        /// <summary>
-        /// Gets the timetable start date
-        /// </summary>
-        public DateTime StartDate { get { return this._StartDate; } }
 
         #endregion Properties
 
@@ -76,15 +70,13 @@ namespace GroundFrame.Classes.Timetables
         /// <param name="WTTActivitiesXML">The XML object representing the SimSig activity collection</param>
         /// <param name="StartDate">The start date of the timetable. Must be after 01/01/1850</param>
         /// <param name="UserSettings">The user settings</param>
-        public WTTActivityCollection(XElement WTTActivitiesXML, DateTime StartDate, UserSettingCollection UserSettings)
+        public WTTActivityCollection(XElement WTTActivitiesXML, UserSettingCollection UserSettings)
         {
             this._UserSettings = UserSettings ?? new UserSettingCollection();
             CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
             //Validate arguments
             ArgumentValidation.ValidateXElement(WTTActivitiesXML, Culture);
-            ArgumentValidation.ValidateWTTStartDate(StartDate, Culture);
 
-            this._StartDate = StartDate;
             this._Activities = new List<WTTActivity>();
             ParseWTTActivitysXML(WTTActivitiesXML);
         }
@@ -118,11 +110,8 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Instantiates a WTTActivityCollection object with the supplied start date. Used by the WTTActivityCollectionConverter class to convert JSON to WTTActivityCollection
         /// </summary>
-        /// <param name="StartDate"></param>
-        internal WTTActivityCollection(DateTime StartDate)
+        internal WTTActivityCollection()
         {
-            ArgumentValidation.ValidateWTTStartDate(StartDate, UserSettingHelper.GetCultureInfo(this.UserSettings));
-            this._StartDate = StartDate;
             this._Activities = new List<WTTActivity>();
         }
 
@@ -134,12 +123,11 @@ namespace GroundFrame.Classes.Timetables
         internal WTTActivityCollection(WTTActivityCollectionSurrogate SurrogateWTTActivityCollection, UserSettingCollection UserSettings)
         {
             this._UserSettings = UserSettings ?? new UserSettingCollection();
-            this._StartDate = SurrogateWTTActivityCollection.StartDate;
 
             if (SurrogateWTTActivityCollection.Activities != null)
             {
                 this._Activities = new List<WTTActivity>();
-                foreach (WTTActivity Activity in this._Activities)
+                foreach (WTTActivity Activity in SurrogateWTTActivityCollection.Activities)
                 {
                     this._Activities.Add(Activity);
                 }
@@ -165,7 +153,6 @@ namespace GroundFrame.Classes.Timetables
             try
             {
                 WTTActivityCollection Temp = JsonConvert.DeserializeObject<WTTActivityCollection>(JSON, new WTTActivityCollectionConverter(this.UserSettings));
-                this._StartDate = Temp.StartDate;
                 this._Activities = Temp.ToList();
             }
             catch (Exception Ex)
@@ -226,7 +213,6 @@ namespace GroundFrame.Classes.Timetables
         {
             return new WTTActivityCollectionSurrogate
             {
-                StartDate = this._StartDate,
                 Activities = this._Activities
             };
         }

@@ -61,7 +61,7 @@ namespace GroundFrame.Classes.Timetables
             this._UserSettings = UserSettings ?? new UserSettingCollection();
         }
 
-        #endregion Conrstructors
+        #endregion Constructors
 
         #region Methods
 
@@ -72,7 +72,7 @@ namespace GroundFrame.Classes.Timetables
         /// <returns></returns>
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(WTTTimeTableCollection);
+            return objectType == typeof(WTTTripCollection);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace GroundFrame.Classes.Timetables
         }
 
         /// <summary>
-        /// Override method to serialize a WTTTimeTableCollection object to a JSON string
+        /// Override method to serialize a WTTTripCollection object to a JSON string
         /// </summary>
         /// <returns></returns>
         public override void WriteJson(JsonWriter Writer, object Value, JsonSerializer Serializer)

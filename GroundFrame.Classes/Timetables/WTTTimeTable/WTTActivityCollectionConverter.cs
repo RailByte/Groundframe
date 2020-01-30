@@ -22,10 +22,6 @@ namespace GroundFrame.Classes.Timetables
         /// The list of activities
         /// </summary>
         public List<WTTActivity> Activities { get; set; }
-        /// <summary>
-        /// The timetable start date
-        /// </summary>
-        public DateTime StartDate { get; set; }
 
         #endregion Properties
 
@@ -72,7 +68,7 @@ namespace GroundFrame.Classes.Timetables
         /// <returns></returns>
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(WTTTimeTableCollection);
+            return objectType == typeof(WTTActivityCollection);
         }
 
         /// <summary>

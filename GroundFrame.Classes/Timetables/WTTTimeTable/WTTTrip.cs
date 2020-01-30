@@ -223,7 +223,7 @@ namespace GroundFrame.Classes.Timetables
 
                 if (WTTTripXML.Element("Activities") != null)
                 {
-                    this.Activities = new WTTActivityCollection(WTTTripXML.Element("Activities"), this.StartDate, this.UserSettings);
+                    this.Activities = new WTTActivityCollection(WTTTripXML.Element("Activities"), this.UserSettings);
                     this.Activities.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
                 }
             }

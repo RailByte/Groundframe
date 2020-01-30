@@ -333,7 +333,7 @@ namespace GroundFrame.Classes.Timetables
             //JSON argument will already have been validated in the constructor
             try
             {
-                WTTTimeTable TempTimeTable = JsonConvert.DeserializeObject<WTTTimeTable>(JSON, new JsonConverter[] { new WTTTimeTableConverter(this.UserSettings), new WTTTripCollectionConverter(this._UserSettings)} );
+                WTTTimeTable TempTimeTable = JsonConvert.DeserializeObject<WTTTimeTable>(JSON, new WTTTimeTableConverter(this.UserSettings));
                 this._StartDate = TempTimeTable.StartDate;
                 this.Headcode = TempTimeTable.Headcode;
                 this.AccelBrakeIndex = TempTimeTable.AccelBrakeIndex;
