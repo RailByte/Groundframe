@@ -58,9 +58,16 @@ namespace GroundFrame.Classes.Timetables
             List<WTTTimeTable> TimeTables = SurrogateTimeTableCollection.TimeTables;
             //Instantiate new WTTTimeTableCollection
             WTTTimeTableCollection TimeTableCollection  = new WTTTimeTableCollection(SurrogateTimeTableCollection.StartDate);
-            //Populate the timetables
+            //Populate the timetables and reseed WTTTripCollection Start Date
             foreach (WTTTimeTable TimeTable in TimeTables)
             {
+                WTTTripCollection UpdatedTripCollection = new WTTTripCollection(TimeTable.StartDate);
+                foreach (WTTTrip Trip in TimeTable.Trip)
+                {
+                    UpdatedTripCollection.Add(Trip);
+                }
+
+                TimeTable.Trip = UpdatedTripCollection;
                 TimeTableCollection.Add(TimeTable);
             }
                 

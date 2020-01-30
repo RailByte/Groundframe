@@ -66,6 +66,7 @@ namespace GroundFrame.Classes.UnitTests.WTT
             Assert.Equal(UserSettingTestWTT.Header.UserSettings.ToJSON(), SpecificUserSettings.ToJSON());
             Assert.Equal(UserSettingTestWTT.TimeTables.UserSettings.ToJSON(), SpecificUserSettings.ToJSON());
             Assert.Equal(UserSettingTestWTT.TimeTables.IndexOf(0).UserSettings.ToJSON(), SpecificUserSettings.ToJSON());
+            Assert.Equal(UserSettingTestWTT.TimeTables.IndexOf(0).Trip.UserSettings.ToJSON(), SpecificUserSettings.ToJSON());
         }
 
         /// <summary>

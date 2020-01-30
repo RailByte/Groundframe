@@ -208,6 +208,11 @@ namespace GroundFrame.Classes.Timetables
         {
             this._UserSettings = UserSettings ?? new UserSettingCollection();
             this.ParseSurrogateWTTTimeTable(SurrogateWTTTimeTable);
+
+            if (this.Trip != null)
+            {
+                this.Trip.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
+            }
         }
 
         #endregion Constructors
@@ -227,19 +232,19 @@ namespace GroundFrame.Classes.Timetables
 
             if (SurrogateWTTTimeTable.Delay != null)
             {
-                this.Delay = new WTTDuration(SurrogateWTTTimeTable.Delay.Seconds, this._UserSettings);
+                this.Delay = new WTTDuration(SurrogateWTTTimeTable.Delay.Seconds, this.UserSettings);
             }
 
             if (SurrogateWTTTimeTable.DepartTime != null)
             {
-                this.DepartTime = new WTTTime(SurrogateWTTTimeTable.DepartTime.Seconds, this._UserSettings);
+                this.DepartTime = new WTTTime(SurrogateWTTTimeTable.DepartTime.Seconds, this.UserSettings);
             }
 
             this.Description = SurrogateWTTTimeTable.Description;
 
             if (SurrogateWTTTimeTable.SeedingGap != null)
             {
-                this.SeedingGap = new WTTDuration(SurrogateWTTTimeTable.SeedingGap.Seconds, this._UserSettings);
+                this.SeedingGap = new WTTDuration(SurrogateWTTTimeTable.SeedingGap.Seconds, this.UserSettings);
             }
 
             this.EntryPoint = SurrogateWTTTimeTable.EntryPoint;
@@ -253,10 +258,11 @@ namespace GroundFrame.Classes.Timetables
             this.StartTraction = SurrogateWTTTimeTable.StartTraction;
             this.SimSigTrainCategoryID = SurrogateWTTTimeTable.SimSigTrainCategoryID;
             this.Trip = new WTTTripCollection(SurrogateWTTTimeTable.StartDate);
+            this.Trip.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
 
             foreach (WTTTrip Trip in SurrogateWTTTimeTable.Trip.ToList())
             {
-                this.Trip.Add(new WTTTrip(Trip.ToSurrogateWTTTrip(), this._UserSettings));
+                this.Trip.Add(new WTTTrip(Trip.ToSurrogateWTTTrip(), this.UserSettings));
             }
         }
 
@@ -320,7 +326,12 @@ namespace GroundFrame.Classes.Timetables
         {
             if (WTTTripsXML.Descendants() != null)
             {
-                Trip = new WTTTripCollection(WTTTripsXML, this.StartDate, this.UserSettings);
+                this.Trip = new WTTTripCollection(WTTTripsXML, this.StartDate, this.UserSettings);
+
+                if (this.Trip != null)
+                {
+                    this.Trip.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
+                }
             }
         }
 
@@ -353,6 +364,11 @@ namespace GroundFrame.Classes.Timetables
                 this.StartTraction = TempTimeTable.StartTraction;
                 this.SimSigTrainCategoryID = TempTimeTable.SimSigTrainCategoryID;
                 this.Trip = TempTimeTable.Trip;
+                
+                if (this.Trip != null)
+                {
+                    this.Trip.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
+                }
             }
             catch (Exception Ex)
             {

@@ -30,6 +30,10 @@ namespace GroundFrame.Classes.Timetables
         #endregion Private Variables
 
         #region Properties
+        /// <summary>
+        /// Gets the WTTTripCollection enumerator
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator<WTTTrip> GetEnumerator() { return this._Trips.GetEnumerator(); }
 
         /// <summary>
@@ -275,15 +279,6 @@ namespace GroundFrame.Classes.Timetables
                     this._SQLConnector.Dispose();
                 }
             }
-        }
-
-        ~WTTTripCollection()
-        {
-            // The object went out of scope and finalized is called
-            // Lets call dispose in to release unmanaged resources 
-            // the managed resources will anyways be released when GC 
-            // runs the next time.
-            Dispose(false);
         }
 
         #endregion Methods

@@ -275,6 +275,12 @@ namespace GroundFrame.Classes.Timetables
             if (this.TimeTables != null)
             {
                 this.TimeTables.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
+
+                foreach(WTTTimeTable WTT in this.TimeTables)
+                {
+                    WTT.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
+                    WTT.Trip.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
+                }
             }
         }
 
