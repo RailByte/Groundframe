@@ -42,9 +42,6 @@ namespace GroundFrame.Classes.Timetables
         #endregion Contants
 
         #region Private Variables
-
-        private readonly UserSettingCollection _UserSettings; //Stores the user settings
-
         #endregion Private Variables
 
         #region Properties
@@ -55,10 +52,8 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Instantiates a new WTTTripCollectionConverter object with user settings
         /// </summary>
-        /// <param name="UserSettings">The user settings</param>
-        public WTTTripCollectionConverter(UserSettingCollection UserSettings)
+        public WTTTripCollectionConverter()
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
         }
 
         #endregion Constructors
@@ -94,7 +89,7 @@ namespace GroundFrame.Classes.Timetables
 
             //Deserialize reader into surrogate object
             WTTTripCollectionSurrogate SurrogateTripCollection = Serializer.Deserialize<WTTTripCollectionSurrogate>(Reader);
-            return new WTTTripCollection(SurrogateTripCollection, this._UserSettings); ;
+            return new WTTTripCollection(SurrogateTripCollection);
         }
 
         /// <summary>

@@ -20,7 +20,6 @@ namespace GroundFrame.Classes.Timetables
         private readonly string _SourceWTTFileName; //If the WTT is read from a WTT file the source file path will be stored here
         private XDocument _SourceWTTXML;
         private DateTime _StartDate; //Stores the start date of the timetable
-        private readonly UserSettingCollection _UserSettings;
 
         #endregion Private Variables
 
@@ -77,12 +76,6 @@ namespace GroundFrame.Classes.Timetables
         [JsonProperty("startDate")]
         public DateTime StartDate { get { return this._StartDate; } set { this._StartDate = value; } }
 
-        /// <summary>
-        /// Gets the user settings
-        /// </summary>
-        [JsonIgnore]
-        public UserSettingCollection UserSettings { get { return this._UserSettings; } }
-
         #endregion Properties
 
         #region Constructors
@@ -91,14 +84,10 @@ namespace GroundFrame.Classes.Timetables
         /// Inititialises a new WTT object from a SimSig WTT file
         /// </summary>
         /// <param name="Filename">FileInfo object representing the path to the .WTT file</param>
-        /// <param name="UserSettings">The users settings</param>
-        public WTT (FileInfo Filename, UserSettingCollection UserSettings)
+        public WTT (FileInfo Filename)
         {
-            //Set the user settings
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-
             //Validate the FileName
-            ArgumentValidation.ValidateFilename(Filename, new CultureInfo(this.UserSettings.GetValueByKey("CULTURE").ToString()));
+            ArgumentValidation.ValidateFilename(Filename, Globals.UserSettings.GetCultureInfo());
 
             //Set Start Date of GroundFrame default
             this._StartDate = new DateTime(1850, 1, 1);
@@ -113,15 +102,11 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         /// <param name="Filename">FileInfo object representing the path to the .WTT file</param>
         /// <param name="StartDate">The start date of the timetable (cannot be before 01/01/1850)</param>
-        /// <param name="UserSettings">The users settings</param>
-        public WTT(FileInfo Filename, DateTime StartDate, UserSettingCollection UserSettings)
+        public WTT(FileInfo Filename, DateTime StartDate)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
-
             //Validate Arguments
-            ArgumentValidation.ValidateFilename(Filename, Culture);
-            ArgumentValidation.ValidateWTTStartDate(StartDate, Culture);
+            ArgumentValidation.ValidateFilename(Filename, Globals.UserSettings.GetCultureInfo());
+            ArgumentValidation.ValidateWTTStartDate(StartDate, Globals.UserSettings.GetCultureInfo());
 
             this._StartDate = StartDate;
             this._SourceWTTFileName = Filename.FullName;
@@ -143,12 +128,10 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a WTT object from JSON
         /// </summary>
         /// <param name="JSON">The JSON string</param>
-        /// <param name="UserSettings">The users settings</param>
-        public WTT(string JSON, UserSettingCollection UserSettings)
+        public WTT(string JSON)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
             //Validate settings
-            ArgumentValidation.ValidateJSON(JSON, UserSettingHelper.GetCultureInfo(this.UserSettings));
+            ArgumentValidation.ValidateJSON(JSON, Globals.UserSettings.GetCultureInfo());
 
             //Populate from JSON
             this.PopulateFromJSON(JSON);
@@ -212,7 +195,7 @@ namespace GroundFrame.Classes.Timetables
             this.Simulation = (SimSigSimulation)Enum.Parse(typeof(SimSigSimulation), this._SourceWTTXML.Element("SimSigTimetable").Attribute("ID").Value.ToString(), true);
             this.SimulationVersion = this._SourceWTTXML.Element("SimSigTimetable").Attribute("Version").Value.ToString();
             //Get the Header
-            this.Header = new WTTHeader(this._SourceWTTXML.Element("SimSigTimetable"), this._StartDate, this.UserSettings);
+            this.Header = new WTTHeader(this._SourceWTTXML.Element("SimSigTimetable"), this._StartDate);
 
             //Parse the train categories
             if (this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories").Elements("TrainCategory") != null)
@@ -234,7 +217,7 @@ namespace GroundFrame.Classes.Timetables
         {
             if(this._SourceWTTXML.Element("SimSigTimetable").Element("Timetables") != null)
             {
-                this.TimeTables = new WTTTimeTableCollection(this._SourceWTTXML.Element("SimSigTimetable").Element("Timetables"), this.StartDate, this.UserSettings);
+                this.TimeTables = new WTTTimeTableCollection(this._SourceWTTXML.Element("SimSigTimetable").Element("Timetables"), this.StartDate);
             }
         }
 
@@ -245,7 +228,7 @@ namespace GroundFrame.Classes.Timetables
         {
             if (this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories") != null)
             {
-                this.TrainCategories = new WTTTrainCategoryCollection(this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories"), this.UserSettings);
+                this.TrainCategories = new WTTTrainCategoryCollection(this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories"));
             }
         }
 
@@ -263,24 +246,7 @@ namespace GroundFrame.Classes.Timetables
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseUserSettingsJSONError", null, UserSettingHelper.GetCultureInfo(this.UserSettings)), Ex);
-            }
-
-            //Set the UserSetting function
-            if (this.Header != null)
-            {
-                this.Header.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
-            }
-
-            if (this.TimeTables != null)
-            {
-                this.TimeTables.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
-
-                foreach(WTTTimeTable WTT in this.TimeTables)
-                {
-                    WTT.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
-                    WTT.Trip.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
-                }
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseUserSettingsJSONError", null, Globals.UserSettings.GetCultureInfo()), Ex);
             }
         }
 

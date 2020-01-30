@@ -24,7 +24,6 @@ namespace GroundFrame.Classes.Timetables
 
         private List<WTTTrip> _Trips = new List<WTTTrip>(); //List to store all the time tables
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
-        private readonly UserSettingCollection _UserSettings; //Stores the culture info
         private DateTime _StartDate; //Stores the WTT Start Date
 
         #endregion Private Variables
@@ -35,12 +34,6 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         /// <returns></returns>
         public IEnumerator<WTTTrip> GetEnumerator() { return this._Trips.GetEnumerator(); }
-
-        /// <summary>
-        /// Gets the user settings
-        /// </summary>
-        [JsonIgnore]
-        public UserSettingCollection UserSettings { get { return this.GetSimulationUserSettings(); } }
 
         /// <summary>
         /// Gets the timetable start date
@@ -65,7 +58,6 @@ namespace GroundFrame.Classes.Timetables
             foreach (WTTTrip WTTTrip in WTTTrips)
             {
                 WTTTrip NewWTTTrip = WTTTrip;
-                NewWTTTrip.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
                 this._Trips.Add(NewWTTTrip);
             }
         }
@@ -75,11 +67,9 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         /// <param name="WTTTripXML">The XML object representing the SimSig trip collection</param>
         /// <param name="StartDate">The start date of the timetable. Must be after 01/01/1850</param>
-        /// <param name="UserSettings">The user settings</param>
-        public WTTTripCollection(XElement WTTTripXML, DateTime StartDate, UserSettingCollection UserSettings)
+        public WTTTripCollection(XElement WTTTripXML, DateTime StartDate)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
+            CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
             //Validate arguments
             ArgumentValidation.ValidateXElement(WTTTripXML, Culture);
             ArgumentValidation.ValidateWTTStartDate(StartDate, Culture);
@@ -94,10 +84,9 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         /// <param name="JSON">A JSON string representing the trip collection</param>
         /// <param name="UserSettings">The user settings</param>
-        public WTTTripCollection(string JSON, UserSettingCollection UserSettings)
+        public WTTTripCollection(string JSON)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
+            CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
 
             //Validate arguments
             ArgumentValidation.ValidateJSON(JSON, Culture);
@@ -121,7 +110,7 @@ namespace GroundFrame.Classes.Timetables
         /// <param name="StartDate"></param>
         internal WTTTripCollection(DateTime StartDate)
         {
-            ArgumentValidation.ValidateWTTStartDate(StartDate, UserSettingHelper.GetCultureInfo(this.UserSettings));
+            ArgumentValidation.ValidateWTTStartDate(StartDate, Globals.UserSettings.GetCultureInfo());
             this._StartDate = StartDate;
             this._Trips = new List<WTTTrip>();
         }
@@ -130,10 +119,8 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a WTTTripCollection object from WTTTripCollectionSurrogate object
         /// </summary>
         /// <param name="SurrogateWTTTripCollection">The source WTTTripCollectionSurrogate object</param>
-        /// <param name="UserSettings">The user settings</param>
-        internal WTTTripCollection(WTTTripCollectionSurrogate SurrogateWTTTripCollection, UserSettingCollection UserSettings)
+        internal WTTTripCollection(WTTTripCollectionSurrogate SurrogateWTTTripCollection)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
             this._StartDate = SurrogateWTTTripCollection.StartDate;
 
             if (SurrogateWTTTripCollection.Trips != null)
@@ -162,13 +149,13 @@ namespace GroundFrame.Classes.Timetables
             //JSON argument will already have been validated in the constructor
             try
             {
-                WTTTripCollection Temp = JsonConvert.DeserializeObject<WTTTripCollection>(JSON, new WTTTripCollectionConverter(this.UserSettings));
+                WTTTripCollection Temp = JsonConvert.DeserializeObject<WTTTripCollection>(JSON, new WTTTripCollectionConverter());
                 this._StartDate = Temp.StartDate;
                 this._Trips = Temp.ToList();
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTripCollectionJSONError", null, UserSettingHelper.GetCultureInfo(this._UserSettings)), Ex);
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTripCollectionJSONError", null, Globals.UserSettings.GetCultureInfo()), Ex);
             }
         }
 
@@ -176,7 +163,7 @@ namespace GroundFrame.Classes.Timetables
         {
             foreach (XElement WTTTripXML in WTTTripsXML.Elements("Trip"))
             {
-                this._Trips.Add(new WTTTrip(WTTTripXML, this._StartDate, this.UserSettings));
+                this._Trips.Add(new WTTTrip(WTTTripXML, this._StartDate));
             }
         }
 
@@ -235,22 +222,8 @@ namespace GroundFrame.Classes.Timetables
         /// <returns></returns>
         public string ToJSON()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented, new WTTTripCollectionConverter(this.UserSettings));
+            return JsonConvert.SerializeObject(this, Formatting.Indented, new WTTTripCollectionConverter());
         }
-
-        private UserSettingCollection GetSimulationUserSettings()
-        {
-            if (OnRequestUserSettings == null)
-            {
-                return this._UserSettings ?? new UserSettingCollection();
-            }
-            else
-            {
-                return OnRequestUserSettings();
-            }
-        }
-
-        internal Func<UserSettingCollection> OnRequestUserSettings;
 
         /// <summary>
         /// Disposes the VersionCollection object

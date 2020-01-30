@@ -23,7 +23,6 @@ namespace GroundFrame.Classes.Timetables
         private readonly int _Seconds; //Stores the number of seconds since midnight.
         private readonly int _HalfMinuteCharacter; //Stores the character which represents a half minute.
         private readonly DateTime _WTTStartDate; //Stores the start date of the timetable.
-        private readonly UserSettingCollection _UserSettings; //Stores the user settings
 
         #endregion Private Variables
 
@@ -41,12 +40,6 @@ namespace GroundFrame.Classes.Timetables
         [JsonProperty("formattedDuration")]
         public string FormattedDuration { get { return this.FormatTime(); } }
 
-        /// <summary>
-        /// Gets the user settings
-        /// </summary>
-        [JsonIgnore]
-        public UserSettingCollection UserSettings { get { return this._UserSettings; } }
-
         #endregion Properties
 
         #region Constructors
@@ -63,15 +56,12 @@ namespace GroundFrame.Classes.Timetables
         /// Initialises a WTTDuration object. The WTT start date 1850-01-01
         /// </summary>
         /// <param name="Seconds">The number of seconds (can be negative)</param>
-        /// <param name="UserSettings">The users settings</param>
-        public WTTDuration(int Seconds, UserSettingCollection UserSettings)
+        public WTTDuration(int Seconds)
         {
             //Get Exception Messasge Resources
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-
             this._Seconds = Seconds;
             this._WTTStartDate = new DateTime(1850, 1, 1);
-            this._HalfMinuteCharacter = Convert.ToInt32(UserSettings.GetValueByKey("TIMEHALFCHAR"), UserSettingHelper.GetCultureInfo(this.UserSettings));
+            this._HalfMinuteCharacter = Convert.ToInt32(Globals.UserSettings.GetValueByKey("TIMEHALFCHAR"), Globals.UserSettings.GetCultureInfo());
         }
 
         #endregion Constructors
@@ -81,14 +71,12 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Formats the WTTTime object based on the WTT Format Type and Delimiter passed.
         /// </summary>
-        /// <param name="Format">WTTFormatType to determine how the WTTTime object should be formatted</param>
-        /// <param name="Delimiter">The hour / minute delimiter. Defaults to ":"</param>
         /// <returns></returns>
         public string FormatTime()
         {
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
-            string Delimiter = UserSettings.GetValueByKey("TIMEDELIMITER").ToString();
-            char HalfChar = (char)Convert.ToInt32(this.UserSettings.GetValueByKey("TIMEHALFCHAR"), Culture);
+            CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
+            string Delimiter = Globals.UserSettings.GetValueByKey("TIMEDELIMITER").ToString();
+            char HalfChar = (char)Convert.ToInt32(Globals.UserSettings.GetValueByKey("TIMEHALFCHAR"), Culture);
             TimeSpan TimeDifference = this._WTTStartDate.AddSeconds(Math.Abs(this._Seconds)).Subtract(this._WTTStartDate);
             int TotalHours = (int)Math.Floor((decimal)TimeDifference.TotalHours);
             int Minutes = (int)Math.Floor((decimal)TimeDifference.Minutes);

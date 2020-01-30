@@ -86,22 +86,9 @@ namespace GroundFrame.Classes.Timetables
         #endregion Contants
 
         #region Private Variables
-
-        private readonly UserSettingCollection _UserSettings; //Stores the user settings
-
         #endregion Private Variables
 
         #region Constructors
-
-        /// <summary>
-        /// Instantiates a new WTTTripConverter with the supplied user settings
-        /// </summary>
-        /// <param name="UserSettings">The user settings</param>
-        public WTTTripConverter(UserSettingCollection UserSettings)
-        {
-            this._UserSettings = UserSettings;
-        }
-
         #endregion Constructors
 
         /// <summary>
@@ -132,7 +119,7 @@ namespace GroundFrame.Classes.Timetables
             }
 
             //Deserialize reader into a new WTTTrip object
-            return new WTTTrip(Serializer.Deserialize<WTTTripSurrogate>(Reader), this._UserSettings);
+            return new WTTTrip(Serializer.Deserialize<WTTTripSurrogate>(Reader));
         }
 
         /// <summary>
@@ -144,17 +131,17 @@ namespace GroundFrame.Classes.Timetables
             //Validate Arguments
             if (Serializer == null)
             {
-                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new string[] { "Serializer" }, new System.Globalization.CultureInfo("en-GB")));
+                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new string[] { "Serializer" }, Globals.UserSettings.GetCultureInfo()));
             }
 
             if (Writer == null)
             {
-                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new string[] { "Writer" }, new System.Globalization.CultureInfo("en-GB")));
+                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new string[] { "Writer" }, Globals.UserSettings.GetCultureInfo()));
             }
 
             if (Value == null)
             {
-                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new string[] { "Value" }, new System.Globalization.CultureInfo("en-GB")));
+                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new string[] { "Value" }, Globals.UserSettings.GetCultureInfo()));
             }
 
             WTTTrip OldWTTTrip = (WTTTrip)Value;

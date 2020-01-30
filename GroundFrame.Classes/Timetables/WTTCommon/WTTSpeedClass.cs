@@ -16,7 +16,6 @@ namespace GroundFrame.Classes.Timetables
 
         #region Private Variables
 
-        private readonly UserSettingCollection _UserSettings; //Stores the user settings
         private int _Bitwise; //Stores the Bitwise value for the Speed Class
 
         #endregion Private Variables
@@ -32,13 +31,7 @@ namespace GroundFrame.Classes.Timetables
         /// Gets a list of the selected bitwise values
         /// </summary>
         [JsonProperty("speedClassList")]
-        public List<WTTSpeedClassBitWise> SpeedClassList { get { return BitwiseHelper.MaskToList<WTTSpeedClassBitWise>((WTTSpeedClassBitWise)this.Bitwise, this.UserSettings); } }
-
-        /// <summary>
-        /// Gets the user settings
-        /// </summary>
-        [JsonIgnore]
-        public UserSettingCollection UserSettings { get { return this._UserSettings; } }
+        public List<WTTSpeedClassBitWise> SpeedClassList { get { return BitwiseHelper.MaskToList<WTTSpeedClassBitWise>((WTTSpeedClassBitWise)this.Bitwise); } }
 
         #endregion Properties
 
@@ -56,11 +49,9 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a WTTSpeedClass object from the selected Bitwise
         /// </summary>
         /// <param name="Bitwise">The bitwise value representing the selected speed class values</param>
-        /// <param name="UserSettings">The user settings. If null then the default user settings will be used</param>
-        public WTTSpeedClass (int Bitwise, UserSettingCollection UserSettings)
+        public WTTSpeedClass (int Bitwise)
         {
             this._Bitwise = Bitwise;
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
         }
 
         #endregion Constructor

@@ -24,7 +24,6 @@ namespace GroundFrame.Classes.Timetables
 
         private List<WTTTimeTable> _TimeTables = new List<WTTTimeTable>(); //List to store all the time tables
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
-        private readonly UserSettingCollection _UserSettings; //Stores the culture info
         private DateTime _StartDate; //Stores the WTT Start Date
 
         #endregion Private Variables
@@ -35,12 +34,6 @@ namespace GroundFrame.Classes.Timetables
         /// <returns></returns>
         #region Properties
         public IEnumerator<WTTTimeTable> GetEnumerator() { return this._TimeTables.GetEnumerator(); }
-
-        /// <summary>
-        /// Gets the user settings
-        /// </summary>
-        [JsonIgnore]
-        public UserSettingCollection UserSettings { get { return this.GetSimulationUserSettings(); } }
 
         /// <summary>
         /// Gets the timetable start date
@@ -63,7 +56,6 @@ namespace GroundFrame.Classes.Timetables
             foreach (WTTTimeTable WTT in WTTTimeTables)
             {
                 WTTTimeTable NewWTTTimeTable = WTT;
-                NewWTTTimeTable.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
                 this._TimeTables.Add(NewWTTTimeTable);
             }
         }
@@ -73,11 +65,9 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         /// <param name="WTTTimeTableXML">The XML object representing the SimSig timetable collection</param>
         /// <param name="StartDate">The start date of the timetable. Must be after 01/01/1850</param>
-        /// <param name="UserSettings">The user settings</param>
-        public WTTTimeTableCollection(XElement WTTTimeTableXML, DateTime StartDate, UserSettingCollection UserSettings)
+        public WTTTimeTableCollection(XElement WTTTimeTableXML, DateTime StartDate)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
+            CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
             //Validate arguments
             ArgumentValidation.ValidateXElement(WTTTimeTableXML, Culture);
             ArgumentValidation.ValidateWTTStartDate(StartDate, Culture);
@@ -91,11 +81,9 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a WTTTimeTableCollection from a JSON file.
         /// </summary>
         /// <param name="JSON">A JSON string representing the timetable collection</param>
-        /// <param name="UserSettings">The user settings</param>
-        public WTTTimeTableCollection(string JSON, UserSettingCollection UserSettings)
+        public WTTTimeTableCollection(string JSON)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
+            CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
 
             //Validate arguments
             ArgumentValidation.ValidateJSON(JSON, Culture);
@@ -119,7 +107,7 @@ namespace GroundFrame.Classes.Timetables
         /// <param name="StartDate"></param>
         internal WTTTimeTableCollection(DateTime StartDate)
         {
-            ArgumentValidation.ValidateWTTStartDate(StartDate, UserSettingHelper.GetCultureInfo(this.UserSettings));
+            ArgumentValidation.ValidateWTTStartDate(StartDate, Globals.UserSettings.GetCultureInfo());
             this._StartDate = StartDate;
             this._TimeTables = new List<WTTTimeTable>();
         }
@@ -148,7 +136,7 @@ namespace GroundFrame.Classes.Timetables
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTimeTableCollectionJSONError", null, UserSettingHelper.GetCultureInfo(this._UserSettings)), Ex);
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTimeTableCollectionJSONError", null, Globals.UserSettings.GetCultureInfo()), Ex);
             }
         }
 
@@ -156,7 +144,7 @@ namespace GroundFrame.Classes.Timetables
         {
             foreach (XElement WTTTimeTableXML in WTTTimeTablesXML.Elements("Timetable"))
             {
-                this._TimeTables.Add(new WTTTimeTable(WTTTimeTableXML, this._StartDate, this.UserSettings));
+                this._TimeTables.Add(new WTTTimeTable(WTTTimeTableXML, this._StartDate));
             }
         }
 
@@ -214,20 +202,6 @@ namespace GroundFrame.Classes.Timetables
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented, new WTTTimeTableCollectionConverter());
         }
-
-        private UserSettingCollection GetSimulationUserSettings()
-        {
-            if (OnRequestUserSettings == null)
-            {
-                return this._UserSettings ?? new UserSettingCollection();
-            }
-            else
-            {
-                return OnRequestUserSettings();
-            }
-        }
-
-        internal Func<UserSettingCollection> OnRequestUserSettings;
 
         /// <summary>
         /// Disposes the VersionCollection object

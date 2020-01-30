@@ -38,24 +38,12 @@ namespace GroundFrame.Classes.Timetables
         #endregion Contants
 
         #region Private Variables
-
-        private readonly UserSettingCollection _UserSettings; //Stores the user settings
-
         #endregion Private Variables
 
         #region Properties
         #endregion Properties
 
         #region Constructors
-
-        /// <summary>
-        /// Instantiates a new WTTActivityCollectionSurrogate object with user settings
-        /// </summary>
-        /// <param name="UserSettings">The user settings</param>
-        public WTTActivityCollectionConverter(UserSettingCollection UserSettings)
-        {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-        }
 
         #endregion Conrstructors
 
@@ -90,7 +78,7 @@ namespace GroundFrame.Classes.Timetables
 
             //Deserialize reader into surrogate object
             WTTActivityCollectionSurrogate SurrogateActivityCollection = Serializer.Deserialize<WTTActivityCollectionSurrogate>(Reader);
-            return new WTTActivityCollection(SurrogateActivityCollection, this._UserSettings); ;
+            return new WTTActivityCollection(SurrogateActivityCollection); ;
         }
 
         /// <summary>

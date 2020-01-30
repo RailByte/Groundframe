@@ -13,7 +13,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [Fact]
         public void WTTTime_Prop_ArgumentException_Seconds()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new GroundFrame.Classes.Timetables.WTTTime(-1, new UserSettingCollection()));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new GroundFrame.Classes.Timetables.WTTTime(-1));
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [InlineData(172890, "48:01H")]
         public void WTTTime_Prop_FormattedShortTime(int Input, string ExpectedValue)
         {
-            GroundFrame.Classes.Timetables.WTTTime TestTime = new Classes.Timetables.WTTTime(Input, new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTTime TestTime = new Classes.Timetables.WTTTime(Input);
             Assert.Equal(ExpectedValue, TestTime.FormattedShortTime);
         }
 
@@ -48,7 +48,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [InlineData(172890, "(+2 Days) 00:01H")]
         public void WTTTime_Prop_FormattedLongTime(int Input, string ExpectedValue)
         {
-            GroundFrame.Classes.Timetables.WTTTime TestTime = new Classes.Timetables.WTTTime(Input, new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTTime TestTime = new Classes.Timetables.WTTTime(Input);
             Assert.Equal(ExpectedValue, TestTime.FormattedLongTime);
         }
 
@@ -58,7 +58,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [Fact]
         public void WTTTime_Prop_DateAndTime()
         {
-            GroundFrame.Classes.Timetables.WTTTime TestTime = new Classes.Timetables.WTTTime(60, new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTTime TestTime = new Classes.Timetables.WTTTime(60);
             DateTime DateTimeResult = new DateTime(1850, 1, 1, 0, 1, 0);
 
             Assert.Equal(DateTimeResult, TestTime.DateAndTime);
@@ -69,7 +69,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [Fact]
         public void WTTTime_Prop_Seconds()
         {
-            GroundFrame.Classes.Timetables.WTTTime TestTime = new Classes.Timetables.WTTTime(60, new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTTime TestTime = new Classes.Timetables.WTTTime(60);
             int SecondsResult = 60;
 
             Assert.Equal(SecondsResult, TestTime.Seconds);
@@ -87,7 +87,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [InlineData(172890, WTTTimeFormat.LongFormat, @"w", "(+2 Days) 00w01H")]
         public void WTTTime_Method_FormattedTime(int Input, WTTTimeFormat Format, string Delimiter, string ExpectedValue)
         {
-            GroundFrame.Classes.Timetables.WTTTime TestTime = new Classes.Timetables.WTTTime(Input, new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTTime TestTime = new Classes.Timetables.WTTTime(Input);
             Assert.Equal(ExpectedValue, TestTime.FormatTime(Format, Delimiter));
         }
     }

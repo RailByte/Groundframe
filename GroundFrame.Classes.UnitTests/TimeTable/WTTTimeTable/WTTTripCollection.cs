@@ -18,7 +18,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTripCollection
         {
             string FullPath = new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\TestWTT_4.8.xml").LocalPath;
             XElement TestTripsXML = XDocument.Load(FullPath).Element("SimSigTimetable").Element("Timetables").Elements("Timetable").Where(x => x.Element("ID").Value == "1R48").FirstOrDefault().Element("Trips");
-            GroundFrame.Classes.Timetables.WTTTripCollection TestTripCollection = new GroundFrame.Classes.Timetables.WTTTripCollection(TestTripsXML, new DateTime(2018,7,1), new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTTripCollection TestTripCollection = new GroundFrame.Classes.Timetables.WTTTripCollection(TestTripsXML, new DateTime(2018,7,1));
             Assert.Equal(2, TestTripCollection.Count);
         }
 
@@ -30,7 +30,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTripCollection
         {
             string FullPath = new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\TestWTT_4.8.xml").LocalPath;
             XElement TestTripsXML = XDocument.Load(FullPath).Element("SimSigTimetable").Element("Timetables").Elements("Timetable").Where(x => x.Element("ID").Value == "1R48").FirstOrDefault().Element("Trips");
-            GroundFrame.Classes.Timetables.WTTTripCollection TestTripCollection = new GroundFrame.Classes.Timetables.WTTTripCollection(TestTripsXML, new DateTime(2018, 7, 1), new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTTripCollection TestTripCollection = new GroundFrame.Classes.Timetables.WTTTripCollection(TestTripsXML, new DateTime(2018, 7, 1));
 
             GroundFrame.Classes.Timetables.WTTTrip TestTrip = TestTripCollection.IndexOf(0);
             Assert.Equal(TestTripsXML.Elements("Trip").FirstOrDefault().Element("Location").Value.ToString(), TestTrip.Location);
@@ -90,13 +90,13 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTripCollection
         {
             string FullPath = new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\TestWTT_4.8.xml").LocalPath;
             XElement TestTripsXML = XDocument.Load(FullPath).Element("SimSigTimetable").Element("Timetables").Elements("Timetable").Where(x => x.Element("ID").Value == "1R48").FirstOrDefault().Element("Trips");
-            GroundFrame.Classes.Timetables.WTTTripCollection TestTripCollection = new GroundFrame.Classes.Timetables.WTTTripCollection(TestTripsXML, new DateTime(2018, 7, 1), new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTTripCollection TestTripCollection = new GroundFrame.Classes.Timetables.WTTTripCollection(TestTripsXML, new DateTime(2018, 7, 1));
             Assert.Equal(2, TestTripCollection.Count);
 
             //Convert header to JSON
             string JSONTripCollection = TestTripCollection.ToJSON();
             //Deserialize the JSON string back to an WTTHeader object
-            GroundFrame.Classes.Timetables.WTTTripCollection JSONWTTTTripCollection = new Timetables.WTTTripCollection(JSONTripCollection, new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTTripCollection JSONWTTTTripCollection = new Timetables.WTTTripCollection(JSONTripCollection);
             Assert.Equal(2, JSONWTTTTripCollection.Count);
             //Check both WTTHeader objects are equal
             Assert.Equal(TestTripCollection.ToString(), JSONWTTTTripCollection.ToString());

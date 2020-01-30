@@ -127,22 +127,9 @@ namespace GroundFrame.Classes.Timetables
         #endregion Private Constants
 
         #region Private Variables
-
-        private readonly UserSettingCollection _UserSettings; //Stores the user settings
-
         #endregion Private Variables
 
         #region Properties
-
-        /// <summary>
-        /// Instantiates a WTTTimeTableConverter object with the supplied user settings
-        /// </summary>
-        /// <param name="UserSettings"></param>
-        public WTTTimeTableConverter(UserSettingCollection UserSettings)
-        {
-            this._UserSettings = UserSettings;
-        }
-
         #endregion Properties
 
         #region Constructors
@@ -169,17 +156,17 @@ namespace GroundFrame.Classes.Timetables
             //Validate Arguments
             if (Serializer == null)
             {
-                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new string[] { "Serializer" }, new System.Globalization.CultureInfo("en-GB")));
+                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new string[] { "Serializer" }, Globals.UserSettings.GetCultureInfo()));
             }
 
             if (Reader == null)
             {
-                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new string[] { "Reader" }, new System.Globalization.CultureInfo("en-GB")));
+                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new string[] { "Reader" }, Globals.UserSettings.GetCultureInfo()));
             }
 
             //Deserialize reader into surrogate object
             WTTTimeTableSurrogate SurrogateTimeTable = Serializer.Deserialize<WTTTimeTableSurrogate>(Reader);
-            return new WTTTimeTable(SurrogateTimeTable, this._UserSettings);
+            return new WTTTimeTable(SurrogateTimeTable);
         }
 
         /// <summary>

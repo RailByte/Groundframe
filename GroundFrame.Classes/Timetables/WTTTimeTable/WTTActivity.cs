@@ -28,8 +28,6 @@ namespace GroundFrame.Classes.Timetables
         #endregion Constants
 
         #region Private Variables
-
-        private readonly UserSettingCollection _UserSettings; //Private variable to store the user settings
         #endregion Private Variables
 
         #region Properties
@@ -46,12 +44,6 @@ namespace GroundFrame.Classes.Timetables
         [JsonProperty("associatedTrainHeaderCode")]
         public string AssociatedTrainHeadCode { get; set; }
 
-        /// <summary>
-        /// Gets the user settings associated with this activity
-        /// </summary>
-        [JsonIgnore]
-        public UserSettingCollection UserSettings { get { return this.GetSimulationUserSettings(); } }
-
         #endregion Properties
 
         #region Constructors
@@ -60,14 +52,10 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a new WTTActivity from the supplied SimSig XML snippet (as an XElement).
         /// </summary>
         /// <param name="WTTActivityXML">The source SimSig XML snippet (as an XElement)</param>
-        /// <param name="UserSettings">The user settings</param>
-        public WTTActivity (XElement WTTActivityXML, UserSettingCollection UserSettings)
+        public WTTActivity (XElement WTTActivityXML)
         {
-            //Set the user settings
-            this._UserSettings = UserSettings ?? new UserSettingCollection(); //Use default user settings if not provided
-
             //Validate Arguments
-            ArgumentValidation.ValidateXElement(WTTActivityXML, this.UserSettings.GetCultureInfo());
+            ArgumentValidation.ValidateXElement(WTTActivityXML, Globals.UserSettings.GetCultureInfo());
 
             //Parse the XML
             this.ParseWTTActivityXML(WTTActivityXML);
@@ -77,13 +65,10 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a WTTActivity object from the supplied JSON string
         /// </summary>
         /// <param name="JSON">The JSON string representing the WTTTrip object</param>
-        /// <param name="UserSettings">The user settignd</param>
-        public WTTActivity(string JSON, UserSettingCollection UserSettings)
+        public WTTActivity(string JSON)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-
             //Valdate Arguments
-            ArgumentValidation.ValidateJSON(JSON, UserSettingHelper.GetCultureInfo(this.UserSettings));
+            ArgumentValidation.ValidateJSON(JSON, Globals.UserSettings.GetCultureInfo());
 
             //Parse the JSON
             this.PopulateFromJSON(JSON);
@@ -115,7 +100,7 @@ namespace GroundFrame.Classes.Timetables
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTActivityJSONError", null, UserSettingHelper.GetCultureInfo(this.UserSettings)), Ex);
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTActivityJSONError", null, Globals.UserSettings.GetCultureInfo()), Ex);
             }
         }
 
@@ -125,33 +110,9 @@ namespace GroundFrame.Classes.Timetables
         /// <param name="WTTActivityXML">The SimSig XML snippet (as an XElement) to parse</param>
         private void ParseWTTActivityXML(XElement WTTActivityXML)
         {
-            this.ActivityType = (WTTActivityType)XMLMethods.GetValueFromXElement<int>(WTTActivityXML, @"Activity", this.UserSettings.GetCultureInfo(), 0);
-            this.AssociatedTrainHeadCode = XMLMethods.GetValueFromXElement<string>(WTTActivityXML, @"AssociatedTrain", this.UserSettings.GetCultureInfo(), 0);
+            this.ActivityType = (WTTActivityType)XMLMethods.GetValueFromXElement<int>(WTTActivityXML, @"Activity", 0);
+            this.AssociatedTrainHeadCode = XMLMethods.GetValueFromXElement<string>(WTTActivityXML, @"AssociatedTrain", 0);
         }
-
-        /// <summary>
-        /// Returns the UserSettingCollection from the various sources
-        /// </summary>
-        /// <returns></returns>
-        private UserSettingCollection GetSimulationUserSettings()
-        {
-            //First check to see if the user settings have been passed down from the parent WTT object via then event function
-            if (OnRequestUserSettings == null)
-            {
-                //If not return the user settings from this object. If this is null then create a default set of user settings
-                return this._UserSettings ?? new UserSettingCollection();
-            }
-            else
-            {
-                //Otherwise return user settings frm the WTT object
-                return OnRequestUserSettings();
-            }
-        }
-
-        /// <summary>
-        /// Function which is defined by the parent object to retreive the user settings from the parent object
-        /// </summary>
-        internal Func<UserSettingCollection> OnRequestUserSettings;
 
         #endregion Methods
     }

@@ -19,7 +19,6 @@ namespace GroundFrame.Classes.Timetables
 
         #region Private Variables
 
-        private readonly UserSettingCollection _UserSettings; //Stores the user settings
         private int _RunAsRequiredPercentage; //Stores the run and required percentage
         private DateTime _StartDate; //Stores the start date of the timetable
 
@@ -144,12 +143,6 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         public WTTTripCollection Trip { get; set; }
 
-        /// <summary>
-        /// Gets the user settings
-        /// </summary>
-        [JsonIgnore]
-        public UserSettingCollection UserSettings { get { return this.GetSimulationUserSettings(); } }
-
         #endregion Properties
 
         #region Constructors
@@ -169,15 +162,13 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         /// <param name="TimeTableXML">The SimSig timetable XML snippet</param>
         /// <param name="StartDate">The start date of the timetable</param>
-        /// <param name="UserSettings">The users settings</param>
-        public WTTTimeTable(XElement TimeTableXML, DateTime StartDate, UserSettingCollection UserSettings)
+        public WTTTimeTable(XElement TimeTableXML, DateTime StartDate)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
             this._StartDate = StartDate;
 
             //Validate arguments
-            ArgumentValidation.ValidateXElement(TimeTableXML, UserSettingHelper.GetCultureInfo(this.UserSettings));
-            ArgumentValidation.ValidateWTTStartDate(StartDate, UserSettingHelper.GetCultureInfo(this.UserSettings));
+            ArgumentValidation.ValidateXElement(TimeTableXML, Globals.UserSettings.GetCultureInfo());
+            ArgumentValidation.ValidateWTTStartDate(StartDate, Globals.UserSettings.GetCultureInfo());
 
             //Parse the XML
             this.ParseWTTTimeTable(TimeTableXML);
@@ -187,13 +178,10 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a WTTTimeTable object from the supplied JSON string
         /// </summary>
         /// <param name="JSON">The JSON string representing the WTTTimeTable object</param>
-        /// <param name="UserSettings">The user settignd</param>
-        public WTTTimeTable(string JSON, UserSettingCollection UserSettings)
+        public WTTTimeTable(string JSON)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-
             //Valdate Arguments
-            ArgumentValidation.ValidateJSON(JSON, UserSettingHelper.GetCultureInfo(this.UserSettings));
+            ArgumentValidation.ValidateJSON(JSON, Globals.UserSettings.GetCultureInfo());
 
             //Parse the JSON
             this.PopulateFromJSON(JSON);
@@ -203,16 +191,9 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a new WTTTimeTable object from a WTTTimeTableSurrogate object
         /// </summary>
         /// <param name="SurrogateWTTTimeTable">The source WTTTimeTableSurrogate object</param>
-        /// <param name="UserSettings">The user settings</param>
-        internal WTTTimeTable(WTTTimeTableSurrogate SurrogateWTTTimeTable, UserSettingCollection UserSettings)
+        internal WTTTimeTable(WTTTimeTableSurrogate SurrogateWTTTimeTable)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
             this.ParseSurrogateWTTTimeTable(SurrogateWTTTimeTable);
-
-            if (this.Trip != null)
-            {
-                this.Trip.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
-            }
         }
 
         #endregion Constructors
@@ -232,19 +213,19 @@ namespace GroundFrame.Classes.Timetables
 
             if (SurrogateWTTTimeTable.Delay != null)
             {
-                this.Delay = new WTTDuration(SurrogateWTTTimeTable.Delay.Seconds, this.UserSettings);
+                this.Delay = new WTTDuration(SurrogateWTTTimeTable.Delay.Seconds);
             }
 
             if (SurrogateWTTTimeTable.DepartTime != null)
             {
-                this.DepartTime = new WTTTime(SurrogateWTTTimeTable.DepartTime.Seconds, this.UserSettings);
+                this.DepartTime = new WTTTime(SurrogateWTTTimeTable.DepartTime.Seconds);
             }
 
             this.Description = SurrogateWTTTimeTable.Description;
 
             if (SurrogateWTTTimeTable.SeedingGap != null)
             {
-                this.SeedingGap = new WTTDuration(SurrogateWTTTimeTable.SeedingGap.Seconds, this.UserSettings);
+                this.SeedingGap = new WTTDuration(SurrogateWTTTimeTable.SeedingGap.Seconds);
             }
 
             this.EntryPoint = SurrogateWTTTimeTable.EntryPoint;
@@ -258,11 +239,10 @@ namespace GroundFrame.Classes.Timetables
             this.StartTraction = SurrogateWTTTimeTable.StartTraction;
             this.SimSigTrainCategoryID = SurrogateWTTTimeTable.SimSigTrainCategoryID;
             this.Trip = new WTTTripCollection(SurrogateWTTTimeTable.StartDate);
-            this.Trip.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
 
             foreach (WTTTrip Trip in SurrogateWTTTimeTable.Trip.ToList())
             {
-                this.Trip.Add(new WTTTrip(Trip.ToSurrogateWTTTrip(), this.UserSettings));
+                this.Trip.Add(new WTTTrip(Trip.ToSurrogateWTTTrip()));
             }
         }
 
@@ -272,7 +252,7 @@ namespace GroundFrame.Classes.Timetables
         /// <param name="Percentage">The Run as Required Percentage</param>
         private void ParseRunAsRequiredPercentage (int Percentage)
         {
-            ArgumentValidation.ValidatePercentage(Percentage, UserSettingHelper.GetCultureInfo(this.UserSettings));
+            ArgumentValidation.ValidatePercentage(Percentage, Globals.UserSettings.GetCultureInfo());
             this._RunAsRequiredPercentage = Percentage;
         }
 
@@ -284,29 +264,27 @@ namespace GroundFrame.Classes.Timetables
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
         private void ParseWTTTimeTable(XElement TimeTableXML)
         {
-            //Set Culture
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
             try
             {
                 //Parse XML
-                this.Headcode = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"ID", Culture, string.Empty);
-                this.AccelBrakeIndex = (WTTAccelBrakeIndex)XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"AccelBrakeIndex", Culture, WTTAccelBrakeIndex.MediumInterCity);
-                this.RunAsRequiredPercentage = XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"AsRequiredPercent", Culture, 50);
-                this.Delay = new WTTDuration(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"Delay", Culture, 0), this.UserSettings);
-                this.DepartTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"DepartTime", Culture, 0), this._StartDate, this.UserSettings);
-                this.Description = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"Description", Culture, string.Empty);
-                this.SeedingGap = new WTTDuration(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"SeedingGap", Culture, 0), this.UserSettings);
-                this.EntryPoint = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"EntryPoint", Culture, string.Empty);
-                this.ActualEntryPoint = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"ActualEntryPoint", Culture, string.Empty);
-                this.MaxSpeed = new WTTSpeed(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"MaxSpeed", Culture, 0), this.UserSettings);
-                this.SpeedClass = new WTTSpeedClass(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"SpeedClass", Culture, 0), this.UserSettings);
-                this.Started = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"Started", Culture, 0));
-                this.TrainLength = new Length(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"TrainLength", Culture, 20));
-                this.Electrification = new Electrification(XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"Electrification", Culture, null));
-                this.RunAsRequiredTested = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"AsRequiredTested", Culture, 0));
+                this.Headcode = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"ID",  string.Empty);
+                this.AccelBrakeIndex = (WTTAccelBrakeIndex)XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"AccelBrakeIndex", WTTAccelBrakeIndex.MediumInterCity);
+                this.RunAsRequiredPercentage = XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"AsRequiredPercent", 50);
+                this.Delay = new WTTDuration(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"Delay", 0));
+                this.DepartTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"DepartTime", 0), this._StartDate);
+                this.Description = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"Description", string.Empty);
+                this.SeedingGap = new WTTDuration(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"SeedingGap", 0));
+                this.EntryPoint = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"EntryPoint", string.Empty);
+                this.ActualEntryPoint = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"ActualEntryPoint", string.Empty);
+                this.MaxSpeed = new WTTSpeed(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"MaxSpeed", 0));
+                this.SpeedClass = new WTTSpeedClass(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"SpeedClass", 0));
+                this.Started = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"Started", 0));
+                this.TrainLength = new Length(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"TrainLength", 20));
+                this.Electrification = new Electrification(XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"Electrification", null));
+                this.RunAsRequiredTested = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"AsRequiredTested", 0));
                 //TODO: Entry Warned
-                this.StartTraction = new Electrification(XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"StartTraction", Culture, string.Empty));
-                this.SimSigTrainCategoryID = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"Category", Culture, string.Empty);
+                this.StartTraction = new Electrification(XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"StartTraction", string.Empty));
+                this.SimSigTrainCategoryID = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"Category", string.Empty);
 
                 //Parse Trips
                 this.ParseTripsXML(TimeTableXML.Element("Trips"));
@@ -314,7 +292,7 @@ namespace GroundFrame.Classes.Timetables
             }
             catch (Exception Ex)
             {
-                throw new Exception(ExceptionHelper.GetStaticException("ParseFromXElementWTTTimeTableException", null, Culture), Ex);
+                throw new Exception(ExceptionHelper.GetStaticException("ParseFromXElementWTTTimeTableException", null, Globals.UserSettings.GetCultureInfo()), Ex);
             }
         }
 
@@ -326,12 +304,7 @@ namespace GroundFrame.Classes.Timetables
         {
             if (WTTTripsXML.Descendants() != null)
             {
-                this.Trip = new WTTTripCollection(WTTTripsXML, this.StartDate, this.UserSettings);
-
-                if (this.Trip != null)
-                {
-                    this.Trip.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
-                }
+                this.Trip = new WTTTripCollection(WTTTripsXML, this.StartDate);
             }
         }
 
@@ -344,7 +317,7 @@ namespace GroundFrame.Classes.Timetables
             //JSON argument will already have been validated in the constructor
             try
             {
-                WTTTimeTable TempTimeTable = JsonConvert.DeserializeObject<WTTTimeTable>(JSON, new WTTTimeTableConverter(this.UserSettings));
+                WTTTimeTable TempTimeTable = JsonConvert.DeserializeObject<WTTTimeTable>(JSON, new WTTTimeTableConverter());
                 this._StartDate = TempTimeTable.StartDate;
                 this.Headcode = TempTimeTable.Headcode;
                 this.AccelBrakeIndex = TempTimeTable.AccelBrakeIndex;
@@ -364,15 +337,10 @@ namespace GroundFrame.Classes.Timetables
                 this.StartTraction = TempTimeTable.StartTraction;
                 this.SimSigTrainCategoryID = TempTimeTable.SimSigTrainCategoryID;
                 this.Trip = TempTimeTable.Trip;
-                
-                if (this.Trip != null)
-                {
-                    this.Trip.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
-                }
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTimeTableJSONError", null, UserSettingHelper.GetCultureInfo(this.UserSettings)), Ex);
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTimeTableJSONError", null, Globals.UserSettings.GetCultureInfo()), Ex);
             }
         }
 
@@ -382,7 +350,7 @@ namespace GroundFrame.Classes.Timetables
         /// <returns></returns>
         public string ToJSON()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented, new WTTTimeTableConverter(this.UserSettings));
+            return JsonConvert.SerializeObject(this, Formatting.Indented, new WTTTimeTableConverter());
         }
 
         /// <summary>
@@ -414,30 +382,6 @@ namespace GroundFrame.Classes.Timetables
                 StartDate = this.StartDate
             };
         }
-
-        /// <summary>
-        /// Returns the UserSettingCollection from the various sources
-        /// </summary>
-        /// <returns></returns>
-        private UserSettingCollection GetSimulationUserSettings()
-        {
-            //First check to see if the user settings have been passed down from the parent WTT object via then event function
-            if (OnRequestUserSettings == null)
-            {
-                //If not return the user settings from this object. If this is null then create a default set of user settings
-                return this._UserSettings ?? new UserSettingCollection();
-            }
-            else
-            {
-                //Otherwise return user settings frm the WTT object
-                return OnRequestUserSettings();
-            }
-        }
-
-        /// <summary>
-        /// Function which is defined by the parent object to retreive the user settings from the parent object
-        /// </summary>
-        internal Func<UserSettingCollection> OnRequestUserSettings;
 
         #endregion Methods
     }

@@ -36,7 +36,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [InlineData(12, new WTTSpeedClassBitWise[] { WTTSpeedClassBitWise.HST, WTTSpeedClassBitWise.EMU })]
         public void WTTSpeed_Prop_BitWise(int BitWise, WTTSpeedClassBitWise[] BitWiseArray)
         {
-            GroundFrame.Classes.Timetables.WTTSpeedClass TestSpeedClass = new GroundFrame.Classes.Timetables.WTTSpeedClass(BitWise, new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTSpeedClass TestSpeedClass = new GroundFrame.Classes.Timetables.WTTSpeedClass(BitWise);
             Assert.Equal(BitWiseArray, TestSpeedClass.SpeedClassList.ToArray());
             Assert.Equal(BitWise, TestSpeedClass.Bitwise);
         }

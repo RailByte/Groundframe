@@ -36,15 +36,15 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTrainCategory
             //Get XElement from test .xml
             string TestXMLPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.xml";
             XElement XMLTestTrainCategory = XDocument.Load(TestXMLPath).Element("SimSigTimetable").Element("TrainCategories").Descendants().First();
-            GroundFrame.Classes.Timetables.WTTTrainCategory TestCategory = new Classes.Timetables.WTTTrainCategory(XMLTestTrainCategory, new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTTrainCategory TestCategory = new Classes.Timetables.WTTTrainCategory(XMLTestTrainCategory);
             Assert.Equal(XMLTestTrainCategory.Attribute("ID").Value.ToString(), TestCategory.SimSigID);
             Assert.Equal(XMLTestTrainCategory.Element("Description").Value.ToString(), TestCategory.Description);
             Assert.Equal((WTTAccelBrakeIndex)Convert.ToInt32(XMLTestTrainCategory.Element("AccelBrakeIndex").Value), TestCategory.AccelBrakeIndex);
             Assert.Equal(XMLTestTrainCategory.Element("IsFreight").Value == "0" ? false : true, TestCategory.IsFreight);
             Assert.Equal(XMLTestTrainCategory.Element("CanUseGoodsLines").Value == "0" ? false : true, TestCategory.CanUseGoodsLines);
-            Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeed(Convert.ToInt32(XMLTestTrainCategory.Element("MaxSpeed").Value.ToString()), new UserSettingCollection()).MPH, TestCategory.MaxSpeed.MPH);
+            Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeed(Convert.ToInt32(XMLTestTrainCategory.Element("MaxSpeed").Value.ToString())).MPH, TestCategory.MaxSpeed.MPH);
             Assert.Equal(new GroundFrame.Classes.Length(Convert.ToInt32(XMLTestTrainCategory.Element("TrainLength").Value.ToString())).Meters, TestCategory.TrainLength.Meters);
-            Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeedClass(Convert.ToInt32(XMLTestTrainCategory.Element("SpeedClass").Value.ToString()), new UserSettingCollection()).Bitwise, TestCategory.SpeedClass.Bitwise);
+            Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeedClass(Convert.ToInt32(XMLTestTrainCategory.Element("SpeedClass").Value.ToString())).Bitwise, TestCategory.SpeedClass.Bitwise);
             Assert.Equal((WTTPowerToWeightCategory)Convert.ToInt32(XMLTestTrainCategory.Element("PowerToWeightCategory").Value), TestCategory.PowerToWeightCategory);
             Assert.Equal(new GroundFrame.Classes.Electrification(XMLTestTrainCategory.Element("Electrification").Value.ToString()).Overhead, TestCategory.Electrification.Overhead);
             Assert.Null(TestCategory.DwellTimes);
@@ -59,11 +59,11 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTrainCategory
             //Get XElement from test .xml
             string TestXMLPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.xml";
             XElement XMLTestTrainCategory = XDocument.Load(TestXMLPath).Element("SimSigTimetable").Element("TrainCategories").Descendants().First();
-            GroundFrame.Classes.Timetables.WTTTrainCategory TestCategory = new Classes.Timetables.WTTTrainCategory(XMLTestTrainCategory, new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTTrainCategory TestCategory = new Classes.Timetables.WTTTrainCategory(XMLTestTrainCategory);
             //Create JSON
             string TestJSON = TestCategory.ToJSON();
             //Create new ojbect from JSON
-            GroundFrame.Classes.Timetables.WTTTrainCategory TestJSONCategory = new Timetables.WTTTrainCategory(TestJSON, new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTTrainCategory TestJSONCategory = new Timetables.WTTTrainCategory(TestJSON);
             Assert.Equal(TestCategory.ToString(), TestJSONCategory.ToString());
         }
 
@@ -74,7 +74,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTrainCategory
         public void WTTTrainCategory_Constructor_NullXMLException()
         {
             XElement NullXElement = null;
-            Assert.Throws<ArgumentNullException>(() => new GroundFrame.Classes.Timetables.WTTTrainCategory(NullXElement, new UserSettingCollection()));
+            Assert.Throws<ArgumentNullException>(() => new GroundFrame.Classes.Timetables.WTTTrainCategory(NullXElement));
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTrainCategory
         public void WTTTrainCategory_Constructor_NullJSONException()
         {
             string JSON = null;
-            Assert.Throws<ArgumentNullException>(() => new GroundFrame.Classes.Timetables.WTTTrainCategory(JSON, new UserSettingCollection()));
+            Assert.Throws<ArgumentNullException>(() => new GroundFrame.Classes.Timetables.WTTTrainCategory(JSON));
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTrainCategory
         public void WTTTrainCategory_Constructor_InvalidJSONException()
         {
             string JSON = "Invalid JSON";
-            Assert.Throws<FormatException>(() => new GroundFrame.Classes.Timetables.WTTTrainCategory(JSON, new UserSettingCollection()));
+            Assert.Throws<FormatException>(() => new GroundFrame.Classes.Timetables.WTTTrainCategory(JSON));
         }
 
         #endregion Methods

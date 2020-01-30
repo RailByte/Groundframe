@@ -17,9 +17,6 @@ namespace GroundFrame.Classes.Timetables
         #endregion Constants
 
         #region Private Variables 
-
-        private readonly UserSettingCollection _UserSettings; //Stores the user settings
-
         #endregion Private Variables
 
         #region Properties
@@ -72,12 +69,6 @@ namespace GroundFrame.Classes.Timetables
         [JsonProperty("crewChange")]
         public WTTDuration CrewChange { get; set; }
 
-        /// <summary>
-        /// Gets the user settings
-        /// </summary>
-        [JsonIgnore]
-        public UserSettingCollection UserSettings { get { return this._UserSettings; } }
-
         #endregion Properties
 
         #region Constructors
@@ -94,16 +85,12 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a WTTDwell object from an XML Snippet
         /// </summary>
         /// <param name="DwellXML">The source XML as an XElement</param>
-        /// <param name="UserSettings">The users settings. If null is pass then the default user settings will be used</param>
-        public WTTDwell (XElement DwellXML, UserSettingCollection UserSettings)
+        public WTTDwell (XElement DwellXML)
         {
-            //Set the culture
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-
             //Check Header Argument
             if (DwellXML == null)
             {
-                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new object[] { "DwellXML" }, UserSettingHelper.GetCultureInfo(this.UserSettings)));
+                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new object[] { "DwellXML" }, Globals.UserSettings.GetCultureInfo()));
             }
 
             //Parse the XML
@@ -117,12 +104,10 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Parses Dwell element from the SimSigTimeable ? WTTTrainCategory element from a SimSig SavedTimetable.xml document
         /// </summary>
-        /// <param name="Header"></param>
+        /// <param name="DwellXML">The source Dwell XML as an XElement</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
         private void ParseHeaderXML(XElement DwellXML)
         {
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
-
             try
             {
                 //If there are no dwell times records then return empty dwell object
@@ -132,66 +117,66 @@ namespace GroundFrame.Classes.Timetables
                     return;
                 }
 
-                int RedSignalMoveOff = XMLMethods.GetValueFromXElement<int>(DwellXML, @"RedSignalMoveOff", Culture, 0);
+                int RedSignalMoveOff = XMLMethods.GetValueFromXElement<int>(DwellXML, @"RedSignalMoveOff", 0);
 
                 if (RedSignalMoveOff != 0)
                 {
-                    this.RedSignalMoveOff = new WTTDuration(RedSignalMoveOff, this.UserSettings);
+                    this.RedSignalMoveOff = new WTTDuration(RedSignalMoveOff);
                 }
 
-                int StationForward = XMLMethods.GetValueFromXElement<int>(DwellXML, @"StationForward", Culture, 0);
+                int StationForward = XMLMethods.GetValueFromXElement<int>(DwellXML, @"StationForward", 0);
 
                 if (StationForward != 0)
                 {
-                    this.StationForward = new WTTDuration(StationForward, this.UserSettings);
+                    this.StationForward = new WTTDuration(StationForward);
                 }
 
-                int StationReverse = XMLMethods.GetValueFromXElement<int>(DwellXML, @"StationReverse", Culture, 0);
+                int StationReverse = XMLMethods.GetValueFromXElement<int>(DwellXML, @"StationReverse", 0);
 
                 if (StationReverse != 0)
                 {
-                    this.StationReverse = new WTTDuration(StationReverse, this.UserSettings);
+                    this.StationReverse = new WTTDuration(StationReverse);
                 }
 
-                int TerminateForward = XMLMethods.GetValueFromXElement<int>(DwellXML, @"TerminateForward", Culture, 0);
+                int TerminateForward = XMLMethods.GetValueFromXElement<int>(DwellXML, @"TerminateForward", 0);
 
                 if (TerminateForward != 0)
                 {
-                    this.TerminateForward = new WTTDuration(TerminateForward, this.UserSettings);
+                    this.TerminateForward = new WTTDuration(TerminateForward);
                 }
 
-                int TerminateReverse = XMLMethods.GetValueFromXElement<int>(DwellXML, @"TerminateReverse", Culture, 0);
+                int TerminateReverse = XMLMethods.GetValueFromXElement<int>(DwellXML, @"TerminateReverse", 0);
 
                 if (TerminateReverse != 0)
                 {
-                    this.TerminateReverse = new WTTDuration(TerminateReverse, this.UserSettings);
+                    this.TerminateReverse = new WTTDuration(TerminateReverse);
                 }
 
-                int Join = XMLMethods.GetValueFromXElement<int>(DwellXML, @"Join", Culture, 0);
+                int Join = XMLMethods.GetValueFromXElement<int>(DwellXML, @"Join", 0);
 
                 if (Join != 0)
                 {
-                    this.Join = new WTTDuration(Join, this.UserSettings);
+                    this.Join = new WTTDuration(Join);
                 }
 
-                int Divide = XMLMethods.GetValueFromXElement<int>(DwellXML, @"Divide", Culture, 0);
+                int Divide = XMLMethods.GetValueFromXElement<int>(DwellXML, @"Divide", 0);
 
                 if (Divide != 0)
                 {
-                    this.Divide = new WTTDuration(Divide, this.UserSettings);
+                    this.Divide = new WTTDuration(Divide);
                 }
 
-                int CrewChange = XMLMethods.GetValueFromXElement<int>(DwellXML, @"CrewChange", Culture, 0);
+                int CrewChange = XMLMethods.GetValueFromXElement<int>(DwellXML, @"CrewChange", 0);
 
                 if (CrewChange != 0)
                 {
-                    this.CrewChange = new WTTDuration(CrewChange, this.UserSettings);
+                    this.CrewChange = new WTTDuration(CrewChange);
                 }
 
             }
             catch (Exception Ex)
             {
-                throw new Exception(ExceptionHelper.GetStaticException("ParseFromXElementWTTTrainCategoryException", null, UserSettingHelper.GetCultureInfo(this.UserSettings)), Ex);
+                throw new Exception(ExceptionHelper.GetStaticException("ParseFromXElementWTTTrainCategoryException", null, Globals.UserSettings.GetCultureInfo()), Ex);
             }
         }
 

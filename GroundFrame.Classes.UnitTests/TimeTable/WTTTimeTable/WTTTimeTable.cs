@@ -32,16 +32,16 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTable
             //Get XElement from test .xml
             string TestXMLPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.xml";
             XElement XMLTestTimeTable = XDocument.Load(TestXMLPath).Element("SimSigTimetable").Element("Timetables").Descendants().First();
-            GroundFrame.Classes.Timetables.WTTTimeTable TestTimeTable = new Classes.Timetables.WTTTimeTable(XMLTestTimeTable, new DateTime(2018,7,1), new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTTimeTable TestTimeTable = new Classes.Timetables.WTTTimeTable(XMLTestTimeTable, new DateTime(2018,7,1));
             Assert.Equal(XMLTestTimeTable.Element("ID").Value.ToString(), TestTimeTable.Headcode);
             Assert.Equal((WTTAccelBrakeIndex)Convert.ToInt32(XMLTestTimeTable.Element("AccelBrakeIndex").Value), TestTimeTable.AccelBrakeIndex);
             Assert.Equal(Convert.ToInt32(XMLTestTimeTable.Element("AsRequiredPercent").Value.ToString()), TestTimeTable.RunAsRequiredPercentage);
-            Assert.Equal(new GroundFrame.Classes.Timetables.WTTTime(Convert.ToInt32(XMLTestTimeTable.Element("DepartTime").Value.ToString()), new UserSettingCollection()).Seconds, TestTimeTable.DepartTime.Seconds);
+            Assert.Equal(new GroundFrame.Classes.Timetables.WTTTime(Convert.ToInt32(XMLTestTimeTable.Element("DepartTime").Value.ToString())).Seconds, TestTimeTable.DepartTime.Seconds);
             Assert.Equal(XMLTestTimeTable.Element("Description").Value.ToString(), TestTimeTable.Description);
-            Assert.Equal(new GroundFrame.Classes.Timetables.WTTDuration(Convert.ToInt32(XMLTestTimeTable.Element("SeedingGap").Value.ToString()), new UserSettingCollection()).Seconds, TestTimeTable.SeedingGap.Seconds);
+            Assert.Equal(new GroundFrame.Classes.Timetables.WTTDuration(Convert.ToInt32(XMLTestTimeTable.Element("SeedingGap").Value.ToString())).Seconds, TestTimeTable.SeedingGap.Seconds);
             Assert.Equal(XMLTestTimeTable.Element("EntryPoint").Value.ToString(), TestTimeTable.EntryPoint);
-            Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeed(Convert.ToInt32(XMLTestTimeTable.Element("MaxSpeed").Value.ToString()), new UserSettingCollection()).MPH, TestTimeTable.MaxSpeed.MPH);
-            Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeedClass(Convert.ToInt32(XMLTestTimeTable.Element("SpeedClass").Value.ToString()), new UserSettingCollection()).Bitwise, TestTimeTable.SpeedClass.Bitwise);
+            Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeed(Convert.ToInt32(XMLTestTimeTable.Element("MaxSpeed").Value.ToString())).MPH, TestTimeTable.MaxSpeed.MPH);
+            Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeedClass(Convert.ToInt32(XMLTestTimeTable.Element("SpeedClass").Value.ToString())).Bitwise, TestTimeTable.SpeedClass.Bitwise);
             Assert.Equal(new GroundFrame.Classes.Length(Convert.ToInt32(XMLTestTimeTable.Element("TrainLength").Value.ToString())).Meters, TestTimeTable.TrainLength.Meters);
             Assert.Equal(new GroundFrame.Classes.Electrification(XMLTestTimeTable.Element("Electrification").Value.ToString()).ToString(), TestTimeTable.Electrification.ToString());
             Assert.Equal(new GroundFrame.Classes.Electrification(XMLTestTimeTable.Element("StartTraction").Value.ToString()).ToString(), TestTimeTable.StartTraction.ToString());
@@ -56,7 +56,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTable
         [Fact]
         public void WTTTimeTable_Prop_NullXMLException()
         {
-            Assert.Throws<ArgumentNullException>(() => new GroundFrame.Classes.Timetables.WTTTimeTable(null, new DateTime(2018,7,1), new UserSettingCollection()));
+            Assert.Throws<ArgumentNullException>(() => new GroundFrame.Classes.Timetables.WTTTimeTable(null, new DateTime(2018,7,1)));
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTable
             //Get XElement from test .xml
             string TestXMLPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.xml";
             XElement XMLTestTimeTable = XDocument.Load(TestXMLPath).Element("SimSigTimetable").Element("Timetables").Descendants().First();
-            Assert.Throws<ArgumentOutOfRangeException>(() => new GroundFrame.Classes.Timetables.WTTTimeTable(XMLTestTimeTable, new DateTime(1750, 1, 1), new UserSettingCollection()));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new GroundFrame.Classes.Timetables.WTTTimeTable(XMLTestTimeTable, new DateTime(1750, 1, 1)));
         }
 
         /// <summary>
@@ -80,11 +80,11 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTable
             //Get XElement from test .xml
             string TestXMLPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.xml";
             XElement XMLTestTimeTable = XDocument.Load(TestXMLPath).Element("SimSigTimetable").Element("Timetables").Descendants().First();
-            GroundFrame.Classes.Timetables.WTTTimeTable TestTimeTable = new Classes.Timetables.WTTTimeTable(XMLTestTimeTable, new DateTime(2018, 7, 1), new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTTimeTable TestTimeTable = new Classes.Timetables.WTTTimeTable(XMLTestTimeTable, new DateTime(2018, 7, 1));
             //Create JSON
             string TestJSON = TestTimeTable.ToJSON();
             //Create new ojbect from JSON
-            GroundFrame.Classes.Timetables.WTTTimeTable TestJSONTimeTable = new Timetables.WTTTimeTable(TestJSON, new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTTimeTable TestJSONTimeTable = new Timetables.WTTTimeTable(TestJSON);
             Assert.Equal(TestTimeTable.ToString(), TestJSONTimeTable.ToString());
             Assert.Equal(TestTimeTable.StartDate, TestJSONTimeTable.StartDate);
             Assert.Equal(TestTimeTable.Trip.IndexOf(0).StartDate, TestJSONTimeTable.Trip.IndexOf(0).StartDate);
@@ -98,7 +98,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTable
         public void WTTTimeTable_Constructor_NullJSONException()
         {
             string JSON = null;
-            Assert.Throws<ArgumentNullException>(() => new GroundFrame.Classes.Timetables.WTTTimeTable(JSON, new UserSettingCollection()));
+            Assert.Throws<ArgumentNullException>(() => new GroundFrame.Classes.Timetables.WTTTimeTable(JSON));
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTable
         public void WTTTimeTable_Constructor_InvalidJSONException()
         {
             string JSON = "Invalid JSON";
-            Assert.Throws<FormatException>(() => new GroundFrame.Classes.Timetables.WTTTimeTable(JSON, new UserSettingCollection()));
+            Assert.Throws<FormatException>(() => new GroundFrame.Classes.Timetables.WTTTimeTable(JSON));
         }
 
         /// <summary>

@@ -20,7 +20,6 @@ namespace GroundFrame.Classes.Timetables
         #region Private Variables
 
         private readonly int _MPH; //Private variable to store the speed in MPH (the WTTSpeed base unit)
-        private readonly UserSettingCollection _UserSettings; //Private variable to store the user settings
 
         #endregion Private Variables
 
@@ -38,12 +37,6 @@ namespace GroundFrame.Classes.Timetables
         [JsonProperty("kph")]
         public decimal KPH { get { return this._MPH * _MPHToKPH;  } }
 
-        /// <summary>
-        /// Gets the user settings
-        /// </summary>
-        [JsonIgnore]
-        public UserSettingCollection UserSettings { get { return this._UserSettings; } }
-
         #endregion Properties
 
         #region Constructors
@@ -60,13 +53,11 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a WTTSpeed object from the the supplied MPH
         /// </summary>
         /// <param name="MPH">The Speed in MPH</param>
-        public WTTSpeed (int MPH, UserSettingCollection UserSettings)
+        public WTTSpeed (int MPH)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-
             if (MPH<=0)
             {
-                throw new ArgumentOutOfRangeException(ExceptionHelper.GetStaticException("InvalidMPHArgument", null, UserSettingHelper.GetCultureInfo(this.UserSettings)));
+                throw new ArgumentOutOfRangeException(ExceptionHelper.GetStaticException("InvalidMPHArgument", null, Globals.UserSettings.GetCultureInfo()));
             }
 
             this._MPH = MPH;

@@ -21,20 +21,11 @@ namespace GroundFrame.Classes.Timetables
         #endregion Constants
 
         #region Private Variables
-
         private List<WTTTrainCategory> _TrainCategories = new List<WTTTrainCategory>(); //List to store all the train categories
-        private readonly UserSettingCollection _UserSettings; //Stores the culture info
-
         #endregion Private Variables
 
         #region Properties
         public IEnumerator<WTTTrainCategory> GetEnumerator() { return this._TrainCategories.GetEnumerator(); }
-
-        /// <summary>
-        /// Gets the user settings
-        /// </summary>
-        [JsonIgnore]
-        public UserSettingCollection UserSettings { get { return this.GetSimulationUserSettings(); } }
 
         #endregion Properties
 
@@ -52,7 +43,6 @@ namespace GroundFrame.Classes.Timetables
             foreach (WTTTrainCategory TrainCategory in WTTTrainCategories)
             {
                 WTTTrainCategory NewWTTTrainCategory = TrainCategory;
-                NewWTTTrainCategory.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
                 this._TrainCategories.Add(NewWTTTrainCategory);
             }
         }
@@ -60,11 +50,10 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Instantiates a WTTTimeTableCollection
         /// </summary>
-        /// <param name="User">The name of the user's preferred culture. If an empty string supplied en-GB will be used</param>
-        public WTTTrainCategoryCollection(XElement WTTTrainCategoryXML, UserSettingCollection UserSettings)
+        /// <param name="WTTTrainCategoryXML">The SimSig XML (as an XElement) that represents the WTTTimeTableCollection</param>
+        public WTTTrainCategoryCollection(XElement WTTTrainCategoryXML)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
+            CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
             //Validate arguments
             ArgumentValidation.ValidateXElement(WTTTrainCategoryXML, Culture);
 
@@ -76,10 +65,9 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a WTTTrainCategoryCollection from a JSON file.
         /// </summary>
         /// <param name="JSON">A JSON string representing a collection of train categories</param>
-        public WTTTrainCategoryCollection(string JSON, UserSettingCollection UserSettings)
+        public WTTTrainCategoryCollection(string JSON)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
+            CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
 
             //Validate arguments
             ArgumentValidation.ValidateJSON(JSON, Culture);
@@ -120,7 +108,7 @@ namespace GroundFrame.Classes.Timetables
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTrainCategoryCollectionJSONError", null, UserSettingHelper.GetCultureInfo(this._UserSettings)), Ex);
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTTrainCategoryCollectionJSONError", null, Globals.UserSettings.GetCultureInfo()), Ex);
             }
         }
 
@@ -132,7 +120,7 @@ namespace GroundFrame.Classes.Timetables
         {
             foreach (XElement WTTTimeTableXML in WTTTrainCatoriesXML.Elements("TrainCategory"))
             {
-                this._TrainCategories.Add(new WTTTrainCategory(WTTTimeTableXML, this.UserSettings));
+                this._TrainCategories.Add(new WTTTrainCategory(WTTTimeTableXML));
             }
         }
 
@@ -159,20 +147,6 @@ namespace GroundFrame.Classes.Timetables
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
-
-        private UserSettingCollection GetSimulationUserSettings()
-        {
-            if (OnRequestUserSettings == null)
-            {
-                return this._UserSettings ?? new UserSettingCollection();
-            }
-            else
-            {
-                return OnRequestUserSettings();
-            }
-        }
-
-        internal Func<UserSettingCollection> OnRequestUserSettings;
 
         /// <summary>
         /// Disposes the VersionCollection object

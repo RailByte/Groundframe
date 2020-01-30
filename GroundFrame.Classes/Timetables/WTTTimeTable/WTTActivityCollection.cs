@@ -24,7 +24,6 @@ namespace GroundFrame.Classes.Timetables
 
         private List<WTTActivity> _Activities = new List<WTTActivity>(); //List to store all the activities
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
-        private readonly UserSettingCollection _UserSettings; //Stores the culture info
 
         #endregion Private Variables
 
@@ -35,12 +34,6 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         /// <returns></returns>
         public IEnumerator<WTTActivity> GetEnumerator() { return this._Activities.GetEnumerator(); }
-
-        /// <summary>
-        /// Gets the user settings
-        /// </summary>
-        [JsonIgnore]
-        public UserSettingCollection UserSettings { get { return this.GetSimulationUserSettings(); } }
 
         #endregion Properties
 
@@ -59,7 +52,6 @@ namespace GroundFrame.Classes.Timetables
             foreach (WTTActivity WTTActivity in WTTActivities)
             {
                 WTTActivity NewWTTActivity = WTTActivity;
-                NewWTTActivity.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
                 this._Activities.Add(NewWTTActivity);
             }
         }
@@ -68,14 +60,10 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a WTTActivityCollection from the supplied XElement object represening a SimSig activity collection and timetable start date
         /// </summary>
         /// <param name="WTTActivitiesXML">The XML object representing the SimSig activity collection</param>
-        /// <param name="StartDate">The start date of the timetable. Must be after 01/01/1850</param>
-        /// <param name="UserSettings">The user settings</param>
-        public WTTActivityCollection(XElement WTTActivitiesXML, UserSettingCollection UserSettings)
+        public WTTActivityCollection(XElement WTTActivitiesXML)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
             //Validate arguments
-            ArgumentValidation.ValidateXElement(WTTActivitiesXML, Culture);
+            ArgumentValidation.ValidateXElement(WTTActivitiesXML, Globals.UserSettings.GetCultureInfo());
 
             this._Activities = new List<WTTActivity>();
             ParseWTTActivitysXML(WTTActivitiesXML);
@@ -85,11 +73,9 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a WTTActivityCollection from a JSON file.
         /// </summary>
         /// <param name="JSON">A JSON string representing the trip collection</param>
-        /// <param name="UserSettings">The user settings</param>
-        public WTTActivityCollection(string JSON, UserSettingCollection UserSettings)
+        public WTTActivityCollection(string JSON)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
+            CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
 
             //Validate arguments
             ArgumentValidation.ValidateJSON(JSON, Culture);
@@ -119,11 +105,8 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a WTTActivityCollection object from WTTActivityCollectionSurrogate object
         /// </summary>
         /// <param name="SurrogateWTTActivityCollection">The source WTTActivityCollectionSurrogate object</param>
-        /// <param name="UserSettings">The user settings</param>
-        internal WTTActivityCollection(WTTActivityCollectionSurrogate SurrogateWTTActivityCollection, UserSettingCollection UserSettings)
+        internal WTTActivityCollection(WTTActivityCollectionSurrogate SurrogateWTTActivityCollection)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-
             if (SurrogateWTTActivityCollection.Activities != null)
             {
                 this._Activities = new List<WTTActivity>();
@@ -152,12 +135,12 @@ namespace GroundFrame.Classes.Timetables
             //JSON argument will already have been validated in the constructor
             try
             {
-                WTTActivityCollection Temp = JsonConvert.DeserializeObject<WTTActivityCollection>(JSON, new WTTActivityCollectionConverter(this.UserSettings));
+                WTTActivityCollection Temp = JsonConvert.DeserializeObject<WTTActivityCollection>(JSON, new WTTActivityCollectionConverter());
                 this._Activities = Temp.ToList();
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTActivityCollectionJSONError", null, UserSettingHelper.GetCultureInfo(this._UserSettings)), Ex);
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTActivityCollectionJSONError", null, Globals.UserSettings.GetCultureInfo()), Ex);
             }
         }
 
@@ -165,7 +148,7 @@ namespace GroundFrame.Classes.Timetables
         {
             foreach (XElement WTTActivityXML in WTTActivitysXML.Elements("Activity"))
             {
-                this._Activities.Add(new WTTActivity(WTTActivityXML, this.UserSettings));
+                this._Activities.Add(new WTTActivity(WTTActivityXML));
             }
         }
 
@@ -223,22 +206,8 @@ namespace GroundFrame.Classes.Timetables
         /// <returns></returns>
         public string ToJSON()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented, new WTTActivityCollectionConverter(this.UserSettings));
+            return JsonConvert.SerializeObject(this, Formatting.Indented, new WTTActivityCollectionConverter());
         }
-
-        private UserSettingCollection GetSimulationUserSettings()
-        {
-            if (OnRequestUserSettings == null)
-            {
-                return this._UserSettings ?? new UserSettingCollection();
-            }
-            else
-            {
-                return OnRequestUserSettings();
-            }
-        }
-
-        internal Func<UserSettingCollection> OnRequestUserSettings;
 
         /// <summary>
         /// Disposes the WTTActivityCollection object

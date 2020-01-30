@@ -13,7 +13,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [Fact]
         public void WTTSpeed_Prop_MPH()
         {
-            GroundFrame.Classes.Timetables.WTTSpeed TestSpeed = new GroundFrame.Classes.Timetables.WTTSpeed(100, new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTSpeed TestSpeed = new GroundFrame.Classes.Timetables.WTTSpeed(100);
             Assert.Equal(100, TestSpeed.MPH);
         }
 
@@ -23,7 +23,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [Fact]
         public void WTTSpeed_Prop_KPH()
         {
-            GroundFrame.Classes.Timetables.WTTSpeed TestSpeed = new GroundFrame.Classes.Timetables.WTTSpeed(100, new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTSpeed TestSpeed = new GroundFrame.Classes.Timetables.WTTSpeed(100);
             Assert.Equal(160.900M, TestSpeed.KPH);
         }
 
@@ -33,7 +33,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [Fact]
         public void WTTSpeed_Prop_ArgumentException_Seconds()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new GroundFrame.Classes.Timetables.WTTSpeed(0, new UserSettingCollection()));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new GroundFrame.Classes.Timetables.WTTSpeed(0));
         }
     }
 }

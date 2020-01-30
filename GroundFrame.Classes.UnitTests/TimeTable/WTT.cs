@@ -19,54 +19,11 @@ namespace GroundFrame.Classes.UnitTests.WTT
             //Get XElement from test .xml
             string TestJSONPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.json";
             string JSON = File.ReadAllText(TestJSONPath);
-            Classes.Timetables.WTT TestWTT = new Classes.Timetables.WTT(JSON, new UserSettingCollection());
+            Classes.Timetables.WTT TestWTT = new Classes.Timetables.WTT(JSON);
             Assert.Equal("Royston Weekday July 2018 Timetable", TestWTT.Header.Name);
             Assert.Equal(3, TestWTT.TrainCategories.Count);
-            Assert.Equal(TestWTT.Header.UserSettings.ToJSON(), new UserSettingCollection().ToJSON());
-            //Assert.Equal(JSON, TestWTT.ToJSON());
-        }
-
-        /// <summary>
-        /// Check instantiating a new WTT from JSON but with specific user settings
-        /// </summary>
-        [Fact]
-        public void WTT_Constructor_JSONSpecificUserSettings()
-        {
-            //Get XElement from test .xml
-            string TestJSONPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.json";
-            string JSON = File.ReadAllText(TestJSONPath);
-            //Create TestWTT with default user settings
-            Classes.Timetables.WTT TestWTT = new Classes.Timetables.WTT(JSON, new UserSettingCollection());
-            Assert.Equal("Royston Weekday July 2018 Timetable", TestWTT.Header.Name);
-            Assert.Equal(3, TestWTT.TrainCategories.Count);
-            //Create custom settings which are different from the default user settings
-            string SpecificUserSettingsJSON = @"[
-                {
-                            ""key"": ""CULTURE"",
-                ""description"": ""The culture of the user"",
-                ""value"": ""en-US"",
-                ""dataTypeName"": ""System.String""
-                },
-                {
-                            ""key"": ""PASSTIMECHAR"",
-                ""description"": ""The character to indicate a passing time"",
-                ""value"": "":"",
-                ""dataTypeName"": ""System.String""
-                },
-                {
-                            ""key"": ""TIMEHALFCHAR"",
-                ""description"": ""The character to indicate a half minute"",
-                ""value"": 73,
-                ""dataTypeName"": ""System.Int32""
-                }
-            ]";
-            UserSettingCollection SpecificUserSettings = new UserSettingCollection(SpecificUserSettingsJSON);
-            Classes.Timetables.WTT UserSettingTestWTT = new Classes.Timetables.WTT(JSON, SpecificUserSettings);
-            //Compares JSON
-            Assert.Equal(UserSettingTestWTT.Header.UserSettings.ToJSON(), SpecificUserSettings.ToJSON());
-            Assert.Equal(UserSettingTestWTT.TimeTables.UserSettings.ToJSON(), SpecificUserSettings.ToJSON());
-            Assert.Equal(UserSettingTestWTT.TimeTables.IndexOf(0).UserSettings.ToJSON(), SpecificUserSettings.ToJSON());
-            Assert.Equal(UserSettingTestWTT.TimeTables.IndexOf(0).Trip.UserSettings.ToJSON(), SpecificUserSettings.ToJSON());
+            string TestJSON = TestWTT.ToJSON();
+            Assert.Equal(JSON, TestWTT.ToJSON());
         }
 
         /// <summary>
@@ -78,7 +35,7 @@ namespace GroundFrame.Classes.UnitTests.WTT
             //Get XElement from test .xml
             string TestFilePath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.WTT";
             FileInfo Filename = new FileInfo(TestFilePath);
-            Classes.Timetables.WTT TestWTT = new Classes.Timetables.WTT(Filename, new UserSettingCollection());
+            Classes.Timetables.WTT TestWTT = new Classes.Timetables.WTT(Filename);
             Assert.Equal("Royston Weekday July 2018 Timetable", TestWTT.Header.Name);
             Assert.Equal(3, TestWTT.TrainCategories.Count);
             Assert.Equal(new DateTime(1850, 1, 1), TestWTT.StartDate);
@@ -97,7 +54,7 @@ namespace GroundFrame.Classes.UnitTests.WTT
             //Get XElement from test .xml
             string TestFilePath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.WTT";
             FileInfo Filename = new FileInfo(TestFilePath);
-            Classes.Timetables.WTT TestWTT = new Classes.Timetables.WTT(Filename, new DateTime(2018, 7, 1), new UserSettingCollection());
+            Classes.Timetables.WTT TestWTT = new Classes.Timetables.WTT(Filename, new DateTime(2018, 7, 1));
             Assert.Equal("Royston Weekday July 2018 Timetable", TestWTT.Header.Name);
             Assert.Equal(3, TestWTT.TrainCategories.Count);
             Assert.Equal(new DateTime(2018,7,1), TestWTT.StartDate);
@@ -112,7 +69,7 @@ namespace GroundFrame.Classes.UnitTests.WTT
             //Get JSON from .json file
             string TestJSONPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.xml";
             string JSON = File.ReadAllText(TestJSONPath);
-            Assert.Throws<FormatException>(() => new Classes.Timetables.WTT(JSON, new UserSettingCollection()));
+            Assert.Throws<FormatException>(() => new Classes.Timetables.WTT(JSON));
         }
 
         /// <summary>
@@ -124,7 +81,7 @@ namespace GroundFrame.Classes.UnitTests.WTT
             //Create WTT From test .WTT file
             string TestFilePath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.WTT";
             FileInfo Filename = new FileInfo(TestFilePath);
-            Classes.Timetables.WTT TestWTT = new Classes.Timetables.WTT(Filename, new DateTime(2018, 7, 1), new UserSettingCollection());
+            Classes.Timetables.WTT TestWTT = new Classes.Timetables.WTT(Filename, new DateTime(2018, 7, 1));
             string TestJSON = TestWTT.ToJSON();
 
             //Get the comparison JSON

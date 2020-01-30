@@ -15,7 +15,6 @@ namespace GroundFrame.Classes.Timetables
         #region Private Variables
 
         private int _VersionBuild; //Stores the Build Version Number
-        private readonly UserSettingCollection _UserSettings; //Stores the user settings
         private readonly DateTime _StartDate; //Stores the timetable start date
 
         #endregion Private Variables
@@ -76,12 +75,6 @@ namespace GroundFrame.Classes.Timetables
         [JsonProperty("startDate")]
         public DateTime StartDate { get { return this._StartDate; } }
 
-        /// <summary>
-        /// Gets the user settings
-        /// </summary>
-        [JsonIgnore]
-        public UserSettingCollection UserSettings { get { return this.GetSimulationUserSettings(); } }
-
         #endregion Properties
 
         #region Constructors
@@ -101,11 +94,9 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         /// <param name="Header">XElement containing the WTT XML defining this header object</param>
         /// <param name="StartDate">The start date of the timetable (cannot be before 01/01/1850)</param>
-        /// <param name="UserSettings">The users settings</param>
-        public WTTHeader(XElement Header, DateTime StartDate, UserSettingCollection UserSettings)
+        public WTTHeader(XElement Header, DateTime StartDate)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this._UserSettings);
+            CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
 
             //Validate arguments
             ArgumentValidation.ValidateXElement(Header, Culture);
@@ -120,13 +111,11 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Instantiates an empty WTTheader from a JSON string
         /// </summary>
-        /// <param name="UserSettings">The users settings</param>
-        public WTTHeader(string JSON, UserSettingCollection UserSettings)
+        /// <param name="JSON">The JSON string representing the WTTHeader object</param>
+        public WTTHeader(string JSON)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-
             //Validate settings
-            ArgumentValidation.ValidateJSON(JSON, UserSettingHelper.GetCultureInfo(this._UserSettings));
+            ArgumentValidation.ValidateJSON(JSON, Globals.UserSettings.GetCultureInfo());
 
             //Populate from JSON
             this.PopulateFromJSON(JSON);
@@ -136,13 +125,10 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a WTTHeader object from the SimSigTimeable element from a SimSig SavedTimetable.xml document
         /// </summary>
         /// <param name="Header">XElement containing the WTT XML defining this header object</param>
-        /// <param name="UserSettings">The users settings</param>
-        public WTTHeader(XElement Header, UserSettingCollection UserSettings)
+        public WTTHeader(XElement Header)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
-
             //Validate arguments
-            ArgumentValidation.ValidateXElement(Header, UserSettingHelper.GetCultureInfo(this._UserSettings));
+            ArgumentValidation.ValidateXElement(Header, Globals.UserSettings.GetCultureInfo());
 
             //Set Start Date to 01/01/1850 which is the earliest date SimSig allows
             this._StartDate = new DateTime(1850,1,1);
@@ -155,13 +141,11 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         /// <param name="Name">The WTT Name</param>
         /// <param name="StartTimeSeconds">The start time of the WTT (number of seconds after midnight)</param>
-        /// <param name="UserSettings">The users settings</param>
-        public WTTHeader(string Name, int StartTimeSeconds, UserSettingCollection UserSettings)
+        public WTTHeader(string Name, int StartTimeSeconds)
         {
-            this._UserSettings = UserSettings ?? new UserSettingCollection();
             this.Name = Name;
-            this.StartTime = new WTTTime(StartTimeSeconds, this.UserSettings);
-            this.FinishTime = new WTTTime(0, this.UserSettings);
+            this.StartTime = new WTTTime(StartTimeSeconds);
+            this.FinishTime = new WTTTime(0);
             this.VersionMajor = 1;
             this.TrainDescriptionTemplate = "$originTime $originName-$destName $operator ($stock)";
         }
@@ -176,25 +160,21 @@ namespace GroundFrame.Classes.Timetables
         /// <param name="Header"></param>
         private void ParseHeaderXML(XElement Header)
         {
-            //Set Culture
-            CultureInfo Culture = UserSettingHelper.GetCultureInfo(this.UserSettings);
-
             try
             {
-
                 //Parse XML
-                this.Name = XMLMethods.GetValueFromXElement<string>(Header, @"Name", Culture);
-                this.Description = XMLMethods.GetValueFromXElement<string>(Header, @"Description", Culture, string.Empty);
-                this.StartTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(Header, @"StartTime", Culture, 0), this._StartDate, this.UserSettings);
-                this.FinishTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(Header, @"FinishTime", Culture, 0), this._StartDate, this.UserSettings);
-                this.VersionMajor = XMLMethods.GetValueFromXElement<int>(Header, @"VMajor", Culture, 1);
-                this.VersionMinor = XMLMethods.GetValueFromXElement<int>(Header, @"VMinor", Culture, 0);
-                this._VersionBuild = XMLMethods.GetValueFromXElement<int>(Header, @"VBuild", Culture, 0);
-                this.TrainDescriptionTemplate = XMLMethods.GetValueFromXElement<string>(Header, @"TrainDescriptionTemplate", Culture, @"$originTime $originName-$destName $operator ($stock)");
+                this.Name = XMLMethods.GetValueFromXElement<string>(Header, @"Name");
+                this.Description = XMLMethods.GetValueFromXElement<string>(Header, @"Description", string.Empty);
+                this.StartTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(Header, @"StartTime", 0), this._StartDate);
+                this.FinishTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(Header, @"FinishTime", 0), this._StartDate);
+                this.VersionMajor = XMLMethods.GetValueFromXElement<int>(Header, @"VMajor", 1);
+                this.VersionMinor = XMLMethods.GetValueFromXElement<int>(Header, @"VMinor", 0);
+                this._VersionBuild = XMLMethods.GetValueFromXElement<int>(Header, @"VBuild", 0);
+                this.TrainDescriptionTemplate = XMLMethods.GetValueFromXElement<string>(Header, @"TrainDescriptionTemplate", @"$originTime $originName-$destName $operator ($stock)");
             }
             catch (Exception Ex)
             {
-                throw new Exception(ExceptionHelper.GetStaticException("ParseWTTHeaderException", null, Culture), Ex);
+                throw new Exception(ExceptionHelper.GetStaticException("ParseWTTHeaderException", null, Globals.UserSettings.GetCultureInfo()), Ex);
             }
         }
 
@@ -208,21 +188,10 @@ namespace GroundFrame.Classes.Timetables
             try
             {
                 JsonConvert.PopulateObject(JSON, this);
-                
-                //Pass UserSettings
-                if(this.StartTime != null)
-                {
-                    this.StartTime.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
-                }
-
-                if (this.FinishTime != null)
-                {
-                    this.FinishTime.OnRequestUserSettings += new Func<UserSettingCollection>(delegate { return this.UserSettings; });
-                }
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseUserSettingsJSONError", null, UserSettingHelper.GetCultureInfo(this._UserSettings)), Ex);
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseUserSettingsJSONError", null, Globals.UserSettings.GetCultureInfo()), Ex);
             }
         }
 
@@ -234,20 +203,6 @@ namespace GroundFrame.Classes.Timetables
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
-
-        private UserSettingCollection GetSimulationUserSettings()
-        {
-            if (OnRequestUserSettings == null)
-            {
-                return this._UserSettings ?? new UserSettingCollection();
-            }
-            else
-            {
-                return OnRequestUserSettings();
-            }
-        }
-
-        internal Func<UserSettingCollection> OnRequestUserSettings;
 
         #endregion Methods
     }

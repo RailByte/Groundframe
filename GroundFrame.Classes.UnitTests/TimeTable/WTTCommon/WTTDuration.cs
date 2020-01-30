@@ -24,7 +24,7 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
         [InlineData(-60, "-00:01")]
         public void WTTTime_Prop_FormattedDuration(int Input, string ExpectedValue)
         {
-            GroundFrame.Classes.Timetables.WTTDuration TestDuration = new Classes.Timetables.WTTDuration(Input, new UserSettingCollection());
+            GroundFrame.Classes.Timetables.WTTDuration TestDuration = new Classes.Timetables.WTTDuration(Input);
             Assert.Equal(ExpectedValue, TestDuration.FormattedDuration);
         }
     }
