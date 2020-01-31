@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace GroundFrame.Classes.Timetables
@@ -142,10 +143,15 @@ namespace GroundFrame.Classes.Timetables
 
         private void ParseWTTTimeTablesXML(XElement WTTTimeTablesXML)
         {
-            foreach (XElement WTTTimeTableXML in WTTTimeTablesXML.Elements("Timetable"))
+            //foreach (XElement WTTTimeTableXML in WTTTimeTablesXML.Elements("Timetable"))
+            //{
+            //    this._TimeTables.Add(new WTTTimeTable(WTTTimeTableXML, this._StartDate));
+            //}
+
+            Parallel.ForEach(WTTTimeTablesXML.Elements("Timetable"), WTTTimeTableXML =>
             {
                 this._TimeTables.Add(new WTTTimeTable(WTTTimeTableXML, this._StartDate));
-            }
+            });
         }
 
         IEnumerator IEnumerable.GetEnumerator()

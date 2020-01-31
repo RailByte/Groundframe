@@ -5,6 +5,8 @@ using System.Text;
 using GroundFrame.Classes.Timetables;
 using GroundFrame.Classes;
 using Xunit;
+using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace GroundFrame.Classes.UnitTests.WTT
 {
@@ -83,11 +85,12 @@ namespace GroundFrame.Classes.UnitTests.WTT
             Classes.Timetables.WTT TestWTT = new Classes.Timetables.WTT(Filename, new DateTime(2018, 7, 1));
             string TestJSON = TestWTT.ToJSON();
 
-            //Get the comparison JSON
-            string ComparisonJSONPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.json";
-            string ComparisonJSON = File.ReadAllText(ComparisonJSONPath);
-
-            Assert.True(TestJSON.Equals(ComparisonJSON));
+            //Parse JSON
+            JObject ParsedJSON = JObject.Parse(TestJSON);
+            //Test various elements
+            Assert.Equal(TestWTT.TimeTables.Count(), ParsedJSON["timeTables"].Count());
+            Assert.Equal(TestWTT.TimeTables.IndexOf(0).Trip.Count(), ParsedJSON["timeTables"][0]["trip"].Count());
+            Assert.Equal(TestWTT.TimeTables.GetByHeadCode("1R52").FirstOrDefault().Trip.IndexOf(1).Activities.Count(), ParsedJSON["timeTables"].Where(h => h["headcode"].ToString() == "1R52").FirstOrDefault()["trip"][1]["activities"].Count());
         }
     }
 }

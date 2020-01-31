@@ -141,6 +141,7 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Gets or sets the trip for this service
         /// </summary>
+        [JsonProperty("trip")]
         public WTTTripCollection Trip { get; set; }
 
         #endregion Properties
