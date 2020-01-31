@@ -23,23 +23,68 @@ namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTableCollection
         }
 
         /// <summary>
-        /// Checks that the IndexOf methiod within WTTTrainCategoryCollection returns the correct WTTTrainCategory
+        /// Checks that the LocationMapper returns the correct number of locations
         /// </summary>
         [Fact]
-        public void WTTTimeTableCollection_Method_IndexOf()
+        public void WTTTimeTableCollection_Method_GetMapperLocations()
+        {
+            string FullPath = new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\TestWTT_4.8.xml").LocalPath;
+            XElement TestXML = XDocument.Load(FullPath).Element("SimSigTimetable").Element("Timetables");
+            GroundFrame.Classes.Timetables.WTTTimeTableCollection TestTimeTableCollection = new GroundFrame.Classes.Timetables.WTTTimeTableCollection(TestXML, new DateTime(2018, 7, 1));
+           
+            List<MapperLocation> LocationMapper = TestTimeTableCollection.GetMapperLocations();
+            Assert.Equal(7, LocationMapper.Count);
+        }
+
+        /// <summary>
+        /// Checks that the LocationMapper returns the correct number of location nodes
+        /// </summary>
+        [Fact]
+        public void WTTTimeTableCollection_Method_GetMapperLocationNodes()
+        {
+            string FullPath = new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\TestWTT_4.8.xml").LocalPath;
+            XElement TestXML = XDocument.Load(FullPath).Element("SimSigTimetable").Element("Timetables");
+            GroundFrame.Classes.Timetables.WTTTimeTableCollection TestTimeTableCollection = new GroundFrame.Classes.Timetables.WTTTimeTableCollection(TestXML, new DateTime(2018, 7, 1));
+
+            List<MapperLocationNode> LocationMapperNodes = TestTimeTableCollection.GetMapperLocationNodes().OrderBy(x => x.SimSigCode).ToList();
+            Assert.Equal(20, LocationMapperNodes.Count);
+        }
+
+        /// <summary>
+        /// Checks that the GetByHeadCode method within WTTTrainCategoryCollection returns the correct WTTTrainCategory
+        /// </summary>
+        [Fact]
+        public void WTTTimeTableCollection_Method_GetByHeadCode()
         {
             string FullPath = new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\TestWTT_4.8.xml").LocalPath;
             XElement XMLTestTimeTables = XDocument.Load(FullPath).Element("SimSigTimetable").Element("Timetables");
-            XElement XMLTestTimeTable = XMLTestTimeTables.Elements("Timetable").First();
+            XElement XMLTestTimeTable = XMLTestTimeTables.Elements("Timetable").Where(x => x.Element("ID").Value.ToString() == "1R09").FirstOrDefault();
             GroundFrame.Classes.Timetables.WTTTimeTableCollection TestTimeTableCollection = new GroundFrame.Classes.Timetables.WTTTimeTableCollection(XMLTestTimeTables, new DateTime(2018, 7, 1));
-            GroundFrame.Classes.Timetables.WTTTimeTable TestTimeTable = TestTimeTableCollection.IndexOf(0);
+            GroundFrame.Classes.Timetables.WTTTimeTable TestTimeTable = TestTimeTableCollection.GetByHeadCode("1R09").First();
             Assert.Equal(XMLTestTimeTable.Element("ID").Value.ToString(), TestTimeTable.Headcode);
             Assert.Equal((WTTAccelBrakeIndex)Convert.ToInt32(XMLTestTimeTable.Element("AccelBrakeIndex").Value), TestTimeTable.AccelBrakeIndex);
             Assert.Equal(Convert.ToInt32(XMLTestTimeTable.Element("AsRequiredPercent").Value.ToString()), TestTimeTable.RunAsRequiredPercentage);
-            Assert.Equal(new GroundFrame.Classes.Timetables.WTTTime(Convert.ToInt32(XMLTestTimeTable.Element("DepartTime").Value.ToString())).Seconds, TestTimeTable.DepartTime.Seconds);
+
+            if (XMLTestTimeTable.Element("DepartTime") != null)
+            {
+                Assert.Equal(new GroundFrame.Classes.Timetables.WTTTime(Convert.ToInt32(XMLTestTimeTable.Element("DepartTime").Value.ToString())).Seconds, TestTimeTable.DepartTime.Seconds);
+            }
+            else
+            {
+                Assert.Equal(0, TestTimeTable.DepartTime.Seconds);
+            }
             Assert.Equal(XMLTestTimeTable.Element("Description").Value.ToString(), TestTimeTable.Description);
             Assert.Equal(new GroundFrame.Classes.Timetables.WTTDuration(Convert.ToInt32(XMLTestTimeTable.Element("SeedingGap").Value.ToString())).Seconds, TestTimeTable.SeedingGap.Seconds);
-            Assert.Equal(XMLTestTimeTable.Element("EntryPoint").Value.ToString(), TestTimeTable.EntryPoint);
+            
+            if (XMLTestTimeTable.Element("EntryPoint") != null)
+            {
+                Assert.Equal(XMLTestTimeTable.Element("EntryPoint").Value.ToString(), TestTimeTable.EntryPoint);
+            }
+            else
+            {
+                Assert.Equal(string.Empty, TestTimeTable.EntryPoint);
+            }
+            
             Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeed(Convert.ToInt32(XMLTestTimeTable.Element("MaxSpeed").Value.ToString())).MPH, TestTimeTable.MaxSpeed.MPH);
             Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeedClass(Convert.ToInt32(XMLTestTimeTable.Element("SpeedClass").Value.ToString())).Bitwise, TestTimeTable.SpeedClass.Bitwise);
             Assert.Equal(new GroundFrame.Classes.Length(Convert.ToInt32(XMLTestTimeTable.Element("TrainLength").Value.ToString())).Meters, TestTimeTable.TrainLength.Meters);

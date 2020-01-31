@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using System.Globalization;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace GroundFrame.Classes.Timetables
 {
@@ -382,6 +383,67 @@ namespace GroundFrame.Classes.Timetables
                 Trip = this.Trip,
                 StartDate = this.StartDate
             };
+        }
+
+        /// <summary>
+        /// Gets a list of the distinct locations in the service
+        /// </summary>
+        /// <returns>A MapperLocation list of the distinct location</returns>
+        public List<MapperLocation> GetMapperLocations()
+        {
+            List<MapperLocation> LocationMapper = new List<MapperLocation>();
+
+            if (string.IsNullOrEmpty(this.EntryPoint) == false)
+            {
+                LocationMapper.Add(new MapperLocation { Name = this.EntryPoint, IsEntryPoint = true, SimSigCode = this.EntryPoint });
+            }
+
+            //Now add trip locations
+
+            Parallel.ForEach(this.Trip, Trip =>
+            {
+                LocationMapper.Add(new MapperLocation { Name = Trip.Location, IsEntryPoint = false, SimSigCode = Trip.Location });
+            });
+
+
+            return LocationMapper;
+        }
+
+        /// <summary>
+        /// Gets a list of the distinct location nodes in the service
+        /// </summary>
+        /// <returns>A MapperLocationNode list of the distinct location nodes</returns>
+        public List<MapperLocationNode> GetMapperLocationNodes()
+        {
+            List<MapperLocationNode> LocationMapperNode = new List<MapperLocationNode>();
+
+            if (string.IsNullOrEmpty(this.EntryPoint) == false)
+            {
+                LocationMapperNode.Add(new MapperLocationNode { SimSigCode = this.EntryPoint, Platform = string.Empty, NextLocationNode = new MapperLocationNode { SimSigCode = this.Trip.IndexOf(0).Location, Platform = this.Trip.IndexOf(0).Platform } });
+
+            }
+
+            //Now add trip locations
+
+            for (int i = 0; i < this.Trip.Count - 1; i++)
+            {
+                if (i < this.Trip.Count - 1)
+                {
+                    LocationMapperNode.Add(new MapperLocationNode { SimSigCode = this.Trip.IndexOf(i).Location, Platform = this.Trip.IndexOf(i).Platform, NextLocationNode = new MapperLocationNode { SimSigCode = this.Trip.IndexOf(i + 1).Location, Platform = this.Trip.IndexOf(i + 1).Platform } });
+                }
+                else
+                {
+                    LocationMapperNode.Add(new MapperLocationNode
+                    {
+                        SimSigCode = this.Trip.IndexOf(i).Location,
+                        Platform = this.Trip.IndexOf(i).Platform,
+                        NextLocationNode = new MapperLocationNode { SimSigCode = string.Empty, Platform = string.Empty, NextLocationNode = null}
+                        
+                    });
+                }
+            }
+
+            return LocationMapperNode;
         }
 
         #endregion Methods

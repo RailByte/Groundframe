@@ -8,7 +8,26 @@ using System.Globalization;
 namespace GroundFrame.Classes
 {
     /// <summary>
-    /// A object representing a connection to a SQL database. Wrapped around SqlConnector object. Designed to enable a consistent approach to connecting to a SQL database
+    /// An enum to represent the various roles available in the GroundFrame.SQL Database
+    /// </summary>
+    public enum SQLRole
+    {
+        /// <summary>
+        /// A standard user role with no editing rights on the SimSig side
+        /// </summary>
+        Standard = 1,
+        /// <summary>
+        /// The editor role which allows a user to create and edit simulation data. Can only be assigned by a user in the Admin role
+        /// </summary>
+        Editor = 2,
+        /// <summary>
+        /// The admin role which allows a user god rights
+        /// </summary>
+        Admin = 4
+    }
+
+    /// <summary>
+    /// A object representing a connection to a GroundFrame.SQL database. Designed to enable a consistent approach to connecting to a SQL database
     /// </summary>
     public class GFSqlConnector : IDisposable
     {
@@ -277,6 +296,32 @@ namespace GroundFrame.Classes
                 this.Close();
             }
         }
+
+        /// <summary>
+        /// Gets the role enum for the current user
+        /// </summary>
+        /// <returns>SQLRole enum representing the roles the user has access to</returns>
+        public SQLRole GetRole()
+        {
+            SQLRole Result = 0;
+
+            this._Connection.Open();
+            using (SqlCommand cmd = new SqlCommand("SELECT [role] = [app].[Fn_GET_USERROLE]()", this._Connection))
+            {
+                cmd.CommandType = CommandType.Text;
+                SqlDataReader DataReader = cmd.ExecuteReader();
+
+                while (DataReader.Read())
+                {
+                    Result = (SQLRole)DataReader.GetInt32(DataReader.GetOrdinal("role"));
+                }
+
+            }
+
+            return Result;
+        }
+
+
         /// <summary>
         /// Generates a set of test data and returns an ID which can be passed to the TearDown method
         /// </summary>
@@ -318,15 +363,6 @@ namespace GroundFrame.Classes
 
             // Release the unmanaged resource in any case as they will not be 
             // released by GC
-        }
-
-        ~GFSqlConnector()
-        {
-            // The object went out of scope and finalized is called
-            // Lets call dispose in to release unmanaged resources 
-            // the managed resources will anyways be released when GC 
-            // runs the next time.
-            Dispose(false);
         }
 
         #endregion Methods
