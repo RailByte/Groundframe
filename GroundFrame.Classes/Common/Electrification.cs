@@ -25,6 +25,11 @@ namespace GroundFrame.Classes
         #region Properties
 
         /// <summary>
+        /// Gets or sets the Diesel flag
+        /// </summary>
+        public bool Diesel { get; set; }
+
+        /// <summary>
         /// Gets or sets the Overhead electrification flag
         /// </summary>
         public bool Overhead { get; set; }
@@ -111,6 +116,7 @@ namespace GroundFrame.Classes
 
             if (string.IsNullOrEmpty(Code))
             {
+                Diesel = false;
                 Overhead = false;
                 ThirdRail = false;
                 FourthRail = false;
@@ -153,6 +159,14 @@ namespace GroundFrame.Classes
                 HasMatch = true;
                 CharactersParsed += 2;
                 Code = Code.Replace("X4", "", true, this._Culture);
+            }
+
+            if (Code.IndexOf("D", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                Overhead = true;
+                HasMatch = true;
+                CharactersParsed++;
+                Code = Code.Replace("D", "", true, this._Culture);
             }
 
             if (Code.IndexOf("O", StringComparison.OrdinalIgnoreCase)>=0)

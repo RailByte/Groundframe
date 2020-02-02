@@ -49,6 +49,7 @@
       "powerToWeightCategory": 0,
       "dwellTimes": null,
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -84,6 +85,7 @@
       "powerToWeightCategory": 0,
       "dwellTimes": null,
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -119,6 +121,7 @@
       "powerToWeightCategory": 0,
       "dwellTimes": null,
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -172,6 +175,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -184,6 +188,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -291,6 +296,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -303,6 +309,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -429,6 +436,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -441,6 +449,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -567,6 +576,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -579,6 +589,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -729,6 +740,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -741,6 +753,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -891,6 +904,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -903,6 +917,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -1053,6 +1068,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -1065,6 +1081,7 @@
       },
       "runAsRequiredTested": true,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -1215,6 +1232,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -1227,6 +1245,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -1377,6 +1396,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -1389,6 +1409,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -1496,6 +1517,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -1508,6 +1530,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -1658,6 +1681,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -1670,6 +1694,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -1820,6 +1845,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -1832,6 +1858,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -1982,6 +2009,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -1994,6 +2022,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -2144,6 +2173,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -2156,6 +2186,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -2306,6 +2337,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -2318,6 +2350,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -2468,6 +2501,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -2480,6 +2514,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -2630,6 +2665,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -2642,6 +2678,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -2792,6 +2829,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -2804,6 +2842,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -2906,6 +2945,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -2918,6 +2958,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -3068,6 +3109,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -3080,6 +3122,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -3182,6 +3225,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -3194,6 +3238,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -3344,6 +3389,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -3356,6 +3402,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -3506,6 +3553,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -3518,6 +3566,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -3668,6 +3717,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -3680,6 +3730,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -3830,6 +3881,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -3842,6 +3894,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -3944,6 +3997,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -3956,6 +4010,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4058,6 +4113,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4070,6 +4126,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4172,6 +4229,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4184,6 +4242,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4286,6 +4345,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4298,6 +4358,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4400,6 +4461,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4412,6 +4474,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4514,6 +4577,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4526,6 +4590,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4628,6 +4693,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4640,6 +4706,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4742,6 +4809,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4754,6 +4822,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4856,6 +4925,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4868,6 +4938,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4970,6 +5041,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -4982,6 +5054,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -5084,6 +5157,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -5096,6 +5170,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -5198,6 +5273,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -5210,6 +5286,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -5360,6 +5437,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -5372,6 +5450,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -5522,6 +5601,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -5534,6 +5614,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -5684,6 +5765,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -5696,6 +5778,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -5798,6 +5881,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -5810,6 +5894,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -5912,6 +5997,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -5924,6 +6010,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6074,6 +6161,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6086,6 +6174,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6188,6 +6277,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6200,6 +6290,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6302,6 +6393,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6314,6 +6406,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6416,6 +6509,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6428,6 +6522,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6578,6 +6673,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6590,6 +6686,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6692,6 +6789,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6704,6 +6802,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6806,6 +6905,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6818,6 +6918,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6968,6 +7069,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -6980,6 +7082,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -7082,6 +7185,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -7094,6 +7198,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -7196,6 +7301,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -7208,6 +7314,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -7310,6 +7417,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -7322,6 +7430,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -7424,6 +7533,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -7436,6 +7546,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -7538,6 +7649,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -7550,6 +7662,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -7700,6 +7813,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -7712,6 +7826,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -7838,6 +7953,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -7850,6 +7966,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -8000,6 +8117,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -8012,6 +8130,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -8162,6 +8281,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -8174,6 +8294,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -8324,6 +8445,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -8336,6 +8458,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -8486,6 +8609,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -8498,6 +8622,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -8648,6 +8773,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -8660,6 +8786,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -8810,6 +8937,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -8822,6 +8950,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -8972,6 +9101,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -8984,6 +9114,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9134,6 +9265,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9146,6 +9278,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9296,6 +9429,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9308,6 +9442,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9410,6 +9545,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9422,6 +9558,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9524,6 +9661,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9536,6 +9674,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9638,6 +9777,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9650,6 +9790,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9752,6 +9893,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9764,6 +9906,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9866,6 +10009,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9878,6 +10022,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9980,6 +10125,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -9992,6 +10138,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -10142,6 +10289,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -10154,6 +10302,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -10256,6 +10405,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -10268,6 +10418,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -10370,6 +10521,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -10382,6 +10534,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -10532,6 +10685,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -10544,6 +10698,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -10694,6 +10849,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -10706,6 +10862,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -10832,6 +10989,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -10844,6 +11002,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -10994,6 +11153,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -11006,6 +11166,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -11108,6 +11269,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -11120,6 +11282,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -11270,6 +11433,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -11282,6 +11446,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -11432,6 +11597,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -11444,6 +11610,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -11594,6 +11761,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -11606,6 +11774,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -11756,6 +11925,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -11768,6 +11938,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -11870,6 +12041,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -11882,6 +12054,7 @@
       },
       "runAsRequiredTested": true,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -12032,6 +12205,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -12044,6 +12218,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -12194,6 +12369,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -12206,6 +12382,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -12356,6 +12533,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -12368,6 +12546,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -12518,6 +12697,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -12530,6 +12710,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -12680,6 +12861,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -12692,6 +12874,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -12842,6 +13025,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -12854,6 +13038,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -13004,6 +13189,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -13016,6 +13202,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -13166,6 +13353,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -13178,6 +13366,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -13328,6 +13517,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -13340,6 +13530,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -13490,6 +13681,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -13502,6 +13694,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -13652,6 +13845,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -13664,6 +13858,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -13814,6 +14009,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -13826,6 +14022,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -13928,6 +14125,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -13940,6 +14138,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -14090,6 +14289,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -14102,6 +14302,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -14252,6 +14453,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -14264,6 +14466,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -14414,6 +14617,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -14426,6 +14630,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -14576,6 +14781,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -14588,6 +14794,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -14738,6 +14945,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -14750,6 +14958,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -14900,6 +15109,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -14912,6 +15122,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -15062,6 +15273,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -15074,6 +15286,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -15224,6 +15437,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -15236,6 +15450,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -15386,6 +15601,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -15398,6 +15614,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -15548,6 +15765,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -15560,6 +15778,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -15710,6 +15929,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -15722,6 +15942,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -15872,6 +16093,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -15884,6 +16106,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -16034,6 +16257,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -16046,6 +16270,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -16196,6 +16421,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -16208,6 +16434,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -16358,6 +16585,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -16370,6 +16598,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -16520,6 +16749,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -16532,6 +16762,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -16682,6 +16913,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -16694,6 +16926,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -16844,6 +17077,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -16856,6 +17090,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -17006,6 +17241,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -17018,6 +17254,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -17168,6 +17405,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -17180,6 +17418,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -17330,6 +17569,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -17342,6 +17582,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -17492,6 +17733,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -17504,6 +17746,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -17654,6 +17897,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -17666,6 +17910,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -17816,6 +18061,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -17828,6 +18074,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -17978,6 +18225,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -17990,6 +18238,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -18140,6 +18389,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -18152,6 +18402,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -18302,6 +18553,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -18314,6 +18566,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -18464,6 +18717,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -18476,6 +18730,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -18626,6 +18881,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -18638,6 +18894,7 @@
       },
       "runAsRequiredTested": true,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -18788,6 +19045,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -18800,6 +19058,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -18950,6 +19209,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -18962,6 +19222,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -19112,6 +19373,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -19124,6 +19386,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -19274,6 +19537,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -19286,6 +19550,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -19436,6 +19701,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -19448,6 +19714,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -19598,6 +19865,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -19610,6 +19878,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -19760,6 +20029,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -19772,6 +20042,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -19922,6 +20193,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -19934,6 +20206,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -20084,6 +20357,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -20096,6 +20370,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -20246,6 +20521,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -20258,6 +20534,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -20408,6 +20685,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -20420,6 +20698,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -20570,6 +20849,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -20582,6 +20862,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -20732,6 +21013,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -20744,6 +21026,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -20851,6 +21134,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -20863,6 +21147,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -21013,6 +21298,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -21025,6 +21311,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -21175,6 +21462,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -21187,6 +21475,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -21270,6 +21559,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -21282,6 +21572,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -21432,6 +21723,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -21444,6 +21736,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -21594,6 +21887,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -21606,6 +21900,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -21756,6 +22051,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -21768,6 +22064,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -21918,6 +22215,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -21930,6 +22228,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -22080,6 +22379,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -22092,6 +22392,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -22199,6 +22500,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -22211,6 +22513,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -22318,6 +22621,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -22330,6 +22634,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -22437,6 +22742,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -22449,6 +22755,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -22575,6 +22882,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -22587,6 +22895,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -22737,6 +23046,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -22749,6 +23059,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -22899,6 +23210,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -22911,6 +23223,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -23037,6 +23350,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -23049,6 +23363,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -23199,6 +23514,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -23211,6 +23527,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -23313,6 +23630,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -23325,6 +23643,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -23451,6 +23770,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -23463,6 +23783,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -23613,6 +23934,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -23625,6 +23947,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -23775,6 +24098,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -23787,6 +24111,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -23913,6 +24238,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -23925,6 +24251,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -24075,6 +24402,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -24087,6 +24415,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -24189,6 +24518,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -24201,6 +24531,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -24351,6 +24682,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -24363,6 +24695,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -24489,6 +24822,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -24501,6 +24835,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -24603,6 +24938,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -24615,6 +24951,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -24765,6 +25102,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -24777,6 +25115,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -24927,6 +25266,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -24939,6 +25279,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -25041,6 +25382,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -25053,6 +25395,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -25179,6 +25522,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -25191,6 +25535,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -25274,6 +25619,7 @@
         "MilesAndChains": "4CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -25286,6 +25632,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": false,
         "FourthRail": false,
@@ -25412,6 +25759,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -25424,6 +25772,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -25550,6 +25899,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -25562,6 +25912,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -25688,6 +26039,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -25700,6 +26052,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -25826,6 +26179,7 @@
         "MilesAndChains": "8CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -25838,6 +26192,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -25988,6 +26343,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -26000,6 +26356,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -26150,6 +26507,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -26162,6 +26520,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -26312,6 +26671,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -26324,6 +26684,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -26474,6 +26835,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -26486,6 +26848,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -26612,6 +26975,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -26624,6 +26988,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -26750,6 +27115,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -26762,6 +27128,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -26912,6 +27279,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -26924,6 +27292,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -27074,6 +27443,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -27086,6 +27456,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -27236,6 +27607,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -27248,6 +27620,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -27374,6 +27747,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -27386,6 +27760,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -27512,6 +27887,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -27524,6 +27900,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -27674,6 +28051,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -27686,6 +28064,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -27836,6 +28215,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -27848,6 +28228,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -27974,6 +28355,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -27986,6 +28368,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -28112,6 +28495,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -28124,6 +28508,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -28250,6 +28635,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -28262,6 +28648,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -28388,6 +28775,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -28400,6 +28788,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -28550,6 +28939,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -28562,6 +28952,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -28712,6 +29103,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -28724,6 +29116,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -28874,6 +29267,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -28886,6 +29280,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -29036,6 +29431,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -29048,6 +29444,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -29174,6 +29571,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -29186,6 +29584,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -29336,6 +29735,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -29348,6 +29748,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -29474,6 +29875,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -29486,6 +29888,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -29636,6 +30039,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -29648,6 +30052,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -29798,6 +30203,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -29810,6 +30216,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -29936,6 +30343,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -29948,6 +30356,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -30074,6 +30483,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -30086,6 +30496,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -30236,6 +30647,7 @@
         "MilesAndChains": "12CH"
       },
       "electrification": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,
@@ -30248,6 +30660,7 @@
       },
       "runAsRequiredTested": false,
       "startTraction": {
+        "Diesel": false,
         "Overhead": true,
         "ThirdRail": true,
         "FourthRail": false,

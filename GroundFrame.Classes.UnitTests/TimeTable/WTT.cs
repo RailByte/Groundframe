@@ -15,35 +15,40 @@ namespace GroundFrame.Classes.UnitTests.WTT
         /// <summary>
         /// Check instantiating a new WTT from JSON
         /// </summary>
-        [Fact]
-        public void WTT_Constructor_JSON()
+        [Theory]
+        [JsonFileData(@"Resources\TestData.json", "WTT_Constructor_TestData1")]
+        public void WTT_Constructor_JSON(string FileGroup, string Name, int TrainCategoryCount, string HeadCode, int ActivityCount)
         {
             //Get XElement from test .xml
-            string TestJSONPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.json";
+            string TestJSONPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\{FileGroup}.json";
             string JSON = File.ReadAllText(TestJSONPath);
             Classes.Timetables.WTT TestWTT = new Classes.Timetables.WTT(JSON);
-            Assert.Equal("Royston Weekday July 2018 Timetable", TestWTT.Header.Name);
-            Assert.Equal(3, TestWTT.TrainCategories.Count);
-            Assert.Equal(JSON, TestWTT.ToJSON());
+            Assert.Equal(Name, TestWTT.Header.Name);
+            Assert.Equal(TrainCategoryCount, TestWTT.TrainCategories.Count);
+            string Test = TestWTT.ToJSON();
+            List<Classes.Timetables.WTTTimeTable> TimeTables = TestWTT.TimeTables.GetByHeadCode(HeadCode);
+            Classes.Timetables.WTTActivityCollection TestActivities = TimeTables[0].Trip.IndexOf(1).Activities;
+            Assert.Equal(ActivityCount, TestActivities == null ? 0 : TestActivities.Count);
         }
 
         /// <summary>
         /// Check instantiating a new WTT from a File
         /// </summary>
-        [Fact]
-        public void WTT_Constructor_FileInfo()
+        [Theory]
+        [JsonFileData(@"Resources\TestData.json", "WTT_Constructor_TestData1")]
+        public void WTT_Constructor_FileInfo(string FileGroup, string Name, int TrainCategoryCount, string HeadCode, int ActivityCount)
         {
             //Get XElement from test .xml
-            string TestFilePath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.WTT";
+            string TestFilePath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\{FileGroup}.WTT";
             FileInfo Filename = new FileInfo(TestFilePath);
             Classes.Timetables.WTT TestWTT = new Classes.Timetables.WTT(Filename);
-            Assert.Equal("Royston Weekday July 2018 Timetable", TestWTT.Header.Name);
-            Assert.Equal(3, TestWTT.TrainCategories.Count);
+            Assert.Equal(Name, TestWTT.Header.Name);
+            Assert.Equal(TrainCategoryCount, TestWTT.TrainCategories.Count);
             Assert.Equal(new DateTime(1850, 1, 1), TestWTT.StartDate);
 
-            List<Classes.Timetables.WTTTimeTable> TimeTables = TestWTT.TimeTables.GetByHeadCode("1R48");
+            List<Classes.Timetables.WTTTimeTable> TimeTables = TestWTT.TimeTables.GetByHeadCode(HeadCode);
             Classes.Timetables.WTTActivityCollection TestActivities = TimeTables[0].Trip.IndexOf(1).Activities;
-            Assert.Equal(1, TestActivities.Count);
+            Assert.Equal(ActivityCount, TestActivities == null ? 0 : TestActivities.Count);
         }
 
         /// <summary>

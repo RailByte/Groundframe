@@ -1,0 +1,9 @@
+{
+  "WTT_Constructor_TestData1": [
+    [ "TestWTT_4.8", "Royston Weekday July 2018 Timetable", 3, "1R48", 1 ]
+  ],
+  "WTT_Constructor_TestData2": [
+    [ "TestWTT_4.8", "Royston Weekday July 2018 Timetable", 3, "1R48", 1 ],
+    [ "TestThreeBridges_4.8", "Three Bridges ASC 2009-10-15 SX", 57, "0O47", 0 ]
+  ]
+}

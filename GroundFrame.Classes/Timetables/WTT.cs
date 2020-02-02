@@ -10,7 +10,8 @@ namespace GroundFrame.Classes.Timetables
 {
     public enum SimSigSimulation
     {
-        Royston = 1
+        Royston = 1,
+        threebridges = 2
     }
 
     public class WTT
