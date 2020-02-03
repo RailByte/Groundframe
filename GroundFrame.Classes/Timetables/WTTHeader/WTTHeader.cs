@@ -70,6 +70,12 @@ namespace GroundFrame.Classes.Timetables
         public string TrainDescriptionTemplate { get; set; }
 
         /// <summary>
+        /// Gets or sets the Seed Group Summary
+        /// </summary>
+        [JsonProperty("seedGroupSummary")]
+        public string SeedGroupSummary { get; set; }
+
+        /// <summary>
         /// Gets the timetable start date
         /// </summary>
         [JsonProperty("startDate")]
@@ -163,14 +169,15 @@ namespace GroundFrame.Classes.Timetables
             try
             {
                 //Parse XML
-                this.Name = XMLMethods.GetValueFromXElement<string>(Header, @"Name", string.Empty);
-                this.Description = XMLMethods.GetValueFromXElement<string>(Header, @"Description", string.Empty);
-                this.StartTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(Header, @"StartTime", 0), this._StartDate);
-                this.FinishTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(Header, @"FinishTime", 0), this._StartDate);
+                this.Name = XMLMethods.GetValueFromXElement<string>(Header, @"Name", string.Empty, null);
+                this.Description = XMLMethods.GetValueFromXElement<string>(Header, @"Description", string.Empty, null);
+                this.StartTime = XMLMethods.GetValueFromXElement<WTTTime>(Header, @"StartTime", null, new object[] { this._StartDate });
+                this.FinishTime = XMLMethods.GetValueFromXElement<WTTTime>(Header, @"FinishTime", null, new object[] { this._StartDate });
                 this.VersionMajor = XMLMethods.GetValueFromXElement<int>(Header, @"VMajor", 1);
                 this.VersionMinor = XMLMethods.GetValueFromXElement<int>(Header, @"VMinor", 0);
                 this._VersionBuild = XMLMethods.GetValueFromXElement<int>(Header, @"VBuild", 0);
                 this.TrainDescriptionTemplate = XMLMethods.GetValueFromXElement<string>(Header, @"TrainDescriptionTemplate", @"$originTime $originName-$destName $operator ($stock)");
+                this.SeedGroupSummary = XMLMethods.GetValueFromXElement<string>(Header, @"SeedGroupSummary", string.Empty);
             }
             catch (Exception Ex)
             {

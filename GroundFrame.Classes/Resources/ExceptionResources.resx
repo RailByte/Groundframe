@@ -138,6 +138,9 @@
   <data name="GeneralNullArgument" xml:space="preserve">
     <value>The {0} argument cannot be &lt;NULL&gt;</value>
   </data>
+  <data name="IndexOutOfRangeError" xml:space="preserve">
+    <value>The supplied index is out of range for the collection {0}</value>
+  </data>
   <data name="InvalidDataReaderArgument" xml:space="preserve">
     <value>The DataReader argument cannot be &lt;NULL&gt;</value>
   </data>
@@ -212,6 +215,12 @@
   </data>
   <data name="OnRequestUserSettingsHandlerNotAssigned" xml:space="preserve">
     <value>The OnRequestUserSettings handler not assigned</value>
+  </data>
+  <data name="ParseFromXElementWTTCautionSpeedException" xml:space="preserve">
+    <value>An error has occured trying to parse the Caution Speed Set collection from the supplied XML</value>
+  </data>
+  <data name="ParseFromXElementWTTCautionSpeedSetException" xml:space="preserve">
+    <value>An error has occured trying to parse the Caution Speed Set collection from the supplied XML</value>
   </data>
   <data name="ParseFromXElementWTTTimeTableException" xml:space="preserve">
     <value>Cannot Parse the WTT TimeTable from the Source SimSig WTT XML</value>

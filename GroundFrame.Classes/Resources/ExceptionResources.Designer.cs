@@ -124,6 +124,15 @@ namespace GroundFrame.Classes.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The supplied index is out of range for the collection {0}.
+        /// </summary>
+        internal static string IndexOutOfRangeError {
+            get {
+                return ResourceManager.GetString("IndexOutOfRangeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The DataReader argument cannot be &lt;NULL&gt;.
         /// </summary>
         internal static string InvalidDataReaderArgument {
@@ -345,6 +354,24 @@ namespace GroundFrame.Classes.Resources {
         internal static string OnRequestUserSettingsHandlerNotAssigned {
             get {
                 return ResourceManager.GetString("OnRequestUserSettingsHandlerNotAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occured trying to parse the Caution Speed Set collection from the supplied XML.
+        /// </summary>
+        internal static string ParseFromXElementWTTCautionSpeedException {
+            get {
+                return ResourceManager.GetString("ParseFromXElementWTTCautionSpeedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occured trying to parse the Caution Speed Set collection from the supplied XML.
+        /// </summary>
+        internal static string ParseFromXElementWTTCautionSpeedSetException {
+            get {
+                return ResourceManager.GetString("ParseFromXElementWTTCautionSpeedSetException", resourceCulture);
             }
         }
         
