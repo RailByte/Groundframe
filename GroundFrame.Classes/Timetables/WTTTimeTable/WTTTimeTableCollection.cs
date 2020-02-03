@@ -48,7 +48,7 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Private constructor to handle the deserialization of a WTTTimeTable object from JSON
         /// </summary>
-        /// <param name="WTTTimeTables">An IEnumerable<WTTTimeTable> which represents the collection of timetables</param>
+        /// <param name="WTTTimeTables">An IEnumerable&lt;WTTTimeTable&gt; which represents the collection of timetables</param>
         [JsonConstructor]
         private WTTTimeTableCollection(IEnumerable<WTTTimeTable> WTTTimeTables)
         {

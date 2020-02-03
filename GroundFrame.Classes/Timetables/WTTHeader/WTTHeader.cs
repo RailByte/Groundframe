@@ -163,7 +163,7 @@ namespace GroundFrame.Classes.Timetables
             try
             {
                 //Parse XML
-                this.Name = XMLMethods.GetValueFromXElement<string>(Header, @"Name");
+                this.Name = XMLMethods.GetValueFromXElement<string>(Header, @"Name", string.Empty);
                 this.Description = XMLMethods.GetValueFromXElement<string>(Header, @"Description", string.Empty);
                 this.StartTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(Header, @"StartTime", 0), this._StartDate);
                 this.FinishTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(Header, @"FinishTime", 0), this._StartDate);

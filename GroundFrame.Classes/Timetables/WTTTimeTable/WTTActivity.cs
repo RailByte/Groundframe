@@ -111,7 +111,7 @@ namespace GroundFrame.Classes.Timetables
         private void ParseWTTActivityXML(XElement WTTActivityXML)
         {
             this.ActivityType = (WTTActivityType)XMLMethods.GetValueFromXElement<int>(WTTActivityXML, @"Activity", 0);
-            this.AssociatedTrainHeadCode = XMLMethods.GetValueFromXElement<string>(WTTActivityXML, @"AssociatedTrain", 0);
+            this.AssociatedTrainHeadCode = XMLMethods.GetValueFromXElement<string>(WTTActivityXML, @"AssociatedTrain", null);
         }
 
         #endregion Methods

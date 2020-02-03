@@ -20,69 +20,38 @@ namespace GroundFrame.Classes
         /// <param name="DefaultValue">The default value which should be returned if the element isn't found in the XML</param>
         /// <returns></returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
-        public static T GetValueFromXElement<T>(XElement XML, string ElementName, object DefaultValue = null)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>")]
+        public static T GetValueFromXElement<T>(XElement XML, string ElementName, object DefaultValue)
         {
-            //Store the culture
-            CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
+            //Arguments aren't validated as it's too much of an overhead.
 
-            //Validate XML
-            ArgumentValidation.ValidateXElement(XML, Culture);
-
-            //Throw an ApplicationException if the element cannot be found and no default value is provided
-            if (XML.Element(ElementName) == null && DefaultValue == null)
+            //Dictionary to store function mapping
+            Dictionary<Type, Func<string, object>> ConversionMapping = new Dictionary<Type, Func<string, object>>
             {
-                throw new ApplicationException($"Cannot find the '{ElementName}' element in the supplied Header XElement");
-            }
+                { typeof(string), (x => x) },
+                { typeof(int), (x => Convert.ToInt32(x)) },
+                { typeof(double), (x => Convert.ToDouble(x)) },
+                { typeof(DateTime), (x => Convert.ToDateTime(x)) }
+            };
 
-            //If the element cannot be found return the default value otherwise return the value (converted to the return type T).
+            try
+            {
+
+            
             if (XML.Element(ElementName) == null)
             {
-                //Test the conversion and throw an InvalidCastException exception if it fails
-                if (CanChangeType(DefaultValue, typeof(T)))
-                {
-                    return (T)Convert.ChangeType(DefaultValue, typeof(T));
-                }
-                else
-                {
-                    string DefaultValueString = DefaultValue == null ? "<NULL>" : DefaultValue.ToString();
-                    throw new InvalidCastException($"Cannot convert default value '{DefaultValueString}' for Element '{ElementName}' to type of {typeof(T).ToString()}.");
-                }
+                return (T)DefaultValue;
             }
             else
             {
-                //Test the conversion and throw an InvalidCastException exception if it fails
-                if (CanChangeType(XML.Element(ElementName).Value, typeof(T)))
-                {
-                    return (T)Convert.ChangeType(XML.Element(ElementName).Value, typeof(T));
-                }
-                else
-                {
-                    throw new InvalidCastException($"Cannot convert '{XML.Element(ElementName).Value}' from Element '{ElementName}' to type of {typeof(T).ToString()}.");
-                }
+                //return the parsed value
+                return (T)ConversionMapping[typeof(T)](XML.Element(ElementName).Value);
             }
-        }
-
-        //TODO: Can we make the "CanChangeType" method more efficient Try / Catch is a bit hacky.
-
-        /// <summary>
-        /// Helper method to check whether the change won't throw an error
-        /// </summary>
-        /// <param name="Value">The value to be converted</param>
-        /// <param name="ConversionType">The target type of the conversion</param>
-        /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify CultureInfo", Justification = "<Pending>")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
-        private static bool CanChangeType(object Value, Type ConversionType)
-        {
-            try
-            {
-                Convert.ChangeType(Value, ConversionType);
-                return true;
             }
-            catch
+            catch(Exception Ex)
             {
-                //Don't need to rethrow the exception - just return false to show it can't convert the type
-                return false;
+                string Message = Ex.Message;
+                throw Ex;
             }
         }
     }

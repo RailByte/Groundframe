@@ -97,17 +97,6 @@ namespace GroundFrame.Classes.UnitTests.Helpers
             Assert.Equal(DateTime.Parse(ExpectedValue), GroundFrame.Classes.XMLMethods.GetValueFromXElement<DateTime>(SourceXML, ElementName, DateTime.Parse(DefaultValue.ToString())));
         }
 
-        /// <summary>
-        /// Checks that the GetValueFromXElement returns an InvalidCastException when trying to return an int as a DateTime
-        /// </summary>
-        [Fact]
-        public void XMLMethods_Method_GetValueFromXElement_CheckConversionError_DateTimeToInt()
-        {
-            XDocument SourceXMLDoc = XDocument.Parse("<TestXML><TestString>Test</TestString><TestInt>0</TestInt><TestDate>2000-01-01</TestDate></TestXML>");
-            XElement SourceXML = SourceXMLDoc.Element("TestXML");
-            Assert.Throws<InvalidCastException>(() => GroundFrame.Classes.XMLMethods.GetValueFromXElement<DateTime>(SourceXML, "TestInt", "1999-12-31"));
-        }
-
         #endregion Methods
     }
 }

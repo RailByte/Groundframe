@@ -53,7 +53,7 @@ namespace GroundFrame.Classes.SimSig
         /// </summary>
         public decimal VersionFrom { get; set; }
         /// <summary>
-        /// Gets or sets the upper SimSig version this version covers. If <NULL> then the version covers up to the latest SimSig version
+        /// Gets or sets the upper SimSig version this version covers. If &lt;NULL&gt; then the version covers up to the latest SimSig version
         /// </summary>
         public decimal? VersionTo { get; set; }
 

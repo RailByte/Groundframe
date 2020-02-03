@@ -25,7 +25,6 @@ namespace GroundFrame.Classes.UnitTests.WTT
             Classes.Timetables.WTT TestWTT = new Classes.Timetables.WTT(JSON);
             Assert.Equal(Name, TestWTT.Header.Name);
             Assert.Equal(TrainCategoryCount, TestWTT.TrainCategories.Count);
-            string Test = TestWTT.ToJSON();
             List<Classes.Timetables.WTTTimeTable> TimeTables = TestWTT.TimeTables.GetByHeadCode(HeadCode);
             Classes.Timetables.WTTActivityCollection TestActivities = TimeTables[0].Trip.IndexOf(1).Activities;
             Assert.Equal(ActivityCount, TestActivities == null ? 0 : TestActivities.Count);
