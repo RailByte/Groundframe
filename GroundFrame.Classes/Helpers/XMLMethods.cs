@@ -37,16 +37,19 @@ namespace GroundFrame.Classes
                 { typeof(WTTSpeed), ((x,y) => new WTTSpeed(Convert.ToInt32(x))) },
                 { typeof(Length), ((x,y) => new Length(Convert.ToInt32(x))) },
                 { typeof(WTTTime), ((x,y) => y == null ? new WTTTime(Convert.ToInt32(x)) : new WTTTime(Convert.ToInt32(x), (DateTime)y[0])) },
-                { typeof(WTTDuration), ((x,y) => new WTTDuration(Convert.ToInt32(x))) }
+                { typeof(WTTDuration), ((x,y) => new WTTDuration(Convert.ToInt32(x))) },
+                { typeof(WTTSignalAspect), ((x,y) => (WTTSignalAspect)Convert.ToInt32(x)) },
+                { typeof(WTTNumberType), ((x,y) => (WTTNumberType)Convert.ToInt32(x)) }
             };
 
+            //If the element doesn't exist the return the default value
             if (XML.Element(ElementName) == null)
             {
                 return (T)DefaultValue;
             }
             else
             {
-                //return the parsed value
+                //Return the value from XML converted to the T type
                 return (T)ConversionMapping[typeof(T)](XML.Element(ElementName).Value, AdditionalArguments);
             }
         }

@@ -240,6 +240,9 @@
   <data name="ParseWTTActivityJSONError" xml:space="preserve">
     <value>An error has occured trying to parse the Activity from the supplied JSON string</value>
   </data>
+  <data name="ParseWTTCautionSpeedSetCollectionJSONError" xml:space="preserve">
+    <value>An error has occured trying to parse the Caution Speed Set collection from the supplied JSON string</value>
+  </data>
   <data name="ParseWTTHeaderException" xml:space="preserve">
     <value>Cannot Parse the WTT Header from the Source SimSig WTT XML</value>
   </data>

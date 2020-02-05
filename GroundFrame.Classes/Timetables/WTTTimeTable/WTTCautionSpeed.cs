@@ -38,17 +38,28 @@ namespace GroundFrame.Classes.Timetables
         public int ReduceNowValue { get; set; }
 
         /// <summary>
-        /// /Gets or sets the next Approach Next Value
+        /// Gets or sets the next Approach Next Value
         /// </summary>
         [JsonProperty("approachNextValue")]
         public WTTSpeed ApproachNextValue { get; set; }
 
         /// <summary>
-        /// /Gets or sets the next Approach Next Distance
+        /// Gets or sets the next Approach Next Distance
         /// </summary>
         [JsonProperty("approachNextDistance")]
         public Length ApproachNextDistance { get; set; }
 
+        /// <summary>
+        /// Gets or sets the No Value type (N/a, Absolute or Percentage)
+        /// </summary>
+        [JsonProperty("nowValueType")]
+        public WTTNumberType NowValueType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Next Valuetype (N/a, Absolute or Percentage)
+        /// </summary>
+        [JsonProperty("nextValueType")]
+        public WTTNumberType NextValueType { get; set; }
 
         #endregion Properties
 
@@ -88,11 +99,13 @@ namespace GroundFrame.Classes.Timetables
             try
             {
                 //Parse XML
-                this.AspectPassed = (WTTSignalAspect)XMLMethods.GetValueFromXElement<int>(WTTCautionSpeedXML, @"AspectPassed", (int)WTTSignalAspect.Red);
+                this.AspectPassed = XMLMethods.GetValueFromXElement<WTTSignalAspect>(WTTCautionSpeedXML, @"AspectPassed", WTTSignalAspect.Red);
                 this.FromLineSpeed = XMLMethods.GetValueFromXElement<WTTSpeed>(WTTCautionSpeedXML, @"FromLineSpeed", null);
                 this.ReduceNowValue = XMLMethods.GetValueFromXElement<int>(WTTCautionSpeedXML, @"ReduceNowValue", 0);
                 this.ApproachNextValue = XMLMethods.GetValueFromXElement<WTTSpeed>(WTTCautionSpeedXML, @"ApproachNextValue", null);
                 this.ApproachNextDistance = XMLMethods.GetValueFromXElement<Length>(WTTCautionSpeedXML, @"ApproachNextDistance", null);
+                this.NowValueType = XMLMethods.GetValueFromXElement<WTTNumberType>(WTTCautionSpeedXML, @"NowValueType", WTTNumberType.NotApplicable);
+                this.NextValueType = XMLMethods.GetValueFromXElement<WTTNumberType>(WTTCautionSpeedXML, @"NextValueType", WTTNumberType.NotApplicable);
             }
             catch (Exception Ex)
             {

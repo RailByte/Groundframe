@@ -430,6 +430,15 @@ namespace GroundFrame.Classes.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error has occured trying to parse the Caution Speed Set collection from the supplied JSON string.
+        /// </summary>
+        internal static string ParseWTTCautionSpeedSetCollectionJSONError {
+            get {
+                return ResourceManager.GetString("ParseWTTCautionSpeedSetCollectionJSONError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot Parse the WTT Header from the Source SimSig WTT XML.
         /// </summary>
         internal static string ParseWTTHeaderException {

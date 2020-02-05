@@ -14,6 +14,9 @@ namespace GroundFrame.Classes.Timetables
         threebridges = 2
     }
 
+    /// <summary>
+    /// Class representing a SimSig WTT file
+    /// </summary>
     public class WTT
     {
         #region Private Variables
@@ -70,6 +73,12 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         [JsonProperty("timeTables")]
         public WTTTimeTableCollection TimeTables { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Caution Speed Sets
+        /// </summary>
+        [JsonProperty("cautionSpeedSets")]
+        public WTTCautionSpeedSetCollection CautionSpeedSets { get; set; }
 
         /// <summary>
         /// Gets the timetable start date
@@ -211,7 +220,25 @@ namespace GroundFrame.Classes.Timetables
             {
                 this.ParseWTTTimeTablesXML();
             }
+
+            //Parse the caution speed sets
+            if (this._SourceWTTXML.Element("SimSigTimetable").Element("CautionSpeedSets").Elements("CautionSpeedSet") != null)
+            {
+                this.ParseWTTCautionSpeedSetsXML();
+            }
         }
+
+        /// <summary>
+        /// Parses the WTT Timetables from the source XML
+        /// </summary>
+        private void ParseWTTCautionSpeedSetsXML()
+        {
+            if (this._SourceWTTXML.Element("SimSigTimetable").Element("CautionSpeedSets") != null)
+            {
+                this.CautionSpeedSets = new WTTCautionSpeedSetCollection(this._SourceWTTXML.Element("SimSigTimetable").Element("CautionSpeedSets"));
+            }
+        }
+
 
         /// <summary>
         /// Parses the WTT Timetables from the source XML

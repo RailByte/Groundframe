@@ -14,16 +14,47 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         Red = 1,
         /// <summary>
+        /// Shunt signal
+        /// </summary>
+        Shunt = 2,
+        /// <summary>
         /// Single yellow aspect signal
         /// </summary>
-        SingleYellow = 2,
+        Yellow = 3,
         /// <summary>
         /// Double yello aspect signal
         /// </summary>
-        DoubleYellow = 3,
+        FlashingYellow = 4,
         /// <summary>
-        /// Green aspect signal
+        /// Single yellow aspect signal
         /// </summary>
-        Green = 4
+        DoubleYellow = 5,
+        /// <summary>
+        /// Double yello aspect signal
+        /// </summary>
+        FlashingDoubleYellow = 6,
+        /// <summary>
+        /// Double yello aspect signal
+        /// </summary>
+        Green = 7,
+    }
+
+    /// <summary>
+    /// An emum used to indicate what a numeric value represents
+    /// </summary>
+    public enum WTTNumberType
+    {
+        /// <summary>
+        /// Not applicable
+        /// </summary>
+        NotApplicable = 0,
+        /// <summary>
+        /// An absolute value
+        /// </summary>
+        Absolute = 1,
+        /// <summary>
+        /// A percentage
+        /// </summary>
+        Percent = 2
     }
 }
