@@ -8,7 +8,7 @@ using Xunit;
 using Newtonsoft.Json.Linq;
 using System.Linq;
 
-namespace GroundFrame.Classes.UnitTests.WTT
+namespace GroundFrame.Classes.UnitTests.TimeTable
 {
     public class WTT
     {

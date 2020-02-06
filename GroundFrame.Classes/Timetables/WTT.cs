@@ -210,19 +210,19 @@ namespace GroundFrame.Classes.Timetables
             this.Header = new WTTHeader(this._SourceWTTXML.Element("SimSigTimetable"), this._StartDate);
 
             //Parse the train categories
-            if (this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories").Elements("TrainCategory") != null)
+            if (this._SourceWTTXML.Element("SimSigTimetable").Element("TrainCategories") != null)
             {
                 this.ParseWTTTrainCategoriesXML();
             }
 
             //Parse the timetables
-            if (this._SourceWTTXML.Element("SimSigTimetable").Element("Timetables").Elements("Timetable") != null)
+            if (this._SourceWTTXML.Element("SimSigTimetable").Element("Timetables") != null)
             {
                 this.ParseWTTTimeTablesXML();
             }
 
             //Parse the caution speed sets
-            if (this._SourceWTTXML.Element("SimSigTimetable").Element("CautionSpeedSets").Elements("CautionSpeedSet") != null)
+            if (this._SourceWTTXML.Element("SimSigTimetable").Element("CautionSpeedSets") != null)
             {
                 this.ParseWTTCautionSpeedSetsXML();
             }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace GroundFrame.Classes.UnitTests.WTT.Common
+namespace GroundFrame.Classes.UnitTests.TimeTable.Common
 {
     public class Electrification
     {

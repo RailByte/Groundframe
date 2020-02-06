@@ -6,7 +6,7 @@ using System.Xml.Linq;
 using Xunit;
 using GroundFrame.Classes.Timetables;
 
-namespace GroundFrame.Classes.UnitTests.WTT.WTTHeader
+namespace GroundFrame.Classes.UnitTests.TimeTable.WTTHeader
 {
     public class WTTHeader
     {

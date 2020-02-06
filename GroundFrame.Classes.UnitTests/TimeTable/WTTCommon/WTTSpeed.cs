@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
+namespace GroundFrame.Classes.UnitTests.TimeTable.WTTCommon
 {
     public class WTTSpeed
     {

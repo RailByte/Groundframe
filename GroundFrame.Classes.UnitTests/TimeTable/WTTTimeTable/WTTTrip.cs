@@ -6,7 +6,7 @@ using System.Text;
 using System.Xml.Linq;
 using Xunit;
 
-namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTable
+namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTable
 {
     public class WTTTrip
     {

@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using GroundFrame.Classes.Timetables;
 
-namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
+namespace GroundFrame.Classes.UnitTests.TimeTable.WTTCommon
 {
     /// <summary>
     /// Class which represents a set of unit tests for the GroundFrame.Classes.WTTDuration class

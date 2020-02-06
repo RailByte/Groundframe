@@ -6,7 +6,7 @@ using System.Text;
 using System.Xml.Linq;
 using Xunit;
 
-namespace GroundFrame.Classes.UnitTests.WTT.WTTTimeTableCollection
+namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTableCollection
 {
     public class WTTTimeTableCollection
     {

@@ -4,7 +4,7 @@ using System.Text;
 using Xunit;
 using GroundFrame.Classes.Timetables;
 
-namespace GroundFrame.Classes.UnitTests.WTT.WTTCommon
+namespace GroundFrame.Classes.UnitTests.TimeTable.WTTCommon
 {
     /// <summary>
     /// Object representing a WTTSpeed Class unit test

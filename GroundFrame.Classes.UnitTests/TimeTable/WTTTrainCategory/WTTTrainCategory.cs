@@ -6,7 +6,7 @@ using System.Xml.Linq;
 using Xunit;
 using GroundFrame.Classes.Timetables;
 
-namespace GroundFrame.Classes.UnitTests.WTT.WTTTrainCategory
+namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTrainCategory
 {
     /// <summary>
     /// Object representing a WTT Train Category

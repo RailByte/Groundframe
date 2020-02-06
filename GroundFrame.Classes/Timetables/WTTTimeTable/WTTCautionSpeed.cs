@@ -41,7 +41,7 @@ namespace GroundFrame.Classes.Timetables
         /// Gets or sets the next Approach Next Value
         /// </summary>
         [JsonProperty("approachNextValue")]
-        public WTTSpeed ApproachNextValue { get; set; }
+        public int ApproachNextValue { get; set; }
 
         /// <summary>
         /// Gets or sets the next Approach Next Distance
@@ -69,7 +69,7 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a new WTTCautionSpeed object. Used by the JSON deserializer
         /// </summary>
         [JsonConstructor]
-        private WTTCautionSpeed ()
+        private WTTCautionSpeed()
         {
 
         }
@@ -102,7 +102,7 @@ namespace GroundFrame.Classes.Timetables
                 this.AspectPassed = XMLMethods.GetValueFromXElement<WTTSignalAspect>(WTTCautionSpeedXML, @"AspectPassed", WTTSignalAspect.Red);
                 this.FromLineSpeed = XMLMethods.GetValueFromXElement<WTTSpeed>(WTTCautionSpeedXML, @"FromLineSpeed", null);
                 this.ReduceNowValue = XMLMethods.GetValueFromXElement<int>(WTTCautionSpeedXML, @"ReduceNowValue", 0);
-                this.ApproachNextValue = XMLMethods.GetValueFromXElement<WTTSpeed>(WTTCautionSpeedXML, @"ApproachNextValue", null);
+                this.ApproachNextValue = XMLMethods.GetValueFromXElement<int>(WTTCautionSpeedXML, @"ApproachNextValue", 0);
                 this.ApproachNextDistance = XMLMethods.GetValueFromXElement<Length>(WTTCautionSpeedXML, @"ApproachNextDistance", null);
                 this.NowValueType = XMLMethods.GetValueFromXElement<WTTNumberType>(WTTCautionSpeedXML, @"NowValueType", WTTNumberType.NotApplicable);
                 this.NextValueType = XMLMethods.GetValueFromXElement<WTTNumberType>(WTTCautionSpeedXML, @"NextValueType", WTTNumberType.NotApplicable);

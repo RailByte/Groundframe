@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml.Linq;
 using Xunit;
 
-namespace GroundFrame.Classes.UnitTests.WTT.WTTTrainCategoryCollection
+namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTrainCategoryCollection
 {
     public class WTTTrainCategoryCollection
     {
