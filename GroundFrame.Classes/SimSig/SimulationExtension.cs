@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace GroundFrame.Classes.SimSig
 {
     /// <summary>
-    /// Class which represents a simulation together with it's extension data of eras, and locations
+    /// Class which represents a  SimSig simulation together with it's extension data of eras, and locations
     /// </summary>
     public class SimulationExtension : Simulation
     {
@@ -21,7 +21,6 @@ namespace GroundFrame.Classes.SimSig
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private List<SimulationEra> _Eras; //Stores the Eras available in the Simulation
         private LocationCollection _Locations; //Stores the locations available in the Simulation
-        private readonly CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
@@ -46,11 +45,10 @@ namespace GroundFrame.Classes.SimSig
         /// </summary>
         /// <param name="ID">The ID of the GroundFrame.SQL database simulation record</param>
         /// <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
-        public SimulationExtension(int ID, GFSqlConnector SQLConnector, string Culture = "en-GB") : base(ID, SQLConnector)
+        public SimulationExtension(int ID, GFSqlConnector SQLConnector) : base(ID, SQLConnector)
         {
-            this._Culture = new CultureInfo(Culture);
             //Validate Arguments
-            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
 
             this._SQLConnector = new GFSqlConnector(SQLConnector);
             //Load the data
@@ -90,7 +88,7 @@ namespace GroundFrame.Classes.SimSig
 
                 while (DataReader.Read())
                 {
-                    this._Eras.Add(new SimulationEra(DataReader, this._Culture.Name));
+                    this._Eras.Add(new SimulationEra(DataReader));
                 }
             }
             catch (Exception Ex)

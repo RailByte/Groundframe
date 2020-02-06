@@ -17,9 +17,6 @@ namespace GroundFrame.Classes
         #endregion Constants
 
         #region Private Variables
-
-        private readonly CultureInfo _Culture; //Stores the culture info
-
         #endregion Private Variables
 
         #region Properties
@@ -91,11 +88,10 @@ namespace GroundFrame.Classes
         /// Instantiates a WTTElectrification object from the supplied SimSig code
         /// </summary>
         /// <param name="SimSigCode">A string representing the available types of electrification</param>
-        public Electrification(string SimSigCode, string Culture = "en-GB")
+        public Electrification(string SimSigCode)
         {
-            this._Culture = new CultureInfo(Culture);
             //Validate Arguments
-            ArgumentValidation.ValidateSimSigCode(SimSigCode, this._Culture);
+            ArgumentValidation.ValidateSimSigCode(SimSigCode, Globals.UserSettings.GetCultureInfo());
 
             this.ConvertSimSigCode(SimSigCode);
         }
@@ -112,7 +108,8 @@ namespace GroundFrame.Classes
         {
             bool HasMatch = false; //Flag to indicates the character has matched an expected value
             int CharactersParsed = 0; //Variable to store the number of varibles parsed
-            string OriginalCode = Code;
+            string OriginalCode = Code; //Passes the supplied code to keep a copy for comparison
+            CultureInfo Culture = Globals.UserSettings.GetCultureInfo(); //Stores the Users Culture from their usersettings
 
             if (string.IsNullOrEmpty(Code))
             {
@@ -134,7 +131,7 @@ namespace GroundFrame.Classes
                 Sim1 = true;
                 HasMatch = true;
                 CharactersParsed += 2;
-                Code = Code.Replace("X1", "", true, this._Culture);
+                Code = Code.Replace("X1", "", true, Culture);
             }
 
             if (Code.IndexOf("X2", StringComparison.OrdinalIgnoreCase) >= 0)
@@ -142,7 +139,7 @@ namespace GroundFrame.Classes
                 Sim2 = true;
                 HasMatch = true;
                 CharactersParsed += 2;
-                Code = Code.Replace("X2", "", true, this._Culture);
+                Code = Code.Replace("X2", "", true, Culture);
             }
 
             if (Code.IndexOf("X3", StringComparison.OrdinalIgnoreCase) >= 0)
@@ -150,7 +147,7 @@ namespace GroundFrame.Classes
                 Sim3 = true;
                 HasMatch = true;
                 CharactersParsed += 2;
-                Code = Code.Replace("X3", "", true, this._Culture);
+                Code = Code.Replace("X3", "", true, Culture);
             }
 
             if (Code.IndexOf("X4", StringComparison.OrdinalIgnoreCase) >= 0)
@@ -158,7 +155,7 @@ namespace GroundFrame.Classes
                 Sim4 = true;
                 HasMatch = true;
                 CharactersParsed += 2;
-                Code = Code.Replace("X4", "", true, this._Culture);
+                Code = Code.Replace("X4", "", true, Culture);
             }
 
             if (Code.IndexOf("D", StringComparison.OrdinalIgnoreCase) >= 0)
@@ -166,7 +163,7 @@ namespace GroundFrame.Classes
                 Overhead = true;
                 HasMatch = true;
                 CharactersParsed++;
-                Code = Code.Replace("D", "", true, this._Culture);
+                Code = Code.Replace("D", "", true, Culture);
             }
 
             if (Code.IndexOf("O", StringComparison.OrdinalIgnoreCase)>=0)
@@ -174,7 +171,7 @@ namespace GroundFrame.Classes
                 Overhead = true;
                 HasMatch = true;
                 CharactersParsed ++;
-                Code = Code.Replace("O", "", true, this._Culture);
+                Code = Code.Replace("O", "", true, Culture);
             }
 
             if (Code.IndexOf("3", StringComparison.OrdinalIgnoreCase)>=0)
@@ -182,7 +179,7 @@ namespace GroundFrame.Classes
                 ThirdRail = true;
                 HasMatch = true;
                 CharactersParsed++;
-                Code = Code.Replace("3", "", true, this._Culture);
+                Code = Code.Replace("3", "", true, Culture);
             }
 
             if (Code.IndexOf("4", StringComparison.OrdinalIgnoreCase)>=0)
@@ -190,7 +187,7 @@ namespace GroundFrame.Classes
                 FourthRail = true;
                 HasMatch = true;
                 CharactersParsed++;
-                Code = Code.Replace("4", "", true, this._Culture);
+                Code = Code.Replace("4", "", true, Culture);
             }
 
             if (Code.IndexOf("V", StringComparison.OrdinalIgnoreCase) >= 0)
@@ -198,7 +195,7 @@ namespace GroundFrame.Classes
                 OverheadDC = true;
                 HasMatch = true;
                 CharactersParsed++;
-                Code = Code.Replace("V", "", true, this._Culture);
+                Code = Code.Replace("V", "", true, Culture);
             }
 
             if (Code.IndexOf("T", StringComparison.OrdinalIgnoreCase) >= 0)
@@ -210,7 +207,7 @@ namespace GroundFrame.Classes
 
             if (!HasMatch || (CharactersParsed != OriginalCode.Length))
             {
-                throw new ArgumentException(ExceptionHelper.GetStaticException("InvalidSimSigCodeError", null, this._Culture));
+                throw new ArgumentException(ExceptionHelper.GetStaticException("InvalidSimSigCodeError", null, Culture));
             }
         }
 

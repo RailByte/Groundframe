@@ -9,6 +9,9 @@ using System.Text;
 
 namespace GroundFrame.Classes.SimSig
 {
+    /// <summary>
+    /// A class representing a SimSig simulation
+    /// </summary>
     public class Simulation : IDisposable
     {
         #region Constants

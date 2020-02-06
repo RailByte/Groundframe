@@ -8,9 +8,18 @@ using System.Xml.Linq;
 
 namespace GroundFrame.Classes.Timetables
 {
+    /// <summary>
+    /// Enum to represent each Simulation
+    /// </summary>
     public enum SimSigSimulation
     {
+        /// <summary>
+        /// Royston Simulation
+        /// </summary>
         Royston = 1,
+        /// <summary>
+        /// Three Bridges Simulation
+        /// </summary>
         threebridges = 2
     }
 

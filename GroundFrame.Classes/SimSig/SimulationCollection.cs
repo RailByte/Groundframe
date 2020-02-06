@@ -8,7 +8,9 @@ using System.Text;
 
 namespace GroundFrame.Classes.SimSig
 {
-
+    /// <summary>
+    /// A class representing a collection of SimSig simulations
+    /// </summary>
     public class SimulationCollection : IEnumerable<Simulation>, IDisposable
     {
         #region Constants

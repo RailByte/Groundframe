@@ -78,6 +78,12 @@ namespace GroundFrame.Classes
             this.SetValues(DataTypeName, Value);       
         }
 
+        /// <summary>
+        /// Instantiates a user setting from a SqlDataReader object
+        /// </summary>
+        /// <param name="DataReader">The SqlDataReader object to parse into the UserSetting object</param>
+        /// <param name="SQLConnector">A GFSqlConnector to the GroundFrame.SQL database</param>
+        /// <param name="Culture">The culture in which user would receive any exception messages. Defaults to en-GB</param>
         public UserSetting(SqlDataReader DataReader, GFSqlConnector SQLConnector, string Culture)
         {
             //Set the culture

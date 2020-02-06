@@ -7,6 +7,9 @@ using System.Text;
 
 namespace GroundFrame.Classes.SimSig
 {
+     /// <summary>
+     /// A class representing a location with in SimSig location
+     /// </summary>
     public class Location : IDisposable
     {
         #region Constants

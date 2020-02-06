@@ -35,7 +35,6 @@ namespace GroundFrame.Classes.SimSig
         private int _SimID; //Stores GroundFrame.SQL Database ID of the simulation to which the era belongs
         private readonly GFSqlConnector _SQLConnector; //Stores the connection to the GroundFrame.SQL Database
         private ResourceManager _ExceptionMessageResources; //Stores the resources for the class
-        private CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
@@ -73,12 +72,10 @@ namespace GroundFrame.Classes.SimSig
         /// Instantiates a Simulation Era object from the supplied SqlDataReader object
         /// </summary>
         /// <param name="DataReader">The SqlDataReader object</param>
-        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
-        public SimulationEra(SqlDataReader DataReader, string Culture)
+        public SimulationEra(SqlDataReader DataReader)
         {
-            this._Culture = new CultureInfo(Culture);
             //Validate arguments
-            ArgumentValidation.ValidateSqlDataReader(DataReader, this._Culture);
+            ArgumentValidation.ValidateSqlDataReader(DataReader, Globals.UserSettings.GetCultureInfo());
 
             this.ParseDataReader(DataReader);
         }
@@ -91,31 +88,30 @@ namespace GroundFrame.Classes.SimSig
         /// <param name="Name">The era name</param>
         /// <param name="Description">The era decription</param>
         /// <param name="SQLConnector">A GFSqlConnector object representing a connection to the GroundFrame.SQL database</param>
-        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
-        public SimulationEra(Simulation Simulation, EraType Type, string Name, string Description, GFSqlConnector SQLConnector, string Culture = "en-GB")
+        public SimulationEra(Simulation Simulation, EraType Type, string Name, string Description, GFSqlConnector SQLConnector)
         {
             //Load Resources
-            this.LoadResource(Culture);
+            this.LoadResource();
 
             if (Simulation == null)
             {
-                throw new ArgumentNullException(this._ExceptionMessageResources.GetString("InvalidSimulationArgument", this._Culture));
+                throw new ArgumentNullException(this._ExceptionMessageResources.GetString("InvalidSimulationArgument", Globals.UserSettings.GetCultureInfo()));
             }
 
             //Check the parent simulation is saved to the GroundFrame.SQL Database
             if (Simulation.ID == 0)
             {
-                throw new ArgumentException(this._ExceptionMessageResources.GetString("InvalidSimulationNotSavedToDBArgument", this._Culture));
+                throw new ArgumentException(this._ExceptionMessageResources.GetString("InvalidSimulationNotSavedToDBArgument", Globals.UserSettings.GetCultureInfo()));
             }
 
             if (string.IsNullOrEmpty(Name))
             {
-                throw new ArgumentException(this._ExceptionMessageResources.GetString("InvalidSecondsArgument", this._Culture));
+                throw new ArgumentException(this._ExceptionMessageResources.GetString("InvalidSecondsArgument", Globals.UserSettings.GetCultureInfo()));
             }
 
             if (SQLConnector == null)
             {
-                throw new ArgumentException(this._ExceptionMessageResources.GetString("InvalidSQLConnectorArgument", this._Culture));
+                throw new ArgumentException(this._ExceptionMessageResources.GetString("InvalidSQLConnectorArgument", Globals.UserSettings.GetCultureInfo()));
             }
 
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Create a new connection object to prevent connection / command conflicts
@@ -134,12 +130,10 @@ namespace GroundFrame.Classes.SimSig
         /// <summary>
         /// Loads resources needed by the class
         /// </summary>
-        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
-        private void LoadResource(string Culture)
+        private void LoadResource()
         {
             //Get Exception Message Resources
             this._ExceptionMessageResources = new ResourceManager("ExceptionResources.resx", Assembly.GetExecutingAssembly());
-            this._Culture = new CultureInfo(Culture);
         }
 
         /// <summary>
