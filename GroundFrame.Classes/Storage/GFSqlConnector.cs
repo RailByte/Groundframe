@@ -44,7 +44,6 @@ namespace GroundFrame.Classes
         private readonly bool _IsTest; //Flag to indicate whether the connector is running as part of a test and therefore the TearDown method can be called
         private Guid _TestDataID; //Stores the ID of the test data
         private readonly int _Timeout; //Store the timeout of the connection in seconds
-        private readonly CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
@@ -85,11 +84,6 @@ namespace GroundFrame.Classes
         /// </summary>
         public int Timeout { get { return this._Timeout; } }
 
-        /// <summary>
-        /// Returns the culture of the connection
-        /// </summary>
-        public CultureInfo Culture { get { return this._Culture; } }
-
         #endregion Properties
 
         #region Constructors
@@ -97,15 +91,14 @@ namespace GroundFrame.Classes
         /// <summary>
         /// Instantiates a new GFSqlConnector object from the supplied arguments
         /// </summary>
-        /// <param name="AppAPIKey"></param>
-        /// <param name="AppUserAPIKey"></param>
-        /// <param name="SQLServer"></param>
-        /// <param name="DBName"></param>
+        /// <param name="AppAPIKey">The API key of the of the application being used to connecto the GroundFrame.SQL database</param>
+        /// <param name="AppUserAPIKey">The users' API key.</param>
+        /// <param name="SQLServer">The SQL Server which the GroundFrame.SQL database is hosted</param>
+        /// <param name="DBName">The name of the GroundFrame.SQL database to connect to</param>
         /// <param name="IsTest">This is used by the testing environment and will delete any data added whilst the connection is open to leave a clean database. Default = false</param>
         /// <param name="Timeout">The number of seconds before the connection times out. Default 30.</param>
-        public GFSqlConnector(string AppAPIKey, string AppUserAPIKey, string SQLServer, string DBName, bool IsTest = false, int Timeout = 30, string Culture = "en-GB")
+        public GFSqlConnector(string AppAPIKey, string AppUserAPIKey, string SQLServer, string DBName, bool IsTest = false, int Timeout = 30)
         {
-            this._Culture = new CultureInfo(Culture);
             this._ApplicationAPIKey = AppAPIKey;
             this._ApplicationUserAPIKey = AppUserAPIKey;
             this._SQLServer = SQLServer;
@@ -117,7 +110,7 @@ namespace GroundFrame.Classes
 
             if (!this.TestConnection())
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("CannotConnectGFSQLDb", null, this._Culture));
+                throw new ApplicationException(ExceptionHelper.GetStaticException("CannotConnectGFSQLDb", null, Globals.UserSettings.GetCultureInfo()));
             }
         }
 
@@ -128,7 +121,7 @@ namespace GroundFrame.Classes
         internal GFSqlConnector(GFSqlConnector SQLConnector)
         {
             //Validate argument
-            ArgumentValidation.ValidateSQLConnector(SQLConnector, new CultureInfo("en-GB"));
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
 
             this._ApplicationAPIKey = SQLConnector.ApplicationAPIKey;
             this._ApplicationUserAPIKey = SQLConnector.ApplicationUserAPIKey;
@@ -138,7 +131,6 @@ namespace GroundFrame.Classes
             this._TestDataID = SQLConnector.TestDataID;
             this._Timeout = SQLConnector.Timeout;
             this._Connection = new SqlConnection(this.BuildSQLConnectionString());
-            this._Culture = SQLConnector.Culture;
         }
 
         #endregion Constructors
@@ -207,7 +199,7 @@ namespace GroundFrame.Classes
             }
             catch (Exception Ex)
             {
-                throw new ArgumentException(ExceptionHelper.GetStaticException("CannotConnectGFSQLDb", null, this._Culture), Ex);
+                throw new ArgumentException(ExceptionHelper.GetStaticException("CannotConnectGFSQLDb", null, Globals.UserSettings.GetCultureInfo()), Ex);
             }
             
         }
@@ -259,7 +251,7 @@ namespace GroundFrame.Classes
         {
             if (this._IsTest == false)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("TearDownError", null, this._Culture));
+                throw new ApplicationException(ExceptionHelper.GetStaticException("TearDownError", null, Globals.UserSettings.GetCultureInfo()));
             }
             else
             {
@@ -343,6 +335,10 @@ namespace GroundFrame.Classes
 
         }
 
+        /// <summary>
+        /// Protected override of the Dispose method
+        /// </summary>
+        /// <param name="disposing">A flag to indicate whether the object is already being disposed</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing == true)

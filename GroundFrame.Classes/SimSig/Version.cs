@@ -12,7 +12,13 @@ namespace GroundFrame.Classes.SimSig
     /// </summary>
     public enum VersionStatus
     {
+        /// <summary>
+        /// Production versions are available to standard users to create and edit timetables
+        /// </summary>
         Production = 1,
+        /// <summary>
+        /// Development versions should be used to flag versions in development or being configured by editors or admins in GroundFrame
+        /// </summary>
         Development = 2
     }
 /// <summary>
@@ -27,7 +33,6 @@ namespace GroundFrame.Classes.SimSig
 
         private int _ID; //The GroundFrame.SQL database ID
         private readonly GFSqlConnector _SQLConnector; //A connector to the GroundFrame.SQL database
-        private readonly CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
@@ -73,13 +78,13 @@ namespace GroundFrame.Classes.SimSig
         /// <param name="Description">A description of the version</param>
         /// <param name="Version">The version number. This must be greater the latest version stored in the GroundFrame.SQL database</param>
         /// <param name="SQLConnector">A Connector to the GroundFrame.SQL Database</param>
-        public Version (string Name, string Description, Decimal Version, GFSqlConnector SQLConnector, string Culture = "en-GB")
+        public Version (string Name, string Description, Decimal Version, GFSqlConnector SQLConnector)
         {
-            this._Culture = new CultureInfo(Culture);
+            CultureInfo culture = Globals.UserSettings.GetCultureInfo();
 
             //Validate Arguments
-            ArgumentValidation.ValidateName(Name, this._Culture);
-            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+            ArgumentValidation.ValidateName(Name, culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, culture);
 
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Creates a copy of the object to prevent conflict with connectios, commands and readers
             this.Name = Name;
@@ -94,15 +99,12 @@ namespace GroundFrame.Classes.SimSig
         /// </summary>
         /// <param name="ID">The ID of the version record to get from the GroundFrame.SQL database</param>
         /// <param name="SQLConnector">A Connector to the GroundFrame.SQL Database</param>
-        public Version(int ID, GFSqlConnector SQLConnector, string Culture = "en-GB")
+        public Version(int ID, GFSqlConnector SQLConnector)
         {
-            this._Culture = new CultureInfo(Culture);
-
             //Validate Arguments
-            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
 
             this._ID = ID;
-            this._Culture = new CultureInfo(Culture);
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Creates a copy of the object to prevent conflict with connectios, commands and readers
             this.GetVersionFromSQLDBByID();
         }
@@ -112,13 +114,11 @@ namespace GroundFrame.Classes.SimSig
         /// </summary>
         /// <param name="DataReader">The source SqlDataReader</param>
         /// <param name="SQLConnector">A Connector to the GroundFrame.SQL Database</param>
-        public Version (SqlDataReader DataReader, GFSqlConnector SQLConnector, string Culture = "en-GB")
+        public Version (SqlDataReader DataReader, GFSqlConnector SQLConnector)
         {
-            this._Culture = new CultureInfo(Culture);
-
             //Validate Arguments
-            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
-            ArgumentValidation.ValidateSqlDataReader(DataReader, this._Culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
+            ArgumentValidation.ValidateSqlDataReader(DataReader, Globals.UserSettings.GetCultureInfo());
 
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Creates a copy of the object to prevent conflict with connectios, commands and readers
             this.ParseSqlDataReader(DataReader);
@@ -187,7 +187,7 @@ namespace GroundFrame.Classes.SimSig
         {
             if (this._ID == 0)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("RetrieveVersionZeroIDError", null, this._Culture));
+                throw new ApplicationException(ExceptionHelper.GetStaticException("RetrieveVersionZeroIDError", null, Globals.UserSettings.GetCultureInfo()));
             }
 
             try
@@ -250,7 +250,10 @@ namespace GroundFrame.Classes.SimSig
             // for the Finalizer to do. So lets tell the GC not to call it later.
             GC.SuppressFinalize(this);
         }
-
+        /// <summary>
+        /// Protected override of the Dipose method
+        /// </summary>
+        /// <param name="disposing">A flag indicating whether the object is already disposing</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing == true)
@@ -261,15 +264,6 @@ namespace GroundFrame.Classes.SimSig
             {
                 this._SQLConnector.Dispose();
             }
-        }
-
-        ~Version()
-        {
-            // The object went out of scope and finalized is called
-            // Lets call dispose in to release unmanaged resources 
-            // the managed resources will anyways be released when GC 
-            // runs the next time.
-            Dispose(false);
         }
 
         #endregion Methods

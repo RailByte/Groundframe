@@ -187,9 +187,12 @@ namespace GroundFrame.Classes.Timetables
             }
 
             WTTTimeTable TimeTable= (WTTTimeTable)Value;
-            // create the surrogate and serialize it instead 
-            // of the collection itself
-            Serializer.Serialize(Writer, TimeTable.ToSurrogateWTTTimeTable());
+            //Create the surrogate and serialize it instead  of the collection itself
+
+            if (TimeTable != null)
+            {
+                Serializer.Serialize(Writer, TimeTable.ToSurrogateWTTTimeTable());
+            }
         }
 
         #endregion Methods

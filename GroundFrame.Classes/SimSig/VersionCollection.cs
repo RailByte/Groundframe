@@ -20,11 +20,15 @@ namespace GroundFrame.Classes.SimSig
 
         private List<Version> _Versions = new List<Version>(); //List to store all Versions
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
-        private readonly CultureInfo _Culture; //Stores the culture info
-        
+
         #endregion Private Variables
 
         #region Properties
+
+        /// <summary>
+        /// Gets the UserSettingCollection enumerator
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator<Version> GetEnumerator() { return this._Versions.GetEnumerator(); }
 
         #endregion Properties
@@ -33,12 +37,11 @@ namespace GroundFrame.Classes.SimSig
         /// <summary>
         /// Instantiates a VersionCollection object the supplied GroundFrame.SQL Connection
         /// </summary>
-        /// <param name="SQLConnector"></param>
-        public UserSettingCollection(GFSqlConnector SQLConnector, string Culture = "en-GB")
+        /// <param name="SQLConnector">A GFSqlConnector to the GroundFrame.SQL database </param>
+        public UserSettingCollection(GFSqlConnector SQLConnector)
         {
-            this._Culture = new CultureInfo(Culture);
             //Validate Arguments
-            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
 
             //Set the SQL Connector
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiated as a new copy of the SQLConnector to stop conflict issues with open connections, commands and DataReaders
@@ -62,8 +65,8 @@ namespace GroundFrame.Classes.SimSig
         /// <summary>
         /// Returns the Version for the supplied Index
         /// </summary>
-        /// <param name="Item"></param>
-        /// <returns></returns>
+        /// <param name="Index">The index of the Version to be returned</param>
+        /// <returns>The Version at the supplied index</returns>
         public Version IndexOf(int Index)
         {
             return this._Versions[Index];
@@ -97,7 +100,7 @@ namespace GroundFrame.Classes.SimSig
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("RetrieveVersionRecordsError", null, this._Culture), Ex);
+                throw new ApplicationException(ExceptionHelper.GetStaticException("RetrieveVersionRecordsError", null, Globals.UserSettings.GetCultureInfo()), Ex);
             }
             finally
             {
@@ -119,6 +122,10 @@ namespace GroundFrame.Classes.SimSig
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Protected overrode of the Dispose method
+        /// </summary>
+        /// <param name="disposing">A flag to indicate whether the object is already disposing</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing == true)
@@ -129,15 +136,6 @@ namespace GroundFrame.Classes.SimSig
             {
                 this._SQLConnector.Dispose();
             }
-        }
-
-        ~UserSettingCollection()
-        {
-            // The object went out of scope and finalized is called
-            // Lets call dispose in to release unmanaged resources 
-            // the managed resources will anyways be released when GC 
-            // runs the next time.
-            Dispose(false);
         }
 
         #endregion Methods

@@ -9,9 +9,18 @@ using System.Threading.Tasks;
 
 namespace GroundFrame.Classes.Timetables
 {
+    /// <summary>
+    /// Enum to indicate the Time Format. Used to determine how days are handled when formatting the time
+    /// </summary>
     public enum WTTTimeFormat
     {
+        /// <summary>
+        /// Short date format. For example 27:00
+        /// </summary>
         ShortFormat = 1,
+        /// <summary>
+        /// Long date format. For example (+1 Day) 01:00
+        /// </summary>
         LongFormat = 2
     }
 

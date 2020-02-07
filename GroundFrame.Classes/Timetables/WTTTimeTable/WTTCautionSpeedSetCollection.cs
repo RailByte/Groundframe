@@ -23,7 +23,6 @@ namespace GroundFrame.Classes.Timetables
         #region Private Variables
 
         private List<WTTCautionSpeedSet> _CautionSpeedSets = new List<WTTCautionSpeedSet>(); //List to store all the caution sppeed sets
-        private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
 
         #endregion Private Variables
 
@@ -239,10 +238,7 @@ namespace GroundFrame.Classes.Timetables
             }
             else
             {
-                if (this._SQLConnector != null)
-                {
-                    this._SQLConnector.Dispose();
-                }
+                //Dispose any supporting objects here
             }
         }
 

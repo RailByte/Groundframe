@@ -25,6 +25,11 @@ namespace GroundFrame.Classes.Timetables
         #endregion Private Variables
 
         #region Properties
+
+        /// <summary>
+        /// Gets the WTTTrainCategoryCollection enumerator
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator<WTTTrainCategory> GetEnumerator() { return this._TrainCategories.GetEnumerator(); }
 
         #endregion Properties
@@ -34,8 +39,9 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Private constructor to handle the deserialization of a WTTTrainCategoryCollection object from JSON
         /// </summary>
-        /// <param name="WTTTrainCategories">An IEnumerable<WTTTrainCategory> which represents the collection of timetables</param>
+        /// <param name="WTTTrainCategories">An IEnumerable&lt;WTTTrainCategory&gt; which represents the collection of timetables</param>
         [JsonConstructor]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
         private WTTTrainCategoryCollection(IEnumerable<WTTTrainCategory> WTTTrainCategories)
         {
             this._TrainCategories = new List<WTTTrainCategory>();
@@ -162,6 +168,10 @@ namespace GroundFrame.Classes.Timetables
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Protected override of the Dispose method
+        /// </summary>
+        /// <param name="disposing">A flag to indicate whether the object is already being disposed</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing == true)
@@ -170,17 +180,8 @@ namespace GroundFrame.Classes.Timetables
             }
             else
             {
-
+                //Dispose any supporting objects
             }
-        }
-
-        ~WTTTrainCategoryCollection()
-        {
-            // The object went out of scope and finalized is called
-            // Lets call dispose in to release unmanaged resources 
-            // the managed resources will anyways be released when GC 
-            // runs the next time.
-            Dispose(false);
         }
 
         #endregion Methods

@@ -163,6 +163,10 @@ namespace GroundFrame.Classes
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Protected override of the Dispose method
+        /// </summary>
+        /// <param name="disposing">Flag to indicate whether the object is already disposing</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing == true)
@@ -176,15 +180,6 @@ namespace GroundFrame.Classes
                     this._SQLConnector.Dispose();
                 }
             }
-        }
-
-        ~UserSetting()
-        {
-            // The object went out of scope and finalized is called
-            // Lets call dispose in to release unmanaged resources 
-            // the managed resources will anyways be released when GC 
-            // runs the next time.
-            Dispose(false);
         }
 
         #endregion Methods

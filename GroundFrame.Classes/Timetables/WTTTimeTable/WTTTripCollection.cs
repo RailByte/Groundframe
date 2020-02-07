@@ -23,7 +23,6 @@ namespace GroundFrame.Classes.Timetables
         #region Private Variables
 
         private List<WTTTrip> _Trips = new List<WTTTrip>(); //List to store all the time tables
-        private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private DateTime _StartDate; //Stores the WTT Start Date
 
         #endregion Private Variables
@@ -83,7 +82,6 @@ namespace GroundFrame.Classes.Timetables
         /// Instantiates a WTTTripCollection from a JSON file.
         /// </summary>
         /// <param name="JSON">A JSON string representing the trip collection</param>
-        /// <param name="UserSettings">The user settings</param>
         public WTTTripCollection(string JSON)
         {
             CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
@@ -239,6 +237,10 @@ namespace GroundFrame.Classes.Timetables
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Protected over of the Dispose method
+        /// </summary>
+        /// <param name="disposing">Indicates where the object is currently disposing</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing == true)
@@ -247,10 +249,7 @@ namespace GroundFrame.Classes.Timetables
             }
             else
             {
-                if (this._SQLConnector != null)
-                {
-                    this._SQLConnector.Dispose();
-                }
+                //Dispose of any supported objects here
             }
         }
 

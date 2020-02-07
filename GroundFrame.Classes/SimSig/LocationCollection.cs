@@ -20,10 +20,13 @@ namespace GroundFrame.Classes.SimSig
         private List<Location> _Locations = new List<Location>(); //List to store all Locations
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private readonly int _SimID; //Stores the ID of the Simulation to which the collection relates
-        private readonly CultureInfo _Culture; //Stores the culture'
         #endregion Private Variables
 
         #region Properties
+        /// <summary>
+        /// Gets the LocationCollection Enumerator
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator<Location> GetEnumerator() { return this._Locations.GetEnumerator(); }
 
         #endregion Properties
@@ -32,12 +35,13 @@ namespace GroundFrame.Classes.SimSig
         /// <summary>
         /// Instantiates a LocationCollection collection for the supplied Simulation from the supplied GroundFrame.SQL Connection
         /// </summary>
-        /// <param name="SQLConnector"></param>
-        public LocationCollection(Simulation Simulation, GFSqlConnector SQLConnector, string Culture = "en-GB")
+        /// <param name="Simulation">The simulation for which you want to inititate the LocationCOllection</param>
+        /// <param name="SQLConnector">A GFSqlConnector to the GroundFrame.SQL database</param>
+        public LocationCollection(Simulation Simulation, GFSqlConnector SQLConnector)
         {
-            this._Culture = new CultureInfo(Culture);
-            ArgumentValidation.ValidateSimulation(Simulation, this._Culture);
-            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+            CultureInfo culture = Globals.UserSettings.GetCultureInfo();
+            ArgumentValidation.ValidateSimulation(Simulation, culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, culture);
 
             this._SimID = Simulation.ID;
             //Set the SQL Connector
@@ -60,10 +64,10 @@ namespace GroundFrame.Classes.SimSig
         }
 
         /// <summary>
-        /// Returns the Location for the supplied Index
+        /// Returns the Location for the supplied index
         /// </summary>
-        /// <param name="Item"></param>
-        /// <returns></returns>
+        /// <param name="Index">The index of the location to be returned</param>
+        /// <returns>The location at the supplied index value</returns>
         public Location IndexOf(int Index)
         {
             return this._Locations[Index];
@@ -91,7 +95,7 @@ namespace GroundFrame.Classes.SimSig
                 {
                     {
                         //Parse the DataReader into the object
-                        this._Locations.Add(new Location(DataReader, this._SQLConnector, this._Culture.Name));
+                        this._Locations.Add(new Location(DataReader, this._SQLConnector));
                     }
                 }
             }
@@ -119,6 +123,10 @@ namespace GroundFrame.Classes.SimSig
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Protected override of the Dispose method
+        /// </summary>
+        /// <param name="disposing">Flag to indicate whether the object is already being disposed</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing == true)
@@ -129,15 +137,6 @@ namespace GroundFrame.Classes.SimSig
             {
                 this._SQLConnector.Dispose();
             }
-        }
-
-        ~LocationCollection()
-        {
-            // The object went out of scope and finalized is called
-            // Lets call dispose in to release unmanaged resources 
-            // the managed resources will anyways be released when GC 
-            // runs the next time.
-            Dispose(false);
         }
 
         #endregion Methods

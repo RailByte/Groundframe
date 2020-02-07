@@ -23,7 +23,6 @@ namespace GroundFrame.Classes.SimSig
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private string _Name; //Stores the Simulation Name
         private string _SimSigCode; //Stores the SimSig Code
-        private CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
@@ -66,15 +65,14 @@ namespace GroundFrame.Classes.SimSig
         /// <param name="SimSigWikiLink">The URL to the simulation manula on the SimSig wiki</param>
         /// <param name="SimSigCode">The SimSig code for the simulation. This cannot be altered once set</param>
         /// <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
-        public Simulation(string Name, string Description, string SimSigWikiLink, string SimSigCode, GFSqlConnector SQLConnector, string Culture = "en-GB")
+        public Simulation(string Name, string Description, string SimSigWikiLink, string SimSigCode, GFSqlConnector SQLConnector)
         {
-            //Load Resources
-            this.LoadResource(Culture);
+            CultureInfo culture = Globals.UserSettings.GetCultureInfo();
 
             //Validate arguments
-            ArgumentValidation.ValidateName(Name, this._Culture);
-            ArgumentValidation.ValidateSimSigCode(SimSigCode, this._Culture);
-            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+            ArgumentValidation.ValidateName(Name, culture);
+            ArgumentValidation.ValidateSimSigCode(SimSigCode, culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, culture);
 
 
             this._ID = 0;
@@ -90,13 +88,10 @@ namespace GroundFrame.Classes.SimSig
         /// </summary>
         /// <param name="ID">The ID of the Simulation record to be retreived</param>
         /// <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
-        public Simulation(int ID, GFSqlConnector SQLConnector, string Culture = "en-GB")
+        public Simulation(int ID, GFSqlConnector SQLConnector)
         {
-            //Load Resources
-            this.LoadResource(Culture);
-
             //Validate arguments
-            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
 
             this._ID = ID;
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiates a copy of the SQLConnector object so prevent conflicts on Connections, Commands and DataReaders
@@ -107,14 +102,14 @@ namespace GroundFrame.Classes.SimSig
         /// Instantiates a new Simulation object from the supplied SqlDataReader object
         /// </summary>
         /// <param name="DataReader">A SqlDataReader object representing a Simulation</param>
-        public Simulation(SqlDataReader DataReader, GFSqlConnector SQLConnector, string Culture = "en-GB")
+        /// <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
+        public Simulation(SqlDataReader DataReader, GFSqlConnector SQLConnector)
         {
-            //Load Resources
-            this.LoadResource(Culture);
+            CultureInfo culture = Globals.UserSettings.GetCultureInfo();
 
             //Validate arguments
-            ArgumentValidation.ValidateSqlDataReader(DataReader, this._Culture);
-            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+            ArgumentValidation.ValidateSqlDataReader(DataReader, culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, culture);
 
             //Instantiate a new GFSqlConnector object from the supplied connector. Stops issues with shared connections / commands and readers etc.
             this._SQLConnector = new GFSqlConnector(SQLConnector);
@@ -127,23 +122,13 @@ namespace GroundFrame.Classes.SimSig
         #region Methods
 
         /// <summary>
-        /// Loads resources needed by the class
-        /// </summary>
-        /// <param name="Culture"></param>
-        private void LoadResource(string Culture)
-        {
-            //Get Exception Message Resources
-            this._Culture = new CultureInfo(Culture);
-        }
-
-        /// <summary>
         /// Refreshes the Simulation data from the GroundFrame.SQL database
         /// </summary>
         public void RefreshFromSQLDB()
         {
             if (this._ID == 0)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("RefreshSimulationError",null,this._Culture));
+                throw new ApplicationException(ExceptionHelper.GetStaticException("RefreshSimulationError",null,Globals.UserSettings.GetCultureInfo()));
             }
 
             this.GetSimulationFromSQLDBByID();
@@ -173,7 +158,7 @@ namespace GroundFrame.Classes.SimSig
         {
             if (this._ID <= 0)
             {
-                throw new ArgumentException(ExceptionHelper.GetStaticException("DeleteSimulationZeroIDError",null,this._Culture));
+                throw new ArgumentException(ExceptionHelper.GetStaticException("DeleteSimulationZeroIDError",null,Globals.UserSettings.GetCultureInfo()));
             }
 
             try
@@ -207,7 +192,7 @@ namespace GroundFrame.Classes.SimSig
 
             if (this._ID <= 0)
             {
-                throw new ArgumentException(ExceptionHelper.GetStaticException("RetrieveSimulationZeroIDError", null, this._Culture));
+                throw new ArgumentException(ExceptionHelper.GetStaticException("RetrieveSimulationZeroIDError", null, Globals.UserSettings.GetCultureInfo()));
             }
 
             try
@@ -304,6 +289,10 @@ namespace GroundFrame.Classes.SimSig
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Protected override of the Dispose method
+        /// </summary>
+        /// <param name="disposing">Indicates whether the object is alreadt being disposed</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing == true)
@@ -314,15 +303,6 @@ namespace GroundFrame.Classes.SimSig
             {
                 this._SQLConnector.Dispose();
             }
-        }
-
-        ~Simulation()
-        {
-            // The object went out of scope and finalized is called
-            // Lets call dispose in to release unmanaged resources 
-            // the managed resources will anyways be released when GC 
-            // runs the next time.
-            Dispose(false);
         }
 
         #endregion Methods

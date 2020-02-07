@@ -20,11 +20,15 @@ namespace GroundFrame.Classes.SimSig
 
         private List<Simulation> _Simulations = new List<Simulation>(); //List to store all Simulations
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
-        private readonly CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
         #region Properties
+
+        /// <summary>
+        /// Gets the SimulationCollection enumerator
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator<Simulation> GetEnumerator() { return this._Simulations.GetEnumerator(); }
 
         #endregion Properties
@@ -33,12 +37,11 @@ namespace GroundFrame.Classes.SimSig
         /// <summary>
         /// Instantiates a SimulationCollection object the supplied GroundFrame.SQL Connection
         /// </summary>
-        /// <param name="SQLConnector"></param>
-        public SimulationCollection(GFSqlConnector SQLConnector, string Culture = "en-GB")
+        /// <param name="SQLConnector">A GFSqlConnector to the GroundFrame.SQL database</param>
+        public SimulationCollection(GFSqlConnector SQLConnector)
         {
-            this._Culture = new CultureInfo(Culture);
             //Validate Arguments
-            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
 
             //Set the SQL Connector
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiated as a new copy of the SQLConnector to stop conflict issues with open connections, commands and DataReaders
@@ -62,8 +65,8 @@ namespace GroundFrame.Classes.SimSig
         /// <summary>
         /// Returns the Simulation for the supplied Index
         /// </summary>
-        /// <param name="Item"></param>
-        /// <returns></returns>
+        /// <param name="Index">The index of the Simulation to return</param>
+        /// <returns>The Simulation at the supplied index value</returns>
         public Simulation IndexOf(int Index)
         {
             return this._Simulations[Index];
@@ -92,7 +95,7 @@ namespace GroundFrame.Classes.SimSig
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("RetieveAllSimsError", null, this._Culture), Ex);
+                throw new ApplicationException(ExceptionHelper.GetStaticException("RetieveAllSimsError", null, Globals.UserSettings.GetCultureInfo()), Ex);
             }
             finally
             {
@@ -114,6 +117,10 @@ namespace GroundFrame.Classes.SimSig
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Protected override of the Dispose method
+        /// </summary>
+        /// <param name="disposing">A flag indicating whether the object is already being disposed</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing == true)
@@ -124,15 +131,6 @@ namespace GroundFrame.Classes.SimSig
             {
                 this._SQLConnector.Dispose();
             }
-        }
-
-        ~SimulationCollection()
-        {
-            // The object went out of scope and finalized is called
-            // Lets call dispose in to release unmanaged resources 
-            // the managed resources will anyways be released when GC 
-            // runs the next time.
-            Dispose(false);
         }
 
         #endregion Methods

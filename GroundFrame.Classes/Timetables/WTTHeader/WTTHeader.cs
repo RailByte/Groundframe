@@ -7,6 +7,9 @@ using System.Xml.Linq;
 
 namespace GroundFrame.Classes.Timetables
 {
+    /// <summary>
+    /// A Class representing a SimSig timetable header
+    /// </summary>
     public class WTTHeader
     {
         #region Constants

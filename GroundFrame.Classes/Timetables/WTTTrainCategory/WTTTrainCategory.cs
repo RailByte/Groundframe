@@ -8,6 +8,9 @@ using Newtonsoft.Json;
 
 namespace GroundFrame.Classes.Timetables
 {
+    /// <summary>
+    /// A class representing a SimSig train category
+    /// </summary>
     public class WTTTrainCategory
     {
         #region Constants
@@ -155,7 +158,7 @@ namespace GroundFrame.Classes.Timetables
         {
             try
             {
-                this._SimSigID = TrainCategoryXML.Attribute("ID") == null ? null : TrainCategoryXML.Attribute("ID").Value.ToString();
+                this._SimSigID = TrainCategoryXML.Attribute("ID")?.Value.ToString();
                 this.Description = XMLMethods.GetValueFromXElement<string>(TrainCategoryXML, @"Description", string.Empty);
                 this.AccelBrakeIndex = (WTTAccelBrakeIndex)XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"AccelBrakeIndex", null);
                 this.IsFreight = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"IsFreight", null));

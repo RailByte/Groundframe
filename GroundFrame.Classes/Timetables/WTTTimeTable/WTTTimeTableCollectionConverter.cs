@@ -92,14 +92,19 @@ namespace GroundFrame.Classes.Timetables
             }
 
             WTTTimeTableCollection TimeTableCollection = (WTTTimeTableCollection)Value;
-            // create the surrogate and serialize it instead 
-            // of the collection itself
-            WTTTimeTableCollectionSurrogate SurrogateTimeTableCollection = new WTTTimeTableCollectionSurrogate()
+
+            //Create the surrogate and serialize it instead of the collection itself
+
+            if (TimeTableCollection != null)
             {
-                TimeTables = TimeTableCollection.ToList(),
-                StartDate = TimeTableCollection.StartDate
-            };
-            Serializer.Serialize(Writer, SurrogateTimeTableCollection);
+                WTTTimeTableCollectionSurrogate SurrogateTimeTableCollection = new WTTTimeTableCollectionSurrogate()
+                {
+                    TimeTables = TimeTableCollection.ToList(),
+                    StartDate = TimeTableCollection.StartDate
+                };
+
+                Serializer.Serialize(Writer, SurrogateTimeTableCollection);
+            }      
         }
     }
 }

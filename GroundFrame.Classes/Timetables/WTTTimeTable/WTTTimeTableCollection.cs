@@ -24,7 +24,6 @@ namespace GroundFrame.Classes.Timetables
         #region Private Variables
 
         private List<WTTTimeTable> _TimeTables = new List<WTTTimeTable>(); //List to store all the time tables
-        private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private DateTime _StartDate; //Stores the WTT Start Date
 
         #endregion Private Variables
@@ -50,6 +49,7 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         /// <param name="WTTTimeTables">An IEnumerable&lt;WTTTimeTable&gt; which represents the collection of timetables</param>
         [JsonConstructor]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
         private WTTTimeTableCollection(IEnumerable<WTTTimeTable> WTTTimeTables)
         {
             this._TimeTables = new List<WTTTimeTable>();
@@ -267,6 +267,10 @@ namespace GroundFrame.Classes.Timetables
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Protected implementation of the Dispose Method
+        /// </summary>
+        /// <param name="disposing">Indicates whether the object is currently being diposed</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing == true)
@@ -275,20 +279,8 @@ namespace GroundFrame.Classes.Timetables
             }
             else
             {
-                if (this._SQLConnector != null)
-                {
-                    this._SQLConnector.Dispose();
-                }
+                //Dispose of any supporting objects here
             }
-        }
-
-        ~WTTTimeTableCollection()
-        {
-            // The object went out of scope and finalized is called
-            // Lets call dispose in to release unmanaged resources 
-            // the managed resources will anyways be released when GC 
-            // runs the next time.
-            Dispose(false);
         }
 
         #endregion Methods

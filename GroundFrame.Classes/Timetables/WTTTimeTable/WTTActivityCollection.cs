@@ -23,7 +23,6 @@ namespace GroundFrame.Classes.Timetables
         #region Private Variables
 
         private List<WTTActivity> _Activities = new List<WTTActivity>(); //List to store all the activities
-        private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
 
         #endregion Private Variables
 
@@ -235,10 +234,7 @@ namespace GroundFrame.Classes.Timetables
             }
             else
             {
-                if (this._SQLConnector != null)
-                {
-                    this._SQLConnector.Dispose();
-                }
+                //Dispose objects where necessary
             }
         }
 

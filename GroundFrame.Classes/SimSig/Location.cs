@@ -21,7 +21,6 @@ namespace GroundFrame.Classes.SimSig
         private int _SimID; //Stores the Microsoft SQL Database ID of the Location record
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private string _Name; //Stores the location name
-        private readonly CultureInfo _Culture; //Stores the culture info
 
         #endregion Private Variables
 
@@ -65,19 +64,19 @@ namespace GroundFrame.Classes.SimSig
         /// <param name="SimSigCode">The SimSig code for the location.</param>
         /// <param name="EntryPoint">Indicates whether the location is an entry point for the location</param>
         /// <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
-        public Location(Simulation Simulation, string Name, string TIPLOC, string SimSigCode, bool EntryPoint, GFSqlConnector SQLConnector, string Culture = "en-GB")
+        public Location(Simulation Simulation, string Name, string TIPLOC, string SimSigCode, bool EntryPoint, GFSqlConnector SQLConnector)
         {
-            this._Culture = new CultureInfo(Culture);
+            CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
 
             //Check Arguments
-            ArgumentValidation.ValidateName(Name, this._Culture);
-            ArgumentValidation.ValidateSimSigCode(SimSigCode, this._Culture, 16);
-            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
-            ArgumentValidation.ValidateSimulation(Simulation, this._Culture);
+            ArgumentValidation.ValidateName(Name, Culture);
+            ArgumentValidation.ValidateSimSigCode(SimSigCode, Culture, 16);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, Culture);
+            ArgumentValidation.ValidateSimulation(Simulation, Culture);
 
             if (Simulation.ID == 0)
             {
-                throw new ArgumentException(ExceptionHelper.GetStaticException("CreateLocationUnsavedSimError",null, this._Culture));
+                throw new ArgumentException(ExceptionHelper.GetStaticException("CreateLocationUnsavedSimError",null, Culture));
             }
 
             this._ID = 0;
@@ -94,12 +93,10 @@ namespace GroundFrame.Classes.SimSig
         /// </summary>
         /// <param name="ID">The ID of the location record to be retreived</param>
         /// <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
-        public Location(int ID, GFSqlConnector SQLConnector, string Culture = "en-GB")
+        public Location(int ID, GFSqlConnector SQLConnector)
         {
-            this._Culture = new CultureInfo(Culture);
-
             //Validate Arguments
-            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
 
             this._ID = ID;
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiates a copy of the SQLConnector object so prevent conflicts on Connections, Commands and DataReaders
@@ -110,13 +107,14 @@ namespace GroundFrame.Classes.SimSig
         /// Instantiates a new Location object from the supplied SqlDataReader object
         /// </summary>
         /// <param name="DataReader">A SqlDataReader object representing a location</param>
-        public Location(SqlDataReader DataReader, GFSqlConnector SQLConnector, string Culture = "en-GB")
+        /// <param name="SQLConnector">A GFSqlConnector to the GroundFrame.SQL database</param>
+        public Location(SqlDataReader DataReader, GFSqlConnector SQLConnector)
         {
-            this._Culture = new CultureInfo(Culture);
+            CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
 
             //Validate Arguments
-            ArgumentValidation.ValidateSqlDataReader(DataReader, this._Culture);
-            ArgumentValidation.ValidateSQLConnector(SQLConnector, this._Culture);
+            ArgumentValidation.ValidateSqlDataReader(DataReader, Culture);
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, Culture);
 
             //Instantiate a new GFSqlConnector object from the supplied connector. Stops issues with shared connections / commands and readers etc.
             this._SQLConnector = new GFSqlConnector(SQLConnector);
@@ -152,7 +150,7 @@ namespace GroundFrame.Classes.SimSig
         {
             if (this._ID <= 0)
             {
-                throw new ArgumentException(ExceptionHelper.GetStaticException("DeleteLocationZeroIDError",null,this._Culture));
+                throw new ArgumentException(ExceptionHelper.GetStaticException("DeleteLocationZeroIDError",null, Globals.UserSettings.GetCultureInfo()));
             }
 
             try
@@ -186,7 +184,7 @@ namespace GroundFrame.Classes.SimSig
 
             if (this._ID <= 0)
             {
-                throw new ArgumentException(ExceptionHelper.GetStaticException("RetrieveLocationZeroIDError", null, this._Culture));
+                throw new ArgumentException(ExceptionHelper.GetStaticException("RetrieveLocationZeroIDError", null, Globals.UserSettings.GetCultureInfo()));
             }
 
             try
@@ -224,7 +222,7 @@ namespace GroundFrame.Classes.SimSig
         private void ParseSqlDataReader(SqlDataReader DataReader)
         {
             //Validate Argument
-            ArgumentValidation.ValidateSqlDataReader(DataReader, this._Culture);
+            ArgumentValidation.ValidateSqlDataReader(DataReader, Globals.UserSettings.GetCultureInfo());
 
             this._ID = DataReader.GetInt32(DataReader.GetOrdinal("id"));
             this._SimID = DataReader.GetInt16(DataReader.GetOrdinal("sim_id"));
@@ -287,6 +285,10 @@ namespace GroundFrame.Classes.SimSig
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Protected override of the Dispose method
+        /// </summary>
+        /// <param name="disposing">Indicates whether the object is already being disposted</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing == true)
@@ -299,14 +301,6 @@ namespace GroundFrame.Classes.SimSig
             }
         }
 
-        ~Location()
-        {
-            // The object went out of scope and finalized is called
-            // Lets call dispose in to release unmanaged resources 
-            // the managed resources will anyways be released when GC 
-            // runs the next time.
-            Dispose(false);
-        }
         #endregion Methods
     }
 }
