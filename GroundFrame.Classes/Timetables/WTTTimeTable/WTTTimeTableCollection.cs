@@ -187,15 +187,10 @@ namespace GroundFrame.Classes.Timetables
 
         private void ParseWTTTimeTablesXML(XElement WTTTimeTablesXML)
         {
-            //foreach (XElement WTTTimeTableXML in WTTTimeTablesXML.Elements("Timetable"))
-            //{
-            //    this._TimeTables.Add(new WTTTimeTable(WTTTimeTableXML, this._StartDate));
-            //}
-
-            Parallel.ForEach(WTTTimeTablesXML.Elements("Timetable"), WTTTimeTableXML =>
+            foreach (XElement WTTTimeTableXML in WTTTimeTablesXML.Elements("Timetable"))
             {
                 this._TimeTables.Add(new WTTTimeTable(WTTTimeTableXML, this._StartDate));
-            });
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()

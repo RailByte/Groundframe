@@ -88,6 +88,15 @@ namespace GroundFrame.Classes.Timetables
         #region Methods
 
         /// <summary>
+        /// Serializes the WTTActivity object to JSON
+        /// </summary>
+        /// <returns>A JSON string representing the objecct</returns>
+        public string ToJSON()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
         /// Populates the object from the supplied JSON
         /// </summary>
         /// <param name="JSON">The JSON string representing the WTTActivity object</param>

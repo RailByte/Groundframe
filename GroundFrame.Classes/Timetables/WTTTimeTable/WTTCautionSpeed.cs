@@ -75,6 +75,28 @@ namespace GroundFrame.Classes.Timetables
         }
 
         /// <summary>
+        /// Instantiates a WTTCautionSpeed object from a JSON file.
+        /// </summary>
+        /// <param name="JSON">A JSON string representing the WTTCautionSpeed object</param>
+        public WTTCautionSpeed(string JSON)
+        {
+            //Validate arguments
+            ArgumentValidation.ValidateJSON(JSON, Globals.UserSettings.GetCultureInfo());
+
+            //Try deserializing the string
+            try
+            {
+                //Deserialize the JSON string
+                this.PopulateFromJSON(JSON);
+
+            }
+            catch (Exception Ex)
+            {
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTCautionSpeedJSONError", null, Globals.UserSettings.GetCultureInfo()), Ex);
+            }
+        }
+
+        /// <summary>
         /// Instantiates a new WTTCautionSpeed object from the supplied SimSig XML snippet (as an XElement)
         /// </summary>
         /// <param name="WTTCautionSpeedXML">The SimSig XML Snippet (as an XElement) representing a single WTT Caution Speed</param>
@@ -89,6 +111,32 @@ namespace GroundFrame.Classes.Timetables
         #endregion Constructors
 
         #region Methods
+
+        /// <summary>
+        /// Populates the WTTCautionSpeed from the supplied JSON
+        /// </summary>
+        /// <param name="JSON">The JSON string representing the WTTCautionSpeed object</param>
+        private void PopulateFromJSON(string JSON)
+        {
+            //JSON argument will already have been validated in the constructor
+            try
+            {
+                JsonConvert.PopulateObject(JSON, this);
+            }
+            catch (Exception Ex)
+            {
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTCautionSpeedJSONError", null, Globals.UserSettings.GetCultureInfo()), Ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets a JSON string that represents the WTTCautionSpeed Collection
+        /// </summary>
+        /// <returns>A formatted JSON string representing the WTTCautionSpeed object</returns>
+        public string ToJSON()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
 
         /// <summary>
         /// Parses a CautionSpeedXML XElement into this object

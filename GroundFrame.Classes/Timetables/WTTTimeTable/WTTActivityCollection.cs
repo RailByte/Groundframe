@@ -119,7 +119,7 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Gets the total number of versions in the collection
         /// </summary>
-        public int Count { get { return this._Activities.Count; } }
+        public int Count { get { return this._Activities == null ? 0 : this._Activities.Count; } }
 
         #endregion Constructors
 
@@ -143,14 +143,22 @@ namespace GroundFrame.Classes.Timetables
             }
         }
 
-        private void ParseWTTActivitysXML(XElement WTTActivitysXML)
+        /// <summary>
+        /// Parses the WTTActivitiesXML into the list of WTTActivity objects
+        /// </summary>
+        /// <param name="WTTActivitiesXML"></param>
+        private void ParseWTTActivitysXML(XElement WTTActivitiesXML)
         {
-            foreach (XElement WTTActivityXML in WTTActivitysXML.Elements("Activity"))
+            foreach (XElement WTTActivityXML in WTTActivitiesXML.Elements("Activity"))
             {
                 this._Activities.Add(new WTTActivity(WTTActivityXML));
             }
         }
 
+        /// <summary>
+        /// Gets the List enumerator
+        /// </summary>
+        /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
@@ -200,7 +208,7 @@ namespace GroundFrame.Classes.Timetables
         }
 
         /// <summary>
-        /// Gets a JSON string that represents the UserSetting Collection
+        /// Gets a JSON string that represents the ActivityCollection
         /// </summary>
         /// <returns></returns>
         public string ToJSON()

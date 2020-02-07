@@ -47,13 +47,17 @@ namespace GroundFrame.Classes.Timetables
         #region Constructors
 
         /// <summary>
-        /// Instantiates a new WTTCautionSpeedSet object. Used the the JSON deserializer
+        /// Default constructor used by the JSON parser
         /// </summary>
-        public WTTCautionSpeedSet(string Name)
+        /// <param name="SimSigID">The SimSig ID of the Caution Speed Set</param>
+        /// <param name="Name">The Name of the Speed Set</param>
+        /// <param name="CautionSpeeds">The List of Caution Speeds for the set</param>
+        [JsonConstructor]
+        private WTTCautionSpeedSet(string SimSigID, string Name, List<WTTCautionSpeed> CautionSpeeds)
         {
+            this._SimSigID = SimSigID;
             this.Name = Name;
-            //Generate new SimSigID
-            this.GenerateSimSigID();
+            this._CautionSpeeds = CautionSpeeds;
         }
 
         /// <summary>
@@ -66,13 +70,42 @@ namespace GroundFrame.Classes.Timetables
             ArgumentValidation.ValidateXElement(WTTCautionSpeedSetXML, Globals.UserSettings.GetCultureInfo());
             //Parse the XML
             this.ParseWTTCautionSpeedSetXML(WTTCautionSpeedSetXML);
+        }
 
+        /// <summary>
+        /// Instantiates a new WTTCautionSpeedSet object from the supplied JSON
+        /// </summary>
+        /// <param name="JSON">The JSON string representing the WTTSpeedSet</param>
+        public WTTCautionSpeedSet(string JSON)
+        {
+            //Validate Arguments
+            ArgumentValidation.ValidateJSON(JSON, Globals.UserSettings.GetCultureInfo());
 
+            //Try deserializing the string
+            try
+            {
+                //Deserialize the JSON string
+                this.PopulateFromJSON(JSON);
+
+            }
+            catch (Exception Ex)
+            {
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTActivityCollectionJSONError", null, Globals.UserSettings.GetCultureInfo()), Ex);
+            }
         }
 
         #endregion Constructors
 
         #region Methods
+
+        /// <summary>
+        /// Gets a JSON string that represents the WTTCautionSpeedSet
+        /// </summary>
+        /// <returns></returns>
+        public string ToJSON()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
 
         /// <summary>
         /// Adds a new WTTCautionSpeed object to the set
@@ -112,6 +145,27 @@ namespace GroundFrame.Classes.Timetables
             }
         }
 
+
+        /// <summary>
+        /// Populates the object from the supplied JSON
+        /// </summary>
+        /// <param name="JSON">The JSON string representing the WTTHeader object</param>
+        private void PopulateFromJSON(string JSON)
+        {
+            //JSON argument will already have been validated in the constructor
+            try
+            {
+                WTTCautionSpeedSet Temp = JsonConvert.DeserializeObject<WTTCautionSpeedSet>(JSON);
+                this._SimSigID = Temp.SimSigID;
+                this.Name = Temp.Name;
+                this._CautionSpeeds = Temp.CautionSpeeds;
+            }
+            catch (Exception Ex)
+            {
+                throw new ApplicationException(ExceptionHelper.GetStaticException("ParseWTTActivityCollectionJSONError", null, Globals.UserSettings.GetCultureInfo()), Ex);
+            }
+        }
+
         /// <summary>
         /// Parses a WTTCautionSpeedSetXML XElement into this object
         /// </summary>
@@ -135,10 +189,10 @@ namespace GroundFrame.Classes.Timetables
                 {
                     this._CautionSpeeds = new List<WTTCautionSpeed>();
 
-                    Parallel.ForEach(WTTCautionSpeedSetXML.Element("CautionSpeeds").Elements("CautionSpeed"), WTTCautionSpeedXML =>
+                    foreach(XElement WTTCautionSpeedXML in WTTCautionSpeedSetXML.Element("CautionSpeeds").Elements("CautionSpeed"))
                     {
                         this._CautionSpeeds.Add(new WTTCautionSpeed(WTTCautionSpeedXML));
-                    });
+                    };
                 }
             }
             catch (Exception Ex)

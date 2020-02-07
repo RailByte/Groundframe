@@ -101,22 +101,6 @@ namespace GroundFrame.Classes.Timetables
         }
 
         /// <summary>
-        /// Instantiates a WTTActivityCollection object from WTTCautionSpeedSetCollectionSurrogate object
-        /// </summary>
-        /// <param name="SurrogateCautionSpeedSetCollection">The source WTTActivityCollectionSurrogate object</param>
-        internal WTTCautionSpeedSetCollection(WTTCautionSpeedSetCollectionSurrogate SurrogateCautionSpeedSetCollection)
-        {
-            if (SurrogateCautionSpeedSetCollection.CautionSpeedSets != null)
-            {
-                this._CautionSpeedSets = new List<WTTCautionSpeedSet>();
-                foreach (WTTCautionSpeedSet CautionSpeedSet in SurrogateCautionSpeedSetCollection.CautionSpeedSets)
-                {
-                    this._CautionSpeedSets.Add(CautionSpeedSet);
-                }
-            }
-        }
-
-        /// <summary>
         /// Gets the total number of versions in the collection
         /// </summary>
         public int Count { get { return this._CautionSpeedSets.Count; } }
@@ -134,7 +118,7 @@ namespace GroundFrame.Classes.Timetables
             //JSON argument will already have been validated in the constructor
             try
             {
-                WTTCautionSpeedSetCollection Temp = JsonConvert.DeserializeObject<WTTCautionSpeedSetCollection>(JSON, new WTTCautionSpeedSetCollectionConverter());
+                WTTCautionSpeedSetCollection Temp = JsonConvert.DeserializeObject<WTTCautionSpeedSetCollection>(JSON);
                 this._CautionSpeedSets = Temp.ToList();
             }
             catch (Exception Ex)
@@ -192,24 +176,12 @@ namespace GroundFrame.Classes.Timetables
         }
 
         /// <summary>
-        /// Converts this WTTCautionSpeedSetCollection object to a WTTCautionSpeedSetCollectionSurrogate object
-        /// </summary>
-        /// <returns></returns>
-        internal WTTCautionSpeedSetCollectionSurrogate ToWTTCautionSpeedSetCollectionSurrogate()
-        {
-            return new WTTCautionSpeedSetCollectionSurrogate
-            {
-                CautionSpeedSets = this._CautionSpeedSets
-            };
-        }
-
-        /// <summary>
         /// Gets a JSON string that represents the UserSetting Collection
         /// </summary>
         /// <returns></returns>
         public string ToJSON()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented, new WTTActivityCollectionConverter());
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         /// <summary>

@@ -30,38 +30,80 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTable
         /// Tests instantiating a new WTTCautionSpeed object from a SimSig XML snippet.
         /// </summary>
         [Fact]
-        public void WTTTimeTable_Constructor_XElement()
+        public void WTTCautionSpeed_Constructor_XElement()
         {
             string TestXMLPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestThreeBridges_4.8.xml";
-            XElement XMLTestCautionSpeedSet = XDocument.Load(TestXMLPath).Element("SimSigTimetable").Element("CautionSpeedSets").Element("CautionSpeedSet").Element("CautionSpeeds").Element("CautionSpeed");
-            GroundFrame.Classes.Timetables.WTTCautionSpeed TestCautionSpeed = new Timetables.WTTCautionSpeed(XMLTestCautionSpeedSet);
+            XElement XMLTestCautionSpeed = XDocument.Load(TestXMLPath).Element("SimSigTimetable").Element("CautionSpeedSets").Element("CautionSpeedSet").Element("CautionSpeeds").Element("CautionSpeed");
+            GroundFrame.Classes.Timetables.WTTCautionSpeed TestCautionSpeed = new Timetables.WTTCautionSpeed(XMLTestCautionSpeed);
 
             //Run tests
-            Assert.Equal(XMLTestCautionSpeedSet.Element("AspectPassed") == null ? WTTSignalAspect.Red : (WTTSignalAspect)Convert.ToInt32(XMLTestCautionSpeedSet.Element("AspectPassed").Value), TestCautionSpeed.AspectPassed);
+            Assert.Equal(XMLTestCautionSpeed.Element("AspectPassed") == null ? WTTSignalAspect.Red : (WTTSignalAspect)Convert.ToInt32(XMLTestCautionSpeed.Element("AspectPassed").Value), TestCautionSpeed.AspectPassed);
 
-            if (XMLTestCautionSpeedSet.Element("FromLineSpeed") == null)
+            if (XMLTestCautionSpeed.Element("FromLineSpeed") == null)
             {
                 Assert.Null(TestCautionSpeed.FromLineSpeed);
             }
             else
             {
-                Assert.Equal(Convert.ToInt32(XMLTestCautionSpeedSet.Element("FromLineSpeed").Value), TestCautionSpeed.FromLineSpeed.MPH);
+                Assert.Equal(Convert.ToInt32(XMLTestCautionSpeed.Element("FromLineSpeed").Value), TestCautionSpeed.FromLineSpeed.MPH);
             }
 
-            Assert.Equal(XMLTestCautionSpeedSet.Element("ReduceNowValue") == null ? 0 : Convert.ToInt32(XMLTestCautionSpeedSet.Element("ReduceNowValue").Value), TestCautionSpeed.ReduceNowValue);
-            Assert.Equal(XMLTestCautionSpeedSet.Element("approachNextValue") == null ? 0 : Convert.ToInt32(XMLTestCautionSpeedSet.Element("approachNextValue").Value), TestCautionSpeed.ApproachNextValue);
+            Assert.Equal(XMLTestCautionSpeed.Element("ReduceNowValue") == null ? 0 : Convert.ToInt32(XMLTestCautionSpeed.Element("ReduceNowValue").Value), TestCautionSpeed.ReduceNowValue);
+            Assert.Equal(XMLTestCautionSpeed.Element("approachNextValue") == null ? 0 : Convert.ToInt32(XMLTestCautionSpeed.Element("approachNextValue").Value), TestCautionSpeed.ApproachNextValue);
 
-            if (XMLTestCautionSpeedSet.Element("approachNextDistance") == null)
+            if (XMLTestCautionSpeed.Element("approachNextDistance") == null)
             {
                 Assert.Null(TestCautionSpeed.ApproachNextDistance);
             }
             else
             {
-                Assert.Equal(new Length(Convert.ToInt32(XMLTestCautionSpeedSet.Element("approachNextDistance").Value)).Meters, TestCautionSpeed.ApproachNextDistance.Meters);
+                Assert.Equal(new Length(Convert.ToInt32(XMLTestCautionSpeed.Element("approachNextDistance").Value)).Meters, TestCautionSpeed.ApproachNextDistance.Meters);
             }
 
-            Assert.Equal(XMLTestCautionSpeedSet.Element("NowValueType") == null ? WTTNumberType.NotApplicable : (WTTNumberType)Convert.ToInt32(XMLTestCautionSpeedSet.Element("NowValueType").Value), TestCautionSpeed.NowValueType);
-            Assert.Equal(XMLTestCautionSpeedSet.Element("NextValueType") == null ? WTTNumberType.NotApplicable : (WTTNumberType)Convert.ToInt32(XMLTestCautionSpeedSet.Element("NextValueType").Value), TestCautionSpeed.NextValueType);
+            Assert.Equal(XMLTestCautionSpeed.Element("NowValueType") == null ? WTTNumberType.NotApplicable : (WTTNumberType)Convert.ToInt32(XMLTestCautionSpeed.Element("NowValueType").Value), TestCautionSpeed.NowValueType);
+            Assert.Equal(XMLTestCautionSpeed.Element("NextValueType") == null ? WTTNumberType.NotApplicable : (WTTNumberType)Convert.ToInt32(XMLTestCautionSpeed.Element("NextValueType").Value), TestCautionSpeed.NextValueType);
+        }
+
+        /// <summary>
+        /// Tests instantiating a new WTTCautionSpeed object from a JSON stting
+        /// </summary>
+        [Fact]
+        public void WTTCautionSpeed_Constructor_JSON()
+        {
+            //Set up test
+            string TestXMLPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestThreeBridges_4.8.xml";
+            XElement XMLTestCautionSpeed = XDocument.Load(TestXMLPath).Element("SimSigTimetable").Element("CautionSpeedSets").Element("CautionSpeedSet").Element("CautionSpeeds").Element("CautionSpeed");
+            GroundFrame.Classes.Timetables.WTTCautionSpeed TestCautionSpeed = new Timetables.WTTCautionSpeed(XMLTestCautionSpeed);
+            string JSON = TestCautionSpeed.ToJSON();
+            //Instantiate Caution Speed from JSON
+            GroundFrame.Classes.Timetables.WTTCautionSpeed TestJSONCautionSpeed = new Timetables.WTTCautionSpeed(JSON);
+
+            //Run tests
+            Assert.Equal(XMLTestCautionSpeed.Element("AspectPassed") == null ? WTTSignalAspect.Red : (WTTSignalAspect)Convert.ToInt32(XMLTestCautionSpeed.Element("AspectPassed").Value), TestJSONCautionSpeed.AspectPassed);
+
+            if (XMLTestCautionSpeed.Element("FromLineSpeed") == null)
+            {
+                Assert.Null(TestJSONCautionSpeed.FromLineSpeed);
+            }
+            else
+            {
+                Assert.Equal(Convert.ToInt32(XMLTestCautionSpeed.Element("FromLineSpeed").Value), TestJSONCautionSpeed.FromLineSpeed.MPH);
+            }
+
+            Assert.Equal(XMLTestCautionSpeed.Element("ReduceNowValue") == null ? 0 : Convert.ToInt32(XMLTestCautionSpeed.Element("ReduceNowValue").Value), TestJSONCautionSpeed.ReduceNowValue);
+            Assert.Equal(XMLTestCautionSpeed.Element("approachNextValue") == null ? 0 : Convert.ToInt32(XMLTestCautionSpeed.Element("approachNextValue").Value), TestJSONCautionSpeed.ApproachNextValue);
+
+            if (XMLTestCautionSpeed.Element("approachNextDistance") == null)
+            {
+                Assert.Null(TestJSONCautionSpeed.ApproachNextDistance);
+            }
+            else
+            {
+                Assert.Equal(new Length(Convert.ToInt32(XMLTestCautionSpeed.Element("approachNextDistance").Value)).Meters, TestJSONCautionSpeed.ApproachNextDistance.Meters);
+            }
+
+            Assert.Equal(XMLTestCautionSpeed.Element("NowValueType") == null ? WTTNumberType.NotApplicable : (WTTNumberType)Convert.ToInt32(XMLTestCautionSpeed.Element("NowValueType").Value), TestJSONCautionSpeed.NowValueType);
+            Assert.Equal(XMLTestCautionSpeed.Element("NextValueType") == null ? WTTNumberType.NotApplicable : (WTTNumberType)Convert.ToInt32(XMLTestCautionSpeed.Element("NextValueType").Value), TestJSONCautionSpeed.NextValueType);
         }
 
         #endregion Methods
