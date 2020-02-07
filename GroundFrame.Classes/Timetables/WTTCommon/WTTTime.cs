@@ -70,7 +70,7 @@ namespace GroundFrame.Classes.Timetables
         /// Gets the WTT Start Date
         /// </summary>
         [JsonProperty("wttStartDate")]
-        private DateTime WTTStartDate { get { return this._WTTStartDate; } }
+        public DateTime WTTStartDate { get { return this._WTTStartDate; } }
 
         #endregion Properties
 

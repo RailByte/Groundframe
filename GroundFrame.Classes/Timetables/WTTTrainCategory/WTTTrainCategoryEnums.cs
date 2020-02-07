@@ -9,10 +9,25 @@ namespace GroundFrame.Classes.Timetables
     /// </summary>
     public enum WTTAccelBrakeIndex
     {
+        /// <summary>
+        /// Very low - Slow freight
+        /// </summary>
         VeryLowSlowFreight=0,
+        /// <summary>
+        /// Low - Standard freight
+        /// </summary>
         LowStandardFreight=1,
+        /// <summary>
+        /// Medium - Intercity
+        /// </summary>
         MediumInterCity=2,
+        /// <summary>
+        /// High - Commuter
+        /// </summary>
         HighCommuter=3,
+        /// <summary>
+        /// Very High - Metro
+        /// </summary>
         VeryHighLocoMetro=4
     }
 

@@ -99,7 +99,9 @@
     <Build Include="Schema\common.sql" />
     <Build Include="Tables\common\common.TAPIKEY.sql" />
     <Build Include="Stored Procedures\common\common.Usp_GENERATE_APIKEY.sql" />
-    <Build Include="Stored Procedures\common\common.Usp_CLEAR_SESSIONCONTEXT.sql" />
+    <Build Include="Stored Procedures\common\common.Usp_CLEAR_SESSIONCONTEXT.sql">
+      <SuppressTSqlWarnings>71502</SuppressTSqlWarnings>
+    </Build>
     <Build Include="Tables\app\app.TAPPSTATUS.sql" />
     <Build Include="Tables\app\app.TAPPTYPE.sql" />
     <Build Include="Tables\app\app.TUSER.sql" />
@@ -113,7 +115,9 @@
     <None Include="Scripts\Post Deployment\Data Population\Script.Populate app.TUSER.sql" />
     <Build Include="Indexes\app\TUSER\IDX_NONCLUSTERED_APP_TUSER_EMAIL.sql" />
     <None Include="Scripts\Post Deployment\Data Population\Script.Populate app.TAPP.sql" />
-    <Build Include="Stored Procedures\common\common.Usp_SET_SESSIONCONTEXT.sql" />
+    <Build Include="Stored Procedures\common\common.Usp_SET_SESSIONCONTEXT.sql">
+      <SuppressTSqlWarnings>71502</SuppressTSqlWarnings>
+    </Build>
     <Build Include="Tables\simsig\simsig.TERATYPE.sql" />
     <None Include="Scripts\Post Deployment\Data Population\Script.Populate simsig.TERATYPE.sql" />
     <Build Include="Stored Procedures\simsig\simsig.Usp_GET_TVERSION.sql" />
