@@ -6,7 +6,8 @@
           "files": [
             "**.csproj"
           ],
-          "src": "G:\\GitHub\\Groundframe\\GroundFrame.Classes"
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "../GroundFrame.Classes"
         }
       ],
       "dest": "api",
