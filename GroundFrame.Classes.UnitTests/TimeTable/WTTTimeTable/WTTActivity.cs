@@ -40,6 +40,7 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTable
             //Run tests
             Assert.Equal((WTTActivityType)Convert.ToInt32(XMLTestActivity.Element("Activity").Value), TestActivity.ActivityType);
             Assert.Equal(XMLTestActivity.Element("AssociatedTrain") == null ? null : XMLTestActivity.Element("AssociatedTrain").Value, TestActivity.AssociatedTrainHeadCode);
+            Assert.Equal(XMLTestActivity.Element("AssociatedUID") == null ? null : XMLTestActivity.Element("AssociatedUID").Value, TestActivity.AssociatedUID);
         }
 
         /// <summary>
@@ -60,6 +61,7 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTable
             //Run tests
             Assert.Equal((WTTActivityType)Convert.ToInt32(XMLTestActivity.Element("Activity").Value), TestJSONActivity.ActivityType);
             Assert.Equal(XMLTestActivity.Element("AssociatedTrain") == null ? null : XMLTestActivity.Element("AssociatedTrain").Value, TestJSONActivity.AssociatedTrainHeadCode);
+            Assert.Equal(XMLTestActivity.Element("AssociatedUID") == null ? null : XMLTestActivity.Element("AssociatedUID").Value, TestActivity.AssociatedUID);
             Assert.Equal(JSON, TestJSONActivity.ToJSON());
         }
 

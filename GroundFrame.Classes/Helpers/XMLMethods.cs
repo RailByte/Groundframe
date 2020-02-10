@@ -32,14 +32,19 @@ namespace GroundFrame.Classes
             {
                 { typeof(string), ((x,y) => x) },
                 { typeof(int), ((x,y) => Convert.ToInt32(x)) },
-                { typeof(double), ((x,y) => Convert.ToDouble(x)) },
+                { typeof(double), ((x,y) => Convert.ToInt32(x)) },
+                { typeof(bool), ((x,y) => Convert.ToBoolean(Convert.ToInt32(x))) },
                 { typeof(DateTime), ((x,y) => Convert.ToDateTime(x)) },
                 { typeof(WTTSpeed), ((x,y) => new WTTSpeed(Convert.ToInt32(x))) },
                 { typeof(Length), ((x,y) => new Length(Convert.ToInt32(x))) },
                 { typeof(WTTTime), ((x,y) => y == null ? new WTTTime(Convert.ToInt32(x)) : new WTTTime(Convert.ToInt32(x), (DateTime)y[0])) },
                 { typeof(WTTDuration), ((x,y) => new WTTDuration(Convert.ToInt32(x))) },
+                { typeof(WTTSpeedClass), ((x,y) => new WTTSpeedClass(Convert.ToInt32(x))) },
                 { typeof(WTTSignalAspect), ((x,y) => (WTTSignalAspect)Convert.ToInt32(x)) },
-                { typeof(WTTNumberType), ((x,y) => (WTTNumberType)Convert.ToInt32(x)) }
+                { typeof(WTTNumberType), ((x,y) => (WTTNumberType)Convert.ToInt32(x)) },
+                { typeof(WTTAccelBrakeIndex), ((x,y) => (WTTAccelBrakeIndex)Convert.ToInt32(x)) },
+                { typeof(WTTPowerToWeightCategory), ((x,y) => (WTTPowerToWeightCategory)Convert.ToInt32(x)) },                
+                { typeof(Electrification), ((x,y) => new Electrification(x)) }
             };
 
             //If the element doesn't exist the return the default value

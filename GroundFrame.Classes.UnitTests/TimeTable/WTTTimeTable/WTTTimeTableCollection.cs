@@ -71,10 +71,10 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTableCollection
             }
             else
             {
-                Assert.Equal(0, TestTimeTable.DepartTime.Seconds);
+                Assert.Null(TestTimeTable.DepartTime);
             }
             Assert.Equal(XMLTestTimeTable.Element("Description").Value.ToString(), TestTimeTable.Description);
-            Assert.Equal(new GroundFrame.Classes.Timetables.WTTDuration(Convert.ToInt32(XMLTestTimeTable.Element("SeedingGap").Value.ToString())).Seconds, TestTimeTable.SeedingGap.Seconds);
+            Assert.Equal(new GroundFrame.Classes.Length(Convert.ToInt32(XMLTestTimeTable.Element("SeedingGap").Value.ToString())).Meters, TestTimeTable.SeedingGap.Meters);
             
             if (XMLTestTimeTable.Element("EntryPoint") != null)
             {

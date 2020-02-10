@@ -38,7 +38,7 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTripCollection
 
             if (TestTripsXML.Elements("Trip").FirstOrDefault().Element("ArrTime") == null)
             {
-                Assert.Equal(0, TestTrip.ArrTime.Seconds);
+                Assert.Null(TestTrip.ArrTime);
             }
             else
             {
@@ -47,11 +47,29 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTripCollection
 
             if (TestTripsXML.Elements("Trip").FirstOrDefault().Element("Platform") == null)
             {
-                Assert.Equal(string.Empty,TestTrip.Platform);
+                Assert.Null(TestTrip.Platform);
             }
             else
             {
                 Assert.Equal(TestTripsXML.Elements("Trip").FirstOrDefault().Element("Platform").Value.ToString(), TestTrip.Platform);
+            }
+
+            if (TestTripsXML.Elements("Trip").FirstOrDefault().Element("Line") == null)
+            {
+                Assert.Null(TestTrip.Line);
+            }
+            else
+            {
+                Assert.Equal(TestTripsXML.Elements("Trip").FirstOrDefault().Element("Line").Value.ToString(), TestTrip.Line);
+            }
+
+            if (TestTripsXML.Elements("Trip").FirstOrDefault().Element("Path") == null)
+            {
+                Assert.Null(TestTrip.Path);
+            }
+            else
+            {
+                Assert.Equal(TestTripsXML.Elements("Trip").FirstOrDefault().Element("Path").Value.ToString(), TestTrip.Path);
             }
 
             if (TestTripsXML.Elements("Trip").FirstOrDefault().Element("DownDirection") == null)

@@ -29,9 +29,19 @@ namespace GroundFrame.Classes.Timetables
         public string Headcode { get; set; }
 
         /// <summary>
+        /// Gets or sets the Timetable Unique Identifier
+        /// </summary>
+        public string UID { get; set; }
+
+        /// <summary>
         /// Gets or sets the Acceleration / Break Index
         /// </summary>
         public WTTAccelBrakeIndex AccelBrakeIndex { get; set; }
+
+        /// <summary>
+        /// Gets or sets the run as required
+        /// </summary>]
+        public bool RunAsRequired { get; set; }
 
         /// <summary>
         /// Gets or sets the run as required percentage
@@ -56,7 +66,7 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Gets or sets the seeding gap
         /// </summary>
-        public WTTDuration SeedingGap { get; set; }
+        public Length SeedingGap { get; set; }
 
         /// <summary>
         /// Gets or sets the entry point
@@ -92,6 +102,31 @@ namespace GroundFrame.Classes.Timetables
         /// Gets or sets the electrification
         /// </summary>
         public Electrification Electrification { get; set; }
+
+        /// <summary>
+        /// Gets or sets the origin location of the service
+        /// </summary>
+        public string OriginName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the destination location of the service
+        /// </summary>
+        public string DestinationName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the origin time of the service
+        /// </summary>
+        public WTTTime OriginTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the destination time of the service
+        /// </summary>
+        public WTTTime DestinationTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the operator code of the service
+        /// </summary>
+        public string OperatorCode { get; set; }
 
         /// <summary>
         /// Gets or sets whether run as required has been tested

@@ -34,16 +34,40 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTable
             XElement XMLTestTimeTable = XDocument.Load(TestXMLPath).Element("SimSigTimetable").Element("Timetables").Descendants().First();
             GroundFrame.Classes.Timetables.WTTTimeTable TestTimeTable = new Classes.Timetables.WTTTimeTable(XMLTestTimeTable, new DateTime(2018,7,1));
             Assert.Equal(XMLTestTimeTable.Element("ID").Value.ToString(), TestTimeTable.Headcode);
+            Assert.Equal(XMLTestTimeTable.Element("UID") == null ? null : XMLTestTimeTable.Element("UID").Value.ToString(), TestTimeTable.UID);
             Assert.Equal((WTTAccelBrakeIndex)Convert.ToInt32(XMLTestTimeTable.Element("AccelBrakeIndex").Value), TestTimeTable.AccelBrakeIndex);
+            Assert.Equal(XMLTestTimeTable.Element("AsRequired") == null ? false : Convert.ToBoolean(Convert.ToInt32(XMLTestTimeTable.Element("AsRequired").Value.ToString())), TestTimeTable.RunAsRequired);
             Assert.Equal(Convert.ToInt32(XMLTestTimeTable.Element("AsRequiredPercent").Value.ToString()), TestTimeTable.RunAsRequiredPercentage);
             Assert.Equal(new GroundFrame.Classes.Timetables.WTTTime(Convert.ToInt32(XMLTestTimeTable.Element("DepartTime").Value.ToString())).Seconds, TestTimeTable.DepartTime.Seconds);
             Assert.Equal(XMLTestTimeTable.Element("Description").Value.ToString(), TestTimeTable.Description);
-            Assert.Equal(new GroundFrame.Classes.Timetables.WTTDuration(Convert.ToInt32(XMLTestTimeTable.Element("SeedingGap").Value.ToString())).Seconds, TestTimeTable.SeedingGap.Seconds);
+            Assert.Equal(new GroundFrame.Classes.Length(Convert.ToInt32(XMLTestTimeTable.Element("SeedingGap").Value.ToString())).Meters, TestTimeTable.SeedingGap.Meters);
             Assert.Equal(XMLTestTimeTable.Element("EntryPoint").Value.ToString(), TestTimeTable.EntryPoint);
             Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeed(Convert.ToInt32(XMLTestTimeTable.Element("MaxSpeed").Value.ToString())).MPH, TestTimeTable.MaxSpeed.MPH);
             Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeedClass(Convert.ToInt32(XMLTestTimeTable.Element("SpeedClass").Value.ToString())).Bitwise, TestTimeTable.SpeedClass.Bitwise);
             Assert.Equal(new GroundFrame.Classes.Length(Convert.ToInt32(XMLTestTimeTable.Element("TrainLength").Value.ToString())).Meters, TestTimeTable.TrainLength.Meters);
             Assert.Equal(new GroundFrame.Classes.Electrification(XMLTestTimeTable.Element("Electrification").Value.ToString()).ToString(), TestTimeTable.Electrification.ToString());
+            Assert.Equal(XMLTestTimeTable.Element("OriginName") == null ? null : XMLTestTimeTable.Element("OriginName").Value.ToString(), TestTimeTable.OriginName);
+            Assert.Equal(XMLTestTimeTable.Element("DestinationName") == null ? null : XMLTestTimeTable.Element("DestinationName").Value.ToString(), TestTimeTable.DestinationName);
+
+            if (XMLTestTimeTable.Element("OriginTime") == null)
+            {
+                Assert.Null(TestTimeTable.OriginTime);
+            }
+            else
+            {
+                Assert.Equal(new GroundFrame.Classes.Timetables.WTTTime(Convert.ToInt32(XMLTestTimeTable.Element("OriginTime").Value.ToString())).Seconds, TestTimeTable.OriginTime.Seconds);
+            }
+
+            if (XMLTestTimeTable.Element("DestinationTime") == null)
+            {
+                Assert.Null(TestTimeTable.DestinationTime);
+            }
+            else
+            {
+                Assert.Equal(new GroundFrame.Classes.Timetables.WTTTime(Convert.ToInt32(XMLTestTimeTable.Element("DestinationTime").Value.ToString())).Seconds, TestTimeTable.DestinationTime.Seconds);
+            }
+
+            Assert.Equal(XMLTestTimeTable.Element("OperatorCode") == null ? null : XMLTestTimeTable.Element("OperatorCode").Value.ToString(), TestTimeTable.OperatorCode);
             Assert.Equal(new GroundFrame.Classes.Electrification(XMLTestTimeTable.Element("StartTraction").Value.ToString()).ToString(), TestTimeTable.StartTraction.ToString());
             Assert.Equal(XMLTestTimeTable.Element("Category").Value.ToString(), TestTimeTable.SimSigTrainCategoryID);
             Assert.Equal(XMLTestTimeTable.Element("Trips").Elements("Trip").Count(), TestTimeTable.Trip.Count());

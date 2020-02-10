@@ -128,13 +128,13 @@ namespace GroundFrame.Classes.Timetables
 
             //Now add trip locations
 
-            Parallel.ForEach(this._TimeTables, TimeTable =>
+            foreach(WTTTimeTable TimeTable in this._TimeTables)
             {
                 foreach(MapperLocation TimeTableLocationMapper in TimeTable.GetMapperLocations())
                 {
                     LocationMapper.Add(TimeTableLocationMapper);
                 }
-            });
+            };
 
             //Now return distinct list
             return LocationMapper.Distinct(new MapperLocationEqualityComparer()).ToList();

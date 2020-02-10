@@ -39,10 +39,32 @@ namespace GroundFrame.Classes.Timetables
         public bool IsPassTime { get; set; }
 
         /// <summary>
-        /// Gets or sets the platofrm
+        /// Gets or sets the platform
         /// </summary>
         
         public string Platform { get; set; }
+
+        /// <summary>
+        /// Gets or sets the line
+        /// </summary>
+
+        public string Line { get; set; }
+
+        /// <summary>
+        /// Gets or sets the path
+        /// </summary>
+
+        public string Path { get; set; }
+
+        /// <summary>
+        /// Gets or sets the auto line flag
+        /// </summary>
+        public bool AutoLine { get; set; }
+
+        /// <summary>
+        /// Gets or sets the auto path flag
+        /// </summary>
+        public bool AutoPath { get; set; }
 
         /// <summary>
         /// Gets or sets whether the trip is in the down direction

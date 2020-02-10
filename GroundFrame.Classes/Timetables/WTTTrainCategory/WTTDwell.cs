@@ -87,11 +87,8 @@ namespace GroundFrame.Classes.Timetables
         /// <param name="DwellXML">The source XML as an XElement</param>
         public WTTDwell (XElement DwellXML)
         {
-            //Check Header Argument
-            if (DwellXML == null)
-            {
-                throw new ArgumentNullException(ExceptionHelper.GetStaticException("GeneralNullArgument", new object[] { "DwellXML" }, Globals.UserSettings.GetCultureInfo()));
-            }
+            //Validate Arguements
+            ArgumentValidation.ValidateXElement(DwellXML, Globals.UserSettings.GetCultureInfo());
 
             //Parse the XML
             this.ParseHeaderXML(DwellXML);

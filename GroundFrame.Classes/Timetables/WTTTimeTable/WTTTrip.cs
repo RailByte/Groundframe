@@ -8,7 +8,7 @@ using System.Xml.Linq;
 namespace GroundFrame.Classes.Timetables
 {
     /// <summary>
-    /// A Class representing a SimSig Trip
+    /// A Class representing a single SimSig Trip (calling point)
     /// </summary>
     public class WTTTrip
     {
@@ -52,6 +52,30 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         [JsonProperty("platform")]
         public string Platform { get; set; }
+
+        /// <summary>
+        /// Gets or sets the line
+        /// </summary>
+        [JsonProperty("line")]
+        public string Line { get; set; }
+
+        /// <summary>
+        /// Gets or sets the path
+        /// </summary>
+        [JsonProperty("path")]
+        public string Path { get; set; }
+
+        /// <summary>
+        /// Gets or sets the auto line flag
+        /// </summary>
+        [JsonProperty("autoLine")]
+        public bool AutoLine { get; set; }
+
+        /// <summary>
+        /// Gets or sets the auto path flag
+        /// </summary>
+        [JsonProperty("autoPath")]
+        public bool AutoPath { get; set; }
 
         /// <summary>
         /// Gets or sets the down direction flag
@@ -150,15 +174,14 @@ namespace GroundFrame.Classes.Timetables
         {
             this._StartDate = SurrogateTrip.StartDate;
             this.Location = SurrogateTrip.Location;
-            this.DepPassTime = new WTTTime(SurrogateTrip.DepPassTime.Seconds, this.StartDate);
-
-            if (SurrogateTrip.ArrTime != null)
-            {
-                this.ArrTime = new WTTTime(SurrogateTrip.ArrTime.Seconds, this.StartDate);
-            }
-
+            this.DepPassTime = SurrogateTrip.DepPassTime;
+            this.ArrTime = SurrogateTrip.ArrTime;
             this.IsPassTime = SurrogateTrip.IsPassTime;
             this.Platform = SurrogateTrip.Platform;
+            this.Line = SurrogateTrip.Line;
+            this.Path = SurrogateTrip.Path;
+            this.AutoLine = SurrogateTrip.AutoLine;
+            this.AutoPath = SurrogateTrip.AutoPath;
             this.DownDirection = SurrogateTrip.DownDirection;
             this.PrevPathEndDown = SurrogateTrip.PrevPathEndDown;
             this.NextPathStartDown = SurrogateTrip.NextPathStartDown;
@@ -178,6 +201,10 @@ namespace GroundFrame.Classes.Timetables
                 ArrTime = this.ArrTime,
                 IsPassTime = this.IsPassTime,
                 Platform = this.Platform,
+                Line = this.Line,
+                Path = this.Path,
+                AutoLine = this.AutoLine,
+                AutoPath = this.AutoPath,
                 DownDirection = this.DownDirection,
                 PrevPathEndDown = this.PrevPathEndDown,
                 NextPathStartDown = this.NextPathStartDown,
@@ -195,13 +222,17 @@ namespace GroundFrame.Classes.Timetables
             try
             {
                 this.Location = XMLMethods.GetValueFromXElement<string>(WTTTripXML, @"Location", string.Empty);
-                this.DepPassTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"DepPassTime", 0), this.StartDate);
-                this.ArrTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"ArrTime", 0), this.StartDate);
-                this.IsPassTime = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"IsPassTime", 0));
-                this.Platform = XMLMethods.GetValueFromXElement<string>(WTTTripXML, @"Platform", string.Empty);
-                this.DownDirection = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"DownDirection", 0));
-                this.PrevPathEndDown = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"PrevPathEndDown", 0));
-                this.NextPathStartDown = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(WTTTripXML, @"NextPathStartown", 0));
+                this.DepPassTime = XMLMethods.GetValueFromXElement<WTTTime>(WTTTripXML, @"DepPassTime", null, new object[] { this.StartDate });
+                this.ArrTime = XMLMethods.GetValueFromXElement<WTTTime>(WTTTripXML, @"ArrTime", null, new object[] { this.StartDate });
+                this.IsPassTime = XMLMethods.GetValueFromXElement<bool>(WTTTripXML, @"IsPassTime", false);
+                this.Platform = XMLMethods.GetValueFromXElement<string>(WTTTripXML, @"Platform", null);
+                this.Line = XMLMethods.GetValueFromXElement<string>(WTTTripXML, @"Line", null);
+                this.Path = XMLMethods.GetValueFromXElement<string>(WTTTripXML, @"Path", null);
+                this.AutoPath = XMLMethods.GetValueFromXElement<bool>(WTTTripXML, @"AutoPath", false);
+                this.AutoLine = XMLMethods.GetValueFromXElement<bool>(WTTTripXML, @"AutoLine", false);
+                this.DownDirection = XMLMethods.GetValueFromXElement<bool>(WTTTripXML, @"DownDirection", false);
+                this.PrevPathEndDown = XMLMethods.GetValueFromXElement<bool>(WTTTripXML, @"PrevPathEndDown", false);
+                this.NextPathStartDown = XMLMethods.GetValueFromXElement<bool>(WTTTripXML, @"NextPathStartown", false);
 
                 //Parse Activties
 
@@ -228,19 +259,14 @@ namespace GroundFrame.Classes.Timetables
                 WTTTrip TempTrip = JsonConvert.DeserializeObject<WTTTrip>(JSON, new WTTTripConverter());
                 this._StartDate = TempTrip.StartDate;
                 this.Location = TempTrip.Location;
-
-                if (TempTrip.DepPassTime != null)
-                {
-                    this.DepPassTime = new WTTTime(TempTrip.DepPassTime.Seconds, this.StartDate);
-                }
-
-                if (TempTrip.ArrTime != null)
-                {
-                    this.ArrTime = new WTTTime(TempTrip.ArrTime.Seconds, this.StartDate);
-                }
-                
+                this.DepPassTime = TempTrip.DepPassTime;
+                this.ArrTime = TempTrip.ArrTime;
                 this.IsPassTime = TempTrip.IsPassTime;
                 this.Platform = TempTrip.Platform;
+                this.Line = TempTrip.Line;
+                this.Path = TempTrip.Path;
+                this.AutoLine = TempTrip.AutoLine;
+                this.AutoPath = TempTrip.AutoPath;
                 this.DownDirection = TempTrip.DownDirection;
                 this.PrevPathEndDown = TempTrip.PrevPathEndDown;
                 this.NextPathStartDown = TempTrip.NextPathStartDown;

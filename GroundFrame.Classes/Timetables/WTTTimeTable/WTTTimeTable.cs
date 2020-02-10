@@ -37,15 +37,26 @@ namespace GroundFrame.Classes.Timetables
         /// <summary>
         /// Gets or sets the Timetable Headcode
         /// </summary>
-        [Key]
         [JsonProperty("headcode")]
         public string Headcode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Unique ID
+        /// </summary>
+        [JsonProperty("uid")]
+        public string UID { get; set; }
 
         /// <summary>
         /// Gets or sets the Acceleration / Break Index
         /// </summary>
         [JsonProperty("accelBrakeIndex")]
         public WTTAccelBrakeIndex AccelBrakeIndex { get; set; }
+
+        /// <summary>
+        /// Gets or sets the run as required flag
+        /// </summary>
+        [JsonProperty("runAsRequired")]
+        public bool RunAsRequired { get; set; }
 
         /// <summary>
         /// Gets or sets the run as required percentage
@@ -75,7 +86,7 @@ namespace GroundFrame.Classes.Timetables
         /// Gets or sets the seeding gap
         /// </summary>
         [JsonProperty("seedingGap")]
-        public WTTDuration SeedingGap { get; set; }
+        public Length SeedingGap { get; set; }
 
         /// <summary>
         /// Gets or sets the entry point
@@ -120,6 +131,36 @@ namespace GroundFrame.Classes.Timetables
         public Electrification Electrification { get; set; }
 
         /// <summary>
+        /// Gets or sets the origin location of the service
+        /// </summary>
+        [JsonProperty("originName")]
+        public string OriginName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the destination location of the service
+        /// </summary>
+        [JsonProperty("destinationName")]
+        public string DestinationName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the origin time of the service
+        /// </summary>
+        [JsonProperty("originTime")]
+        public WTTTime OriginTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the destination time of the service
+        /// </summary>
+        [JsonProperty("destinationTime")]
+        public WTTTime DestinationTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the operator code of the service
+        /// </summary>
+        [JsonProperty("operatorCode")]
+        public string OperatorCode { get; set; }
+
+        /// <summary>
         /// Gets or sets whether run as required has been tested
         /// </summary>
         [JsonProperty("runAsRequiredTested")]
@@ -138,6 +179,54 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         [JsonProperty("trainCategoryId")]
         public string SimSigTrainCategoryID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the red signal move off dwell time
+        /// </summary>
+        [JsonProperty("redSignalMoveOff")]
+        public WTTDuration RedSignalMoveOff { get; set; }
+
+        /// <summary>
+        /// Gets or sets the station forward dwell time
+        /// </summary>
+        [JsonProperty("stationForward")]
+        public WTTDuration StationForward { get; set; }
+
+        /// <summary>
+        /// Gets or sets the station reverse dwell time
+        /// </summary>
+        [JsonProperty("stationReverse")]
+        public WTTDuration StationReverse { get; set; }
+
+        /// <summary>
+        /// Gets or sets the terminate forward dwell time
+        /// </summary>
+        [JsonProperty("terminateForward")]
+        public WTTDuration TerminateForward { get; set; }
+
+        /// <summary>
+        /// Gets or sets the terminate reverse dwell time
+        /// </summary>
+        [JsonProperty("terminalReverse")]
+        public WTTDuration TerminateReverse { get; set; }
+
+        /// <summary>
+        /// Gets or sets the join dwell time
+        /// </summary>
+        [JsonProperty("join")]
+        public WTTDuration Join { get; set; }
+
+        /// <summary>
+        /// Gets or sets the divide dwell time
+        /// </summary>
+        [JsonProperty("divide")]
+        public WTTDuration Divide { get; set; }
+
+        /// <summary>
+        /// Gets or sets the crew change dwell time
+        /// </summary>
+        [JsonProperty("crewChange")]
+        public WTTDuration CrewChange { get; set; }
 
         /// <summary>
         /// Gets or sets the trip for this service
@@ -210,7 +299,9 @@ namespace GroundFrame.Classes.Timetables
         {
             this._StartDate = SurrogateWTTTimeTable.StartDate;
             this.Headcode = SurrogateWTTTimeTable.Headcode;
+            this.UID = SurrogateWTTTimeTable.UID;
             this.AccelBrakeIndex = SurrogateWTTTimeTable.AccelBrakeIndex;
+            this.RunAsRequired = SurrogateWTTTimeTable.RunAsRequired;
             this.RunAsRequiredPercentage = SurrogateWTTTimeTable.RunAsRequiredPercentage;
 
             if (SurrogateWTTTimeTable.Delay != null)
@@ -224,12 +315,7 @@ namespace GroundFrame.Classes.Timetables
             }
 
             this.Description = SurrogateWTTTimeTable.Description;
-
-            if (SurrogateWTTTimeTable.SeedingGap != null)
-            {
-                this.SeedingGap = new WTTDuration(SurrogateWTTTimeTable.SeedingGap.Seconds);
-            }
-
+            this.SeedingGap = SurrogateWTTTimeTable.SeedingGap;
             this.EntryPoint = SurrogateWTTTimeTable.EntryPoint;
             this.ActualEntryPoint = SurrogateWTTTimeTable.ActualEntryPoint;
             this.MaxSpeed = SurrogateWTTTimeTable.MaxSpeed;
@@ -237,6 +323,11 @@ namespace GroundFrame.Classes.Timetables
             this.Started = SurrogateWTTTimeTable.Started;
             this.TrainLength = SurrogateWTTTimeTable.TrainLength;
             this.Electrification = SurrogateWTTTimeTable.Electrification;
+            this.OriginName = SurrogateWTTTimeTable.OriginName;
+            this.DestinationName = SurrogateWTTTimeTable.DestinationName;
+            this.OriginTime = SurrogateWTTTimeTable.OriginTime;
+            this.DestinationTime = SurrogateWTTTimeTable.DestinationTime;
+            this.OperatorCode = SurrogateWTTTimeTable.OperatorCode;
             this.RunAsRequiredTested = SurrogateWTTTimeTable.RunAsRequiredTested;
             this.StartTraction = SurrogateWTTTimeTable.StartTraction;
             this.SimSigTrainCategoryID = SurrogateWTTTimeTable.SimSigTrainCategoryID;
@@ -269,24 +360,39 @@ namespace GroundFrame.Classes.Timetables
             try
             {
                 //Parse XML
-                this.Headcode = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"ID",  string.Empty);
-                this.AccelBrakeIndex = (WTTAccelBrakeIndex)XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"AccelBrakeIndex", WTTAccelBrakeIndex.MediumInterCity);
+                this.Headcode = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"ID",  null);
+                this.UID = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"UID", null);
+                this.AccelBrakeIndex = XMLMethods.GetValueFromXElement<WTTAccelBrakeIndex>(TimeTableXML, @"AccelBrakeIndex", WTTAccelBrakeIndex.MediumInterCity);
+                this.RunAsRequired = XMLMethods.GetValueFromXElement<bool>(TimeTableXML, @"AsRequired", false);
                 this.RunAsRequiredPercentage = XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"AsRequiredPercent", 50);
-                this.Delay = new WTTDuration(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"Delay", 0));
-                this.DepartTime = new WTTTime(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"DepartTime", 0), this._StartDate);
+                this.Delay = XMLMethods.GetValueFromXElement<WTTDuration>(TimeTableXML, @"Delay", null);
+                this.DepartTime = XMLMethods.GetValueFromXElement<WTTTime>(TimeTableXML, @"DepartTime", null, new object[] { this._StartDate });
                 this.Description = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"Description", string.Empty);
-                this.SeedingGap = new WTTDuration(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"SeedingGap", 0));
+                this.SeedingGap = XMLMethods.GetValueFromXElement<Length>(TimeTableXML, @"SeedingGap", new Length(15));
                 this.EntryPoint = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"EntryPoint", string.Empty);
                 this.ActualEntryPoint = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"ActualEntryPoint", string.Empty);
-                this.MaxSpeed = new WTTSpeed(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"MaxSpeed", 0));
-                this.SpeedClass = new WTTSpeedClass(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"SpeedClass", 0));
-                this.Started = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"Started", 0));
-                this.TrainLength = new Length(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"TrainLength", 20));
-                this.Electrification = new Electrification(XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"Electrification", null));
-                this.RunAsRequiredTested = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(TimeTableXML, @"AsRequiredTested", 0));
+                this.MaxSpeed = XMLMethods.GetValueFromXElement<WTTSpeed>(TimeTableXML, @"MaxSpeed", null);
+                this.SpeedClass = XMLMethods.GetValueFromXElement<WTTSpeedClass>(TimeTableXML, @"SpeedClass", null);
+                this.Started = XMLMethods.GetValueFromXElement<bool>(TimeTableXML, @"Started", false);
+                this.TrainLength = XMLMethods.GetValueFromXElement<Length>(TimeTableXML, @"TrainLength", 20);
+                this.Electrification = XMLMethods.GetValueFromXElement<Electrification>(TimeTableXML, @"Electrification", new Electrification("D"));
+                this.OriginName = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"DestinationName", null);
+                this.DestinationName = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"DestinationTime", null);
+                this.OriginTime = XMLMethods.GetValueFromXElement<WTTTime>(TimeTableXML, @"OriginTime", null, new object[] { this._StartDate });
+                this.DestinationTime = XMLMethods.GetValueFromXElement<WTTTime>(TimeTableXML, @"DestinationTime", null, new object[] { this._StartDate });
+                this.OperatorCode = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"OperatorCode", null);
+                this.RunAsRequiredTested = XMLMethods.GetValueFromXElement<bool>(TimeTableXML, @"AsRequiredTested", false);
                 //TODO: Entry Warned
-                this.StartTraction = new Electrification(XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"StartTraction", string.Empty));
+                this.StartTraction = XMLMethods.GetValueFromXElement<Electrification>(TimeTableXML, @"StartTraction", new Electrification("D"));
                 this.SimSigTrainCategoryID = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"Category", string.Empty);
+                this.RedSignalMoveOff = XMLMethods.GetValueFromXElement<WTTDuration>(TimeTableXML, @"RedSignalMoveOff", null);
+                this.StationForward = XMLMethods.GetValueFromXElement<WTTDuration>(TimeTableXML, @"StationForward", null);
+                this.StationReverse = XMLMethods.GetValueFromXElement<WTTDuration>(TimeTableXML, @"StationReverse", null);
+                this.TerminateForward = XMLMethods.GetValueFromXElement<WTTDuration>(TimeTableXML, @"TerminateForward", null);
+                this.TerminateReverse = XMLMethods.GetValueFromXElement<WTTDuration>(TimeTableXML, @"TerminateReverse", null);
+                this.Join = XMLMethods.GetValueFromXElement<WTTDuration>(TimeTableXML, @"Join", null);
+                this.Divide = XMLMethods.GetValueFromXElement<WTTDuration>(TimeTableXML, @"Divide", null);
+                this.CrewChange = XMLMethods.GetValueFromXElement<WTTDuration>(TimeTableXML, @"CrewChange", null);
 
                 //Parse Trips
                 this.ParseTripsXML(TimeTableXML.Element("Trips"));
@@ -322,7 +428,9 @@ namespace GroundFrame.Classes.Timetables
                 WTTTimeTable TempTimeTable = JsonConvert.DeserializeObject<WTTTimeTable>(JSON, new WTTTimeTableConverter());
                 this._StartDate = TempTimeTable.StartDate;
                 this.Headcode = TempTimeTable.Headcode;
+                this.UID = TempTimeTable.UID;
                 this.AccelBrakeIndex = TempTimeTable.AccelBrakeIndex;
+                this.RunAsRequired = TempTimeTable.RunAsRequired;
                 this.RunAsRequiredPercentage = TempTimeTable.RunAsRequiredPercentage;
                 this.Delay = TempTimeTable.Delay;
                 this.DepartTime = TempTimeTable.DepartTime;
@@ -335,6 +443,11 @@ namespace GroundFrame.Classes.Timetables
                 this.Started = TempTimeTable.Started;
                 this.TrainLength = TempTimeTable.TrainLength;
                 this.Electrification = TempTimeTable.Electrification;
+                this.OriginName = TempTimeTable.OriginName;
+                this.DestinationName = TempTimeTable.DestinationName;
+                this.OriginTime = TempTimeTable.OriginTime;
+                this.DestinationTime = TempTimeTable.DestinationTime;
+                this.OperatorCode = TempTimeTable.OperatorCode;
                 this.RunAsRequiredTested = TempTimeTable.RunAsRequiredTested;
                 this.StartTraction = TempTimeTable.StartTraction;
                 this.SimSigTrainCategoryID = TempTimeTable.SimSigTrainCategoryID;
@@ -364,6 +477,7 @@ namespace GroundFrame.Classes.Timetables
             return new WTTTimeTableSurrogate
             {
                 Headcode = this.Headcode,
+                UID = this.UID,
                 AccelBrakeIndex = this.AccelBrakeIndex,
                 RunAsRequiredPercentage = this.RunAsRequiredPercentage,
                 Delay = this.Delay,
@@ -377,6 +491,11 @@ namespace GroundFrame.Classes.Timetables
                 Started = this.Started,
                 TrainLength = this.TrainLength,
                 Electrification = this.Electrification,
+                OriginName = this.OriginName,
+                DestinationName = this.DestinationName,
+                OriginTime = this.OriginTime,
+                DestinationTime = this.DestinationTime,
+                OperatorCode = this.OperatorCode,
                 RunAsRequiredTested = this.RunAsRequiredTested,
                 StartTraction = this.StartTraction,
                 SimSigTrainCategoryID = this.SimSigTrainCategoryID,

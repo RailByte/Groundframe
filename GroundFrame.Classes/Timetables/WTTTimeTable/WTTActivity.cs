@@ -44,6 +44,13 @@ namespace GroundFrame.Classes.Timetables
         [JsonProperty("associatedTrainHeaderCode")]
         public string AssociatedTrainHeadCode { get; set; }
 
+        /// <summary>
+        /// Gets or sets the associated unique identifier
+        /// </summary>
+        [JsonProperty("sAssociatedUID")]
+        public string AssociatedUID { get; set; }
+        
+
         #endregion Properties
 
         #region Constructors
@@ -121,6 +128,7 @@ namespace GroundFrame.Classes.Timetables
         {
             this.ActivityType = (WTTActivityType)XMLMethods.GetValueFromXElement<int>(WTTActivityXML, @"Activity", 0);
             this.AssociatedTrainHeadCode = XMLMethods.GetValueFromXElement<string>(WTTActivityXML, @"AssociatedTrain", null);
+            this.AssociatedUID = XMLMethods.GetValueFromXElement<string>(WTTActivityXML, @"AssociatedUID", null);
         }
 
         #endregion Methods

@@ -27,7 +27,7 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTable
         /// Check instantiating a new WTTTrip object from a SimSig XML snippet.
         /// </summary>
         [Fact]
-        public void WTTTrip_Prop_XElement()
+        public void WTTTrip_Costructor_XElement()
         {
             //Get XElement from test .xml
             string TestXMLPath = $"{System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Resources\\TestWTT_4.8.xml";
@@ -40,7 +40,7 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTable
 
             if (XMLTestTrip.Element("ArrTime") == null)
             {
-                Assert.Equal(0, TestTrip.ArrTime.Seconds);
+                Assert.Null(TestTrip.ArrTime);
             }
             else
             {
@@ -58,12 +58,50 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTable
 
             if (XMLTestTrip.Element("Platform") == null)
             {
-                Assert.Equal(string.Empty, TestTrip.Platform);
+                Assert.Null(TestTrip.Platform);
             }
             else
             {
                 Assert.Equal(XMLTestTrip.Element("Platform").Value.ToString(), TestTrip.Platform);
             }
+
+            if (XMLTestTrip.Element("Line") == null)
+            {
+                Assert.Null(TestTrip.Line);
+            }
+            else
+            {
+                Assert.Equal(XMLTestTrip.Element("Line").Value.ToString(), TestTrip.Line);
+            }
+
+            if (XMLTestTrip.Element("Path") == null)
+            {
+                Assert.Null(TestTrip.Path);
+            }
+            else
+            {
+                Assert.Equal(XMLTestTrip.Element("Path").Value.ToString(), TestTrip.Path);
+            }
+
+            if (XMLTestTrip.Element("AutoLine") == null)
+            {
+                Assert.False(TestTrip.AutoLine);
+            }
+            else
+            {
+                Assert.Equal(Convert.ToBoolean(Convert.ToInt32(XMLTestTrip.Element("AutoLine").Value.ToString())), TestTrip.AutoLine);
+            }
+
+
+            if (XMLTestTrip.Element("AutoPath") == null)
+            {
+                Assert.False(TestTrip.AutoPath);
+            }
+            else
+            {
+                Assert.Equal(Convert.ToBoolean(Convert.ToInt32(XMLTestTrip.Element("AutoPath").Value.ToString())), TestTrip.AutoPath);
+            }
+
 
             if (XMLTestTrip.Element("DownDirection") == null)
             {

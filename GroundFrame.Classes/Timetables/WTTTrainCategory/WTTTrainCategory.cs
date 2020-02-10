@@ -90,6 +90,12 @@ namespace GroundFrame.Classes.Timetables
         [JsonProperty("electrification")]
         public Electrification Electrification { get; set; }
 
+        /// <summary>
+        /// Gets to sets the Caution Speed Set
+        /// </summary>
+        [JsonProperty("cautionSpeedSet")]
+        public string CautionSpeedSet {get; set;}
+
         #endregion Properties
 
         #region Constructors
@@ -160,14 +166,15 @@ namespace GroundFrame.Classes.Timetables
             {
                 this._SimSigID = TrainCategoryXML.Attribute("ID")?.Value.ToString();
                 this.Description = XMLMethods.GetValueFromXElement<string>(TrainCategoryXML, @"Description", string.Empty);
-                this.AccelBrakeIndex = (WTTAccelBrakeIndex)XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"AccelBrakeIndex", null);
-                this.IsFreight = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"IsFreight", null));
-                this.CanUseGoodsLines = Convert.ToBoolean(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"CanUseGoodsLines", null));
-                this.MaxSpeed = new WTTSpeed(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"MaxSpeed", null));
-                this.TrainLength = new Length(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"TrainLength", null));
-                this.SpeedClass = new WTTSpeedClass(XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"SpeedClass", null));
-                this.PowerToWeightCategory = (WTTPowerToWeightCategory)XMLMethods.GetValueFromXElement<int>(TrainCategoryXML, @"PowerToWeightCategory", null);
-                this.Electrification = new Electrification(XMLMethods.GetValueFromXElement<string>(TrainCategoryXML, @"Electrification", null));
+                this.AccelBrakeIndex = XMLMethods.GetValueFromXElement<WTTAccelBrakeIndex>(TrainCategoryXML, @"AccelBrakeIndex", WTTAccelBrakeIndex.MediumInterCity);
+                this.IsFreight = XMLMethods.GetValueFromXElement<bool>(TrainCategoryXML, @"IsFreight", false);
+                this.CanUseGoodsLines = XMLMethods.GetValueFromXElement<bool>(TrainCategoryXML, @"CanUseGoodsLines", false);
+                this.MaxSpeed = XMLMethods.GetValueFromXElement<WTTSpeed>(TrainCategoryXML, @"MaxSpeed", null);
+                this.TrainLength = XMLMethods.GetValueFromXElement<Length>(TrainCategoryXML, @"TrainLength", null);
+                this.SpeedClass = XMLMethods.GetValueFromXElement<WTTSpeedClass>(TrainCategoryXML, @"SpeedClass", null);
+                this.PowerToWeightCategory = XMLMethods.GetValueFromXElement<WTTPowerToWeightCategory>(TrainCategoryXML, @"PowerToWeightCategory", WTTPowerToWeightCategory.Normal);
+                this.Electrification = XMLMethods.GetValueFromXElement<Electrification>(TrainCategoryXML, @"Electrification", null);
+                this.CautionSpeedSet = XMLMethods.GetValueFromXElement<string>(TrainCategoryXML, @"CautionSpeedSet", null);
 
                 //Load any dwell times
                 XElement DwellXML = TrainCategoryXML.Element("DwellTimes");
