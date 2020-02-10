@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroundFrame.SQL.UnitTests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroundFrame.API", "GroundFrame.API\GroundFrame.API.csproj", "{F8B496DC-EA7E-4E62-A502-B494382F6972}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroundFrame.Sandpit", "..\GroundFrame.Sandpit\GroundFrame.Sandpit.csproj", "{A2BF1A5F-35C1-4233-BF34-000875B01BD4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,10 +41,6 @@ Global
 		{F8B496DC-EA7E-4E62-A502-B494382F6972}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8B496DC-EA7E-4E62-A502-B494382F6972}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8B496DC-EA7E-4E62-A502-B494382F6972}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A2BF1A5F-35C1-4233-BF34-000875B01BD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A2BF1A5F-35C1-4233-BF34-000875B01BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A2BF1A5F-35C1-4233-BF34-000875B01BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A2BF1A5F-35C1-4233-BF34-000875B01BD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
