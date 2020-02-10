@@ -36,7 +36,7 @@ namespace GroundFrame.Classes.Timetables
     /// <summary>
     /// JsonConverter class for a WTTTripCollection object
     /// </summary>
-    public class WTTTripCollectionConverter : JsonConverter
+    internal class WTTTripCollectionConverter : JsonConverter
     {
         #region Constants
         #endregion Contants

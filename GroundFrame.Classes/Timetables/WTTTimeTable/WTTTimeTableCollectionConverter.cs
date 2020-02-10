@@ -23,7 +23,7 @@ namespace GroundFrame.Classes.Timetables
     /// <summary>
     /// JsonConverter class for a WTTTimeTableCollection object
     /// </summary>
-    public class WTTTimeTableCollectionConverter : JsonConverter
+    internal class WTTTimeTableCollectionConverter : JsonConverter
     {
         /// <summary>
         /// Flag to indicate whether the class a WTTTimeTableCollection

@@ -32,7 +32,7 @@ namespace GroundFrame.Classes.Timetables
     /// <summary>
     /// JsonConverter class for a WTTActivityCollection object
     /// </summary>
-    public class WTTActivityCollectionConverter : JsonConverter
+    internal class WTTActivityCollectionConverter : JsonConverter
     {
         #region Constants
         #endregion Contants

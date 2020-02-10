@@ -53,6 +53,7 @@ namespace GroundFrame.Classes.Timetables
         /// <param name="Name">The Name of the Speed Set</param>
         /// <param name="CautionSpeeds">The List of Caution Speeds for the set</param>
         [JsonConstructor]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used the Newtonsoft.JSON as the default Deserialization constructor")]
         private WTTCautionSpeedSet(string SimSigID, string Name, List<WTTCautionSpeed> CautionSpeeds)
         {
             this._SimSigID = SimSigID;
