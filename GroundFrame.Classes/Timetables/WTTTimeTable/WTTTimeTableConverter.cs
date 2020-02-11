@@ -129,6 +129,11 @@ namespace GroundFrame.Classes.Timetables
         public string OperatorCode { get; set; }
 
         /// <summary>
+        /// Gets or sets the flag to indicate whether the service is non ARS on entry
+        /// </summary>
+        public bool NonARSOnEntry { get; set; }
+
+        /// <summary>
         /// Gets or sets whether run as required has been tested
         /// </summary>
         public bool RunAsRequiredTested { get; set; }

@@ -130,6 +130,53 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTable
                 Assert.Equal(Convert.ToBoolean(Convert.ToInt32(XMLTestTrip.Element("NextPathStartDown").Value.ToString())), TestTrip.NextPathStartDown);
             }
 
+            Assert.Equal(XMLTestTrip.Element("StopLocation") == null ? WTTStopLocation.Default : (WTTStopLocation)Convert.ToInt32(XMLTestTrip.Element("StopLocation").Value.ToString()), TestTrip.StopLocation);
+
+            if (XMLTestTrip.Element("DwellTime") == null)
+            {
+                Assert.Null(TestTrip.DwellTime);
+            }
+            else
+            {
+                Assert.Equal(new WTTDuration(Convert.ToInt32(XMLTestTrip.Element("DwellTime").Value.ToString())).Seconds, TestTrip.DwellTime.Seconds);
+            }
+
+            if (XMLTestTrip.Element("BerthsHere") == null)
+            {
+                Assert.False(TestTrip.BerthsHere);
+            }
+            else
+            {
+                Assert.Equal(Convert.ToBoolean(Convert.ToInt32(XMLTestTrip.Element("BerthsHere").Value.ToString())), TestTrip.BerthsHere);
+            }
+
+            if (XMLTestTrip.Element("AllowStopsOnThroughLines") == null)
+            {
+                Assert.False(TestTrip.AllowStopsOnThroughLines);
+            }
+            else
+            {
+                Assert.Equal(Convert.ToBoolean(Convert.ToInt32(XMLTestTrip.Element("AllowStopsOnThroughLines").Value.ToString())), TestTrip.AllowStopsOnThroughLines);
+            }
+
+            if (XMLTestTrip.Element("WaitForBookedTime") == null)
+            {
+                Assert.False(TestTrip.WaitForBookedTime);
+            }
+            else
+            {
+                Assert.Equal(Convert.ToBoolean(Convert.ToInt32(XMLTestTrip.Element("WaitForBookedTime").Value.ToString())), TestTrip.WaitForBookedTime);
+            }
+
+            if (XMLTestTrip.Element("SetDownOnly") == null)
+            {
+                Assert.False(TestTrip.SetDownOnly);
+            }
+            else
+            {
+                Assert.Equal(Convert.ToBoolean(Convert.ToInt32(XMLTestTrip.Element("SetDownOnly").Value.ToString())), TestTrip.SetDownOnly);
+            }
+
             if (XMLTestTrip.Element("Activites") == null)
             {
                 Assert.Null(TestTrip.Activities);

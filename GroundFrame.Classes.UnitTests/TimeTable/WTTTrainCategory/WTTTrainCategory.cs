@@ -47,7 +47,7 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTrainCategory
             Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeedClass(Convert.ToInt32(XMLTestTrainCategory.Element("SpeedClass").Value.ToString())).Bitwise, TestCategory.SpeedClass.Bitwise);
             Assert.Equal((WTTPowerToWeightCategory)Convert.ToInt32(XMLTestTrainCategory.Element("PowerToWeightCategory").Value), TestCategory.PowerToWeightCategory);
             Assert.Equal(new GroundFrame.Classes.Electrification(XMLTestTrainCategory.Element("Electrification").Value.ToString()).Overhead, TestCategory.Electrification.Overhead);
-            Assert.Equal(XMLTestTrainCategory.Element("CautionSpeedSet") == null ? null : XMLTestTrainCategory.Element("CautionSpeedSet").Value.ToString(), TestCategory.CautionSpeedSet);
+            Assert.Equal(XMLTestTrainCategory.Element("CautionSpeedSet")?.Value.ToString(), TestCategory.CautionSpeedSet);
 
             if (XMLTestTrainCategory.Element("DwellTimes") == null)
             {
@@ -84,7 +84,7 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTrainCategory
             Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeedClass(Convert.ToInt32(XMLTestTrainCategory.Element("SpeedClass").Value.ToString())).Bitwise, TestJSONCategory.SpeedClass.Bitwise);
             Assert.Equal((WTTPowerToWeightCategory)Convert.ToInt32(XMLTestTrainCategory.Element("PowerToWeightCategory").Value), TestJSONCategory.PowerToWeightCategory);
             Assert.Equal(new GroundFrame.Classes.Electrification(XMLTestTrainCategory.Element("Electrification").Value.ToString()).Overhead, TestJSONCategory.Electrification.Overhead);
-            Assert.Equal(XMLTestTrainCategory.Element("CautionSpeedSet") == null ? null : XMLTestTrainCategory.Element("CautionSpeedSet").Value.ToString(), TestJSONCategory.CautionSpeedSet);
+            Assert.Equal(XMLTestTrainCategory.Element("CautionSpeedSet")?.Value.ToString(), TestJSONCategory.CautionSpeedSet);
 
             if (XMLTestTrainCategory.Element("DwellTimes") == null)
             {

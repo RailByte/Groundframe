@@ -34,7 +34,7 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTable
             XElement XMLTestTimeTable = XDocument.Load(TestXMLPath).Element("SimSigTimetable").Element("Timetables").Descendants().First();
             GroundFrame.Classes.Timetables.WTTTimeTable TestTimeTable = new Classes.Timetables.WTTTimeTable(XMLTestTimeTable, new DateTime(2018,7,1));
             Assert.Equal(XMLTestTimeTable.Element("ID").Value.ToString(), TestTimeTable.Headcode);
-            Assert.Equal(XMLTestTimeTable.Element("UID") == null ? null : XMLTestTimeTable.Element("UID").Value.ToString(), TestTimeTable.UID);
+            Assert.Equal(XMLTestTimeTable.Element("UID")?.Value.ToString(), TestTimeTable.UID);
             Assert.Equal((WTTAccelBrakeIndex)Convert.ToInt32(XMLTestTimeTable.Element("AccelBrakeIndex").Value), TestTimeTable.AccelBrakeIndex);
             Assert.Equal(XMLTestTimeTable.Element("AsRequired") == null ? false : Convert.ToBoolean(Convert.ToInt32(XMLTestTimeTable.Element("AsRequired").Value.ToString())), TestTimeTable.RunAsRequired);
             Assert.Equal(Convert.ToInt32(XMLTestTimeTable.Element("AsRequiredPercent").Value.ToString()), TestTimeTable.RunAsRequiredPercentage);
@@ -46,8 +46,8 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTable
             Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeedClass(Convert.ToInt32(XMLTestTimeTable.Element("SpeedClass").Value.ToString())).Bitwise, TestTimeTable.SpeedClass.Bitwise);
             Assert.Equal(new GroundFrame.Classes.Length(Convert.ToInt32(XMLTestTimeTable.Element("TrainLength").Value.ToString())).Meters, TestTimeTable.TrainLength.Meters);
             Assert.Equal(new GroundFrame.Classes.Electrification(XMLTestTimeTable.Element("Electrification").Value.ToString()).ToString(), TestTimeTable.Electrification.ToString());
-            Assert.Equal(XMLTestTimeTable.Element("OriginName") == null ? null : XMLTestTimeTable.Element("OriginName").Value.ToString(), TestTimeTable.OriginName);
-            Assert.Equal(XMLTestTimeTable.Element("DestinationName") == null ? null : XMLTestTimeTable.Element("DestinationName").Value.ToString(), TestTimeTable.DestinationName);
+            Assert.Equal(XMLTestTimeTable.Element("OriginName")?.Value.ToString(), TestTimeTable.OriginName);
+            Assert.Equal(XMLTestTimeTable.Element("DestinationName")?.Value.ToString(), TestTimeTable.DestinationName);
 
             if (XMLTestTimeTable.Element("OriginTime") == null)
             {
@@ -67,7 +67,8 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTable
                 Assert.Equal(new GroundFrame.Classes.Timetables.WTTTime(Convert.ToInt32(XMLTestTimeTable.Element("DestinationTime").Value.ToString())).Seconds, TestTimeTable.DestinationTime.Seconds);
             }
 
-            Assert.Equal(XMLTestTimeTable.Element("OperatorCode") == null ? null : XMLTestTimeTable.Element("OperatorCode").Value.ToString(), TestTimeTable.OperatorCode);
+            Assert.Equal(XMLTestTimeTable.Element("OperatorCode")?.Value.ToString(), TestTimeTable.OperatorCode);
+            Assert.Equal(XMLTestTimeTable.Element("NonARSOnEntry") == null ? false : Convert.ToBoolean(Convert.ToInt32(XMLTestTimeTable.Element("NonARSOnEntry").Value.ToString())), TestTimeTable.NonARSOnEntry);
             Assert.Equal(new GroundFrame.Classes.Electrification(XMLTestTimeTable.Element("StartTraction").Value.ToString()).ToString(), TestTimeTable.StartTraction.ToString());
             Assert.Equal(XMLTestTimeTable.Element("Category").Value.ToString(), TestTimeTable.SimSigTrainCategoryID);
             Assert.Equal(XMLTestTimeTable.Element("Trips").Elements("Trip").Count(), TestTimeTable.Trip.Count());

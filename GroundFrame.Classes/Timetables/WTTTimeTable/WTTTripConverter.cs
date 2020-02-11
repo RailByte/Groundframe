@@ -82,10 +82,39 @@ namespace GroundFrame.Classes.Timetables
         public bool NextPathStartDown { get; set; }
 
         /// <summary>
+        /// Gets or sets the stopping location at the timing point
+        /// </summary>
+        public WTTStopLocation StopLocation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the dwell time that a service must wait at this timing point
+        /// </summary>
+        public WTTDuration DwellTime { get; set; }
+
+        /// <summary>
+        /// Gets to sets the flag to indicate whether the service berths at this timing point
+        /// </summary>
+        public bool BerthsHere { get; set; }
+
+        /// <summary>
+        /// Gets to sets the flag to indicate whether the timing point is a though line stop
+        /// </summary>
+        public bool AllowStopsOnThroughLines { get; set; }
+
+        /// <summary>
+        /// Gets to sets the flag to indicate whether the service should wait for the booked time at this timing point
+        /// </summary>
+        public bool WaitForBookedTime { get; set; }
+
+        /// <summary>
+        /// Gets to sets the flag to indicate whether the service should set down only at this timing point
+        /// </summary>
+        public bool SetDownOnly { get; set; }
+
+        /// <summary>
         /// Gets or sets the timetable start date
         /// </summary>
         public DateTime StartDate { get; set; }
-
 
         /// <summary>
         /// The activites associated with this trip

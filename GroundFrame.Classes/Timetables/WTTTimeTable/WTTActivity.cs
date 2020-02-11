@@ -8,18 +8,6 @@ using System.Xml.Linq;
 namespace GroundFrame.Classes.Timetables
 {
     /// <summary>
-    /// Enum to describe the different WTT activity types
-    /// </summary>
-    public enum WTTActivityType
-    {
-        /// <summary>
-        /// The next service this service will form
-        /// </summary>
-        NextTrain = 0
-    }
-
-
-    /// <summary>
     /// A class which represents a single trip activity.
     /// </summary>
     public class WTTActivity

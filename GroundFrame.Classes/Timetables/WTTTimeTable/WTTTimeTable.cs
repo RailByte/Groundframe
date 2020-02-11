@@ -161,6 +161,12 @@ namespace GroundFrame.Classes.Timetables
         public string OperatorCode { get; set; }
 
         /// <summary>
+        /// Gets or sets the flag to indicate whether the service is non ARS on entry
+        /// </summary>
+        [JsonProperty("nonARSOnEntry")]
+        public bool NonARSOnEntry { get; set; }
+
+        /// <summary>
         /// Gets or sets whether run as required has been tested
         /// </summary>
         [JsonProperty("runAsRequiredTested")]
@@ -328,6 +334,7 @@ namespace GroundFrame.Classes.Timetables
             this.OriginTime = SurrogateWTTTimeTable.OriginTime;
             this.DestinationTime = SurrogateWTTTimeTable.DestinationTime;
             this.OperatorCode = SurrogateWTTTimeTable.OperatorCode;
+            this.NonARSOnEntry = SurrogateWTTTimeTable.NonARSOnEntry;
             this.RunAsRequiredTested = SurrogateWTTTimeTable.RunAsRequiredTested;
             this.StartTraction = SurrogateWTTTimeTable.StartTraction;
             this.SimSigTrainCategoryID = SurrogateWTTTimeTable.SimSigTrainCategoryID;
@@ -381,6 +388,7 @@ namespace GroundFrame.Classes.Timetables
                 this.OriginTime = XMLMethods.GetValueFromXElement<WTTTime>(TimeTableXML, @"OriginTime", null, new object[] { this._StartDate });
                 this.DestinationTime = XMLMethods.GetValueFromXElement<WTTTime>(TimeTableXML, @"DestinationTime", null, new object[] { this._StartDate });
                 this.OperatorCode = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"OperatorCode", null);
+                this.NonARSOnEntry = XMLMethods.GetValueFromXElement<bool>(TimeTableXML, @"NonARSOnEntry", false);
                 this.RunAsRequiredTested = XMLMethods.GetValueFromXElement<bool>(TimeTableXML, @"AsRequiredTested", false);
                 //TODO: Entry Warned
                 this.StartTraction = XMLMethods.GetValueFromXElement<Electrification>(TimeTableXML, @"StartTraction", new Electrification("D"));
@@ -448,6 +456,7 @@ namespace GroundFrame.Classes.Timetables
                 this.OriginTime = TempTimeTable.OriginTime;
                 this.DestinationTime = TempTimeTable.DestinationTime;
                 this.OperatorCode = TempTimeTable.OperatorCode;
+                this.NonARSOnEntry = TempTimeTable.NonARSOnEntry;
                 this.RunAsRequiredTested = TempTimeTable.RunAsRequiredTested;
                 this.StartTraction = TempTimeTable.StartTraction;
                 this.SimSigTrainCategoryID = TempTimeTable.SimSigTrainCategoryID;
@@ -496,6 +505,7 @@ namespace GroundFrame.Classes.Timetables
                 OriginTime = this.OriginTime,
                 DestinationTime = this.DestinationTime,
                 OperatorCode = this.OperatorCode,
+                NonARSOnEntry = this.NonARSOnEntry,
                 RunAsRequiredTested = this.RunAsRequiredTested,
                 StartTraction = this.StartTraction,
                 SimSigTrainCategoryID = this.SimSigTrainCategoryID,

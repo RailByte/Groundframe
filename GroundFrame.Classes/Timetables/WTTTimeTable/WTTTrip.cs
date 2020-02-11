@@ -95,6 +95,41 @@ namespace GroundFrame.Classes.Timetables
         [JsonProperty("nextPathStartDown")]
         public bool NextPathStartDown { get; set; }
 
+        /// <summary>
+        /// Gets or sets the stopping location at the timing point
+        /// </summary>
+        [JsonProperty("stopLocation")]
+        public WTTStopLocation StopLocation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the dwell time that a service must wait at this timing point
+        /// </summary>
+        [JsonProperty("dwellTime")]
+        public WTTDuration DwellTime { get; set; }
+
+        /// <summary>
+        /// Gets to sets the flag to indicate whether the service berths at this timing point
+        /// </summary>
+        [JsonProperty("berthsHere")]
+        public bool BerthsHere { get; set; }
+
+        /// <summary>
+        /// Gets to sets the flag to indicate whether the timing point is a though line stop
+        /// </summary>
+        [JsonProperty("thruLineStop")]
+        public bool AllowStopsOnThroughLines { get; set; }
+
+        /// <summary>
+        /// Gets to sets the flag to indicate whether the service should wait for the booked time at this timing point
+        /// </summary>
+        [JsonProperty("waitForBookedTime")]
+        public bool WaitForBookedTime { get; set; }
+
+        /// <summary>
+        /// Gets to sets the flag to indicate whether the service should set down only at this timing point
+        /// </summary>
+        [JsonProperty("setDownOnly")]
+        public bool SetDownOnly { get; set; }
 
         /// <summary>
         /// Gets or sets the activities associated with this trip
@@ -185,6 +220,12 @@ namespace GroundFrame.Classes.Timetables
             this.DownDirection = SurrogateTrip.DownDirection;
             this.PrevPathEndDown = SurrogateTrip.PrevPathEndDown;
             this.NextPathStartDown = SurrogateTrip.NextPathStartDown;
+            this.StopLocation = SurrogateTrip.StopLocation;
+            this.DwellTime = SurrogateTrip.DwellTime;
+            this.BerthsHere = SurrogateTrip.BerthsHere;
+            this.AllowStopsOnThroughLines = SurrogateTrip.AllowStopsOnThroughLines;
+            this.WaitForBookedTime = SurrogateTrip.WaitForBookedTime;
+            this.SetDownOnly = SurrogateTrip.SetDownOnly;
             this.Activities = SurrogateTrip.Activities;
         }
 
@@ -208,6 +249,12 @@ namespace GroundFrame.Classes.Timetables
                 DownDirection = this.DownDirection,
                 PrevPathEndDown = this.PrevPathEndDown,
                 NextPathStartDown = this.NextPathStartDown,
+                StopLocation = this.StopLocation,
+                DwellTime = this.DwellTime,
+                BerthsHere = this.BerthsHere,
+                AllowStopsOnThroughLines = this.AllowStopsOnThroughLines,
+                WaitForBookedTime = this.WaitForBookedTime,
+                SetDownOnly = this.SetDownOnly,
                 StartDate = this.StartDate,
                 Activities = this.Activities
             };
@@ -233,6 +280,12 @@ namespace GroundFrame.Classes.Timetables
                 this.DownDirection = XMLMethods.GetValueFromXElement<bool>(WTTTripXML, @"DownDirection", false);
                 this.PrevPathEndDown = XMLMethods.GetValueFromXElement<bool>(WTTTripXML, @"PrevPathEndDown", false);
                 this.NextPathStartDown = XMLMethods.GetValueFromXElement<bool>(WTTTripXML, @"NextPathStartown", false);
+                this.StopLocation = XMLMethods.GetValueFromXElement<WTTStopLocation>(WTTTripXML, @"StopLocation", WTTStopLocation.Default);
+                this.DwellTime = XMLMethods.GetValueFromXElement<WTTDuration>(WTTTripXML, @"DwellTime", null);
+                this.BerthsHere = XMLMethods.GetValueFromXElement<bool>(WTTTripXML, @"BerthsHere", false);
+                this.AllowStopsOnThroughLines = XMLMethods.GetValueFromXElement<bool>(WTTTripXML, @"AllowStopsOnThroughLines", false);
+                this.WaitForBookedTime = XMLMethods.GetValueFromXElement<bool>(WTTTripXML, @"WaitForBookedTime", false);
+                this.SetDownOnly = XMLMethods.GetValueFromXElement<bool>(WTTTripXML, @"SetDownOnly", false);
 
                 //Parse Activties
 
@@ -270,6 +323,12 @@ namespace GroundFrame.Classes.Timetables
                 this.DownDirection = TempTrip.DownDirection;
                 this.PrevPathEndDown = TempTrip.PrevPathEndDown;
                 this.NextPathStartDown = TempTrip.NextPathStartDown;
+                this.StopLocation = TempTrip.StopLocation;
+                this.DwellTime = TempTrip.DwellTime;
+                this.BerthsHere = TempTrip.BerthsHere;
+                this.AllowStopsOnThroughLines = TempTrip.AllowStopsOnThroughLines;
+                this.WaitForBookedTime = TempTrip.WaitForBookedTime;
+                this.SetDownOnly = TempTrip.SetDownOnly;
             }
             catch (Exception Ex)
             {

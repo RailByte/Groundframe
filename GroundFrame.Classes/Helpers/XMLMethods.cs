@@ -43,7 +43,8 @@ namespace GroundFrame.Classes
                 { typeof(WTTSignalAspect), ((x,y) => (WTTSignalAspect)Convert.ToInt32(x)) },
                 { typeof(WTTNumberType), ((x,y) => (WTTNumberType)Convert.ToInt32(x)) },
                 { typeof(WTTAccelBrakeIndex), ((x,y) => (WTTAccelBrakeIndex)Convert.ToInt32(x)) },
-                { typeof(WTTPowerToWeightCategory), ((x,y) => (WTTPowerToWeightCategory)Convert.ToInt32(x)) },                
+                { typeof(WTTPowerToWeightCategory), ((x,y) => (WTTPowerToWeightCategory)Convert.ToInt32(x)) },
+                { typeof(WTTStopLocation), ((x,y) => (WTTStopLocation)Convert.ToInt32(x)) },
                 { typeof(Electrification), ((x,y) => new Electrification(x)) }
             };
 
