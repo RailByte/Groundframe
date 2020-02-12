@@ -66,6 +66,7 @@ BEGIN
 			L.[tiploc],
 			L.[simsig_code],
 			L.[simsig_entry_point],
+			L.[location_type_id],
 			L.[createdby_id],
 			L.[created_by_username],
 			L.[createdon],

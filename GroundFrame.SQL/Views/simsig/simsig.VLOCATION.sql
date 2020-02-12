@@ -24,6 +24,8 @@ SELECT
 	L.[tiploc],
 	L.[simsig_code],
 	L.[simsig_entry_point],
+	[location_type_id] = TL.[id],
+	[location_type] = TL.[name],
 	L.[createdby_id],
 	[created_by_username] = CB.[username],
 	L.[createdon],
@@ -39,3 +41,4 @@ INNER JOIN [app].[VUSER] AS MB ON L.[modifiedby_id] = MB.[id]
 INNER JOIN [app].[TAPP] AS CA ON L.[createdby_app_id] = CA.[id]
 INNER JOIN [app].[TAPP] AS MA ON L.[modifiedby_app_id] = MA.[id]
 INNER JOIN [simsig].[VSIM] AS S ON L.[sim_id] = S.[id]
+LEFT JOIN [simsig].[TLOCATIONTYPE] AS TL ON L.[location_type_id] = TL.[id]

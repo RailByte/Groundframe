@@ -20,6 +20,7 @@ CREATE PROCEDURE [simsig].[USp_UPSERT_TLOCATION]
 	@name NVARCHAR(64),
 	@simsig_code NVARCHAR(16),
 	@simsig_entry_point BIT,
+	@location_type_id TINYINT,
 	@datetime DATETIMEOFFSET,
 	@debug BIT = 0,
 	@debug_session_id UNIQUEIDENTIFIER = NULL OUTPUT
@@ -44,7 +45,7 @@ BEGIN
 		SET @debug_message = 'Executing [simsig].[Usp_UPSERT_TLOCATION] started.';
 		EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 
-		SET @debug_message = 'Parameters passed: @id = ' + CONVERT(NVARCHAR(16),@id) + ' | @sim_id = ' + CONVERT(NVARCHAR(16),@sim_id) + ' | @tiploc = ' + ISNULL(@tiploc,'<NULL>') + ' | @name = ' + ISNULL(@name,'<NULL>') + ' | @simsig_code = ' + ISNULL(@simsig_code,'<NULL>') + ' | @simsig_entry_point = ' + ISNULL(CAST(@simsig_entry_point AS NVARCHAR(1)),'<NULL>') + ' | @datetime = ' + CASE WHEN @datetime IS NULL THEN '<NULL>' ELSE CONVERT(NVARCHAR(40), @datetime, 127) END + '.';
+		SET @debug_message = 'Parameters passed: @id = ' + CONVERT(NVARCHAR(16),@id) + ' | @sim_id = ' + CONVERT(NVARCHAR(16),@sim_id) + ' | @tiploc = ' + ISNULL(@tiploc,'<NULL>') + ' | @name = ' + ISNULL(@name,'<NULL>') + ' | @simsig_code = ' + ISNULL(@simsig_code,'<NULL>') + ' | @location_type_id = ' + ISNULL(CAST(@location_type_id AS NVARCHAR(16)),'<NULL>') +  + ' | @simsig_entry_point = ' + ISNULL(CAST(@simsig_entry_point AS NVARCHAR(1)),'<NULL>') + ' | @datetime = ' + CASE WHEN @datetime IS NULL THEN '<NULL>' ELSE CONVERT(NVARCHAR(40), @datetime, 127) END + '.';
 		EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 	END
 
@@ -124,6 +125,17 @@ BEGIN
 		THROW 50000, 'No valid simsig entry point flag was supplied for the location.', 1;
 	END
 
+	IF @location_type_id IS NOT NULL AND NOT EXISTS (SELECT 1 FROM [simsig].[TLOCATIONTYPE] WHERE [id] = @location_type_id)
+	BEGIN;
+		IF @debug = 1
+		BEGIN
+			SET @debug_message = 'No valid @location_type_id parameter was supplied';
+			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
+		END;
+
+		THROW 50000, 'No valid simsig location type was supplied for the location.', 1;
+	END
+
 	IF NOT EXISTS (SELECT 1 FROM [simsig].[TSIM] WHERE [id] = @sim_id)
 	BEGIN;
 		IF @debug = 1
@@ -173,6 +185,7 @@ BEGIN
 				[tiploc],
 				[simsig_code],
 				[simsig_entry_point],
+				[location_type_id],
 				[createdon],
 				[createdby_id],
 				[createdby_app_id],
@@ -188,6 +201,7 @@ BEGIN
 				@tiploc,
 				@simsig_code,
 				@simsig_entry_point,
+				@location_type_id,
 				@datetime,
 				@app_user_id,
 				@app_id,
@@ -233,6 +247,7 @@ BEGIN
 				[name] = NULLIF(@name,''),
 				[simsig_code] = @simsig_code,
 				[simsig_entry_point] = @simsig_entry_point,
+				[location_type_id] = @location_type_id,
 				[modifiedon] = @datetime,
 				[modifiedby_id] = @app_user_id,
 				[modifiedby_app_id] = @app_id

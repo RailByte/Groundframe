@@ -28,6 +28,16 @@ namespace GroundFrame.Classes
         public string Platform { get; set; }
 
         /// <summary>
+        /// Gets or sets the line
+        /// </summary>
+        public string Line { get; set; }
+
+        /// <summary>
+        /// Gets or sets the path
+        /// </summary>
+        public string Path { get; set; }
+
+        /// <summary>
         /// Gets or sets the next location node
         /// </summary>
         public MapperLocationNode NextLocationNode { get; set; }
@@ -76,11 +86,11 @@ namespace GroundFrame.Classes
             }
             else if (x.NextLocationNode == null && y.NextLocationNode == null)
             {
-                return x.SimSigCode == y.SimSigCode && x.Platform == y.Platform;
+                return x.SimSigCode == y.SimSigCode && x.Platform == y.Platform && x.Line == y.Line && x.Path == y.Path;
             }
             else
             {
-                return x.SimSigCode == y.SimSigCode && x.Platform == y.Platform && x.NextLocationNode.SimSigCode == y.NextLocationNode.SimSigCode && x.NextLocationNode.Platform == y.NextLocationNode.Platform;
+                return x.SimSigCode == y.SimSigCode && x.Platform == y.Platform && x.Line == y.Line && x.Path == y.Path && x.NextLocationNode.SimSigCode == y.NextLocationNode.SimSigCode && x.NextLocationNode.Platform == y.NextLocationNode.Platform;
             }
 
         }

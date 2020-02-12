@@ -51,6 +51,11 @@ namespace GroundFrame.Classes.SimSig
         /// </summary>
         public bool EntryPoint { get; set; }
 
+        /// <summary>
+        /// Gets or sets the location type
+        /// </summary>
+        public SimSigLocationType LocationType { get; set; }
+
         #endregion Properties
 
         #region Constructors
@@ -63,8 +68,9 @@ namespace GroundFrame.Classes.SimSig
         /// <param name="TIPLOC">The TIPLOC code for the location.</param>
         /// <param name="SimSigCode">The SimSig code for the location.</param>
         /// <param name="EntryPoint">Indicates whether the location is an entry point for the location</param>
+        /// <param name="LocationType">Indicates the type of location</param>
         /// <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
-        public Location(Simulation Simulation, string Name, string TIPLOC, string SimSigCode, bool EntryPoint, GFSqlConnector SQLConnector)
+        public Location(Simulation Simulation, string Name, string TIPLOC, string SimSigCode, bool EntryPoint, SimSigLocationType LocationType, GFSqlConnector SQLConnector)
         {
             CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
 
@@ -86,6 +92,7 @@ namespace GroundFrame.Classes.SimSig
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiates a new copy of the SQLConnector object to stop conflicts between Connections, Commands and Readers
             this.TIPLOC = TIPLOC;
             this.EntryPoint = EntryPoint;
+            this.LocationType = LocationType;
         }
 
         /// <summary>
@@ -230,6 +237,7 @@ namespace GroundFrame.Classes.SimSig
             this.TIPLOC = DataReader.GetNullableString("tiploc");
             this.SimSigCode = DataReader.GetString(DataReader.GetOrdinal("simsig_code"));
             this.EntryPoint = DataReader.GetBoolean(DataReader.GetOrdinal("simsig_entry_point"));
+            this.LocationType = (SimSigLocationType)SqlDataReaderExtensions.GetNullableByte(DataReader, "location_type_id");
         }
 
 
@@ -251,6 +259,7 @@ namespace GroundFrame.Classes.SimSig
                 Cmd.Parameters.Add(new SqlParameter("@name", this.Name));
                 Cmd.Parameters.Add(new SqlParameter("@tiploc", string.IsNullOrEmpty(this.TIPLOC) ? (object)DBNull.Value : this.TIPLOC));
                 Cmd.Parameters.Add(new SqlParameter("@simsig_entry_point", this.EntryPoint));
+                Cmd.Parameters.Add(new SqlParameter("@location_type_id", this.LocationType == SimSigLocationType.Unknown ? (object)DBNull.Value : (int)this.LocationType));
                 Cmd.Parameters.Add(new SqlParameter("@simsig_code", this.SimSigCode));
                 Cmd.Parameters.Add(new SqlParameter("@datetime", CurrentDateTime == null ? DateTimeOffset.Now : CurrentDateTime));
                 Cmd.Parameters.Add(new SqlParameter("@id", (Int16)this._ID));

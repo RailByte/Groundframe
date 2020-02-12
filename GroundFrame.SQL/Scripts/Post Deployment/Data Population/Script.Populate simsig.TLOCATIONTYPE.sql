@@ -28,7 +28,8 @@ USING
 		(3, N'Yard / Siding', NULL),
 		(4, N'Depot', NULL),
 		(5, N'Timing Point', NULL),
-		(6, N'Reversing Point', NULL)
+		(6, N'Reversing Point', NULL),
+		(7, N'Seed Point', N'These are internal points used by SimSig as service seed points')
 	)
 	AS LOCATIONTYPES([id], [name], [description])
 ) AS S

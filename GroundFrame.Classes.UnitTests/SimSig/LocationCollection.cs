@@ -60,9 +60,9 @@ namespace GroundFrame.Classes.UnitTests.SimSig
             //Populate some data
             Classes.SimSig.Simulation TestSim = new Classes.SimSig.Simulation("LocColl Sim Name", "LocColl Sim Desc", null, "LocCollCode", this._SQLConnection);
             TestSim.SaveToSQLDB();
-            Classes.SimSig.Location TestLocation1 = new Classes.SimSig.Location(TestSim, "LocColl Loc Name", null, "LocCollLocCode1", true, this._SQLConnection);
+            Classes.SimSig.Location TestLocation1 = new Classes.SimSig.Location(TestSim, "LocColl Loc Name", null, "LocCollLocCode1", true, Classes.SimSig.SimSigLocationType.Station, this._SQLConnection);
             TestLocation1.SaveToSQLDB();
-            Classes.SimSig.Location TestLocation2 = new Classes.SimSig.Location(TestSim, "LocCol2 Loc Name", "LocCollTIPLOC2", "LocCollLocCode2", false, this._SQLConnection);
+            Classes.SimSig.Location TestLocation2 = new Classes.SimSig.Location(TestSim, "LocCol2 Loc Name", "LocCollTIPLOC2", "LocCollLocCode2", false, Classes.SimSig.SimSigLocationType.Station, this._SQLConnection);
             TestLocation2.SaveToSQLDB();
 
             //Get Collection
