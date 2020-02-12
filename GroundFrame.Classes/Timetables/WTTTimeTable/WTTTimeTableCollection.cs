@@ -118,50 +118,6 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         public int Count { get { return this._TimeTables.Count; } }
 
-        /// <summary>
-        /// Gets a list of the distinct locations in the timetable
-        /// </summary>
-        /// <returns>A MapperLocation list of the distinct location</returns>
-        public List<MapperLocation> GetMapperLocations()
-        {
-            List<MapperLocation> LocationMapper = new List<MapperLocation>();
-
-            //Now add trip locations
-
-            foreach(WTTTimeTable TimeTable in this._TimeTables)
-            {
-                foreach(MapperLocation TimeTableLocationMapper in TimeTable.GetMapperLocations())
-                {
-                    LocationMapper.Add(TimeTableLocationMapper);
-                }
-            };
-
-            //Now return distinct list
-            return LocationMapper.Distinct(new MapperLocationEqualityComparer()).ToList();
-        }
-
-        /// <summary>
-        /// Gets a list of the distinct location nodes in the timetable
-        /// </summary>
-        /// <returns>A MapperLocation list of the distinct location nodes</returns>
-        public List<MapperLocationNode> GetMapperLocationNodes()
-        {
-            List<MapperLocationNode> LocationMapperNode = new List<MapperLocationNode>();
-
-            //Now add trip locations
-
-            foreach(WTTTimeTable TimeTable in this._TimeTables)
-            {
-                foreach (MapperLocationNode TimeTableLocationMapperNode in TimeTable.GetMapperLocationNodes())
-                {
-                    LocationMapperNode.Add(TimeTableLocationMapperNode);
-                }
-            };
-
-            //Now return distinct list
-            return LocationMapperNode.Distinct(new MapperLocationNodeEqualityComparer()).ToList().Where(x => x != null).ToList();
-        }
-
         #endregion Constructors
 
         #region Methods
@@ -276,6 +232,50 @@ namespace GroundFrame.Classes.Timetables
             {
                 //Dispose of any supporting objects here
             }
+        }
+
+        /// <summary>
+        /// Gets a list of the distinct locations in the timetable
+        /// </summary>
+        /// <returns>A MapperLocation list of the distinct location</returns>
+        public List<MapperLocation> GetMapperLocations()
+        {
+            List<MapperLocation> LocationMapper = new List<MapperLocation>();
+
+            //Now add trip locations
+
+            foreach (WTTTimeTable TimeTable in this._TimeTables)
+            {
+                foreach (MapperLocation TimeTableLocationMapper in TimeTable.GetMapperLocations())
+                {
+                    LocationMapper.Add(TimeTableLocationMapper);
+                }
+            };
+
+            //Now return distinct list
+            return LocationMapper.Distinct(new MapperLocationEqualityComparer()).ToList();
+        }
+
+        /// <summary>
+        /// Gets a list of the distinct location nodes in the timetable
+        /// </summary>
+        /// <returns>A MapperLocation list of the distinct location nodes</returns>
+        public List<MapperLocationNode> GetMapperLocationNodes()
+        {
+            List<MapperLocationNode> LocationMapperNode = new List<MapperLocationNode>();
+
+            //Now add trip locations
+
+            foreach (WTTTimeTable TimeTable in this._TimeTables)
+            {
+                foreach (MapperLocationNode TimeTableLocationMapperNode in TimeTable.GetMapperLocationNodes())
+                {
+                    LocationMapperNode.Add(TimeTableLocationMapperNode);
+                }
+            };
+
+            //Now return distinct list
+            return LocationMapperNode.Distinct(new MapperLocationNodeEqualityComparer()).ToList().Where(x => x != null).ToList();
         }
 
         #endregion Methods
