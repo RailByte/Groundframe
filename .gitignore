@@ -349,3 +349,4 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 GroundFrame.Classes.UnitTests/xunit.config.json
+GroundFrame.Classes/log.txt
