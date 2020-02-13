@@ -73,6 +73,17 @@ namespace GroundFrame.Classes.Timetables
         /// </summary>
         public string EntryPoint { get; set; }
 
+
+        /// <summary>
+        /// Gets or sets the entry decision
+        /// </summary>
+        public string EntryDecision { get; set; }
+
+        /// <summary>
+        /// Gets or sets the entry choice
+        /// </summary>
+        public string EntryChoice { get; set; }
+
         /// <summary>
         /// Gets or sets the actual entry point
         /// </summary>

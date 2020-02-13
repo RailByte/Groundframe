@@ -82,7 +82,7 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTableCollection
             }
             else
             {
-                Assert.Equal(string.Empty, TestTimeTable.EntryPoint);
+                Assert.Null(TestTimeTable.EntryPoint);
             }
             
             Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeed(Convert.ToInt32(XMLTestTimeTable.Element("MaxSpeed").Value.ToString())).MPH, TestTimeTable.MaxSpeed.MPH);

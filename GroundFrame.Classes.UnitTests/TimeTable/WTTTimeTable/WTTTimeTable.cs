@@ -41,7 +41,9 @@ namespace GroundFrame.Classes.UnitTests.TimeTable.WTTTimeTable
             Assert.Equal(new GroundFrame.Classes.Timetables.WTTTime(Convert.ToInt32(XMLTestTimeTable.Element("DepartTime").Value.ToString())).Seconds, TestTimeTable.DepartTime.Seconds);
             Assert.Equal(XMLTestTimeTable.Element("Description").Value.ToString(), TestTimeTable.Description);
             Assert.Equal(new GroundFrame.Classes.Length(Convert.ToInt32(XMLTestTimeTable.Element("SeedingGap").Value.ToString())).Meters, TestTimeTable.SeedingGap.Meters);
-            Assert.Equal(XMLTestTimeTable.Element("EntryPoint").Value.ToString(), TestTimeTable.EntryPoint);
+            Assert.Equal(XMLTestTimeTable.Element("EntryPoint") == null ? null : XMLTestTimeTable.Element("EntryPoint").Value.ToString(), TestTimeTable.EntryPoint);
+            Assert.Equal(XMLTestTimeTable.Element("EntryDecision") == null ? null : XMLTestTimeTable.Element("EntryDecision").Value.ToString(), TestTimeTable.EntryDecision);
+            Assert.Equal(XMLTestTimeTable.Element("EntryChoice") == null ? null : XMLTestTimeTable.Element("EntryChoice").Value.ToString(), TestTimeTable.EntryChoice);
             Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeed(Convert.ToInt32(XMLTestTimeTable.Element("MaxSpeed").Value.ToString())).MPH, TestTimeTable.MaxSpeed.MPH);
             Assert.Equal(new GroundFrame.Classes.Timetables.WTTSpeedClass(Convert.ToInt32(XMLTestTimeTable.Element("SpeedClass").Value.ToString())).Bitwise, TestTimeTable.SpeedClass.Bitwise);
             Assert.Equal(new GroundFrame.Classes.Length(Convert.ToInt32(XMLTestTimeTable.Element("TrainLength").Value.ToString())).Meters, TestTimeTable.TrainLength.Meters);

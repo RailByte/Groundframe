@@ -95,6 +95,18 @@ namespace GroundFrame.Classes.Timetables
         public string EntryPoint { get; set; }
 
         /// <summary>
+        /// Gets or sets the entry decision
+        /// </summary>
+        [JsonProperty("entryDecision")]
+        public string EntryDecision { get; set; }
+
+        /// <summary>
+        /// Gets or sets the entry choice
+        /// </summary>
+        [JsonProperty("entryChoice")]
+        public string EntryChoice { get; set; }
+
+        /// <summary>
         /// Gets or sets the actual entry point
         /// </summary>
         [JsonProperty("actualEntryPoint")]
@@ -323,6 +335,8 @@ namespace GroundFrame.Classes.Timetables
             this.Description = SurrogateWTTTimeTable.Description;
             this.SeedingGap = SurrogateWTTTimeTable.SeedingGap;
             this.EntryPoint = SurrogateWTTTimeTable.EntryPoint;
+            this.EntryDecision = SurrogateWTTTimeTable.EntryDecision;
+            this.EntryChoice = SurrogateWTTTimeTable.EntryChoice;
             this.ActualEntryPoint = SurrogateWTTTimeTable.ActualEntryPoint;
             this.MaxSpeed = SurrogateWTTTimeTable.MaxSpeed;
             this.SpeedClass = SurrogateWTTTimeTable.SpeedClass;
@@ -376,7 +390,9 @@ namespace GroundFrame.Classes.Timetables
                 this.DepartTime = XMLMethods.GetValueFromXElement<WTTTime>(TimeTableXML, @"DepartTime", null, new object[] { this._StartDate });
                 this.Description = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"Description", string.Empty);
                 this.SeedingGap = XMLMethods.GetValueFromXElement<Length>(TimeTableXML, @"SeedingGap", new Length(15));
-                this.EntryPoint = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"EntryPoint", string.Empty);
+                this.EntryPoint = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"EntryPoint", null);
+                this.EntryDecision = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"EntryDecision", null);
+                this.EntryChoice = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"EntryChoice", null);
                 this.ActualEntryPoint = XMLMethods.GetValueFromXElement<string>(TimeTableXML, @"ActualEntryPoint", string.Empty);
                 this.MaxSpeed = XMLMethods.GetValueFromXElement<WTTSpeed>(TimeTableXML, @"MaxSpeed", null);
                 this.SpeedClass = XMLMethods.GetValueFromXElement<WTTSpeedClass>(TimeTableXML, @"SpeedClass", null);
@@ -445,6 +461,8 @@ namespace GroundFrame.Classes.Timetables
                 this.Description = TempTimeTable.Description;
                 this.SeedingGap = TempTimeTable.SeedingGap;
                 this.EntryPoint = TempTimeTable.EntryPoint;
+                this.EntryDecision = TempTimeTable.EntryDecision;
+                this.EntryChoice = TempTimeTable.EntryChoice;
                 this.ActualEntryPoint = TempTimeTable.ActualEntryPoint;
                 this.MaxSpeed = TempTimeTable.MaxSpeed;
                 this.SpeedClass = TempTimeTable.SpeedClass;
@@ -494,6 +512,8 @@ namespace GroundFrame.Classes.Timetables
                 Description = this.Description,
                 SeedingGap = this.SeedingGap,
                 EntryPoint = this.EntryPoint,
+                EntryDecision = this.EntryDecision,
+                EntryChoice = this.EntryChoice,
                 ActualEntryPoint = this.ActualEntryPoint,
                 MaxSpeed = this.MaxSpeed,
                 SpeedClass = this.SpeedClass,
