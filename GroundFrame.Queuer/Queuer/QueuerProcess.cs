@@ -13,8 +13,12 @@ namespace GroundFrame.Queuer
 
         private IQueuerRequest _Request; //Private variable to store the request
         private DateTime _CreatedOn; //Private variable to store the process creation date time
-        private string _Key; //Private variable to store the key of the process
-        private string _UserName; //Private variable to store the username of the user who requested the process
+        private string _Key; //Private varialbe to store the unique key for this process
+        private string _AppAPIKey; //Private variable to store the application API Key which requested the process
+        private string _AppUserAPIKey; //Private variable to store the application user API key of the user who requested the process
+        private string _BearerToken; //Private variable to store the bearer token. This will be used to authentiate the user
+        private bool _Authenticated; //Private variable to indicate whether the user has authenticated
+        private string _APIKey; //Private variable to indicate the API key of the application which requested the process
 
         #endregion Private Variables
 
@@ -34,10 +38,17 @@ namespace GroundFrame.Queuer
 
         #region Constructors
 
-        public QueuerProcess(string UserName, string BearerToken, string JSON)
+        public QueuerProcess(string AppUserAPIKey, string BearerToken, string APIKey, string JSON)
         {
-            this._UserName = UserName;
+            this._AppUserAPIKey = AppUserAPIKey;
             this._Key = this.GenerateKey();
+            this._BearerToken = BearerToken;
+            this._APIKey = APIKey;
+
+            //TODO: Authenticate the user before queuing.
+            this._Authenticated = true;
+
+
         }
 
         #endregion Constructors
