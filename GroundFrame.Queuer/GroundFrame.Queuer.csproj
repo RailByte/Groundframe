@@ -12,10 +12,12 @@
     <ProjectReference Include="..\GroundFrame.Classes\GroundFrame.Classes.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="queuer.config.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="@echo off&#xD;&#xA;SET json={&quot;gfSqlServer&quot;:&quot;(localdb)\\MSSQLLocalDB&quot;,&quot;gfDbName&quot;:&quot;GroundFrame.SQL&quot;}&#xD;&#xA;if not exist &quot;$(ProjectDir)\queuer.development.config.json&quot; @echo %25json%25 &gt;&quot;$(ProjectDir)\queuer.development.config.json&quot;" />
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /y &quot;$(ProjectDir)queuer.development.config.json&quot;  &quot;$(OutDir)&quot;" />
+  </Target>
 
 </Project>
