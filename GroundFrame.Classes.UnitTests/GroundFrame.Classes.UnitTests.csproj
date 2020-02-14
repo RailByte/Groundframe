@@ -52,4 +52,12 @@
     </None>
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="@echo off&#xD;&#xA;SET json={&quot;gfSqlServer&quot;:&quot;(localdb)\\MSSQLLocalDB&quot;,&quot;gfDbName&quot;:&quot;GroundFrame.SQL&quot;}&#xD;&#xA;if not exist &quot;$(ProjectDir)\xunit.config.json&quot; @echo %25json%25 &gt;&quot;$(ProjectDir)\xunit.config.json&quot;" />
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /y &quot;$(ProjectDir)xunit.config.json&quot;  &quot;$(OutDir)&quot;" />
+  </Target>
+
 </Project>
