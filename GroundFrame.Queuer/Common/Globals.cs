@@ -22,7 +22,7 @@ namespace GroundFrame.Queuer
             
             if (!string.IsNullOrEmpty(Environment))
             {
-                config = new ConfigurationBuilder().AddJsonFile("queuer.config.json").AddJsonFile($"queuer.{Environment}.config.json", optional: true).Build();
+                config = new ConfigurationBuilder().AddJsonFile("queuer.config.json").AddJsonFile($"queuer.{Environment}.config.json", optional: true).AddJsonFile($"queuer.development.config.json", optional: true).Build();
             }
             else
             {
