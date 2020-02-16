@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GroundFrame.Queuer
 {
@@ -9,10 +10,16 @@ namespace GroundFrame.Queuer
         #region Properties
 
         /// <summary>
-        /// Gets the process response
+        /// Gets the process responses
         /// </summary>
-        public QueuerResponse Response { get; }
+        public List<QueuerResponse> Responses { get; }
 
         #endregion Properties
+
+        #region Methods
+
+        public Task Execute();
+
+        #endregion Methods
     }
 }

@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <NeutralLanguage>en-GB</NeutralLanguage>
+    <BuildDocFx Condition=" '$(Configuration)'=='Debug' ">false</BuildDocFx>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
