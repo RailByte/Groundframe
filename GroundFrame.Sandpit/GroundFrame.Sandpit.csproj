@@ -10,4 +10,10 @@
     <ProjectReference Include="..\GroundFrame.Queuer\GroundFrame.Queuer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="queuer.localhost.config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

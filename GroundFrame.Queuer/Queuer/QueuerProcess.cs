@@ -85,6 +85,12 @@ namespace GroundFrame.Queuer
         [JsonProperty("executeNow")]
         public bool ExecuteNow { get { return this._ExecuteNow; } }
 
+        /// <summary>
+        /// Gets the task type full name
+        /// </summary>
+        [JsonProperty("taskType")]
+        public string TaskType {  get { return this._Request.GetType().FullName;  } }
+
         #endregion Properties
 
         #region Constructors
@@ -144,9 +150,22 @@ namespace GroundFrame.Queuer
             this.ProcessConfig();
         }
 
+        /// <summary>
+        /// Serializes the QueuerProcess into a JSON string
+        /// </summary>
+        /// <returns>A JSON string representing the Queuer Process</returns>
         public string ToJSON()
         {
             return JsonConvert.SerializeObject(this);
+        }
+
+        /// <summary>
+        /// Serializes the QueuerProcess into a BsonDocument
+        /// </summary>
+        /// <returns>A BsonDocument object representing the Queuer Process</returns>
+        public BsonDocument ToBSON()
+        {
+            return BsonDocument.Parse(this.ToJSON()); 
         }
 
         /// <summary>
@@ -197,22 +216,21 @@ namespace GroundFrame.Queuer
 
         private async void SaveToDB()
         {
-            BsonDocument BSON = BsonDocument.Parse(this.ToJSON());
             IMongoDatabase db = Globals.GetGFMongoConnector(this._Environment).MongoClient.GetDatabase("groundframeQueuer");
             var collection = db.GetCollection<BsonDocument>("processQueue");
-            await collection.InsertOneAsync(BSON);
+            await collection.InsertOneAsync(this.ToBSON());
         }
 
         private async void GetFromDB()
         {
             IMongoDatabase db = Globals.GetGFMongoConnector(this._Environment).MongoClient.GetDatabase("groundframeQueuer");
-
             var collection = db.GetCollection<BsonDocument>("processQueue");
 
             string filter = string.Format(@"{{ key: '{0}'}}", this._Key);
-
-            BsonDocument Document = collection.Find(filter).First();
+            BsonDocument Document = await collection.Find(filter).SingleAsync();
             string Test = JsonConvert.SerializeObject(BsonTypeMapper.MapToDotNetValue(Document));
+            
+            JsonConvert.PopulateObject(Test, this, new JsonSerializerSettings { ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor });
         }
 
         #endregion Methods
