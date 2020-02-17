@@ -28,6 +28,10 @@ namespace GroundFrame.Queuer
         /// <summary>
         /// The process has failed
         /// </summary>
-        Failed = 4
+        Failed = 4,
+        /// <summary>
+        /// An information event status. This is excluded when getting the process status
+        /// </summary>
+        Information = 5
     }
 }

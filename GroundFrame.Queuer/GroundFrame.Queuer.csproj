@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.1" />
+    <PackageReference Include="MongoDB.Driver" Version="2.10.2" />
+    <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -13,11 +15,11 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="@echo off&#xD;&#xA;SET json={&quot;gfSqlServer&quot;:&quot;(localdb)\\MSSQLLocalDB&quot;,&quot;gfDbName&quot;:&quot;GroundFrame.SQL&quot;, &quot;environment&quot;: &quot;localhost&quot;}&#xD;&#xA;if not exist &quot;$(ProjectDir)\queuer.localhost.config.json&quot; @echo %25json%25 &gt;&quot;$(ProjectDir)\queuer.localhost.config.json&quot;&#xD;&#xA;SET json=&quot;{&quot;environment&quot;: &quot;localhost&quot;}&#xD;&#xA;if not exist &quot;$(ProjectDir)\queuer.environment.json&quot; @echo %25json%25 &gt;&quot;$(ProjectDir)\queuer.environment.json&quot;&#xD;&#xA;" />
+    <Exec Command="@echo off&#xD;&#xA;SET json={&quot;gfSqlServer&quot;:&quot;(localdb)\\MSSQLLocalDB&quot;,&quot;gfDbName&quot;:&quot;GroundFrame.SQL&quot;, &quot;gfMongoServer&quot;: &quot;localhost&quot;, &quot;gfMongoPort&quot;: &quot;27017&quot;}&#xD;&#xA;if not exist &quot;$(ProjectDir)\queuer.localhost.config.json&quot; @echo %25json%25 &gt;&quot;$(ProjectDir)\queuer.localhost.config.json&quot;" />
   </Target>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /y &quot;$(ProjectDir)queuer.localhost.config.json&quot;  &quot;$(OutDir)&quot;&#xD;&#xA;xcopy /y &quot;$(ProjectDir)queuer.environment.json&quot;  &quot;$(OutDir)&quot;" />
+    <Exec Command="xcopy /y &quot;$(ProjectDir)queuer.localhost.config.json&quot;  &quot;$(OutDir)&quot;" />
   </Target>
 
 </Project>

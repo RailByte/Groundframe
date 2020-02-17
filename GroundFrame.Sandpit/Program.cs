@@ -10,11 +10,14 @@ namespace GroundFrame.Sandpit
         {
             Console.WriteLine("Hello World!");
 
-            string JSON = File.ReadAllText(@"C:\Users\timca\Desktop\GF.json");
+            //string ConfigJSON = File.ReadAllText(@"C:\Users\tcaceres\Desktop\GF.json");
 
-            QueuerProcess Test = new QueuerProcess("testappAPIKEY", "", "testuserAPIKEY", JSON);
+            //QueuerProcess Test = new QueuerProcess("testappAPIKEY", "testuserAPIKEY", "", "localhost", ConfigJSON, false);
+            //string JSON = Test.ToJSON();
 
-            Console.ReadKey();
+            QueuerProcess Test = new QueuerProcess("e9c71071db12491bbd6db1bc5d033b3d", "localhost");
+
+            Console.ReadKey(); 
         }
     }
 }
