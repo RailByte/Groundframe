@@ -73,6 +73,15 @@ namespace GroundFrame.Queuer.Tasks
             this._Responses.Add(new QueuerResponse(this._Key, this._Environment, QueuerResponseStatus.Information, $"Checking to see whether simulation {this._Simulation.Name} already exists in the GroundFrame.SQL database", null));
         }
 
+        /// <summary>
+        /// Replaces the responses with an updated list of responses.
+        /// </summary>
+        /// <param name="Responses">The list of QueuerResponse object to replace the existing responses</param>
+        public void ReplaceResponses(List<QueuerResponse> Responses)
+        {
+            this._Responses = Responses;
+        }
+
 
         #endregion Methods
     }

@@ -29,6 +29,8 @@ namespace GroundFrame.Queuer
 
         public Task Execute();
 
+        public void ReplaceResponses(List<QueuerResponse> Responses);
+
         #endregion Methods
     }
 }
