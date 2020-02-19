@@ -64,6 +64,15 @@ namespace GroundFrame.Core.Queuer
             this._ResponseException = Ex;
         }
 
+        [JsonConstructor]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Only used by Newtonsoft.JSON deserializer")]
+        private QueuerResponse(QueuerResponseStatus Status, string ResponseMessage, DateTime ResponseDateTime)
+        {
+            this._ResponseDateTime = ResponseDateTime;
+            this._Status = Status;
+            this._ResponseMessage = ResponseMessage;
+        }
+
         #endregion Constructors
 
         #region Methods

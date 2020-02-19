@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GroundFrame.Core;
 using GroundFrame.Core.SimSig;
 using GroundFrame.Core.Timetables;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -27,6 +28,8 @@ namespace GroundFrame.Core.Queuer
         private Simulation _Simulation; //Private variable to store the simulation to be seeded
         private readonly string _JSON; //Private variable to the store config JSON
         private readonly GFSqlConnector _SQLConnector; //Private variable to the store GroundFrame.SQL connector
+        private readonly IConfigurationRoot _Config; //Private variable to the config
+        private readonly bool _Authenticated; //Private variable to indicate whether the user was authenticated at the point of queue
 
         #endregion Private Variables
 
@@ -55,11 +58,13 @@ namespace GroundFrame.Core.Queuer
         /// <param name="AppAPIKey"></param>
         /// <param name="Environment"></param>
         /// <param name="JSON"></param>
-        public SeedSimulationFromWTT(string AppUserAPIKey, string AppAPIKey, string Environment, string JSON)
+        public SeedSimulationFromWTT(string AppUserAPIKey, string AppAPIKey, string Environment, string JSON, bool Authenticated)
         {
             //Set private variables
             this._JSON = JSON;
+            this._Authenticated = Authenticated;
             this._SQLConnector = Globals.GetGFSqlConnector(AppAPIKey, AppUserAPIKey, Environment);
+            this._Config = Globals.GetConfig(Environment);
             //Parse the config JSON
             this.ParseJSON();
             //Initialise the response
@@ -83,10 +88,24 @@ namespace GroundFrame.Core.Queuer
         /// Executes the SeedSimulationFromWTT task
         /// </summary>
         /// <returns></returns>
-        public async Task Execute()
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
+        public async Task<QueuerResponse> Execute()
         {
+            bool DebugMode = Convert.ToBoolean(this._Config["debugmode"]);
+
             this._Responses.Add(new QueuerResponse(QueuerResponseStatus.Running, "Process Started", null));
-            this._Responses.Add(new QueuerResponse(QueuerResponseStatus.Information, $"Checking to see whether simulation {this._Simulation.Name} already exists in the GroundFrame.SQL database", null));
+            
+            if (this._Authenticated == false)
+            {
+                this._Responses.Add(new QueuerResponse(QueuerResponseStatus.CompletedWithWarning, "The user wasn't authenticated at the point of queueing. The process will not run", null));
+                return this._Responses[this._Responses.Count - 1];
+            }
+
+            if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.Information, $"Checking to see whether simulation {this._Simulation.Name} already exists in the GroundFrame.SQL database", null));
+
+           
+
+            return this._Responses[this._Responses.Count - 1];
         }
 
         /// <summary>

@@ -2,5 +2,6 @@
   "gfSqlServer": "(localdb)\\MSSQLLocalDB",
   "gfDbName": "GroundFrame.SQL",
   "gfMongoServer": "localhost",
-  "gfMongoPort": "27017"
+  "gfMongoPort": "27017",
+  "debugMode":  "true"
 } 

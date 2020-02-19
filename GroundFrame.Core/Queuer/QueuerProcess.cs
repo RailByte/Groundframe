@@ -164,6 +164,7 @@ namespace GroundFrame.Core.Queuer
             this._Key = Key;
             this._Environment = Environment;
             this.GetFromDB();
+            this.ExecuteProcess();
         }
 
         [JsonConstructor]
@@ -182,7 +183,7 @@ namespace GroundFrame.Core.Queuer
             //Dictionary to store function mapping
             Dictionary<string, Action> ProcessMapping = new Dictionary<string, Action>
             {
-                { "GroundFrame.Core.Queuer.SeedSimulationFromWTT", (() => this._Request = new SeedSimulationFromWTT(this._AppUserAPIKey, this._AppAPIKey, this._Environment, ConfigJSON)) }
+                { "GroundFrame.Core.Queuer.SeedSimulationFromWTT", (() => this._Request = new SeedSimulationFromWTT(this.AppUserAPIKey, this.AppAPIKey, this._Environment, ConfigJSON, this.Authenticated)) }
             };
 
             //Map the task requested to the relevant IQueuerRequest object
@@ -208,10 +209,7 @@ namespace GroundFrame.Core.Queuer
 
         private void AuthenticateUser()
         {
-            string BearerToken = this._BearerToken;
-            Console.Write(BearerToken);
-            //TODO: Create function to authenticate the user against the Auth0 provided and set the Authenticated flag
-            this._Authenticated = true;
+            this._Authenticated = SecurityHelper.IsAuthenticated(this._AppUserAPIKey, this._BearerToken);
         }
 
         /// <summary>
@@ -271,7 +269,7 @@ namespace GroundFrame.Core.Queuer
             //Dictionary to store function mapping
             Dictionary<string, Action> ProcessMapping = new Dictionary<string, Action>
             {
-                { "SeedSimulationFromWTT", (() => this._Request = new SeedSimulationFromWTT(this._AppUserAPIKey, this._AppAPIKey, this._Environment, JSONObject["config"].ToString())) }
+                { "SeedSimulationFromWTT", (() => this._Request = new SeedSimulationFromWTT(this._AppUserAPIKey, this._AppAPIKey, this._Environment, JSONObject["config"].ToString(), this.Authenticated)) }
             };
 
             //Map the task requested to the relevant IQueuerRequest object

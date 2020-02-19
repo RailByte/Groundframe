@@ -33,8 +33,8 @@ namespace GroundFrame.Core.Queuer
         /// <summary>
         /// Task to execute the process
         /// </summary>
-        /// <returns></returns>
-        public Task Execute();
+        /// <returns>Returns the last resposne (QueuerResponse object) in the request responses</returns>
+        public Task<QueuerResponse> Execute();
 
         /// <summary>
         /// Replaces all the responses attached to the process with the supplied list of responses

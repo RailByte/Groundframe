@@ -56,9 +56,9 @@ namespace GroundFrame.Core
         /// <param name="Environment">The environment for the config</param>
         /// <returns>A IConfigurationRoot inherited object containing the configuration for the supplied environment</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "Different config file will only ever be declare in English")]
-        private static IConfigurationRoot GetConfig(string Environment)
+        public static IConfigurationRoot GetConfig(string Environment)
         {
-            return new ConfigurationBuilder().AddJsonFile($"queuer.{Environment.ToLower()}.config.json", optional: true, reloadOnChange: true).Build();
+            return new ConfigurationBuilder().AddJsonFile($"groundframe.{Environment.ToLower()}.config.json", optional: true, reloadOnChange: true).Build();
         }
     }
 }
