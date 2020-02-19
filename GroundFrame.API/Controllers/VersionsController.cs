@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using GroundFrame.Classes.SimSig;
-using GroundFrame.Classes;
+using GroundFrame.Core.SimSig;
+using GroundFrame.Core;
 using Microsoft.AspNetCore.Http;
 
 namespace GroundFrame.API.Controllers
@@ -15,9 +15,9 @@ namespace GroundFrame.API.Controllers
     [Route("api")]
     public class Versions : ControllerBase
     {
-        private readonly ILogger<GroundFrame.Classes.SimSig.Version> _logger;
+        private readonly ILogger<GroundFrame.Core.SimSig.Version> _logger;
         private readonly GFSqlConnector _SQLConnection;
-        public Versions(ILogger<GroundFrame.Classes.SimSig.Version> logger)
+        public Versions(ILogger<GroundFrame.Core.SimSig.Version> logger)
         {
             _logger = logger;
             string SQLServer = @"(localdb)\MSSQLLocalDB"; ;
@@ -36,7 +36,7 @@ namespace GroundFrame.API.Controllers
         {
             try
             {
-                GroundFrame.Classes.SimSig.Version Ver = new GroundFrame.Classes.SimSig.Version(id, this._SQLConnection);
+                GroundFrame.Core.SimSig.Version Ver = new GroundFrame.Core.SimSig.Version(id, this._SQLConnection);
                 return Ok(Ver);
             }
             catch (Exception Ex)
@@ -56,7 +56,7 @@ namespace GroundFrame.API.Controllers
         {
             try
             {
-                GroundFrame.Classes.SimSig.UserSettingCollection VerCollection = new GroundFrame.Classes.SimSig.UserSettingCollection(this._SQLConnection);
+                GroundFrame.Core.SimSig.UserSettingCollection VerCollection = new GroundFrame.Core.SimSig.UserSettingCollection(this._SQLConnection);
                 return Ok(VerCollection);
             }
             catch (Exception Ex)

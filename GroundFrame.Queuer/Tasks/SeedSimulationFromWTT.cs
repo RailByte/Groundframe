@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using GroundFrame.Classes;
-using GroundFrame.Classes.SimSig;
-using GroundFrame.Classes.Timetables;
+using GroundFrame.Core;
+using GroundFrame.Core.SimSig;
+using GroundFrame.Core.Timetables;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace GroundFrame.Queuer.Tasks
+namespace GroundFrame.Core.Queuer
 {
     internal class SeedSimulationFromWTT : IQueuerRequest
     {

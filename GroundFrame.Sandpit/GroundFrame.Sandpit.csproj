@@ -6,8 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GroundFrame.Classes\GroundFrame.Classes.csproj" />
-    <ProjectReference Include="..\GroundFrame.Queuer\GroundFrame.Queuer.csproj" />
+    <ProjectReference Include="..\GroundFrame.Core\GroundFrame.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

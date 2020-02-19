@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GroundFrame.Classes\GroundFrame.Classes.csproj" />
+    <ProjectReference Include="..\GroundFrame.Classes\GroundFrame.Core.csproj" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

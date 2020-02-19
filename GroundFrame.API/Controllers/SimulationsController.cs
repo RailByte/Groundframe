@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using GroundFrame.Classes.SimSig;
-using GroundFrame.Classes;
+using GroundFrame.Core.SimSig;
+using GroundFrame.Core;
 using Microsoft.AspNetCore.Http;
 
 namespace GroundFrame.API.Controllers
@@ -36,7 +36,7 @@ namespace GroundFrame.API.Controllers
         {
             try
             {
-                Classes.SimSig.SimulationExtension Sim = new Classes.SimSig.SimulationExtension(id, this._SQLConnection);
+                Core.SimSig.SimulationExtension Sim = new Core.SimSig.SimulationExtension(id, this._SQLConnection);
                 return Ok(Sim);
             }
             catch (Exception Ex)
@@ -57,8 +57,8 @@ namespace GroundFrame.API.Controllers
         {
             try
             {
-                Classes.SimSig.Simulation Sim = new Classes.SimSig.Simulation(id, this._SQLConnection);
-                return Ok(new Classes.SimSig.LocationCollection(Sim, this._SQLConnection));
+                Core.SimSig.Simulation Sim = new Core.SimSig.Simulation(id, this._SQLConnection);
+                return Ok(new Core.SimSig.LocationCollection(Sim, this._SQLConnection));
             }
             catch (Exception Ex)
             {
@@ -77,7 +77,7 @@ namespace GroundFrame.API.Controllers
         {
             try
             {
-                Classes.SimSig.SimulationCollection SimCollection = new Classes.SimSig.SimulationCollection(this._SQLConnection);
+                Core.SimSig.SimulationCollection SimCollection = new Core.SimSig.SimulationCollection(this._SQLConnection);
                 return Ok(SimCollection);
             }
             catch (Exception Ex)
