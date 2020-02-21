@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using GroundFrame.Core;
@@ -24,8 +28,9 @@ namespace GroundFrame.Core.Queuer
 
         #region Private Variables
 
-        private List<QueuerResponse> _Responses; //Private variable to store the list of responses the exection makes
+        private ExtendedList<QueuerResponse> _Responses; //Private variable to store the list of responses the exection makes
         private Simulation _Simulation; //Private variable to store the simulation to be seeded
+        private WTT _TimeTable; //Prvate variable to store the timetable
         private readonly string _JSON; //Private variable to the store config JSON
         private readonly GFSqlConnector _SQLConnector; //Private variable to the store GroundFrame.SQL connector
         private readonly IConfigurationRoot _Config; //Private variable to the config
@@ -39,7 +44,7 @@ namespace GroundFrame.Core.Queuer
         /// Gets the process response
         /// </summary>
         [JsonProperty("responses")]
-        public List<QueuerResponse> Responses { get { return this._Responses; } }
+        public ExtendedList<QueuerResponse> Responses { get { return this._Responses; } }
 
         /// <summary>
         /// Gets the process configuation
@@ -54,21 +59,20 @@ namespace GroundFrame.Core.Queuer
         /// <summary>
         /// Instantiates a new SeedSimulationFromWTT object from the supplied object.
         /// </summary>
-        /// <param name="AppUserAPIKey"></param>
-        /// <param name="AppAPIKey"></param>
-        /// <param name="Environment"></param>
-        /// <param name="JSON"></param>
-        public SeedSimulationFromWTT(string AppUserAPIKey, string AppAPIKey, string Environment, string JSON, bool Authenticated)
+        /// <param name="AppUserAPIKey">The application user API key who queued the process</param>
+        /// <param name="AppAPIKey">The API Key of the application which queued the process</param>
+        /// <param name="Environment">The environment where the task is being executed. This should be proided by the running application</param>
+        /// <param name="JSON">The JSON containing the configuration for the task (see documentation)</param>
+        /// <param name="Authenticated">A flag to indicate whether the user was authenticated at the point of queuing the process</param>
+        internal SeedSimulationFromWTT(string AppUserAPIKey, string AppAPIKey, string Environment, string JSON, bool Authenticated)
         {
             //Set private variables
             this._JSON = JSON;
             this._Authenticated = Authenticated;
             this._SQLConnector = Globals.GetGFSqlConnector(AppAPIKey, AppUserAPIKey, Environment);
             this._Config = Globals.GetConfig(Environment);
-            //Parse the config JSON
-            this.ParseJSON();
             //Initialise the response
-            this._Responses = new List<QueuerResponse>
+            this._Responses = new ExtendedList<QueuerResponse>
             {
                 new QueuerResponse(QueuerResponseStatus.Queued, "Process Queued", null)
             };
@@ -78,41 +82,163 @@ namespace GroundFrame.Core.Queuer
 
         #region Methods
 
-        private void ParseJSON()
-        {
-            //Set up simulation
-            this._Simulation = new Simulation(this.Config["simName"].ToString(), this.Config["simDescription"] == null ? string.Empty: this.Config["simDescription"].ToString(), this.Config["simWikiLink"] == null ? string.Empty : this.Config["simWikiLink"].ToString(), this.Config["simSimSigCode"].ToString(), this._SQLConnector);
-        }
-
         /// <summary>
         /// Executes the SeedSimulationFromWTT task
         /// </summary>
         /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
-        public async Task<QueuerResponse> Execute()
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "All conversion will be in English")]
+        public async Task<QueuerResponseStatus> Execute()
         {
-            bool DebugMode = Convert.ToBoolean(this._Config["debugmode"]);
+            bool DebugMode = Convert.ToBoolean(this._Config["debugMode"]);
 
-            this._Responses.Add(new QueuerResponse(QueuerResponseStatus.Running, "Process Started", null));
-            
+            //Add process started Response
+            this._Responses.Add(new QueuerResponse(QueuerResponseStatus.Running, "processStarted", null));
+
+            //Check user was authenticated at time of queue
             if (this._Authenticated == false)
             {
-                this._Responses.Add(new QueuerResponse(QueuerResponseStatus.CompletedWithWarning, "The user wasn't authenticated at the point of queueing. The process will not run", null));
-                return this._Responses[this._Responses.Count - 1];
+                this._Responses.Add(new QueuerResponse(QueuerResponseStatus.CompletedWithWarning, "processUserNotAuthenticatedAtQueue", null));
+                return QueuerResponseStatus.CompletedWithWarning;
             }
 
-            if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.Information, $"Checking to see whether simulation {this._Simulation.Name} already exists in the GroundFrame.SQL database", null));
+            try
+            {
+                //Initialise simulation
+                this._Simulation = new Simulation(this.Config["simName"].ToString(), this.Config["simDescription"] == null ? string.Empty: this.Config["simDescription"].ToString(), this.Config["simWikiLink"] == null ? string.Empty : this.Config["simWikiLink"].ToString(), this.Config["simSimSigCode"].ToString(), this._SQLConnector);
 
-           
+                //Declare the individual async tasks
+                Task<WTT> SourceWTT = this.LoadTimeTable();
+                Task<bool> SimulationExists = this.CheckSimulationExists();
 
-            return this._Responses[this._Responses.Count - 1];
+                //Declare list of all the async tasks
+                List<Task> allTasks = new List<Task> { SourceWTT, SimulationExists };
+
+                while (allTasks.Any())
+                {
+                    Task finished = await Task.WhenAny(allTasks).ConfigureAwait(false);
+                    if (finished == SourceWTT)
+                    {
+                        if (DebugMode)this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed build the WTT object from the source WTT file", null));
+                        Console.WriteLine($"{DateTime.UtcNow.ToShortTimeString()} Reading WTT Complete");
+                        this._TimeTable = SourceWTT.Result;
+                    }
+                    else if (finished == SimulationExists)
+                    {
+                        if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed checking if the simulation already exists inthe GroundFrame.SQL database", null));
+                        Console.WriteLine($"{DateTime.UtcNow.ToShortTimeString()} Checking Sim Exists");
+                    }
+                    allTasks.Remove(finished);
+                }
+
+                //Check is simulation already exists in the data. If it does save the simulation to the GroundFrame.SQL database
+                if (SimulationExists.Result == true)
+                {
+                    this._Responses.Add(new QueuerResponse(QueuerResponseStatus.CompletedWithWarning, "processSimulationAlreadyExists", null));
+                    return QueuerResponseStatus.CompletedWithWarning;
+                } else
+                {
+                    try
+                    {
+                        this._Simulation.SaveToSQLDB();
+                        if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, $"Simulation saved to the GroundFrame.SQL database. ID = {this._Simulation.ID}.", null));
+                    }
+                    catch (Exception Ex)
+                    {
+                        throw new Exception("GG", Ex);
+                    }
+                }
+
+                Task<MapperLocation> GetLocations = this._TimeTable.TimeTables.GetMapperLocations();
+
+
+                this._Responses.Add(new QueuerResponse(QueuerResponseStatus.Success, "processSuccess", null));
+                return QueuerResponseStatus.Success;
+            }
+            catch (AggregateException Ex)
+            {
+                ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Core.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
+                string ExceptionMessage = ExceptionMessageResources.GetString("QueuerGenericFailureMessage", Globals.UserSettings.GetCultureInfo());
+
+                foreach (Exception Inner in Ex.InnerExceptions)
+                {
+                    this._Responses.Add(new QueuerResponse(QueuerResponseStatus.CompletedWithWarning, ExceptionMessage, Inner));
+                }
+
+                return QueuerResponseStatus.Failed;
+            }
+
+            catch (Exception Ex)
+            {
+                ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Core.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
+                string ExceptionMessage = ExceptionMessageResources.GetString("QueuerGenericFailureMessage", Globals.UserSettings.GetCultureInfo());
+                this._Responses.Add(new QueuerResponse(QueuerResponseStatus.CompletedWithWarning, ExceptionMessage, Ex));
+                return QueuerResponseStatus.Failed;
+            }
+        }
+
+
+        /// <summary>
+        /// Async task to load the WTT file into a WTT object
+        /// </summary>
+        /// <returns>A Task result containing the loaded WTT file</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "The culture is set in the ExceptionHelper.GetStaticExceptio overload")]
+        private async Task<WTT> LoadTimeTable()
+        {
+            string WTTFile = null;
+            JObject TaskConfig;
+
+            try
+            {
+                TaskConfig = JObject.Parse(this._JSON);
+                WTT SourceWTT = new WTT();
+                WTTFile = TaskConfig["sourceWTT"].ToString();
+                await Task.Run(() => { SourceWTT.LoadFromWTT(WTTFile); }).ConfigureAwait(false);
+
+                return SourceWTT;
+            }
+            catch (Exception Ex)
+            {
+                throw new Exception(ExceptionHelper.GetStaticException("QueuerLoadWTTFromFileError", new object[] { WTTFile }), Ex);
+            }
+        }
+        /// <summary>
+        /// Async task to check to see whether the timetable exists
+        /// </summary>
+        /// <returns>A Task result containing the loaded WTT file</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "The culture is set in the ExceptionHelper.GetStaticException overload")]
+        private async Task<bool> CheckSimulationExists()
+        {
+            try
+            { 
+                bool SimExists = false;
+                await Task.Run(() => { SimExists = this._Simulation.Exists(); }).ConfigureAwait(false);           
+                return SimExists;
+            }
+            catch (Exception Ex)
+            {
+                throw new Exception(ExceptionHelper.GetStaticException("QueuerCheckWTTExistsError", new object[] { this._Simulation.Name }), Ex);
+            }
+        }
+
+        private async Task<List<MapperLocation>> GetLocationMapperFromWTT()
+        {
+            try
+            {
+                List<MapperLocation> WTTLocationMapper = null;
+                await Task.Run(() => { WTTLocationMapper = this._TimeTable.TimeTables.GetMapperLocations(); }).ConfigureAwait(false);
+                return WTTLocationMapper;
+            }
+            catch (Exception Ex)
+            {
+                throw new Exception(ExceptionHelper.GetStaticException("QueuerCheckWTTExistsError", new object[] { this._Simulation.Name }), Ex);
+            }
         }
 
         /// <summary>
         /// Replaces the responses with an updated list of responses.
         /// </summary>
         /// <param name="Responses">The list of QueuerResponse object to replace the existing responses</param>
-        public void ReplaceResponses(List<QueuerResponse> Responses)
+        public void ReplaceResponses(ExtendedList<QueuerResponse> Responses)
         {
             this._Responses = Responses;
         }

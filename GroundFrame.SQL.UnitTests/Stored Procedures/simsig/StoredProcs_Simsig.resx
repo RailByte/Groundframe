@@ -2218,6 +2218,136 @@ DELETE FROM [simsig].[TVERSION]
 WHERE
 	[testdata_id] = @testdata_id;</value>
   </data>
+  <data name="simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>--Teardown Data
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest', @testdata_id = @testdata_id OUTPUT;
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[testdata_id] = @testdata_id;</value>
+  </data>
+  <data name="simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction.SqlScript" xml:space="preserve">
+    <value>
+
+-- database unit test for simsig.USp_GET_TSIM
+DECLARE @id AS SMALLINT;
+DECLARE @debug AS BIT = 0;
+DECLARE @debug_session_id AS UNIQUEIDENTIFIER = NULL;
+DECLARE @inserted_record1_id AS SMALLINT; --The ID of the first inserted record
+DECLARE @created_datetime DATETIMEOFFSET = SYSDATETIMEOFFSET();
+DECLARE @error_message NVARCHAR(256);
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+DECLARE @simsig_code NVARCHAR(32);
+
+--Set / Get TestData ID
+
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest', @testdata_id = @testdata_id OUTPUT;
+
+--Set up data
+
+INSERT INTO [simsig].[TSIM]
+(
+	[name],
+	[description],
+	[simsig_code],
+	[simsig_wiki_link],
+	[createdby_id],
+	[createdon],
+	[modifiedby_id],
+	[modifiedon],
+	[testdata_id]
+)
+VALUES
+(
+	'Test Get Sim By SimSig Code Name 1',
+	'Test Get Sim By SimSig Code Description 1',
+	'TestSimSigCode 5GfDS',
+	'Test Get Sim By SimSig Code Wiki Link 1',
+	2,
+	@created_datetime,
+	2,
+	@created_datetime,
+	@testdata_id
+)
+
+SET @inserted_record1_id = CAST(SCOPE_IDENTITY() AS INT);
+SET @created_datetime = SYSDATETIMEOFFSET();
+SET @simsig_code = 'TestSimSigCode 5GfDS';
+
+--Check 1 Ensure Errors as user not logged int
+
+BEGIN TRY
+	EXEC [simsig].[USp_GET_TSIM_BY_SIMSIG_CODE] @simsig_code = @simsig_code, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 1
+
+SELECT 
+	[error_message] = @error_message;
+
+--Log User In
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY'
+
+--Check 2 the first record is returned when ID is passed
+
+SET @simsig_code = NULL;
+
+BEGIN TRY
+	EXEC [simsig].[USp_GET_TSIM_BY_SIMSIG_CODE] @simsig_code = @simsig_code, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SET @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result set 2
+
+SELECT
+	[error_message] = @error_message;
+
+SET @simsig_code = 'TestSimSigCode 5GfDS';
+
+--Check 3 ensure all records are returned
+
+--Result Set 3
+EXEC [simsig].[USp_GET_TSIM_BY_SIMSIG_CODE] @simsig_code = @simsig_code, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+--Check 4 ensure debug enters event records
+
+SET @debug = 1
+EXEC [simsig].[USp_GET_TSIM_BY_SIMSIG_CODE] @simsig_code = @simsig_code, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+--Result Set 5
+SELECT
+	debug_count = CAST(CASE WHEN COUNT(*) &gt; 0 THEN 1 ELSE 0 END AS BIT)
+FROM [audit].[TEVENT]
+WHERE
+	[debug_session_id] = @debug_session_id
+
+--Check 5 ensure debug enters event records for the correct @debug_session_id
+
+SET @debug_session_id = NEWID();
+DECLARE @expected_debug_session_id UNIQUEIDENTIFIER = @debug_session_id;
+
+EXEC [simsig].[USp_GET_TSIM_BY_SIMSIG_CODE] @simsig_code = @simsig_code, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+--Result Set 7
+
+SELECT
+	debug_count = CAST(CASE WHEN COUNT(*) &gt; 0 THEN 1 ELSE 0 END AS BIT)
+FROM [audit].[TEVENT]
+WHERE
+	[debug_session_id] = @expected_debug_session_id;</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

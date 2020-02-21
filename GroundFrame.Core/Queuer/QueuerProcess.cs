@@ -164,6 +164,7 @@ namespace GroundFrame.Core.Queuer
             this._Key = Key;
             this._Environment = Environment;
             this.GetFromDB();
+            this.Request.Responses.CountChanged += new EventHandler<ExtendedList<QueuerResponse>.ListEventArgs>(RequestResponsesChangeEvent);
             this.ExecuteProcess();
         }
 
@@ -189,12 +190,24 @@ namespace GroundFrame.Core.Queuer
             //Map the task requested to the relevant IQueuerRequest object
             ProcessMapping[SurrogateQueuerProcess.TaskType]();
 
+            //Replace the request responses with those already that were already in the JSON and add the event handler to update the GroundFrame.MongoDB database
             this._Request.ReplaceResponses(SurrogateQueuerProcess.Request.Responses);
+            this.Request.Responses.CountChanged += new EventHandler<ExtendedList<QueuerResponse>.ListEventArgs>(RequestResponsesChangeEvent);
         }
 
         #endregion Constructors
 
         #region Methods
+
+        /// <summary>
+        /// Event handler to update the Gro
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RequestResponsesChangeEvent(object sender, ExtendedList<QueuerResponse>.ListEventArgs e)
+        {
+            this.SaveToDB();
+        }
 
         /// <summary>
         /// Builds the QueuerProess from the values provided
@@ -207,6 +220,9 @@ namespace GroundFrame.Core.Queuer
             this.ProcessConfig();
         }
 
+        /// <summary>
+        /// Sets the Autheticated private variable
+        /// </summary>
         private void AuthenticateUser()
         {
             this._Authenticated = SecurityHelper.IsAuthenticated(this._AppUserAPIKey, this._BearerToken);
@@ -274,15 +290,16 @@ namespace GroundFrame.Core.Queuer
 
             //Map the task requested to the relevant IQueuerRequest object
             ProcessMapping[JSONObject["task"].ToString()]();
+            this.Request.Responses.CountChanged += new EventHandler<ExtendedList<QueuerResponse>.ListEventArgs>(RequestResponsesChangeEvent);
 
             //Execute or Queue
             if (this._ExecuteNow)
             {
-                Task.Run(() => ExecuteProcess());
+                this.SaveToDB();
+                ExecuteProcess();
             }
             else
             {
-                //TODO: Queue the process for later
                 this.SaveToDB();
             }
         }
@@ -292,8 +309,20 @@ namespace GroundFrame.Core.Queuer
         /// </summary>
         private void ExecuteProcess()
         {
-            //Execute the process
-            Request.Execute();
+            try
+            {
+                //Execute the process
+                Task.Run(() => Request.Execute());
+            }
+            catch (AggregateException Ex)
+            {
+                throw new Exception("It's gone wrong!", Ex);
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception("It's gone wrong!", e);
+            }
         }
 
         /// <summary>

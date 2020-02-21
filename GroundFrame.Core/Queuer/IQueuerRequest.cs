@@ -18,7 +18,7 @@ namespace GroundFrame.Core.Queuer
         /// Gets the process responses
         /// </summary>
         [JsonProperty("responses")]
-        public List<QueuerResponse> Responses { get; }
+        public ExtendedList<QueuerResponse> Responses { get; }
 
         /// <summary>
         /// Gets the request configuration JSON
@@ -34,13 +34,13 @@ namespace GroundFrame.Core.Queuer
         /// Task to execute the process
         /// </summary>
         /// <returns>Returns the last resposne (QueuerResponse object) in the request responses</returns>
-        public Task<QueuerResponse> Execute();
+        public Task<QueuerResponseStatus> Execute();
 
         /// <summary>
         /// Replaces all the responses attached to the process with the supplied list of responses
         /// </summary>
         /// <param name="Responses"></param>
-        public void ReplaceResponses(List<QueuerResponse> Responses);
+        public void ReplaceResponses(ExtendedList<QueuerResponse> Responses);
 
         #endregion Methods
     }

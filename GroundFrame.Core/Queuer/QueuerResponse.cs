@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Reflection;
+using System.Resources;
 
 namespace GroundFrame.Core.Queuer
 {
@@ -54,23 +56,34 @@ namespace GroundFrame.Core.Queuer
         /// Instantiates a new QueuerReponse object from the supplied argument
         /// </summary>
         /// <param name="Status">The status of the response</param>
-        /// <param name="ResponseMessage">The repsonse message</param>
-        /// <param name="Ex">The exception which caused the failure in the case of a failure response</param>
-        public QueuerResponse(QueuerResponseStatus Status, string ResponseMessage, Exception Ex)
+        /// <param name="ResponseKey">The repsonse message key. A list of response keys and messages can be found in Resource\QueuerResources.resx</param>
+        /// <param name="Ex">The exception which caused the failure in the case of a failure responses</param>
+        public QueuerResponse(QueuerResponseStatus Status, string ResponseKey, Exception Ex)
         {
             this._ResponseDateTime = DateTime.UtcNow;
             this._Status = Status;
-            this._ResponseMessage = ResponseMessage;
+            this._ResponseMessage = Status == QueuerResponseStatus.DebugMesssage ? ResponseKey : GetResponseMessage(ResponseKey);
             this._ResponseException = Ex;
         }
 
         [JsonConstructor]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Only used by Newtonsoft.JSON deserializer")]
-        private QueuerResponse(QueuerResponseStatus Status, string ResponseMessage, DateTime ResponseDateTime)
+        private QueuerResponse(QueuerResponseStatus Status, string ResponseKey, DateTime ResponseDateTime)
         {
             this._ResponseDateTime = ResponseDateTime;
             this._Status = Status;
-            this._ResponseMessage = ResponseMessage;
+            this._ResponseMessage = Status == QueuerResponseStatus.DebugMesssage ? ResponseKey : GetResponseMessage(ResponseKey);
+        }
+
+        /// <summary>
+        /// Gets the translated Response message from the Response Key
+        /// </summary>
+        /// <param name="ResponseKey"></param>
+        /// <returns></returns>
+        private string GetResponseMessage(string ResponseKey)
+        {
+            ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Core.Resources.QueuerResources", Assembly.GetExecutingAssembly());
+            return ExceptionMessageResources.GetString(ResponseKey, Globals.UserSettings.GetCultureInfo());
         }
 
         #endregion Constructors

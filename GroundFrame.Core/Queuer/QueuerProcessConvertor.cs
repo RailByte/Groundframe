@@ -76,7 +76,7 @@ namespace GroundFrame.Core.Queuer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:Avoid Uninstantiated Internal Classes", Justification = "Used by Newtonsoft.JSON when deserializing")]
         internal class SurrogateRequest
         {
-            public List<QueuerResponse> Responses { get; set; }
+            public ExtendedList<QueuerResponse> Responses { get; set; }
 
             public JObject Config { get; set; }
         }

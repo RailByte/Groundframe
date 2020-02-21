@@ -520,6 +520,33 @@ namespace GroundFrame.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An Error has occured trying to determine whether the Simulation {0} already exists in the GroundFrame.SQL database.
+        /// </summary>
+        internal static string QueuerCheckWTTExistsError {
+            get {
+                return ResourceManager.GetString("QueuerCheckWTTExistsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occured trying to complete the task..
+        /// </summary>
+        internal static string QueuerGenericFailureMessage {
+            get {
+                return ResourceManager.GetString("QueuerGenericFailureMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An Error has occured trying to read the WTT File {0}.
+        /// </summary>
+        internal static string QueuerLoadWTTFromFileError {
+            get {
+                return ResourceManager.GetString("QueuerLoadWTTFromFileError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You cannot refresh a simulation from the GroundFrame.SQL database if it hasn&apos;t yet been saved to the GroundFrame.SQL database.
         /// </summary>
         internal static string RefreshSimulationError {
@@ -543,6 +570,15 @@ namespace GroundFrame.Core.Resources {
         internal static string RetrieveLocationZeroIDError {
             get {
                 return ResourceManager.GetString("RetrieveLocationZeroIDError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You cannot load a Simulation from the GroundFrame.SQL Database when the SimSig Code is &lt;NULL&gt; or an empty string..
+        /// </summary>
+        internal static string RetrieveSimulationNullSimSigCodeError {
+            get {
+                return ResourceManager.GetString("RetrieveSimulationNullSimSigCodeError", resourceCulture);
             }
         }
         

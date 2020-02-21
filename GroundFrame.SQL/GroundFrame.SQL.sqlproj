@@ -149,6 +149,7 @@
     <Build Include="Tables\app\app.TUSERSETTING.sql" />
     <None Include="Scripts\Post Deployment\Data Population\Script.Populate app.TSETTING.sql" />
     <Build Include="Stored Procedures\app\app.Usp_GET_USER_SETTINGS.sql" />
+    <Build Include="Stored Procedures\simsig\simsig.Usp_GET_TSIM_BY_SIMSIG_CODE.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\140\SqlSchemas\master.dacpac">

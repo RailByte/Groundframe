@@ -175,6 +175,21 @@ namespace GroundFrame.Core.UnitTests.SimSig
             Assert.Equal(SimSigCode, TestSim.SimSigCode);
         }
 
+        /// <summary>
+        /// Checks that trying to create eras against an unsaved Simulation raises an error
+        /// </summary>
+        [Theory]
+        [InlineData("Test Name 12", "Test Description 12", "Test SimSig Wiki Line 12", "Test SimSig Code 12")]
+        public void Simulation_Method_Exists(string Name, string Description, string SimSigWikiLink, string SimSigCode)
+        {
+            Core.SimSig.Simulation TestSim = new Core.SimSig.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
+            Assert.False(TestSim.Exists());
+            TestSim.SaveToSQLDB();
+            //Now create a new Simulation object with the same arguments and see if it exists.
+            Core.SimSig.Simulation TestSimExists = new Core.SimSig.Simulation(Name, Description, SimSigWikiLink, SimSigCode, this._SQLConnection);
+            Assert.True(TestSimExists.Exists());
+        }
+
         #endregion Methods
 
     }

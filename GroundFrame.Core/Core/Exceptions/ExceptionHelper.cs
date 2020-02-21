@@ -30,5 +30,19 @@ namespace GroundFrame.Core
             return string.Format(Culture, Format, Args);
         }
 #nullable disable
+
+        /// <summary>
+        /// Returns a translated Exception message with arguments
+        /// </summary>
+        /// <param name="Key">The resouce key for the exception</param>
+        /// <param name="Arguments">An array of arguments which can be passed to the string. See comments in RESX file for details</param>
+        /// <returns></returns>
+#nullable enable
+        internal static string GetStaticException(string Key, object?[] Arguments)
+        {
+            return GetStaticException(Key, Arguments, Globals.UserSettings.GetCultureInfo());
+        }
+#nullable disable
     }
+
 }

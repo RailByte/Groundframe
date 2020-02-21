@@ -30,7 +30,7 @@ namespace GroundFrame.Core.Timetables
     {
         #region Private Variables
 
-        private readonly string _SourceWTTFileName; //If the WTT is read from a WTT file the source file path will be stored here
+        private string _SourceWTTFileName; //If the WTT is read from a WTT file the source file path will be stored here
         private XDocument _SourceWTTXML;
         private DateTime _StartDate; //Stores the start date of the timetable
 
@@ -158,9 +158,28 @@ namespace GroundFrame.Core.Timetables
             this.PopulateFromJSON(JSON);
         }
 
+        /// <summary>
+        /// Instantiates an empty WTT object
+        /// </summary>
+        public WTT()
+        {
+            this._StartDate = new DateTime(1850, 1, 1);
+        }
+
         #endregion Constructors
 
         #region Methods
+
+        /// <summary>
+        /// Populates the WTT object from a WTT File
+        /// </summary>
+        /// <param name="WTTFile">The fullpath to the WTT file to be loaded</param>
+        public void LoadFromWTT(string WTTFile)
+        {
+            this._SourceWTTFileName = WTTFile;
+            //Read the WTT
+            this.ReadWTTFile();
+        }
 
         /// <summary>
         /// Reads a SimSig WTT File and returns an XDocument represent the SavedTimeable.xml file inside the WTT file

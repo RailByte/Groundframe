@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Resources;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GroundFrame.Core.SimSig
 {
@@ -120,6 +121,41 @@ namespace GroundFrame.Core.SimSig
         #endregion Constructors
 
         #region Methods
+
+        /// <summary>
+        /// Checks whether the simulation already exists in the GroundFrame.SQL database
+        /// </summary>
+        /// <returns>Boolean value which indicates whether the simulation exists in the GroundFrame.SQL database</returns>
+        public bool Exists()
+        {
+            if (string.IsNullOrEmpty(this._SimSigCode))
+            {
+                throw new ArgumentException(ExceptionHelper.GetStaticException("RetrieveSimulationNullSimSigCodeError", null, Globals.UserSettings.GetCultureInfo()));
+            }
+
+            try
+            {
+                //Open the Connection
+                this._SQLConnector.Open();
+
+                //Set Command
+                using SqlCommand Cmd = this._SQLConnector.SQLCommand("[simsig].[Usp_GET_TSIM_BY_SIMSIG_CODE]", CommandType.StoredProcedure);
+                //Add Parameters
+                Cmd.Parameters.Add(new SqlParameter("@simsig_code", this._SimSigCode));
+                SqlDataReader DataReader = Cmd.ExecuteReader();
+
+                return DataReader.HasRows;
+
+            }
+            catch (Exception Ex)
+            {
+                throw new ApplicationException($"An error has occurred trying to retrieve Simuation Record ID {this.ID} from the GroundFrame.SQL database.", Ex);
+            }
+            finally
+            {
+                this._SQLConnector.Close();
+            }
+        }
 
         /// <summary>
         /// Refreshes the Simulation data from the GroundFrame.SQL database

@@ -53,17 +53,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\ExceptionResources.Designer.cs">
+    <Compile Update="Resources\ExceptionResources - Copy.Designer.cs">
+      <DependentUpon>ExceptionResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>ExceptionResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\QueuerResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>QueuerResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\QueuerResources.resx">
+      <LastGenOutput>QueuerResources.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\ExceptionResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ExceptionResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>QueuerResouces.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

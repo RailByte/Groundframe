@@ -32,6 +32,10 @@ namespace GroundFrame.Core.Queuer
         /// <summary>
         /// An information event status. This is excluded when getting the process status
         /// </summary>
-        Information = 5
+        Information = 5,
+        /// <summary>
+        /// An information event status. This is excluded when getting the process status
+        /// </summary>
+        DebugMesssage = 5
     }
 }
