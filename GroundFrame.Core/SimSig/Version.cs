@@ -110,11 +110,25 @@ namespace GroundFrame.Core.SimSig
         }
 
         /// <summary>
+        /// Instantiates a new Version object from the supplied Version Number.
+        /// </summary>
+        /// <param name="VersionNumber">The version number to get from the GroundFrame.SQL database</param>
+        /// <param name="SQLConnector">A Connector to the GroundFrame.SQL Database</param>
+        public Version (decimal VersionNumber, GFSqlConnector SQLConnector)
+        {
+            //Validate Arguments
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
+            ArgumentValidation.ValidateVersionNumber(VersionNumber, Globals.UserSettings.GetCultureInfo());
+            this._SQLConnector = new GFSqlConnector(SQLConnector); //Creates a copy of the object to prevent conflict with connectios, commands and readers
+            this.GetVersionFromSQLDBByVersionNumber(VersionNumber);
+        }
+
+        /// <summary>
         /// Instatiates a Version object from a SqlDataReader object
         /// </summary>
         /// <param name="DataReader">The source SqlDataReader</param>
         /// <param name="SQLConnector">A Connector to the GroundFrame.SQL Database</param>
-        public Version (SqlDataReader DataReader, GFSqlConnector SQLConnector)
+        internal Version (SqlDataReader DataReader, GFSqlConnector SQLConnector)
         {
             //Validate Arguments
             ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
@@ -124,9 +138,63 @@ namespace GroundFrame.Core.SimSig
             this.ParseSqlDataReader(DataReader);
         }
 
+        /// <summary>
+        /// Instatiates the default Version object
+        /// </summary>
+        /// <param name="SQLConnector">A Connector to the GroundFrame.SQL Database</param>
+        public Version(GFSqlConnector SQLConnector)
+        {
+            //Validate Arguments
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
+            this._SQLConnector = new GFSqlConnector(SQLConnector); //Creates a copy of the object to prevent conflict with connectios, commands and readers
+        }
+
         #endregion Constructors
 
         #region Methods
+
+        /// <summary>
+        /// Populates the Version object with the version record from the GroundFrame.SQL database which matches the supplied Version Number
+        /// </summary>
+        /// <param name="VersionNumber"></param>
+        public void GetFromSQLDBByVersionNumber(decimal VersionNumber)
+        {
+            this.GetVersionFromSQLDBByVersionNumber(VersionNumber);
+        }
+
+        private void GetVersionFromSQLDBByVersionNumber(decimal VersionNumber)
+        {
+            try
+            {
+                //Open the Connection
+                this._SQLConnector.Open();
+                //Set Command
+                SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_GET_TVERSION_BY_VERSION_NUMBER", CommandType.StoredProcedure);
+                //Add Parameters
+                Cmd.Parameters.Add(new SqlParameter("@version_number", VersionNumber));
+                Cmd.Parameters.Add(new SqlParameter("@debug", true));
+
+                //Execute
+                SqlDataReader DataReader = Cmd.ExecuteReader();
+
+                Cmd.Dispose();
+
+                while (DataReader.Read())
+                {
+                    this.ParseSqlDataReader(DataReader);
+                }
+
+                Cmd.Dispose();
+            }
+            catch (Exception Ex)
+            {
+                throw new ApplicationException($"An error has occurred trying to get version record {VersionNumber} to the GroundFrame.SQL database.", Ex);
+            }
+            finally
+            {
+                this._SQLConnector.Close();
+            }
+        }
 
         /// <summary>
         /// Saves the Version to the GroundFrame.SQL database
@@ -142,7 +210,6 @@ namespace GroundFrame.Core.SimSig
         {
             this.GetVersionFromSQLDBByID();
         }
-
 
         /// <summary>
         /// Saves the Version to the GroundFrame.SQL database

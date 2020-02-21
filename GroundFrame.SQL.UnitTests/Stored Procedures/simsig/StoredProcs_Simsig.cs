@@ -121,7 +121,6 @@ namespace GroundFrame.SQL.UnitTests
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Version_From;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_InitialAdd_Version_To;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_InitialAdd_VersionStatus;
-            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_InitialAdd_TestData_ID;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_Upsert_TVERSION_TestData_ID_CHeck_TestData_ID;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Update_Check_Name;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Upsert_TVERSION_Update_Check_Description;
@@ -219,6 +218,15 @@ namespace GroundFrame.SQL.UnitTests
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Get_Sim_By_SimSigCode_CheckDebugEvents;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Get_Sim_By_SimSigCode_CheckSessionEvents;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_PosttestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_TestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Usp_GET_VERSION_BY_NUMBER_Check_User_Not_Logged_In_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_PosttestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_1;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_2;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_1;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_2;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug_Session;
             this.simsig_USp_UPSERT_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_USp_GET_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_Usp_DELETE_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
@@ -231,6 +239,7 @@ namespace GroundFrame.SQL.UnitTests
             this.simsig_Usp_GET_TLOCATION_BY_SIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_USp_UPSERT_TLOCATIONNODETestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_Usp_GET_TSIM_BY_SIMSIG_CODETestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            this.simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             simsig_USp_UPSERT_TSIMTest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             chk_NotLoggedIn_Errors = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_NULLName_Errors = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
@@ -314,7 +323,6 @@ namespace GroundFrame.SQL.UnitTests
             chk_Upsert_TVERSION_Version_From = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_Upsert_TVERSION_InitialAdd_Version_To = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_Upsert_TVERSION_InitialAdd_VersionStatus = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
-            chk_Upsert_TVERSION_InitialAdd_TestData_ID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_Upsert_TVERSION_TestData_ID_CHeck_TestData_ID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
             chk_Upsert_TVERSION_Update_Check_Name = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_Upsert_TVERSION_Update_Check_Description = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
@@ -412,6 +420,15 @@ namespace GroundFrame.SQL.UnitTests
             chk_Get_Sim_By_SimSigCode_CheckDebugEvents = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_Get_Sim_By_SimSigCode_CheckSessionEvents = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_PosttestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_User_Not_Logged_In_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_PosttestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_2 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_2 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug_Session = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
             // 
             // simsig_USp_UPSERT_TSIMTest_TestAction
             // 
@@ -1134,7 +1151,6 @@ namespace GroundFrame.SQL.UnitTests
             simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Version_From);
             simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_InitialAdd_Version_To);
             simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_InitialAdd_VersionStatus);
-            simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_InitialAdd_TestData_ID);
             simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_TestData_ID_CHeck_TestData_ID);
             simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Update_Check_Name);
             simsig_USp_UPSERT_TVERSIONTest_TestAction.Conditions.Add(chk_Upsert_TVERSION_Update_Check_Description);
@@ -1215,7 +1231,7 @@ namespace GroundFrame.SQL.UnitTests
             // 
             chk_Upsert_TVERSION_Version_From.ColumnNumber = 4;
             chk_Upsert_TVERSION_Version_From.Enabled = true;
-            chk_Upsert_TVERSION_Version_From.ExpectedValue = "1.0";
+            chk_Upsert_TVERSION_Version_From.ExpectedValue = "1.0000";
             chk_Upsert_TVERSION_Version_From.Name = "chk_Upsert_TVERSION_Version_From";
             chk_Upsert_TVERSION_Version_From.NullExpected = false;
             chk_Upsert_TVERSION_Version_From.ResultSet = 4;
@@ -1240,16 +1256,6 @@ namespace GroundFrame.SQL.UnitTests
             chk_Upsert_TVERSION_InitialAdd_VersionStatus.NullExpected = false;
             chk_Upsert_TVERSION_InitialAdd_VersionStatus.ResultSet = 4;
             chk_Upsert_TVERSION_InitialAdd_VersionStatus.RowNumber = 1;
-            // 
-            // chk_Upsert_TVERSION_InitialAdd_TestData_ID
-            // 
-            chk_Upsert_TVERSION_InitialAdd_TestData_ID.ColumnNumber = 7;
-            chk_Upsert_TVERSION_InitialAdd_TestData_ID.Enabled = true;
-            chk_Upsert_TVERSION_InitialAdd_TestData_ID.ExpectedValue = null;
-            chk_Upsert_TVERSION_InitialAdd_TestData_ID.Name = "chk_Upsert_TVERSION_InitialAdd_TestData_ID";
-            chk_Upsert_TVERSION_InitialAdd_TestData_ID.NullExpected = true;
-            chk_Upsert_TVERSION_InitialAdd_TestData_ID.ResultSet = 4;
-            chk_Upsert_TVERSION_InitialAdd_TestData_ID.RowNumber = 1;
             // 
             // chk_Upsert_TVERSION_TestData_ID_CHeck_TestData_ID
             // 
@@ -1292,7 +1298,7 @@ namespace GroundFrame.SQL.UnitTests
             // 
             chk_Upsert_TVERSION_Update_Version_From.ColumnNumber = 3;
             chk_Upsert_TVERSION_Update_Version_From.Enabled = true;
-            chk_Upsert_TVERSION_Update_Version_From.ExpectedValue = "1.0";
+            chk_Upsert_TVERSION_Update_Version_From.ExpectedValue = "1.0000";
             chk_Upsert_TVERSION_Update_Version_From.Name = "chk_Upsert_TVERSION_Update_Version_From";
             chk_Upsert_TVERSION_Update_Version_From.NullExpected = false;
             chk_Upsert_TVERSION_Update_Version_From.ResultSet = 6;
@@ -1312,7 +1318,7 @@ namespace GroundFrame.SQL.UnitTests
             // 
             chk_Upsert_TVERSION_UpdateVersionCheck_Version_From.ColumnNumber = 1;
             chk_Upsert_TVERSION_UpdateVersionCheck_Version_From.Enabled = true;
-            chk_Upsert_TVERSION_UpdateVersionCheck_Version_From.ExpectedValue = "1.0";
+            chk_Upsert_TVERSION_UpdateVersionCheck_Version_From.ExpectedValue = "1.0000";
             chk_Upsert_TVERSION_UpdateVersionCheck_Version_From.Name = "chk_Upsert_TVERSION_UpdateVersionCheck_Version_From";
             chk_Upsert_TVERSION_UpdateVersionCheck_Version_From.NullExpected = false;
             chk_Upsert_TVERSION_UpdateVersionCheck_Version_From.ResultSet = 7;
@@ -1332,7 +1338,7 @@ namespace GroundFrame.SQL.UnitTests
             // 
             chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From.ColumnNumber = 1;
             chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From.Enabled = true;
-            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From.ExpectedValue = "1.0";
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From.ExpectedValue = "1.0000";
             chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From.Name = "chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From";
             chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From.NullExpected = false;
             chk_Upsert_TVERSION_Add2ndVersion_Check_Version_From.ResultSet = 8;
@@ -1342,7 +1348,7 @@ namespace GroundFrame.SQL.UnitTests
             // 
             chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To.ColumnNumber = 2;
             chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To.Enabled = true;
-            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To.ExpectedValue = "1.9";
+            chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To.ExpectedValue = "1.9900";
             chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To.Name = "chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To";
             chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To.NullExpected = false;
             chk_Upsert_TVERSION_Add2ndVersion_Check_Version_To.ResultSet = 8;
@@ -1352,7 +1358,7 @@ namespace GroundFrame.SQL.UnitTests
             // 
             chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From.ColumnNumber = 1;
             chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From.Enabled = true;
-            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From.ExpectedValue = "2.0";
+            chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From.ExpectedValue = "2.0000";
             chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From.Name = "chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From";
             chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From.NullExpected = false;
             chk_Upsert_TVERSION_Add2ndVersion_Check_NewVersion_From.ResultSet = 9;
@@ -2093,6 +2099,67 @@ namespace GroundFrame.SQL.UnitTests
             // 
             resources.ApplyResources(simsig_USp_UPSERT_TLOCATIONNODETest_PosttestAction, "simsig_USp_UPSERT_TLOCATIONNODETest_PosttestAction");
             // 
+            // simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction
+            // 
+            simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction.Conditions.Add(chk_Get_Sim_By_SimSigCode_NotLoggedInError);
+            simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction.Conditions.Add(chk_Get_Sim_By_SimSigCode_InvalidSimSigCode);
+            simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction.Conditions.Add(chk_Get_Sim_By_SimSigCode_RowCount);
+            simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction.Conditions.Add(chk_Get_Sim_By_SimSigCode_CheckDebugEvents);
+            simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction.Conditions.Add(chk_Get_Sim_By_SimSigCode_CheckSessionEvents);
+            resources.ApplyResources(simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction, "simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction");
+            // 
+            // chk_Get_Sim_By_SimSigCode_NotLoggedInError
+            // 
+            chk_Get_Sim_By_SimSigCode_NotLoggedInError.ColumnNumber = 1;
+            chk_Get_Sim_By_SimSigCode_NotLoggedInError.Enabled = true;
+            chk_Get_Sim_By_SimSigCode_NotLoggedInError.ExpectedValue = "The user is not logged in.";
+            chk_Get_Sim_By_SimSigCode_NotLoggedInError.Name = "chk_Get_Sim_By_SimSigCode_NotLoggedInError";
+            chk_Get_Sim_By_SimSigCode_NotLoggedInError.NullExpected = false;
+            chk_Get_Sim_By_SimSigCode_NotLoggedInError.ResultSet = 1;
+            chk_Get_Sim_By_SimSigCode_NotLoggedInError.RowNumber = 1;
+            // 
+            // chk_Get_Sim_By_SimSigCode_InvalidSimSigCode
+            // 
+            chk_Get_Sim_By_SimSigCode_InvalidSimSigCode.ColumnNumber = 1;
+            chk_Get_Sim_By_SimSigCode_InvalidSimSigCode.Enabled = true;
+            chk_Get_Sim_By_SimSigCode_InvalidSimSigCode.ExpectedValue = "You must supply a valid value for the @simsig_code parameter. It cannot be an emp" +
+                "ty string or NULL";
+            chk_Get_Sim_By_SimSigCode_InvalidSimSigCode.Name = "chk_Get_Sim_By_SimSigCode_InvalidSimSigCode";
+            chk_Get_Sim_By_SimSigCode_InvalidSimSigCode.NullExpected = false;
+            chk_Get_Sim_By_SimSigCode_InvalidSimSigCode.ResultSet = 2;
+            chk_Get_Sim_By_SimSigCode_InvalidSimSigCode.RowNumber = 1;
+            // 
+            // chk_Get_Sim_By_SimSigCode_RowCount
+            // 
+            chk_Get_Sim_By_SimSigCode_RowCount.Enabled = true;
+            chk_Get_Sim_By_SimSigCode_RowCount.Name = "chk_Get_Sim_By_SimSigCode_RowCount";
+            chk_Get_Sim_By_SimSigCode_RowCount.ResultSet = 3;
+            chk_Get_Sim_By_SimSigCode_RowCount.RowCount = 1;
+            // 
+            // chk_Get_Sim_By_SimSigCode_CheckDebugEvents
+            // 
+            chk_Get_Sim_By_SimSigCode_CheckDebugEvents.ColumnNumber = 1;
+            chk_Get_Sim_By_SimSigCode_CheckDebugEvents.Enabled = true;
+            chk_Get_Sim_By_SimSigCode_CheckDebugEvents.ExpectedValue = "true";
+            chk_Get_Sim_By_SimSigCode_CheckDebugEvents.Name = "chk_Get_Sim_By_SimSigCode_CheckDebugEvents";
+            chk_Get_Sim_By_SimSigCode_CheckDebugEvents.NullExpected = false;
+            chk_Get_Sim_By_SimSigCode_CheckDebugEvents.ResultSet = 5;
+            chk_Get_Sim_By_SimSigCode_CheckDebugEvents.RowNumber = 1;
+            // 
+            // chk_Get_Sim_By_SimSigCode_CheckSessionEvents
+            // 
+            chk_Get_Sim_By_SimSigCode_CheckSessionEvents.ColumnNumber = 1;
+            chk_Get_Sim_By_SimSigCode_CheckSessionEvents.Enabled = true;
+            chk_Get_Sim_By_SimSigCode_CheckSessionEvents.ExpectedValue = "true";
+            chk_Get_Sim_By_SimSigCode_CheckSessionEvents.Name = "chk_Get_Sim_By_SimSigCode_CheckSessionEvents";
+            chk_Get_Sim_By_SimSigCode_CheckSessionEvents.NullExpected = false;
+            chk_Get_Sim_By_SimSigCode_CheckSessionEvents.ResultSet = 7;
+            chk_Get_Sim_By_SimSigCode_CheckSessionEvents.RowNumber = 1;
+            // 
+            // simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_PosttestAction
+            // 
+            resources.ApplyResources(simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_PosttestAction, "simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_PosttestAction");
+            // 
             // simsig_USp_UPSERT_TSIMTestData
             // 
             this.simsig_USp_UPSERT_TSIMTestData.PosttestAction = simsig_USp_UPSERT_TSIMTest_PosttestAction;
@@ -2165,66 +2232,82 @@ namespace GroundFrame.SQL.UnitTests
             this.simsig_Usp_GET_TSIM_BY_SIMSIG_CODETestData.PretestAction = null;
             this.simsig_Usp_GET_TSIM_BY_SIMSIG_CODETestData.TestAction = simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction;
             // 
-            // simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction
+            // simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTestData
             // 
-            simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction.Conditions.Add(chk_Get_Sim_By_SimSigCode_NotLoggedInError);
-            simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction.Conditions.Add(chk_Get_Sim_By_SimSigCode_InvalidSimSigCode);
-            simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction.Conditions.Add(chk_Get_Sim_By_SimSigCode_RowCount);
-            simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction.Conditions.Add(chk_Get_Sim_By_SimSigCode_CheckDebugEvents);
-            simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction.Conditions.Add(chk_Get_Sim_By_SimSigCode_CheckSessionEvents);
-            resources.ApplyResources(simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction, "simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction");
+            this.simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTestData.PosttestAction = simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_PosttestAction;
+            this.simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTestData.PretestAction = null;
+            this.simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTestData.TestAction = simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_TestAction;
             // 
-            // chk_Get_Sim_By_SimSigCode_NotLoggedInError
+            // simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_TestAction
             // 
-            chk_Get_Sim_By_SimSigCode_NotLoggedInError.ColumnNumber = 1;
-            chk_Get_Sim_By_SimSigCode_NotLoggedInError.Enabled = true;
-            chk_Get_Sim_By_SimSigCode_NotLoggedInError.ExpectedValue = "The user is not logged in.";
-            chk_Get_Sim_By_SimSigCode_NotLoggedInError.Name = "chk_Get_Sim_By_SimSigCode_NotLoggedInError";
-            chk_Get_Sim_By_SimSigCode_NotLoggedInError.NullExpected = false;
-            chk_Get_Sim_By_SimSigCode_NotLoggedInError.ResultSet = 1;
-            chk_Get_Sim_By_SimSigCode_NotLoggedInError.RowNumber = 1;
+            simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_TestAction.Conditions.Add(chk_Usp_GET_VERSION_BY_NUMBER_Check_User_Not_Logged_In_Error);
+            simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_TestAction.Conditions.Add(chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_1);
+            simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_TestAction.Conditions.Add(chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_1);
+            simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_TestAction.Conditions.Add(chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_2);
+            simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_TestAction.Conditions.Add(chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_2);
+            simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_TestAction.Conditions.Add(chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug);
+            simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_TestAction.Conditions.Add(chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug_Session);
+            resources.ApplyResources(simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_TestAction, "simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_TestAction");
             // 
-            // chk_Get_Sim_By_SimSigCode_InvalidSimSigCode
+            // chk_Usp_GET_VERSION_BY_NUMBER_Check_User_Not_Logged_In_Error
             // 
-            chk_Get_Sim_By_SimSigCode_InvalidSimSigCode.ColumnNumber = 1;
-            chk_Get_Sim_By_SimSigCode_InvalidSimSigCode.Enabled = true;
-            chk_Get_Sim_By_SimSigCode_InvalidSimSigCode.ExpectedValue = "You must supply a valid value for the @simsig_code parameter. It cannot be an emp" +
-                "ty string or NULL";
-            chk_Get_Sim_By_SimSigCode_InvalidSimSigCode.Name = "chk_Get_Sim_By_SimSigCode_InvalidSimSigCode";
-            chk_Get_Sim_By_SimSigCode_InvalidSimSigCode.NullExpected = false;
-            chk_Get_Sim_By_SimSigCode_InvalidSimSigCode.ResultSet = 2;
-            chk_Get_Sim_By_SimSigCode_InvalidSimSigCode.RowNumber = 1;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_User_Not_Logged_In_Error.ColumnNumber = 1;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_User_Not_Logged_In_Error.Enabled = true;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_User_Not_Logged_In_Error.ExpectedValue = "The user is not logged in.";
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_User_Not_Logged_In_Error.Name = "chk_Usp_GET_VERSION_BY_NUMBER_Check_User_Not_Logged_In_Error";
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_User_Not_Logged_In_Error.NullExpected = false;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_User_Not_Logged_In_Error.ResultSet = 1;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_User_Not_Logged_In_Error.RowNumber = 1;
             // 
-            // chk_Get_Sim_By_SimSigCode_RowCount
+            // simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_PosttestAction
             // 
-            chk_Get_Sim_By_SimSigCode_RowCount.Enabled = true;
-            chk_Get_Sim_By_SimSigCode_RowCount.Name = "chk_Get_Sim_By_SimSigCode_RowCount";
-            chk_Get_Sim_By_SimSigCode_RowCount.ResultSet = 3;
-            chk_Get_Sim_By_SimSigCode_RowCount.RowCount = 1;
+            resources.ApplyResources(simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_PosttestAction, "simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_PosttestAction");
             // 
-            // chk_Get_Sim_By_SimSigCode_CheckDebugEvents
+            // chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_1
             // 
-            chk_Get_Sim_By_SimSigCode_CheckDebugEvents.ColumnNumber = 1;
-            chk_Get_Sim_By_SimSigCode_CheckDebugEvents.Enabled = true;
-            chk_Get_Sim_By_SimSigCode_CheckDebugEvents.ExpectedValue = "true";
-            chk_Get_Sim_By_SimSigCode_CheckDebugEvents.Name = "chk_Get_Sim_By_SimSigCode_CheckDebugEvents";
-            chk_Get_Sim_By_SimSigCode_CheckDebugEvents.NullExpected = false;
-            chk_Get_Sim_By_SimSigCode_CheckDebugEvents.ResultSet = 5;
-            chk_Get_Sim_By_SimSigCode_CheckDebugEvents.RowNumber = 1;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_1.Enabled = true;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_1.Name = "chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_1";
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_1.ResultSet = 2;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_1.RowCount = 1;
             // 
-            // chk_Get_Sim_By_SimSigCode_CheckSessionEvents
+            // chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_2
             // 
-            chk_Get_Sim_By_SimSigCode_CheckSessionEvents.ColumnNumber = 1;
-            chk_Get_Sim_By_SimSigCode_CheckSessionEvents.Enabled = true;
-            chk_Get_Sim_By_SimSigCode_CheckSessionEvents.ExpectedValue = "true";
-            chk_Get_Sim_By_SimSigCode_CheckSessionEvents.Name = "chk_Get_Sim_By_SimSigCode_CheckSessionEvents";
-            chk_Get_Sim_By_SimSigCode_CheckSessionEvents.NullExpected = false;
-            chk_Get_Sim_By_SimSigCode_CheckSessionEvents.ResultSet = 7;
-            chk_Get_Sim_By_SimSigCode_CheckSessionEvents.RowNumber = 1;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_2.Enabled = true;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_2.Name = "chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_2";
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_2.ResultSet = 3;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Row_Number_2.RowCount = 1;
             // 
-            // simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_PosttestAction
+            // chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_1
             // 
-            resources.ApplyResources(simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_PosttestAction, "simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_PosttestAction");
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_1.ColumnNumber = 4;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_1.Enabled = true;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_1.ExpectedValue = "1.0000";
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_1.Name = "chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_1";
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_1.NullExpected = false;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_1.ResultSet = 2;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_1.RowNumber = 1;
+            // 
+            // chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_2
+            // 
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_2.ColumnNumber = 4;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_2.Enabled = true;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_2.ExpectedValue = "2.000";
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_2.Name = "chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_2";
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_2.NullExpected = false;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_2.ResultSet = 3;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Version_Number_2.RowNumber = 1;
+            // 
+            // chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug
+            // 
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug.Enabled = true;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug.Name = "chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug";
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug.ResultSet = 5;
+            // 
+            // chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug_Session
+            // 
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug_Session.Enabled = true;
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug_Session.Name = "chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug_Session";
+            chk_Usp_GET_VERSION_BY_NUMBER_Check_Debug_Session.ResultSet = 7;
         }
 
         #endregion
@@ -2520,6 +2603,30 @@ namespace GroundFrame.SQL.UnitTests
                 SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
             }
         }
+        [TestMethod()]
+        public void simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest()
+        {
+            SqlDatabaseTestActions testActions = this.simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTestData;
+            // Execute the pre-test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
+            SqlExecutionResult[] pretestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PretestAction);
+            try
+            {
+                // Execute the test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.TestAction != null), "Executing test script...");
+                SqlExecutionResult[] testResults = TestService.Execute(this.ExecutionContext, this.PrivilegedContext, testActions.TestAction);
+            }
+            finally
+            {
+                // Execute the post-test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.PosttestAction != null), "Executing post-test script...");
+                SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
+            }
+        }
+
 
 
 
@@ -2544,5 +2651,6 @@ namespace GroundFrame.SQL.UnitTests
         private SqlDatabaseTestActions simsig_Usp_GET_TLOCATION_BY_SIMTestData;
         private SqlDatabaseTestActions simsig_USp_UPSERT_TLOCATIONNODETestData;
         private SqlDatabaseTestActions simsig_Usp_GET_TSIM_BY_SIMSIG_CODETestData;
+        private SqlDatabaseTestActions simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTestData;
     }
 }

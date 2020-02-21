@@ -16,8 +16,8 @@
 CREATE TABLE [simsig].[TVERSION]
 (
 	[id] SMALLINT NOT NULL IDENTITY,
-	[simsig_version_from] NUMERIC(4,1) NOT NULL,
-	[simsig_version_to] NUMERIC(4,1) NULL,
+	[simsig_version_from] NUMERIC(8,4) NOT NULL,
+	[simsig_version_to] NUMERIC(8,4) NULL,
 	[name] NVARCHAR(128) NOT NULL,
 	[description] NVARCHAR(2048) NULL,
 	[version_status_id] TINYINT NOT NULL,

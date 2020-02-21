@@ -24,6 +24,7 @@ namespace GroundFrame.Core.SimSig
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private string _Name; //Stores the Simulation Name
         private string _SimSigCode; //Stores the SimSig Code
+        private LocationCollection _Locations; //Stores the locations for the simulation
 
         #endregion Private Variables
 
@@ -53,6 +54,11 @@ namespace GroundFrame.Core.SimSig
         /// Gets the SimSig code for the Simulation
         /// </summary>
         public string SimSigCode { get { return this._SimSigCode; } }
+
+        /// <summary>
+        /// Gets the locations for the simulation
+        /// </summary>
+        public LocationCollection Locations { get { return this._Locations; } }
 
         #endregion Properties
 
@@ -177,6 +183,7 @@ namespace GroundFrame.Core.SimSig
         {
             this.SaveSimulationToSQLDB(null);
         }
+
         /// <summary>
         /// Saves the Simulation object to the GroundFrame.SQL database using the supplied DateTimeOffset
         /// </summary>
@@ -248,6 +255,9 @@ namespace GroundFrame.Core.SimSig
                     this.ParseSqlDataReader(DataReader);
                 }
 
+                //Now load the locations
+                this._Locations = new LocationCollection(this, this._SQLConnector);
+
             }
             catch (Exception Ex)
             {
@@ -280,6 +290,9 @@ namespace GroundFrame.Core.SimSig
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
         private void SaveSimulationToSQLDB(DateTimeOffset? CurrentDateTime = null)
         {
+            //Set flag to indicate whether the simulation is new.
+            bool NewSimulation = this._ID == 0 ? true : false;
+
             try
             {
                 //Open the Connection
@@ -300,6 +313,12 @@ namespace GroundFrame.Core.SimSig
                 Cmd.ExecuteNonQuery();
                 this._ID = Convert.ToInt32(Cmd.Parameters["@id"].Value);
 
+                //If new simulation then initialise new location collection
+                if (NewSimulation)
+                {
+                    this._Locations = new LocationCollection(this, this._SQLConnector);
+                }
+
             }
             catch (Exception Ex)
             {
@@ -310,6 +329,53 @@ namespace GroundFrame.Core.SimSig
                 this._SQLConnector.Close();
             }
          }
+
+        /// <summary>
+        /// Adds a location to the simulation location collection
+        /// </summary>
+        /// <param name="NewLocation">The location to add to the collection</param>
+        public void AddLocation(Location NewLocation)
+        {
+            this._Locations.Add(NewLocation);
+        }
+
+        /// <summary>
+        /// Gets a list of the era for the simulation
+        /// </summary>
+        /// <returns>A list of simulation eras</returns>
+        public List<SimulationEra> GetSimulationEras()
+        {
+            List<SimulationEra> Eras = new List<SimulationEra>();
+
+            try
+            {
+                //Open the Connection
+                this._SQLConnector.Open();
+                //Set Command
+                using SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.Usp_GET_TSIMERA_BY_SIM", CommandType.StoredProcedure);
+                //Add Parameters
+                Cmd.Parameters.Add(new SqlParameter("@sim_id", this.ID));
+
+                SqlDataReader DataReader = Cmd.ExecuteReader();
+
+                while (DataReader.Read())
+                {
+                    //Add Simulation Era
+                    Eras.Add(new SimulationEra(DataReader));
+                }
+
+                return Eras;
+
+            }
+            catch (Exception Ex)
+            {
+                throw new ApplicationException($"An error has occurred trying to get the Simulation Eras for Simulation {this._Name} from the GroundFrame.SQL database.", Ex);
+            }
+            finally
+            {
+                this._SQLConnector.Close();
+            }
+        }
 
         /// <summary>
         /// Disposes the Simulation object

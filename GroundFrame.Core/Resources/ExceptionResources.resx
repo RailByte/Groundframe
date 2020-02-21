@@ -204,6 +204,9 @@
   <data name="InvalidUserSettingsArgument" xml:space="preserve">
     <value>The UserSettings argument cannot be &lt;NULL&gt;</value>
   </data>
+  <data name="InvalidVersionNumberArgument" xml:space="preserve">
+    <value>The version number cannot be less than zero</value>
+  </data>
   <data name="InvalidWTTStartDateArgument" xml:space="preserve">
     <value>The WTT Start Date cannot be before 01/01/1850</value>
   </data>
@@ -276,6 +279,12 @@
   <data name="QueuerGenericFailureMessage" xml:space="preserve">
     <value>An error has occured trying to complete the task.</value>
   </data>
+  <data name="QueuerGetTemplateSimEraFromGroundFrameSQLDB" xml:space="preserve">
+    <value>As error has occured trying to retrieve the template era for {0} from the GroundFrame.SQL databae</value>
+  </data>
+  <data name="QueuerGetVersionFromGroundFrameSQLDB" xml:space="preserve">
+    <value>An error has occured trying to retrieve version {0} from the GroundFrame.SQL database</value>
+  </data>
   <data name="QueuerLoadWTTFromFileError" xml:space="preserve">
     <value>An Error has occured trying to read the WTT File {0}</value>
   </data>
@@ -284,6 +293,12 @@
   </data>
   <data name="RetieveAllSimsError" xml:space="preserve">
     <value>An error has occurred trying to retrieve all Simulation records from the GroundFrame.SQL database</value>
+  </data>
+  <data name="RetrieveLocationMapperError" xml:space="preserve">
+    <value>An error has occurred trying to build the Location Mapper from TimeTable {0}</value>
+  </data>
+  <data name="RetrieveLocationNodeMapperError" xml:space="preserve">
+    <value>An error has occurred trying to build the Location Node Mapper from TimeTable {0}</value>
   </data>
   <data name="RetrieveLocationZeroIDError" xml:space="preserve">
     <value>You cannot delete a Simulation from the GroundFrame.SQL Database when the ID is zero</value>

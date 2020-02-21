@@ -25,7 +25,7 @@ namespace GroundFrame.Core
         /// <param name="Environment">The environment to connect to</param>
         /// <returns>Returns a GFSqlConnector object connected to the GroundFrame.SQL.database</returns>
         /// <remarks>The server and database name of the GroundFrame.SQL database is configured in the groundframe.config.json file supplied with the calling application</remarks>
-        internal static GFSqlConnector GetGFSqlConnector(string AppAPIKey, string AppUserAPIKey, string Environment)
+        public static GFSqlConnector GetGFSqlConnector(string AppAPIKey, string AppUserAPIKey, string Environment)
         {
             IConfigurationRoot config = GetConfig(Environment);
             string SQLServer = config["gfSqlServer"];
@@ -41,7 +41,7 @@ namespace GroundFrame.Core
         /// <returns>Returns a GFMongoConnector object connected to the GroundFrame.MongoDB database</returns>
         /// <remarks>The server and database name of the GroundFrame.SQL database is configured in the groundframe.config.json file with the calling application</remarks>
 
-        internal static GFMongoConnector GetGFMongoConnector(string Environment)
+        public static GFMongoConnector GetGFMongoConnector(string Environment)
         {
             IConfigurationRoot config = GetConfig(Environment);
             string MongoDBServer = config["gfMongoServer"];

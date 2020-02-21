@@ -17,7 +17,7 @@ CREATE PROCEDURE [simsig].[USp_UPSERT_TVERSION]
 	@id SMALLINT = 0 OUTPUT,
 	@name NVARCHAR(128),
 	@description NVARCHAR(2048),
-	@version NUMERIC(4,1),
+	@version NUMERIC(8,4),
 	@version_status_id TINYINT,
 	@debug BIT = 0,
 	@debug_session_id UNIQUEIDENTIFIER = NULL OUTPUT
@@ -154,7 +154,7 @@ BEGIN
 
 		IF @previous_id != 0 AND (SELECT COUNT(*) FROM [simsig].[TVERSION] WHERE ([testdata_id] = @testdata_id OR @testdata_id IS NULL)) > 0
 		BEGIN
-			DECLARE @previous_version NUMERIC(4,1) = (SELECT [simsig_version_from] FROM [simsig].[TVERSION] WHERE [id] = @previous_id);
+			DECLARE @previous_version NUMERIC(8,4) = (SELECT [simsig_version_from] FROM [simsig].[TVERSION] WHERE [id] = @previous_id);
 
 			IF @version <= @previous_version
 			BEGIN
@@ -179,7 +179,7 @@ BEGIN
 			IF @previous_id != 0
 			BEGIN
 				UPDATE [simsig].[TVERSION]
-				SET [simsig_version_to] = (@version - 0.1)
+				SET [simsig_version_to] = (@version - 0.01)
 				WHERE
 					[id] = @previous_id;
 			END

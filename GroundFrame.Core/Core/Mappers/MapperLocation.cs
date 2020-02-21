@@ -14,6 +14,10 @@ namespace GroundFrame.Core
 
         #region Private Variables
 
+        private GroundFrame.Core.SimSig.Location _Location; //Private variable to store the saved location
+
+        #region Properties
+
         /// <summary>
         /// Gets or sets the location name
         /// </summary>
@@ -29,15 +33,35 @@ namespace GroundFrame.Core
         /// </summary>
         public bool IsEntryPoint { get; set; }
 
+        /// <summary>
+        /// Gets the location created by the Mapper in the target simulation
+        /// </summary>
+        public GroundFrame.Core.SimSig.Location Location { get { return this._Location; } }
+
         #endregion Private Variabls
 
-        #region Properties
         #endregion Properties
 
         #region Constructors
         #endregion Constructors
 
         #region Methods
+
+        /// <summary>
+        /// Creates the mapped location in the Target Simulation
+        /// </summary>
+        /// <param name="SQLConnector">The target simulation where the location should be created</param>
+        /// <param name="TargetSimulation">A GFSqlConnector object connected to the GroundFrame.SQL database</param>
+        public void CreateLocation(ref GroundFrame.Core.SimSig.Simulation TargetSimulation, GFSqlConnector SQLConnector)
+        {
+            //Validate Arguments
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
+            GroundFrame.Core.SimSig.Location NewLocation = new SimSig.Location(TargetSimulation, this.Name, null, this.SimSigCode, this.IsEntryPoint, SimSig.SimSigLocationType.Unknown, SQLConnector);
+            NewLocation.SaveToSQLDB();
+            TargetSimulation.AddLocation(NewLocation);
+            NewLocation.Dispose();
+        }
+
         #endregion Methods
     }
 

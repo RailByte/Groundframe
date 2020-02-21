@@ -58,6 +58,16 @@ namespace GroundFrame.Core.SimSig
         #endregion Constructors
 
         #region Methods
+
+        /// <summary>
+        /// Adds a location to the location collection
+        /// </summary>
+        /// <param name="NewLocation"></param>
+        public void Add(Location NewLocation)
+        {
+            this._Locations.Add(NewLocation);
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();

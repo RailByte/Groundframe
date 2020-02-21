@@ -29,12 +29,19 @@ namespace GroundFrame.Core.Queuer
         #region Private Variables
 
         private ExtendedList<QueuerResponse> _Responses; //Private variable to store the list of responses the exection makes
-        private Simulation _Simulation; //Private variable to store the simulation to be seeded
-        private WTT _TimeTable; //Prvate variable to store the timetable
         private readonly string _JSON; //Private variable to the store config JSON
         private readonly GFSqlConnector _SQLConnector; //Private variable to the store GroundFrame.SQL connector
         private readonly IConfigurationRoot _Config; //Private variable to the config
         private readonly bool _Authenticated; //Private variable to indicate whether the user was authenticated at the point of queue
+
+        //Task specific variables
+
+        private Simulation _Simulation; //Private variable to store the simulation to be seeded
+        private WTT _TimeTable; //Prvate variable to store the timetable
+        List<MapperLocation> _LocationMapper = new List<MapperLocation>(); //Private variable to store the Location Mapper for the WTT
+        List<MapperLocationNode> _LocationNodeMapper = new List<MapperLocationNode>(); //Private variable to store the Location Node Mapper fro the WTT
+        SimulationEra _TemplateSimEra; //Private variable to store the default simulation era
+        SimSig.Version _Version; //Private variable to store the latest version
 
         #endregion Private Variables
 
@@ -119,13 +126,17 @@ namespace GroundFrame.Core.Queuer
                     if (finished == SourceWTT)
                     {
                         if (DebugMode)this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed build the WTT object from the source WTT file", null));
-                        Console.WriteLine($"{DateTime.UtcNow.ToShortTimeString()} Reading WTT Complete");
+#if DEBUG
+                        Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- Completed reading WTT");
+#endif
                         this._TimeTable = SourceWTT.Result;
                     }
                     else if (finished == SimulationExists)
                     {
                         if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed checking if the simulation already exists inthe GroundFrame.SQL database", null));
-                        Console.WriteLine($"{DateTime.UtcNow.ToShortTimeString()} Checking Sim Exists");
+#if DEBUG
+                        Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- Completed checking whether the sim Exists");
+#endif
                     }
                     allTasks.Remove(finished);
                 }
@@ -134,13 +145,20 @@ namespace GroundFrame.Core.Queuer
                 if (SimulationExists.Result == true)
                 {
                     this._Responses.Add(new QueuerResponse(QueuerResponseStatus.CompletedWithWarning, "processSimulationAlreadyExists", null));
+#if DEBUG
+                    Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- The simulation already exists so the process is stopped");
+#endif
                     return QueuerResponseStatus.CompletedWithWarning;
-                } else
+                } 
+                else
                 {
                     try
                     {
                         this._Simulation.SaveToSQLDB();
                         if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, $"Simulation saved to the GroundFrame.SQL database. ID = {this._Simulation.ID}.", null));
+#if DEBUG
+                        Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- Simulation saved to GroundFrame.SQL database");
+#endif
                     }
                     catch (Exception Ex)
                     {
@@ -148,8 +166,61 @@ namespace GroundFrame.Core.Queuer
                     }
                 }
 
-                Task<MapperLocation> GetLocations = this._TimeTable.TimeTables.GetMapperLocations();
+                //Build the next stage of the task by setting the individual lasts
+                Task<List<MapperLocation>> GetLocationMapperTask = this.GetLocationMapperFromWTT(); //Gets the location mapper list from the WTT
+                Task<List<MapperLocationNode>> GetLocationNodeMapperTask = this.GetLocationNodeMappperFromWTT(); //Gets the location node mapper list from the WTT
+                Task<SimSig.Version> SimVersionTask = this.GetSimSigVersion(); //Gets SimSig version requested from the GroundFrame.SQL database
+                Task<SimSig.SimulationEra> TemplateSimEraTask = this.GetSimTemplateEra(); //Gets the era template for the simulation
 
+                //Build All List task
+                allTasks = new List<Task> { GetLocationMapperTask, GetLocationNodeMapperTask, SimVersionTask, TemplateSimEraTask };
+
+                //Wait for the tasks to finish
+                while (allTasks.Any())
+                {
+                    Task finished = await Task.WhenAny(allTasks).ConfigureAwait(false);
+                    if (finished == GetLocationMapperTask)
+                    {
+                        if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed getting the Location Mapper from the source WTT", null));
+#if DEBUG
+                        Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- Completed getting Location Mapper");
+#endif
+                        _LocationMapper = GetLocationMapperTask.Result;
+                    }
+                    else if (finished == GetLocationNodeMapperTask)
+                    {
+                        if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed getting the Location Node Mapper from the source WTT", null));
+#if DEBUG
+                        Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- Completed getting Location Node Mapper");
+#endif
+                        _LocationNodeMapper = GetLocationNodeMapperTask.Result;
+                    }
+                    else if (finished == SimVersionTask)
+                    {
+                        if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed getting the Simulation version from the GroundFrame.SQL database", null));
+#if DEBUG
+                        Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- Completed getting SimSig version");
+#endif
+                        _Version = SimVersionTask.Result;
+                    }
+                    else if (finished == TemplateSimEraTask)
+                    {
+                        if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed getting the Simulation template era from the GroundFrame.SQL database", null));
+#if DEBUG
+                        Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- Completed getting the template era");
+#endif
+                        _TemplateSimEra = TemplateSimEraTask.Result;
+                    }
+                    allTasks.Remove(finished);
+                }
+
+                //Next create the locations in the GroundFrame.SQL database
+                await CreateLocationsFromMap().ConfigureAwait(false);
+
+                if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed create the locations in the GroundFrame.SQL database", null));
+#if DEBUG
+                Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- The Simulation contains {this._Simulation.Locations.Count} location(s).");
+#endif
 
                 this._Responses.Add(new QueuerResponse(QueuerResponseStatus.Success, "processSuccess", null));
                 return QueuerResponseStatus.Success;
@@ -176,6 +247,92 @@ namespace GroundFrame.Core.Queuer
             }
         }
 
+        /// <summary>
+        /// Creates a location in the simulation from each MapperLocation object in the LocationMapper list. The new location is availabile in the Location property of the MapperLocation object once created
+        /// </summary>
+        /// <returns></returns>
+        private async Task CreateLocationsFromMap()
+        {
+            await Task.Run(() =>
+            {
+                foreach (MapperLocation MappedLoc in this._LocationMapper)
+                {
+                    MappedLoc.CreateLocation(ref this._Simulation, this._SQLConnector);
+                }
+            }).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Find and returns a location from the LocationMapper list where the SimSig code matches the requested code
+        /// </summary>
+        /// <param name="SimSigCode">SimSig code for the requested location</param>
+        /// <returns>A location object for the supplied SimSig code</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "SimSig codes are always in en-GB")]
+        private Location GetLocationFromMapperBySimSigCode(string SimSigCode)
+        {
+            return this._LocationMapper.Find(x => x.Location.SimSigCode.ToLower() == SimSigCode.ToLower()).Location;
+        }
+
+        private async Task CreateLocationNodesFromMap()
+        {
+            await Task.Run(() =>
+            {
+                foreach (MapperLocationNode MappedLocNode in this._LocationNodeMapper)
+                {
+                    //Get the location
+                    Location NodeLocation = GetLocationFromMapperBySimSigCode(MappedLocNode.SimSigCode);
+                    //Build new LocationNode
+                    //TODO: Build the new location node
+                }
+            }).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Async task to get the latest simulation version in the system
+        /// </summary>
+        /// <returns>A Task result containing the loaded WTT file</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "The culture is set in the ExceptionHelper.GetStaticExceptio overload")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "The version number will always be in en-GB culture")]
+        private async Task<SimSig.Version> GetSimSigVersion()
+        {
+            decimal VersionNumber = 0M;
+            JObject TaskConfig;
+
+            try
+            {
+                TaskConfig = JObject.Parse(this._JSON);
+                VersionNumber = Convert.ToDecimal(TaskConfig["version"]);
+                SimSig.Version SimSigVersion = new SimSig.Version(this._SQLConnector);
+                await Task.Run(() => { SimSigVersion.GetFromSQLDBByVersionNumber(VersionNumber); }).ConfigureAwait(false);
+
+                return SimSigVersion;
+            }
+            catch (Exception Ex)
+            {
+                throw new Exception(ExceptionHelper.GetStaticException("QueuerGetVersionFromGroundFrameSQLDB", new object[] { VersionNumber }), Ex);
+            }
+        }
+
+        /// <summary>
+        /// Async task to get the template era for the simulation
+        /// </summary>
+        /// <returns>A Task result containing the loaded WTT file</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "The culture is set in the ExceptionHelper.GetStaticExceptio overload")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "The version number will always be in en-GB culture")]
+        private async Task<SimulationEra> GetSimTemplateEra()
+        {
+            try
+            {
+                List<SimSig.SimulationEra> SimEras = null;
+                await Task.Run(() => { SimEras = this._Simulation.GetSimulationEras(); }).ConfigureAwait(false);
+
+                return SimEras.Find(x => x.Type == EraType.Template);
+            }
+            catch (Exception Ex)
+            {
+                throw new Exception(ExceptionHelper.GetStaticException("QueuerGetTemplateSimEraFromGroundFrameSQLDB", new object[] { this._Simulation.Name }), Ex);
+            }
+        }
 
         /// <summary>
         /// Async task to load the WTT file into a WTT object
@@ -201,6 +358,7 @@ namespace GroundFrame.Core.Queuer
                 throw new Exception(ExceptionHelper.GetStaticException("QueuerLoadWTTFromFileError", new object[] { WTTFile }), Ex);
             }
         }
+
         /// <summary>
         /// Async task to check to see whether the timetable exists
         /// </summary>
@@ -220,6 +378,11 @@ namespace GroundFrame.Core.Queuer
             }
         }
 
+        /// <summary>
+        /// Async task to get the Location Mapper from the TimeTable
+        /// </summary>
+        /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "The culture is set in the ExceptionHelper.GetStaticException overload")]
         private async Task<List<MapperLocation>> GetLocationMapperFromWTT()
         {
             try
@@ -230,7 +393,26 @@ namespace GroundFrame.Core.Queuer
             }
             catch (Exception Ex)
             {
-                throw new Exception(ExceptionHelper.GetStaticException("QueuerCheckWTTExistsError", new object[] { this._Simulation.Name }), Ex);
+                throw new Exception(ExceptionHelper.GetStaticException("RetrieveLocationMapperError", new object[] { this._Simulation.Name }), Ex);
+            }
+        }
+
+        /// <summary>
+        /// Async task to get the Location Node Mapper from the TimeTable
+        /// </summary>
+        /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "The culture is set in the ExceptionHelper.GetStaticException overload")]
+        private async Task<List<MapperLocationNode>> GetLocationNodeMappperFromWTT()
+        {
+            try
+            {
+                List<MapperLocationNode> WTTLocationNodeMapper = null;
+                await Task.Run(() => { WTTLocationNodeMapper = this._TimeTable.TimeTables.GetMapperLocationNodes(); }).ConfigureAwait(false);
+                return WTTLocationNodeMapper;
+            }
+            catch (Exception Ex)
+            {
+                throw new Exception(ExceptionHelper.GetStaticException("RetrieveLocationNodeMapperError", new object[] { this._Simulation.Name }), Ex);
             }
         }
 
@@ -266,6 +448,7 @@ namespace GroundFrame.Core.Queuer
             if (disposing == true)
             {
                 this._SQLConnector.Dispose();
+                this._Simulation.Dispose();
             }
             else
             {
@@ -273,6 +456,6 @@ namespace GroundFrame.Core.Queuer
             }
         }
 
-        #endregion Methods
+#endregion Methods
     }
 }

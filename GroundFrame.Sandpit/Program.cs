@@ -10,6 +10,12 @@ namespace GroundFrame.Sandpit
         {
             Console.WriteLine("Hello World!");
             QueuerProcess Test = null;
+
+            GroundFrame.Core.GFSqlConnector SQL = GroundFrame.Core.Globals.GetGFSqlConnector("testappAPIKEY", "testadminuserAPIKEY", "localhost");
+
+            GroundFrame.Core.SimSig.Version Version = new Core.SimSig.Version("Version 4.15", "The current default version", 4.15M , SQL);
+            Version.SaveToSQLDB();
+
             try
             {
                 string ConfigJSON = File.ReadAllText(@"C:\Users\timca\Desktop\GF.json");

@@ -150,6 +150,7 @@
     <None Include="Scripts\Post Deployment\Data Population\Script.Populate app.TSETTING.sql" />
     <Build Include="Stored Procedures\app\app.Usp_GET_USER_SETTINGS.sql" />
     <Build Include="Stored Procedures\simsig\simsig.Usp_GET_TSIM_BY_SIMSIG_CODE.sql" />
+    <Build Include="Stored Procedures\simsig\simsig.Usp_GET_TVERSION_BY_VERSION_NUMBER.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\140\SqlSchemas\master.dacpac">

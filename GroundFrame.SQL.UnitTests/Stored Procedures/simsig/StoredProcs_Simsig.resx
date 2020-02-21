@@ -1000,7 +1000,9 @@ SELECT
 	[error_message] = @error_message;</value>
   </data>
   <data name="simsig_USp_UPSERT_TVERSIONTest_TestAction.SqlScript" xml:space="preserve">
-    <value>-- database unit test for simsig.USp_UPSERT_TVERSION
+    <value>eXEC common.Usp_CLEAR_SESSIONCONTEXT;
+
+-- database unit test for simsig.USp_UPSERT_TVERSION
 DECLARE	@id AS SMALLINT, 
 		@name AS NVARCHAR (128),
 		@description AS NVARCHAR (2048),
@@ -1014,6 +1016,11 @@ SELECT @name = 'Test Version 1 Name',
        @version = 1.0,
        @version_status_id = 2,
        @debug = 0;
+
+	--TestData ID
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_UPSERT_TVERSIONTest', @testdata_id = @testdata_id OUTPUT;
 
 --Other Variables
 
@@ -1037,7 +1044,7 @@ SELECT
 
 SET @error_message = N'No Error Thrown';
 
-EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY'
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY', @testdata_id = @testdata_id
 
 BEGIN TRY
 	EXEC [simsig].[USp_UPSERT_TVERSION] @id OUTPUT, @name, @description, @version, @version_status_id, @debug, @debug_session_id OUTPUT;
@@ -1055,7 +1062,7 @@ SELECT
 
 SET @error_message = N'No Error Thrown';
 
-EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'teststandarduserAPIKEY'
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'teststandarduserAPIKEY', @testdata_id = @testdata_id
 
 BEGIN TRY
 	EXEC [simsig].[USp_UPSERT_TVERSION] @id OUTPUT, @name, @description, @version, @version_status_id, @debug, @debug_session_id OUTPUT;
@@ -1073,7 +1080,7 @@ SELECT
 
 SET @error_message = N'No Error Thrown';
 
-EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testadminuserAPIKEY'
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testadminuserAPIKEY', @testdata_id = @testdata_id
 
 EXEC [simsig].[USp_UPSERT_TVERSION] @id OUTPUT, @name, @description, @version, @version_status_id, @debug, @debug_session_id OUTPUT;
 
@@ -1096,11 +1103,6 @@ WHERE
 DELETE FROM [simsig].[TVERSION]
 WHERE
 	[id] = @id;
-
---TestData ID
-
-DECLARE @testdata_id UNIQUEIDENTIFIER;
-EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_UPSERT_TVERSIONTest', @testdata_id = @testdata_id OUTPUT;
 
 --Set Variables
 SET @id = 0; --Reset ID;
@@ -1237,7 +1239,8 @@ END CATCH
 --Result Set 11
 
 SELECT 
-	[error_message] = @error_message;</value>
+	[error_message] = @error_message;
+</value>
   </data>
   <data name="simsig_USp_UPSERT_TVERSIONTest_PosttestAction.SqlScript" xml:space="preserve">
     <value>--Teardown Data
@@ -2218,20 +2221,6 @@ DELETE FROM [simsig].[TVERSION]
 WHERE
 	[testdata_id] = @testdata_id;</value>
   </data>
-  <data name="simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_PosttestAction.SqlScript" xml:space="preserve">
-    <value>--Teardown Data
-
-DECLARE @testdata_id UNIQUEIDENTIFIER;
-EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest', @testdata_id = @testdata_id OUTPUT;
-
-DELETE FROM [simsig].[TSIMERA]
-WHERE
-	[testdata_id] = @testdata_id;
-
-DELETE FROM [simsig].[TSIM]
-WHERE
-	[testdata_id] = @testdata_id;</value>
-  </data>
   <data name="simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_TestAction.SqlScript" xml:space="preserve">
     <value>
 
@@ -2347,6 +2336,142 @@ SELECT
 FROM [audit].[TEVENT]
 WHERE
 	[debug_session_id] = @expected_debug_session_id;</value>
+  </data>
+  <data name="simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>--Teardown Data
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_GET_TSIM_BY_SIMSIG_CODETest', @testdata_id = @testdata_id OUTPUT;
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[testdata_id] = @testdata_id;</value>
+  </data>
+  <data name="simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>-- Get TestData ID;
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest', @testdata_id = @testdata_id OUTPUT;
+
+--Teardown Records
+
+DELETE FROM [simsig].[TVERSION]
+WHERE
+	[testdata_id] = @testdata_id;</value>
+  </data>
+  <data name="simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for simsig.USp_GET_TVERSION
+DECLARE @version_number NUMERIC(8,4) = 1.5, @debug AS BIT = NULL, @debug_session_id AS UNIQUEIDENTIFIER = NULL, @testdata_id UNIQUEIDENTIFIER;
+
+-- Get TestData ID;
+
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest', @testdata_id = @testdata_id OUTPUT;
+
+--Create some test data
+
+INSERT INTO [simsig].[TVERSION]
+(
+	[simsig_version_from],
+	[simsig_version_to],
+	[name],
+	[description],
+	[version_status_id],
+	[testdata_id]
+)
+VALUES
+(
+	1.0,
+	1.9,
+	N'Test Get By Number Version Name 1',
+	N'Test Get By Number Version Desc 1',
+	1,
+	@testdata_id
+)
+
+INSERT INTO [simsig].[TVERSION]
+(
+	[simsig_version_from],
+	[simsig_version_to],
+	[name],
+	[description],
+	[version_status_id],
+	[testdata_id]
+)
+VALUES
+(
+	2.0,
+	NULL,
+	N'Test Get By Number Version Name 2',
+	N'Test Get By Number Version Desc 2',
+	2,
+	@testdata_id
+)
+
+--Other Variables
+
+DECLARE @error_message NVARCHAR(248);
+
+--Check being not logged in raises an error
+
+BEGIN TRY
+	EXECUTE  [simsig].[Usp_GET_TVERSION_BY_VERSION_NUMBER] @version_number = @version_number, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 1
+
+SELECT
+	[error_message] = @error_message;
+
+--Log in Editor.
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testuserAPIKEY', @testdata_id = @testdata_id;
+
+--Check 1 Record is returned when specific ID (First Record) passed and check values.
+
+--Result Set 2
+
+EXEC [simsig].[Usp_GET_TVERSION_BY_VERSION_NUMBER] @version_number = @version_number, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+sET @version_number = 3.0;
+
+--Check 3 Ensure getting open version returns correct record
+
+--Result Set3
+
+EXEC [simsig].[Usp_GET_TVERSION_BY_VERSION_NUMBER] @version_number = @version_number, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+SET @debug = 1
+
+--Check 4 Check debug writes records
+
+EXEC [simsig].[Usp_GET_TVERSION_BY_VERSION_NUMBER] @version_number = @version_number, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+--Result Set 5
+
+SELECT
+	*
+FROM audit.TEVENT
+WHERE
+	debug_session_id = @debug_session_id;
+
+--Check 5 Check Debugging With Session ID
+
+SET @debug_session_id = NEWID();
+
+EXEC [simsig].[Usp_GET_TVERSION_BY_VERSION_NUMBER] @version_number = @version_number, @debug = @debug, @debug_session_id = @debug_session_id OUTPUT;
+
+SELECT
+	*
+FROM audit.TEVENT
+WHERE
+	debug_session_id = @debug_session_id;</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

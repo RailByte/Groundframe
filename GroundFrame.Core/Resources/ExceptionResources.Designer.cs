@@ -322,6 +322,15 @@ namespace GroundFrame.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The version number cannot be less than zero.
+        /// </summary>
+        internal static string InvalidVersionNumberArgument {
+            get {
+                return ResourceManager.GetString("InvalidVersionNumberArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The WTT Start Date cannot be before 01/01/1850.
         /// </summary>
         internal static string InvalidWTTStartDateArgument {
@@ -538,6 +547,24 @@ namespace GroundFrame.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to As error has occured trying to retrieve the template era for {0} from the GroundFrame.SQL databae.
+        /// </summary>
+        internal static string QueuerGetTemplateSimEraFromGroundFrameSQLDB {
+            get {
+                return ResourceManager.GetString("QueuerGetTemplateSimEraFromGroundFrameSQLDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occured trying to retrieve version {0} from the GroundFrame.SQL database.
+        /// </summary>
+        internal static string QueuerGetVersionFromGroundFrameSQLDB {
+            get {
+                return ResourceManager.GetString("QueuerGetVersionFromGroundFrameSQLDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An Error has occured trying to read the WTT File {0}.
         /// </summary>
         internal static string QueuerLoadWTTFromFileError {
@@ -561,6 +588,24 @@ namespace GroundFrame.Core.Resources {
         internal static string RetieveAllSimsError {
             get {
                 return ResourceManager.GetString("RetieveAllSimsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occurred trying to build the Location Mapper from TimeTable {0}.
+        /// </summary>
+        internal static string RetrieveLocationMapperError {
+            get {
+                return ResourceManager.GetString("RetrieveLocationMapperError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occurred trying to build the Location Node Mapper from TimeTable {0}.
+        /// </summary>
+        internal static string RetrieveLocationNodeMapperError {
+            get {
+                return ResourceManager.GetString("RetrieveLocationNodeMapperError", resourceCulture);
             }
         }
         

@@ -15,6 +15,22 @@ namespace GroundFrame.Core
     internal static class ArgumentValidation
     {
         /// <summary>
+        /// Validates the a version number
+        /// </summary>
+        /// <param name="VersionNumber">The version number to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
+        internal static void ValidateVersionNumber(decimal VersionNumber, CultureInfo Culture)
+        {
+            ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Core.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
+
+            if (VersionNumber<0)
+            {
+
+                throw new ArgumentOutOfRangeException(ExceptionMessageResources.GetString("InvalidVersionNumberArgument", Culture));
+            }
+        }
+
+        /// <summary>
         /// Validates the Half Minute Character as a string argument
         /// </summary>
         /// <param name="HalfMinuteCharacter">The half minute character to validate</param>

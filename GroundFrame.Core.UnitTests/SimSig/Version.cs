@@ -108,7 +108,30 @@ namespace GroundFrame.Core.UnitTests.SimSig
 
             //Refresh Initial
             TestVersion.RefreshFromDB();
-            Assert.Equal((decimal)3.9, TestVersion.VersionTo);
+            Assert.Equal((decimal)3.9900, TestVersion.VersionTo);
+        }
+
+        /// <summary>
+        /// Checks that passing the GroundFrame.SQL ID of a location it gets correctly instantiated into the object
+        /// </summary>
+        [Fact]
+        public void Version_Constructor_CheckVersionNumber()
+        {
+            //Create versions
+            Core.SimSig.Version TestVersion1 = new Core.SimSig.Version("Test Version Name 4", "Test Version Description 4", 1.0000M, this._SQLConnection);
+            TestVersion1.SaveToSQLDB();
+            Core.SimSig.Version TestVersion2 = new Core.SimSig.Version("Test Version Name 5", "Test Version Description 5", 2.0000M, this._SQLConnection);
+            TestVersion2.SaveToSQLDB();
+
+            decimal VersionNumber1 = 1.5M;
+            Core.SimSig.Version TestVersionNumber1 = new Core.SimSig.Version(VersionNumber1, this._SQLConnection);
+            Assert.Equal("Test Version Name 4", TestVersionNumber1.Name);
+            decimal VersionNumber2 = 3M;
+            Core.SimSig.Version TestVersionNumber2 = new Core.SimSig.Version(VersionNumber2, this._SQLConnection);
+            Assert.Equal("Test Version Name 5", TestVersionNumber2.Name);
+            decimal VersionNumber3 = 0M;
+            Core.SimSig.Version TestVersionNumber3 = new Core.SimSig.Version(VersionNumber3, this._SQLConnection);
+            Assert.Null(TestVersionNumber3.Name);
         }
 
         #endregion Methods
