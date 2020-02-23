@@ -73,6 +73,18 @@ BEGIN
 	BEGIN TRAN TRAN_DELETESIM
 
 	BEGIN TRY
+		DELETE FROM [simsig].[TLOCATIONNODE]
+		WHERE
+			[sim_id] = @id;
+
+		DELETE FROM [simsig].[TLOCATION]
+		WHERE
+			[sim_id] = @id;
+
+		DELETE FROM [simsig].[TSIMERA]
+		WHERE
+			[sim_id] = @id;
+
 		DELETE FROM [simsig].[TSIMERA]
 		WHERE
 			[sim_id] = @id;

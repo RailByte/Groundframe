@@ -8,9 +8,9 @@ using System.Text;
 namespace GroundFrame.Core.SimSig
 {
      /// <summary>
-     /// A class representing a location with in SimSig simulation
+     /// A class representing a location node with in SimSig simulation
      /// </summary>
-    public class Location : IDisposable
+    public class LocationNode : IDisposable
     {
         #region Constants
         #endregion Constants

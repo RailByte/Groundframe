@@ -248,7 +248,7 @@ namespace GroundFrame.Core.Queuer
         }
 
         /// <summary>
-        /// Creates a location in the simulation from each MapperLocation object in the LocationMapper list. The new location is availabile in the Location property of the MapperLocation object once created
+        /// Creates a location in the simulation from each MapperLocation object in the LocationMapper list. The new location is available in the Location property of the MapperLocation object once created
         /// </summary>
         /// <returns></returns>
         private async Task CreateLocationsFromMap()
