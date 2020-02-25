@@ -68,6 +68,15 @@ namespace GroundFrame.Core.SimSig
             this._Locations.Add(NewLocation);
         }
 
+        /// <summary>
+        /// Finds a location which matches the search predicate
+        /// </summary>
+        /// <param name="match">The search predicate</param>
+        public Location Find(Predicate<Location> match)
+        {
+            return this._Locations.Find(match);
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();

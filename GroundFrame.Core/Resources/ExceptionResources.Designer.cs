@@ -70,6 +70,33 @@ namespace GroundFrame.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Location must be saved against the Simulation in the GroundFrame.SQL database before a Location Node can be created.
+        /// </summary>
+        internal static string CreateLocationNodeInvalidLocationError {
+            get {
+                return ResourceManager.GetString("CreateLocationNodeInvalidLocationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Simulation Era must be saved against the Simulation in the GroundFrame.SQL database before a Location Node can be created.
+        /// </summary>
+        internal static string CreateLocationNodeInvalidSimEraError {
+            get {
+                return ResourceManager.GetString("CreateLocationNodeInvalidSimEraError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Simulation must be saved to the GroundFrame.SQL database before a Location Node can be created.
+        /// </summary>
+        internal static string CreateLocationNodeUnsavedSimError {
+            get {
+                return ResourceManager.GetString("CreateLocationNodeUnsavedSimError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Simulation must be saved to the GroundFrame.SQL database before a Location can be created.
         /// </summary>
         internal static string CreateLocationUnsavedSimError {
@@ -318,6 +345,15 @@ namespace GroundFrame.Core.Resources {
         internal static string InvalidUserSettingsArgument {
             get {
                 return ResourceManager.GetString("InvalidUserSettingsArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Version cannot be &lt;NULL&gt;.
+        /// </summary>
+        internal static string InvalidVersionArgument {
+            get {
+                return ResourceManager.GetString("InvalidVersionArgument", resourceCulture);
             }
         }
         

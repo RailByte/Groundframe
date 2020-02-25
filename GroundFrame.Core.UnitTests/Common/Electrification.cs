@@ -44,5 +44,35 @@ namespace GroundFrame.Core.UnitTests.TimeTable.Common
         {
             Assert.Throws<ArgumentException>(() => new GroundFrame.Core.Electrification(SimSigCode));
         }
+
+        /// <summary>
+        /// Checks that calling the BitWise property returns the correct value
+        /// </summary>
+        /// <param name="SimSigCode"></param>
+        [Theory]
+        [InlineData("D", 1)]
+        [InlineData("DO", 3)]
+        [InlineData("DO3", 7)]
+        public void Electrification_Property_BitWise(string SimSigCode, int BitWise)
+        {
+            GroundFrame.Core.Electrification TestElectrification = new GroundFrame.Core.Electrification(SimSigCode);
+            Assert.Equal(BitWise, TestElectrification.BitWise);
+        }
+
+        /// <summary>
+        /// Checks that calling the BitWise parses to the correct flags
+        /// </summary>
+        /// <param name="SimSigCode"></param>
+        [Theory]
+        [InlineData(1, true, false, false)]
+        [InlineData(7, true, true, true)]
+        [InlineData(5, true, false, true)]
+        public void Electrification_Constructor_BitWise(int BitWise, bool Diesel, bool OverHead, bool ThirdRail)
+        {
+            GroundFrame.Core.Electrification TestElectrification = new GroundFrame.Core.Electrification((ElectrificationBitValue)BitWise);
+            Assert.Equal(Diesel, TestElectrification.Diesel);
+            Assert.Equal(OverHead, TestElectrification.Overhead);
+            Assert.Equal(ThirdRail, TestElectrification.ThirdRail);
+        }
     }
 }

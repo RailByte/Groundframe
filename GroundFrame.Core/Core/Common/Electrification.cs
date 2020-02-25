@@ -7,6 +7,57 @@ using System.Text;
 namespace GroundFrame.Core
 {
     /// <summary>
+    /// An enum representing the electrification bit values used in the Electrifiction object bitwise property
+    /// </summary>
+    public enum ElectrificationBitValue
+    {
+        /// <summary>
+        /// The default value
+        /// </summary>
+        Unknown = 0,
+        /// <summary>
+        /// Diesel traction type
+        /// </summary>
+        Diesel = 1,
+        /// <summary>
+        /// Overhead 25Kv traction type
+        /// </summary>
+        Overhead = 2,
+        /// <summary>
+        /// Third Rail 750V DC traction type
+        /// </summary>
+        ThirdRail = 4,
+        /// <summary>
+        /// Fourth Rail 650V DC traction type
+        /// </summary>
+        FourthRail = 8,
+        /// <summary>
+        /// Overhead DC traction type
+        /// </summary>
+        OverheadDC = 16,
+        /// <summary>
+        /// Tramway traction type
+        /// </summary>
+        Tramway = 32,
+        /// <summary>
+        /// Spare 1
+        /// </summary>
+        Sim1 = 64,
+        /// <summary>
+        /// Spare 2
+        /// </summary>
+        Sim2 = 128,
+        /// <summary>
+        /// Spare 3
+        /// </summary>
+        Sim3 = 256,
+        /// <summary>
+        /// Spare 4
+        /// </summary>
+        Sim4 = 1024
+    }
+
+    /// <summary>
     /// An object representing the SimSig Electrification options
     /// </summary>
     public class Electrification
@@ -70,6 +121,11 @@ namespace GroundFrame.Core
         /// Gets or sets the Sim 4 electrification flag
         /// </summary>
         public bool Sim4 { get; set; }
+        
+        /// <summary>
+        /// Gets the bit wise value for the selected electrification options
+        /// </summary>
+        public int BitWise { get { return (int)this.GetBitWise(); } }
 
         #endregion Properties
 
@@ -83,6 +139,14 @@ namespace GroundFrame.Core
         {
         }
 
+        /// <summary>
+        /// Instantiates an Electrification object from the supplied BitWise value
+        /// </summary>
+        /// <param name="BitWise"></param>
+        public Electrification(ElectrificationBitValue BitWise)
+        {
+            this.ParseBitWise(BitWise);
+        }
 
         /// <summary>
         /// Instantiates a WTTElectrification object from the supplied SimSig code
@@ -160,7 +224,7 @@ namespace GroundFrame.Core
 
             if (Code.IndexOf("D", StringComparison.OrdinalIgnoreCase) >= 0)
             {
-                Overhead = true;
+                Diesel = true;
                 HasMatch = true;
                 CharactersParsed++;
                 Code = Code.Replace("D", "", true, Culture);
@@ -209,6 +273,46 @@ namespace GroundFrame.Core
             {
                 throw new ArgumentException(ExceptionHelper.GetStaticException("InvalidSimSigCodeError", null, Culture));
             }
+        }
+
+        /// <summary>
+        /// Calculutes the bit wise value fro the selected electrification options
+        /// </summary>
+        /// <returns></returns>
+        private ElectrificationBitValue GetBitWise()
+        {
+            ElectrificationBitValue ReturnValue = ElectrificationBitValue.Unknown;
+
+            if (this.Diesel) ReturnValue += (int)ElectrificationBitValue.Diesel;
+            if (this.Overhead) ReturnValue += (int)ElectrificationBitValue.Overhead;
+            if (this.ThirdRail) ReturnValue += (int)ElectrificationBitValue.ThirdRail;
+            if (this.FourthRail) ReturnValue += (int)ElectrificationBitValue.FourthRail;
+            if (this.OverheadDC) ReturnValue += (int)ElectrificationBitValue.OverheadDC;
+            if (this.Tramway) ReturnValue += (int)ElectrificationBitValue.Tramway;
+            if (this.Sim1) ReturnValue += (int)ElectrificationBitValue.Sim1;
+            if (this.Sim2) ReturnValue += (int)ElectrificationBitValue.Sim2;
+            if (this.Sim3) ReturnValue += (int)ElectrificationBitValue.Sim3;
+            if (this.Sim4) ReturnValue += (int)ElectrificationBitValue.Sim4;
+
+            return ReturnValue;
+        }
+
+        /// <summary>
+        /// Parse a BitWise value into the electrification flags
+        /// </summary>
+        /// <returns></returns>
+        private void ParseBitWise(ElectrificationBitValue BitWise)
+        {
+            this.Diesel = (BitWise & ElectrificationBitValue.Diesel) == ElectrificationBitValue.Diesel;
+            this.Overhead = (BitWise & ElectrificationBitValue.Overhead) == ElectrificationBitValue.Overhead;
+            this.ThirdRail = (BitWise & ElectrificationBitValue.ThirdRail) == ElectrificationBitValue.ThirdRail;
+            this.FourthRail = (BitWise & ElectrificationBitValue.FourthRail) == ElectrificationBitValue.FourthRail;
+            this.OverheadDC = (BitWise & ElectrificationBitValue.OverheadDC) == ElectrificationBitValue.OverheadDC;
+            this.Tramway = (BitWise & ElectrificationBitValue.Tramway) == ElectrificationBitValue.Tramway;
+            this.Sim1 = (BitWise & ElectrificationBitValue.Sim1) == ElectrificationBitValue.Sim1;
+            this.Sim2 = (BitWise & ElectrificationBitValue.Sim2) == ElectrificationBitValue.Sim2;
+            this.Sim3 = (BitWise & ElectrificationBitValue.Sim3) == ElectrificationBitValue.Sim3;
+            this.Sim4 = (BitWise & ElectrificationBitValue.Sim4) == ElectrificationBitValue.Sim4;
         }
 
         #endregion Methods

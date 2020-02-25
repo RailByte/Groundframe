@@ -313,5 +313,20 @@ namespace GroundFrame.Core
                 throw new ArgumentException(ExceptionMessageResources.GetString("InvalidSimulationArgument", Culture));
             }
         }
+
+        /// <summary>
+        /// Validates the Version argument
+        /// </summary>
+        /// <param name="Version">The Version to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
+        internal static void ValidateVersion(SimSig.Version Version, CultureInfo Culture)
+        {
+            ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Core.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
+
+            if (Version == null)
+            {
+                throw new ArgumentException(ExceptionMessageResources.GetString("InvalidSimulationArgument", Culture));
+            }
+        }
     }
 }

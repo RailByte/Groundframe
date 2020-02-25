@@ -120,6 +120,15 @@
   <data name="CannotConnectGFSQLDb" xml:space="preserve">
     <value>Cannot connect to GroundFrame Microsoft SQL Database</value>
   </data>
+  <data name="CreateLocationNodeInvalidLocationError" xml:space="preserve">
+    <value>The Location must be saved against the Simulation in the GroundFrame.SQL database before a Location Node can be created</value>
+  </data>
+  <data name="CreateLocationNodeInvalidSimEraError" xml:space="preserve">
+    <value>The Simulation Era must be saved against the Simulation in the GroundFrame.SQL database before a Location Node can be created</value>
+  </data>
+  <data name="CreateLocationNodeUnsavedSimError" xml:space="preserve">
+    <value>The Simulation must be saved to the GroundFrame.SQL database before a Location Node can be created</value>
+  </data>
   <data name="CreateLocationUnsavedSimError" xml:space="preserve">
     <value>The Simulation must be saved to the GroundFrame.SQL database before a Location can be created</value>
   </data>
@@ -203,6 +212,9 @@
   </data>
   <data name="InvalidUserSettingsArgument" xml:space="preserve">
     <value>The UserSettings argument cannot be &lt;NULL&gt;</value>
+  </data>
+  <data name="InvalidVersionArgument" xml:space="preserve">
+    <value>The Version cannot be &lt;NULL&gt;</value>
   </data>
   <data name="InvalidVersionNumberArgument" xml:space="preserve">
     <value>The version number cannot be less than zero</value>

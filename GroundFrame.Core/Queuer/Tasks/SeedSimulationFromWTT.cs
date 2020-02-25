@@ -232,7 +232,7 @@ namespace GroundFrame.Core.Queuer
 
                 foreach (Exception Inner in Ex.InnerExceptions)
                 {
-                    this._Responses.Add(new QueuerResponse(QueuerResponseStatus.CompletedWithWarning, ExceptionMessage, Inner));
+                    this._Responses.Add(new QueuerResponse(QueuerResponseStatus.Failed, ExceptionMessage, Inner));
                 }
 
                 return QueuerResponseStatus.Failed;
@@ -242,7 +242,7 @@ namespace GroundFrame.Core.Queuer
             {
                 ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Core.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
                 string ExceptionMessage = ExceptionMessageResources.GetString("QueuerGenericFailureMessage", Globals.UserSettings.GetCultureInfo());
-                this._Responses.Add(new QueuerResponse(QueuerResponseStatus.CompletedWithWarning, ExceptionMessage, Ex));
+                this._Responses.Add(new QueuerResponse(QueuerResponseStatus.Failed, ExceptionMessage, Ex));
                 return QueuerResponseStatus.Failed;
             }
         }

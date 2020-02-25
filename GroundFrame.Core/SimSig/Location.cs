@@ -204,7 +204,6 @@ namespace GroundFrame.Core.SimSig
                 Cmd.Parameters.Add(new SqlParameter("@id", this.ID));
                 SqlDataReader DataReader = Cmd.ExecuteReader();
 
-
                 while (DataReader.Read())
                 {
                     //Parse the DataReader into the version object
@@ -214,7 +213,7 @@ namespace GroundFrame.Core.SimSig
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException($"An error has occurred trying to retrieve Simuation Record ID {this.ID} from the GroundFrame.SQL database.", Ex);
+                throw new ApplicationException($"An error has occurred trying to retrieve Location Record ID {this.ID} from the GroundFrame.SQL database.", Ex);
             }
             finally
             {

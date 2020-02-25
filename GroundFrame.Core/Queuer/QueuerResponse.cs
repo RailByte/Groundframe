@@ -48,6 +48,12 @@ namespace GroundFrame.Core.Queuer
         [JsonIgnore]
         public Exception ResponseException { get { return this._ResponseException; } }
 
+        /// <summary>
+        /// Gets the exception message in the case of an error
+        /// </summary>
+        [JsonProperty("responseExceptionMessage")]
+        public string ResponseExceptionMessage { get { return this._ResponseException == null ? string.Empty : this.ResponseException.BuildExceptionMessage(); } }
+
         #endregion Properties
 
         #region Constructors
@@ -62,7 +68,7 @@ namespace GroundFrame.Core.Queuer
         {
             this._ResponseDateTime = DateTime.UtcNow;
             this._Status = Status;
-            this._ResponseMessage = Status == QueuerResponseStatus.DebugMesssage ? ResponseKey : GetResponseMessage(ResponseKey);
+            this._ResponseMessage = Status == QueuerResponseStatus.DebugMesssage || Status == QueuerResponseStatus.Failed ? ResponseKey : GetResponseMessage(ResponseKey);
             this._ResponseException = Ex;
         }
 
@@ -72,7 +78,7 @@ namespace GroundFrame.Core.Queuer
         {
             this._ResponseDateTime = ResponseDateTime;
             this._Status = Status;
-            this._ResponseMessage = Status == QueuerResponseStatus.DebugMesssage ? ResponseKey : GetResponseMessage(ResponseKey);
+            this._ResponseMessage = Status == QueuerResponseStatus.DebugMesssage || Status == QueuerResponseStatus.Failed ? ResponseKey : GetResponseMessage(ResponseKey);
         }
 
         /// <summary>

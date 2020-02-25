@@ -201,7 +201,7 @@ BEGIN
 				@tiploc,
 				@simsig_code,
 				@simsig_entry_point,
-				@location_type_id,
+				ISNULL(@location_type_id,0),
 				@datetime,
 				@app_user_id,
 				@app_id,
@@ -247,7 +247,7 @@ BEGIN
 				[name] = NULLIF(@name,''),
 				[simsig_code] = @simsig_code,
 				[simsig_entry_point] = @simsig_entry_point,
-				[location_type_id] = @location_type_id,
+				[location_type_id] = ISNULL(@location_type_id,0),
 				[modifiedon] = @datetime,
 				[modifiedby_id] = @app_user_id,
 				[modifiedby_app_id] = @app_id

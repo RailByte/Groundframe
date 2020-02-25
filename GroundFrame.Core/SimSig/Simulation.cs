@@ -277,9 +277,9 @@ namespace GroundFrame.Core.SimSig
         {
             this._ID = DataReader.GetInt16(DataReader.GetOrdinal("id"));
             this._Name = DataReader.GetString(DataReader.GetOrdinal("name"));
-            this.Description = DataReader.GetString(DataReader.GetOrdinal("description"));
+            this.Description = DataReader.GetNullableString("description");
             this._SimSigCode = DataReader.GetString(DataReader.GetOrdinal("simsig_code"));
-            this.SimSigWikiLink = DataReader.GetString(DataReader.GetOrdinal("simsig_wiki_link"));
+            this.SimSigWikiLink = DataReader.GetNullableString("simsig_wiki_link");
         }
 
 

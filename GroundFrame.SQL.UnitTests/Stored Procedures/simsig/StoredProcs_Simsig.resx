@@ -1933,8 +1933,8 @@ INSERT INTO [simsig].[TSIM]
 )
 VALUES
 (
-	N'Upsert TLOCATIONNOTE Sim Name 1',
-	N'Upsert TLOCATIONNOTE Sim Desc 1',
+	N'Upsert TLOCATIONNODE Sim Name 1',
+	N'Upsert TLOCATIONNODE Sim Desc 1',
 	N'UPSTLOCNOTECode1',
 	NULL,
 	2,
@@ -1959,8 +1959,8 @@ INSERT INTO [simsig].[TSIMERA]
 VALUES
 (
 	@sim_id,
-	N'Upsert TLOCATIONNOTE Sim Name 1',
-	N'Upsert TLOCATIONNOTE Sim Desc 1',
+	N'Upsert TLOCATIONNODE Sim Name 1',
+	N'Upsert TLOCATIONNODE Sim Desc 1',
 	2,
 	@testdata_id
 );
@@ -1982,8 +1982,8 @@ VALUES
 (
 	1.0,
 	NULL,
-	N'Upsert TLOCATIONNOTE Name 1',
-	N'Upsert TLOCATIONNOTE Desc 1',
+	N'Upsert TLOCATIONNODE Name 1',
+	N'Upsert TLOCATIONNODE Desc 1',
 	2,
 	@testdata_id
 );
@@ -2011,7 +2011,7 @@ VALUES
 (
 	@sim_id,
 	NULL,
-	N'Upsert TLOCATIONNOTE Name 1',
+	N'Upsert TLOCATIONNODE Name 1',
 	N'UPSTLOCNOTECode1',
 	1,
 	@testdata_id,
@@ -2351,18 +2351,6 @@ DELETE FROM [simsig].[TSIM]
 WHERE
 	[testdata_id] = @testdata_id;</value>
   </data>
-  <data name="simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_PosttestAction.SqlScript" xml:space="preserve">
-    <value>-- Get TestData ID;
-
-DECLARE @testdata_id UNIQUEIDENTIFIER;
-EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest', @testdata_id = @testdata_id OUTPUT;
-
---Teardown Records
-
-DELETE FROM [simsig].[TVERSION]
-WHERE
-	[testdata_id] = @testdata_id;</value>
-  </data>
   <data name="simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_TestAction.SqlScript" xml:space="preserve">
     <value>-- database unit test for simsig.USp_GET_TVERSION
 DECLARE @version_number NUMERIC(8,4) = 1.5, @debug AS BIT = NULL, @debug_session_id AS UNIQUEIDENTIFIER = NULL, @testdata_id UNIQUEIDENTIFIER;
@@ -2472,6 +2460,448 @@ SELECT
 FROM audit.TEVENT
 WHERE
 	debug_session_id = @debug_session_id;</value>
+  </data>
+  <data name="simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>-- Get TestData ID;
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTest', @testdata_id = @testdata_id OUTPUT;
+
+--Teardown Records
+
+DELETE FROM [simsig].[TVERSION]
+WHERE
+	[testdata_id] = @testdata_id;</value>
+  </data>
+  <metadata name="chk_Usp_GET_TLOCATIONNODE_CheckDebug_CheckSchema.Configuration" xml:space="preserve">
+    <value>Press to configure</value>
+  </metadata>
+  <data name="chk_Usp_GET_TLOCATIONNODE_CheckDebug_CheckSchema.Schema" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAE5TeXN0ZW0uRGF0YSwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJl
+        PW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAABNTeXN0ZW0uRGF0YS5E
+        YXRhU2V0AwAAABdEYXRhU2V0LlJlbW90aW5nVmVyc2lvbglYbWxTY2hlbWELWG1sRGlmZkdyYW0DAQEO
+        U3lzdGVtLlZlcnNpb24CAAAACQMAAAAGBAAAAM9dPD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0i
+        dXRmLTE2Ij8+DQo8eHM6c2NoZW1hIGlkPSJOZXdEYXRhU2V0IiB4bWxucz0iIiB4bWxuczp4cz0iaHR0
+        cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOm1zZGF0YT0idXJuOnNjaGVtYXMtbWlj
+        cm9zb2Z0LWNvbTp4bWwtbXNkYXRhIj4NCiAgPHhzOmVsZW1lbnQgbmFtZT0iTmV3RGF0YVNldCIgbXNk
+        YXRhOklzRGF0YVNldD0idHJ1ZSIgbXNkYXRhOkxvY2FsZT0iZW4tR0IiPg0KICAgIDx4czpjb21wbGV4
+        VHlwZT4NCiAgICAgIDx4czpjaG9pY2UgbWluT2NjdXJzPSIwIiBtYXhPY2N1cnM9InVuYm91bmRlZCI+
+        DQogICAgICAgIDx4czplbGVtZW50IG5hbWU9IlRhYmxlIj4NCiAgICAgICAgICA8eHM6Y29tcGxleFR5
+        cGU+DQogICAgICAgICAgICA8eHM6c2VxdWVuY2U+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5h
+        bWU9ImVycm9yX21lc3NhZ2UiIHR5cGU9InhzOnN0cmluZyIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0i
+        IiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICAgICAgICA8L3hzOnNlcXVlbmNlPg0KICAgICAgICAgIDwv
+        eHM6Y29tcGxleFR5cGU+DQogICAgICAgIDwveHM6ZWxlbWVudD4NCiAgICAgICAgPHhzOmVsZW1lbnQg
+        bmFtZT0iVGFibGUxIj4NCiAgICAgICAgICA8eHM6Y29tcGxleFR5cGU+DQogICAgICAgICAgICA8eHM6
+        c2VxdWVuY2U+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9ImlkIiB0eXBlPSJ4czppbnQi
+        IG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8
+        eHM6ZWxlbWVudCBuYW1lPSJzaW1faWQiIHR5cGU9InhzOnNob3J0IiBtc2RhdGE6dGFyZ2V0TmFtZXNw
+        YWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0ic2lt
+        X25hbWUiIHR5cGU9InhzOnN0cmluZyIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9
+        IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9Im5hbWUiIHR5cGU9InhzOnN0cmlu
+        ZyIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICAgICAgICAg
+        IDx4czplbGVtZW50IG5hbWU9InRpcGxvYyIgdHlwZT0ieHM6c3RyaW5nIiBtc2RhdGE6dGFyZ2V0TmFt
+        ZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0i
+        bG9jYXRpb25faWQiIHR5cGU9InhzOmludCIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1
+        cnM9IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9InNpbXNpZ19jb2RlIiB0eXBl
+        PSJ4czpzdHJpbmciIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAg
+        ICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJzaW1zaWdfZW50cnlfcG9pbnQiIHR5cGU9InhzOmJv
+        b2xlYW4iIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAg
+        ICAgICA8eHM6ZWxlbWVudCBuYW1lPSJzaW1zaWdfcGxhdGZvcm1fY29kZSIgdHlwZT0ieHM6c3RyaW5n
+        IiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAg
+        PHhzOmVsZW1lbnQgbmFtZT0ic2ltc2lnX2xpbmUiIHR5cGU9InhzOnN0cmluZyIgbXNkYXRhOnRhcmdl
+        dE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5h
+        bWU9InNpbXNpZ19wYXRoIiB0eXBlPSJ4czpzdHJpbmciIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIg
+        bWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJzaW1zaWdfZWxl
+        Y19iaXRtYXAiIHR5cGU9InhzOnVuc2lnbmVkQnl0ZSIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBt
+        aW5PY2N1cnM9IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9ImZyZWlnaHRfb25s
+        eSIgdHlwZT0ieHM6Ym9vbGVhbiIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAi
+        IC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9Imxlbmd0aCIgdHlwZT0ieHM6c2hvcnQi
+        IG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8
+        eHM6ZWxlbWVudCBuYW1lPSJsb2NhdGlvbl90eXBlX2lkIiB0eXBlPSJ4czp1bnNpZ25lZEJ5dGUiIG1z
+        ZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6
+        ZWxlbWVudCBuYW1lPSJsb2NhdGlvbl90eXBlIiB0eXBlPSJ4czpzdHJpbmciIG1zZGF0YTp0YXJnZXRO
+        YW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1l
+        PSJzaW1lcmFfaWQiIHR5cGU9InhzOnNob3J0IiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9j
+        Y3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0idmVyc2lvbl9pZCIgdHlw
+        ZT0ieHM6c2hvcnQiIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAg
+        ICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJjcmVhdGVkYnlfaWQiIHR5cGU9InhzOnNob3J0IiBt
+        c2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhz
+        OmVsZW1lbnQgbmFtZT0iY3JlYXRlZF9ieV91c2VybmFtZSIgdHlwZT0ieHM6c3RyaW5nIiBtc2RhdGE6
+        dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1l
+        bnQgbmFtZT0iY3JlYXRlZG9uIiBtc2RhdGE6RGF0YVR5cGU9IlN5c3RlbS5EYXRlVGltZU9mZnNldCIg
+        dHlwZT0ieHM6YW55VHlwZSIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+
+        DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9ImNyZWF0ZWRfYnlfYXBwIiB0eXBlPSJ4czpz
+        dHJpbmciIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAg
+        ICAgICA8eHM6ZWxlbWVudCBuYW1lPSJtb2RpZmllZGJ5X2lkIiB0eXBlPSJ4czpzaG9ydCIgbXNkYXRh
+        OnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVt
+        ZW50IG5hbWU9Im1vZGlmaWVkX2J5X3VzZXJuYW1lIiB0eXBlPSJ4czpzdHJpbmciIG1zZGF0YTp0YXJn
+        ZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBu
+        YW1lPSJtb2RpZmllZG9uIiBtc2RhdGE6RGF0YVR5cGU9IlN5c3RlbS5EYXRlVGltZU9mZnNldCIgdHlw
+        ZT0ieHM6YW55VHlwZSIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+DQog
+        ICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9Im1vZGlmaWVkX2J5X2FwcCIgdHlwZT0ieHM6c3Ry
+        aW5nIiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAg
+        IDwveHM6c2VxdWVuY2U+DQogICAgICAgICAgPC94czpjb21wbGV4VHlwZT4NCiAgICAgICAgPC94czpl
+        bGVtZW50Pg0KICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJUYWJsZTIiPg0KICAgICAgICAgIDx4czpj
+        b21wbGV4VHlwZT4NCiAgICAgICAgICAgIDx4czpzZXF1ZW5jZT4NCiAgICAgICAgICAgICAgPHhzOmVs
+        ZW1lbnQgbmFtZT0iaWQiIHR5cGU9InhzOmludCIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5P
+        Y2N1cnM9IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9InNpbV9pZCIgdHlwZT0i
+        eHM6c2hvcnQiIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAg
+        ICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJzaW1fbmFtZSIgdHlwZT0ieHM6c3RyaW5nIiBtc2RhdGE6
+        dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1l
+        bnQgbmFtZT0ibmFtZSIgdHlwZT0ieHM6c3RyaW5nIiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1p
+        bk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0idGlwbG9jIiB0eXBl
+        PSJ4czpzdHJpbmciIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAg
+        ICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJsb2NhdGlvbl9pZCIgdHlwZT0ieHM6aW50IiBtc2Rh
+        dGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVs
+        ZW1lbnQgbmFtZT0ic2ltc2lnX2NvZGUiIHR5cGU9InhzOnN0cmluZyIgbXNkYXRhOnRhcmdldE5hbWVz
+        cGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9InNp
+        bXNpZ19lbnRyeV9wb2ludCIgdHlwZT0ieHM6Ym9vbGVhbiIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0i
+        IiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9InNpbXNpZ19w
+        bGF0Zm9ybV9jb2RlIiB0eXBlPSJ4czpzdHJpbmciIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWlu
+        T2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJzaW1zaWdfbGluZSIg
+        dHlwZT0ieHM6c3RyaW5nIiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4N
+        CiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0ic2ltc2lnX3BhdGgiIHR5cGU9InhzOnN0cmlu
+        ZyIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICAgICAgICAg
+        IDx4czplbGVtZW50IG5hbWU9InNpbXNpZ19lbGVjX2JpdG1hcCIgdHlwZT0ieHM6dW5zaWduZWRCeXRl
+        IiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAg
+        PHhzOmVsZW1lbnQgbmFtZT0iZnJlaWdodF9vbmx5IiB0eXBlPSJ4czpib29sZWFuIiBtc2RhdGE6dGFy
+        Z2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQg
+        bmFtZT0ibGVuZ3RoIiB0eXBlPSJ4czpzaG9ydCIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5P
+        Y2N1cnM9IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9ImxvY2F0aW9uX3R5cGVf
+        aWQiIHR5cGU9InhzOnVuc2lnbmVkQnl0ZSIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1
+        cnM9IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9ImxvY2F0aW9uX3R5cGUiIHR5
+        cGU9InhzOnN0cmluZyIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+DQog
+        ICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9InNpbWVyYV9pZCIgdHlwZT0ieHM6c2hvcnQiIG1z
+        ZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6
+        ZWxlbWVudCBuYW1lPSJ2ZXJzaW9uX2lkIiB0eXBlPSJ4czpzaG9ydCIgbXNkYXRhOnRhcmdldE5hbWVz
+        cGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9ImNy
+        ZWF0ZWRieV9pZCIgdHlwZT0ieHM6c2hvcnQiIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2Nj
+        dXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJjcmVhdGVkX2J5X3VzZXJu
+        YW1lIiB0eXBlPSJ4czpzdHJpbmciIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIw
+        IiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJjcmVhdGVkb24iIG1zZGF0YTpEYXRh
+        VHlwZT0iU3lzdGVtLkRhdGVUaW1lT2Zmc2V0IiB0eXBlPSJ4czphbnlUeXBlIiBtc2RhdGE6dGFyZ2V0
+        TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFt
+        ZT0iY3JlYXRlZF9ieV9hcHAiIHR5cGU9InhzOnN0cmluZyIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0i
+        IiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9Im1vZGlmaWVk
+        YnlfaWQiIHR5cGU9InhzOnNob3J0IiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0i
+        MCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0ibW9kaWZpZWRfYnlfdXNlcm5hbWUi
+        IHR5cGU9InhzOnN0cmluZyIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+
+        DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9Im1vZGlmaWVkb24iIG1zZGF0YTpEYXRhVHlw
+        ZT0iU3lzdGVtLkRhdGVUaW1lT2Zmc2V0IiB0eXBlPSJ4czphbnlUeXBlIiBtc2RhdGE6dGFyZ2V0TmFt
+        ZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0i
+        bW9kaWZpZWRfYnlfYXBwIiB0eXBlPSJ4czpzdHJpbmciIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIg
+        bWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgPC94czpzZXF1ZW5jZT4NCiAgICAgICAgICA8L3hz
+        OmNvbXBsZXhUeXBlPg0KICAgICAgICA8L3hzOmVsZW1lbnQ+DQogICAgICAgIDx4czplbGVtZW50IG5h
+        bWU9IlRhYmxlMyI+DQogICAgICAgICAgPHhzOmNvbXBsZXhUeXBlPg0KICAgICAgICAgICAgPHhzOnNl
+        cXVlbmNlPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJpZCIgdHlwZT0ieHM6aW50IiBt
+        c2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhz
+        OmVsZW1lbnQgbmFtZT0iZGVidWdfc2Vzc2lvbl9pZCIgbXNkYXRhOkRhdGFUeXBlPSJTeXN0ZW0uR3Vp
+        ZCwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tl
+        bj1iNzdhNWM1NjE5MzRlMDg5IiB0eXBlPSJ4czpzdHJpbmciIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9
+        IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJldmVudF9k
+        YXRldGltZSIgdHlwZT0ieHM6ZGF0ZVRpbWUiIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2Nj
+        dXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJzb3VyY2Vfb2JqZWN0X2lk
+        IiB0eXBlPSJ4czppbnQiIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0K
+        ICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJldmVudCIgdHlwZT0ieHM6c3RyaW5nIiBtc2Rh
+        dGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVs
+        ZW1lbnQgbmFtZT0iZGJfdXNlciIgdHlwZT0ieHM6c3RyaW5nIiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNl
+        PSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0iYXBwX2lk
+        IiB0eXBlPSJ4czpzaG9ydCIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+
+        DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9ImFwcF91c2VyX2lkIiB0eXBlPSJ4czppbnQi
+        IG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgPC94
+        czpzZXF1ZW5jZT4NCiAgICAgICAgICA8L3hzOmNvbXBsZXhUeXBlPg0KICAgICAgICA8L3hzOmVsZW1l
+        bnQ+DQogICAgICAgIDx4czplbGVtZW50IG5hbWU9IlRhYmxlNCI+DQogICAgICAgICAgPHhzOmNvbXBs
+        ZXhUeXBlPg0KICAgICAgICAgICAgPHhzOnNlcXVlbmNlPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVu
+        dCBuYW1lPSJpZCIgdHlwZT0ieHM6aW50IiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vy
+        cz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0ic2ltX2lkIiB0eXBlPSJ4czpz
+        aG9ydCIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICAgICAg
+        ICAgIDx4czplbGVtZW50IG5hbWU9InNpbV9uYW1lIiB0eXBlPSJ4czpzdHJpbmciIG1zZGF0YTp0YXJn
+        ZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBu
+        YW1lPSJuYW1lIiB0eXBlPSJ4czpzdHJpbmciIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2Nj
+        dXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJ0aXBsb2MiIHR5cGU9Inhz
+        OnN0cmluZyIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICAg
+        ICAgICAgIDx4czplbGVtZW50IG5hbWU9ImxvY2F0aW9uX2lkIiB0eXBlPSJ4czppbnQiIG1zZGF0YTp0
+        YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVu
+        dCBuYW1lPSJzaW1zaWdfY29kZSIgdHlwZT0ieHM6c3RyaW5nIiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNl
+        PSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0ic2ltc2ln
+        X2VudHJ5X3BvaW50IiB0eXBlPSJ4czpib29sZWFuIiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1p
+        bk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0ic2ltc2lnX3BsYXRm
+        b3JtX2NvZGUiIHR5cGU9InhzOnN0cmluZyIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1
+        cnM9IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9InNpbXNpZ19saW5lIiB0eXBl
+        PSJ4czpzdHJpbmciIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAg
+        ICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJzaW1zaWdfcGF0aCIgdHlwZT0ieHM6c3RyaW5nIiBt
+        c2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhz
+        OmVsZW1lbnQgbmFtZT0ic2ltc2lnX2VsZWNfYml0bWFwIiB0eXBlPSJ4czp1bnNpZ25lZEJ5dGUiIG1z
+        ZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6
+        ZWxlbWVudCBuYW1lPSJmcmVpZ2h0X29ubHkiIHR5cGU9InhzOmJvb2xlYW4iIG1zZGF0YTp0YXJnZXRO
+        YW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1l
+        PSJsZW5ndGgiIHR5cGU9InhzOnNob3J0IiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vy
+        cz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0ibG9jYXRpb25fdHlwZV9pZCIg
+        dHlwZT0ieHM6dW5zaWduZWRCeXRlIiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0i
+        MCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0ibG9jYXRpb25fdHlwZSIgdHlwZT0i
+        eHM6c3RyaW5nIiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAg
+        ICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0ic2ltZXJhX2lkIiB0eXBlPSJ4czpzaG9ydCIgbXNkYXRh
+        OnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVt
+        ZW50IG5hbWU9InZlcnNpb25faWQiIHR5cGU9InhzOnNob3J0IiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNl
+        PSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0iY3JlYXRl
+        ZGJ5X2lkIiB0eXBlPSJ4czpzaG9ydCIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9
+        IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9ImNyZWF0ZWRfYnlfdXNlcm5hbWUi
+        IHR5cGU9InhzOnN0cmluZyIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+
+        DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9ImNyZWF0ZWRvbiIgbXNkYXRhOkRhdGFUeXBl
+        PSJTeXN0ZW0uRGF0ZVRpbWVPZmZzZXQiIHR5cGU9InhzOmFueVR5cGUiIG1zZGF0YTp0YXJnZXROYW1l
+        c3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJj
+        cmVhdGVkX2J5X2FwcCIgdHlwZT0ieHM6c3RyaW5nIiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1p
+        bk9jY3Vycz0iMCIgLz4NCiAgICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0ibW9kaWZpZWRieV9p
+        ZCIgdHlwZT0ieHM6c2hvcnQiIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAv
+        Pg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJtb2RpZmllZF9ieV91c2VybmFtZSIgdHlw
+        ZT0ieHM6c3RyaW5nIiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAg
+        ICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0ibW9kaWZpZWRvbiIgbXNkYXRhOkRhdGFUeXBlPSJT
+        eXN0ZW0uRGF0ZVRpbWVPZmZzZXQiIHR5cGU9InhzOmFueVR5cGUiIG1zZGF0YTp0YXJnZXROYW1lc3Bh
+        Y2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJtb2Rp
+        ZmllZF9ieV9hcHAiIHR5cGU9InhzOnN0cmluZyIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5P
+        Y2N1cnM9IjAiIC8+DQogICAgICAgICAgICA8L3hzOnNlcXVlbmNlPg0KICAgICAgICAgIDwveHM6Y29t
+        cGxleFR5cGU+DQogICAgICAgIDwveHM6ZWxlbWVudD4NCiAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0i
+        VGFibGU1Ij4NCiAgICAgICAgICA8eHM6Y29tcGxleFR5cGU+DQogICAgICAgICAgICA8eHM6c2VxdWVu
+        Y2U+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9ImlkIiB0eXBlPSJ4czppbnQiIG1zZGF0
+        YTp0YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxl
+        bWVudCBuYW1lPSJkZWJ1Z19zZXNzaW9uX2lkIiBtc2RhdGE6RGF0YVR5cGU9IlN5c3RlbS5HdWlkLCBt
+        c2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3
+        N2E1YzU2MTkzNGUwODkiIHR5cGU9InhzOnN0cmluZyIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBt
+        aW5PY2N1cnM9IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9ImV2ZW50X2RhdGV0
+        aW1lIiB0eXBlPSJ4czpkYXRlVGltZSIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9
+        IjAiIC8+DQogICAgICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9InNvdXJjZV9vYmplY3RfaWQiIHR5
+        cGU9InhzOmludCIgbXNkYXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+DQogICAg
+        ICAgICAgICAgIDx4czplbGVtZW50IG5hbWU9ImV2ZW50IiB0eXBlPSJ4czpzdHJpbmciIG1zZGF0YTp0
+        YXJnZXROYW1lc3BhY2U9IiIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVu
+        dCBuYW1lPSJkYl91c2VyIiB0eXBlPSJ4czpzdHJpbmciIG1zZGF0YTp0YXJnZXROYW1lc3BhY2U9IiIg
+        bWluT2NjdXJzPSIwIiAvPg0KICAgICAgICAgICAgICA8eHM6ZWxlbWVudCBuYW1lPSJhcHBfaWQiIHR5
+        cGU9InhzOnNob3J0IiBtc2RhdGE6dGFyZ2V0TmFtZXNwYWNlPSIiIG1pbk9jY3Vycz0iMCIgLz4NCiAg
+        ICAgICAgICAgICAgPHhzOmVsZW1lbnQgbmFtZT0iYXBwX3VzZXJfaWQiIHR5cGU9InhzOmludCIgbXNk
+        YXRhOnRhcmdldE5hbWVzcGFjZT0iIiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICAgICAgICA8L3hzOnNl
+        cXVlbmNlPg0KICAgICAgICAgIDwveHM6Y29tcGxleFR5cGU+DQogICAgICAgIDwveHM6ZWxlbWVudD4N
+        CiAgICAgIDwveHM6Y2hvaWNlPg0KICAgIDwveHM6Y29tcGxleFR5cGU+DQogIDwveHM6ZWxlbWVudD4N
+        CjwveHM6c2NoZW1hPgYFAAAAgAE8ZGlmZmdyOmRpZmZncmFtIHhtbG5zOm1zZGF0YT0idXJuOnNjaGVt
+        YXMtbWljcm9zb2Z0LWNvbTp4bWwtbXNkYXRhIiB4bWxuczpkaWZmZ3I9InVybjpzY2hlbWFzLW1pY3Jv
+        c29mdC1jb206eG1sLWRpZmZncmFtLXYxIiAvPgQDAAAADlN5c3RlbS5WZXJzaW9uBAAAAAZfTWFqb3IG
+        X01pbm9yBl9CdWlsZAlfUmV2aXNpb24AAAAACAgICAIAAAAAAAAA//////////8L
+</value>
+  </data>
+  <data name="simsig_USp_GET_TLOCATIONNODETest_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for simsig.USp_GET_TLOCATION
+DECLARE @id AS INT, @sim_id AS SMALLINT, @location_id AS INT, @simera_id AS SMALLINT, @version_id AS SMALLINT, @simsig_platform_code AS VARCHAR (4), @simsig_elec_bitmap AS TINYINT = 1, @location_type_id AS TINYINT = 1, @length AS SMALLINT, @freight_only AS BIT = 0, @simsig_line AS VARCHAR (4), @simsig_path AS VARCHAR (4), @datetime AS DATETIMEOFFSET (7), @debug AS BIT, @debug_session_id AS UNIQUEIDENTIFIER;
+
+--Other Variables
+
+DECLARE @error_message NVARCHAR(248) = N' No Error Raised';
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+
+--Get TestData ID 
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_GET_TLOCATIONNODETest', @testdata_id = @testdata_id OUTPUT;
+
+--Create Supporting Data
+
+--Create Sim
+
+INSERT INTO [simsig].[TSIM]
+(
+	[name],
+	[description],
+	[simsig_code],
+	[simsig_wiki_link],
+	[createdby_id],
+	[createdon],
+	[modifiedby_id],
+	[modifiedon],
+	[testdata_id]
+)
+VALUES
+(
+	N'Get TLOCATIONNODE Sim Name 1',
+	N'Get TLOCATIONNODE Sim Desc 1',
+	N'UPSTLOCNOTECode1',
+	NULL,
+	2,
+	SYSDATETIMEOFFSET(),
+	2,
+	SYSDATETIMEOFFSET(),
+	@testdata_id
+)
+
+SELECT @sim_id = CAST(SCOPE_IDENTITY() AS INT);
+
+--Create SimEra
+
+INSERT INTO [simsig].[TSIMERA]
+(
+	[sim_id],
+	[name],
+	[description],
+	[era_type_id],
+	[testdata_id]
+)
+VALUES
+(
+	@sim_id,
+	N'Get TLOCATIONNODE Sim Name 1',
+	N'Get TLOCATIONNODE Sim Desc 1',
+	2,
+	@testdata_id
+);
+
+SELECT @simera_id = CAST(SCOPE_IDENTITY() AS INT);
+
+--Create Version
+
+INSERT INTO [simsig].[TVERSION]
+(
+	[simsig_version_from],
+	[simsig_version_to],
+	[name],
+	[description],
+	[version_status_id],
+	[testdata_id]
+)
+VALUES
+(
+	1.0,
+	NULL,
+	N'Get TLOCATIONNODE Name 1',
+	N'Get TLOCATIONNODE Desc 1',
+	2,
+	@testdata_id
+);
+
+SELECT @version_id = CAST(SCOPE_IDENTITY() AS INT);
+
+--Create a location
+
+INSERT INTO [simsig].[TLOCATION]
+(
+	[sim_id],
+	[tiploc],
+	[name],
+	[simsig_code],
+	[simsig_entry_point],
+	[testdata_id],
+	[createdby_id],
+	[createdby_app_id],
+	[createdon],
+	[modifiedby_id],
+	[modifiedon],
+	[modifiedby_app_id],
+	[location_type_id]
+)
+VALUES
+(
+	@sim_id,
+	NULL,
+	N'Get TLOCATIONNODE Name 1',
+	N'GETTLOCNOTECode1',
+	1,
+	@testdata_id,
+	4,
+	2,
+	SYSDATETIME(),
+	4,
+	SYSDATETIME(),
+	2,
+	0
+)
+
+SELECT @location_id = CAST(SCOPE_IDENTITY() AS INT);
+
+--Upsert LocationNode
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testadminuserAPIKEY', @testdata_id = @testdata_id;
+
+EXEC [simsig].[USp_UPSERT_TLOCATIONNODE] @id OUTPUT, @sim_id, @location_id, @simera_id, @version_id, @simsig_platform_code, @simsig_elec_bitmap, @location_type_id, @length, @freight_only, @simsig_line, @simsig_path, @datetime, @debug, @debug_session_id OUTPUT;
+
+--Log User Out
+
+EXEC [common].[Usp_CLEAR_SESSIONCONTEXT];
+
+--Check 1 Check Being Not Logged in Raises Error
+
+BEGIN TRY
+	EXEC [simsig].[USp_GET_TLOCATIONNODE] @id, @debug, @debug_session_id OUTPUT;
+END TRY
+BEGIN CATCH
+	SELECT @error_message = ERROR_MESSAGE();
+END CATCH
+
+--Result Set 1
+
+SELECT
+	[error_message] = @error_message;
+
+--Check 2 Does Proc Return Data As Expected?
+
+--Log In User
+
+EXEC [common].[Usp_SET_SESSIONCONTEXT] @app_api_key = N'testappAPIKEY', @app_user_api_key = N'testadminuserAPIKEY', @testdata_id = @testdata_id;
+
+EXEC [simsig].[USp_GET_TLOCATIONNODE] @id, @debug, @debug_session_id OUTPUT;
+
+--Check 3 - Debug
+
+SET @debug = 1;
+EXEC [simsig].[USp_GET_TLOCATIONNODE] @id, @debug, @debug_session_id OUTPUT;
+
+--Result Set 4
+
+SELECT
+	*
+FROM audit.TEVENT
+WHERE
+	[debug_session_id] = @debug_session_id;
+
+--Check 4 - Debug with session id
+
+SET @debug_session_id = NEWID();
+
+SET @debug = 1;
+EXEC [simsig].[USp_GET_TLOCATIONNODE] @id, @debug, @debug_session_id OUTPUT;
+
+--Result Set 6
+
+SELECT
+	*
+FROM audit.TEVENT
+WHERE
+	[debug_session_id] = @debug_session_id;
+</value>
+  </data>
+  <data name="simsig_USp_GET_TLOCATIONNODETest_PosttestAction.SqlScript" xml:space="preserve">
+    <value>--Teardown Data
+
+DECLARE @testdata_id UNIQUEIDENTIFIER;
+
+--Get TestData ID 
+EXEC [test].[Usp_REGISTER_TESTDATA] @key = 'simsig_USp_GET_TLOCATIONNODETest', @testdata_id = @testdata_id OUTPUT;
+
+--Delete records
+
+DELETE FROM [simsig].[TLOCATIONNODE]
+WHERE
+	[testdata_id] = @testdata_id;
+	
+DELETE FROM [simsig].[TVERSION]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TSIMERA]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TLOCATION]
+WHERE
+	[testdata_id] = @testdata_id;
+
+DELETE FROM [simsig].[TSIM]
+WHERE
+	[testdata_id] = @testdata_id;
+</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

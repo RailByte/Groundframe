@@ -23,6 +23,7 @@ USING
 	FROM 
 	(
 		VALUES
+		(0, N'Unknown', NULL),
 		(1, N'Station', NULL),
 		(2, N'Junction', NULL),
 		(3, N'Yard / Siding', NULL),

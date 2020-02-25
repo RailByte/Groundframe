@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text;
@@ -43,6 +44,35 @@ namespace GroundFrame.Core
             return GetStaticException(Key, Arguments, Globals.UserSettings.GetCultureInfo());
         }
 #nullable disable
+
+        private static IEnumerable<Exception> GetInnerExceptions(this Exception ex)
+        {
+            if (ex == null)
+            {
+                throw new ArgumentNullException("ex");
+            }
+
+            var innerException = ex;
+            do
+            {
+                yield return innerException;
+                innerException = innerException.InnerException;
+            }
+            while (innerException != null);
+        }
+
+        public static string BuildExceptionMessage(this Exception ex)
+        {
+            string Messages = $"Exception: {ex.Message}";
+
+            if (ex.InnerException != null)
+            {
+                Messages += string.Join(" | ", ex.GetInnerExceptions().Select(x => x.Message).ToList());
+            }
+
+            return Messages;
+        }
+
     }
 
 }
