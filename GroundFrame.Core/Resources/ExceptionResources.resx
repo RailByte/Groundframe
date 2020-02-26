@@ -153,6 +153,12 @@
   <data name="InvalidDataReaderArgument" xml:space="preserve">
     <value>The DataReader argument cannot be &lt;NULL&gt;</value>
   </data>
+  <data name="InvalidEnvironmentArgument" xml:space="preserve">
+    <value>The Environment argument must be a valid environment</value>
+  </data>
+  <data name="InvalidExceptionArgument" xml:space="preserve">
+    <value>The Exception argument cannot be &lt;NULL&gt;</value>
+  </data>
   <data name="InvalidFileNameNullArgument" xml:space="preserve">
     <value>The FileName argument cannot be &lt;NULL&gt; or empty</value>
   </data>
@@ -225,6 +231,9 @@
   <data name="InvalidXMLArgument" xml:space="preserve">
     <value>The XML argument cannot be &lt;NULL&gt;</value>
   </data>
+  <data name="NullEnvironmentArgument" xml:space="preserve">
+    <value>The Environment argument cannot be &lt;NULL&gt; or an empty string</value>
+  </data>
   <data name="NullOrEmptyJSONError" xml:space="preserve">
     <value>The JSON string cannot be &lt;NULL&gt; or empty</value>
   </data>
@@ -287,6 +296,9 @@
   </data>
   <data name="QueuerCheckWTTExistsError" xml:space="preserve">
     <value>An Error has occured trying to determine whether the Simulation {0} already exists in the GroundFrame.SQL database</value>
+  </data>
+  <data name="QueuerErrorSavingSimulation" xml:space="preserve">
+    <value>The task has errored trying to save the simulation to the GroundFrame.SQL database</value>
   </data>
   <data name="QueuerGenericFailureMessage" xml:space="preserve">
     <value>An error has occured trying to complete the task.</value>

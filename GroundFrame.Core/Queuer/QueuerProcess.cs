@@ -165,7 +165,6 @@ namespace GroundFrame.Core.Queuer
             this._Environment = Environment;
             this.GetFromDB();
             this.Request.Responses.CountChanged += new EventHandler<ExtendedList<QueuerResponse>.ListEventArgs>(RequestResponsesChangeEvent);
-            this.ExecuteProcess();
         }
 
         [JsonConstructor]
@@ -304,9 +303,11 @@ namespace GroundFrame.Core.Queuer
             }
         }
 
+
         /// <summary>
         /// Executes the process
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "Cutlure is handles in the ExceptionHelper.GetStaticException method")]
         private void ExecuteProcess()
         {
             try
@@ -316,12 +317,11 @@ namespace GroundFrame.Core.Queuer
             }
             catch (AggregateException Ex)
             {
-                throw new Exception("It's gone wrong!", Ex);
+                throw new Exception(ExceptionHelper.GetStaticException("QueuerGenericFailureMessage", null), Ex);
             }
-
-            catch (Exception e)
+            catch (Exception Ex)
             {
-                throw new Exception("It's gone wrong!", e);
+                throw new Exception(ExceptionHelper.GetStaticException("QueuerGenericFailureMessage", null), Ex);
             }
         }
 

@@ -45,14 +45,20 @@ namespace GroundFrame.Core
         }
 #nullable disable
 
-        private static IEnumerable<Exception> GetInnerExceptions(this Exception ex)
+        /// <summary>
+        /// Generates a IEnumerable collection of inner exceptions from an Exception
+        /// </summary>
+        /// <param name="Ex">The exception from which the collection of inner exceptions should be extracted</param>
+        /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "Culture handled inside ExceptionHelper.GetStaticException")]
+        private static IEnumerable<Exception> GetInnerExceptions(this Exception Ex)
         {
-            if (ex == null)
+            if (Ex == null)
             {
-                throw new ArgumentNullException("ex");
+                throw new ArgumentNullException(ExceptionHelper.GetStaticException("InvalidExceptionArgument", null));
             }
 
-            var innerException = ex;
+            var innerException = Ex;
             do
             {
                 yield return innerException;
@@ -61,13 +67,18 @@ namespace GroundFrame.Core
             while (innerException != null);
         }
 
+        /// <summary>
+        /// Builds a string containing all the messages from an exception including the inner exceptions
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <returns>A string containing all exception message messages</returns>
         public static string BuildExceptionMessage(this Exception ex)
         {
             string Messages = $"Exception: {ex.Message}";
 
             if (ex.InnerException != null)
             {
-                Messages += string.Join(" | ", ex.GetInnerExceptions().Select(x => x.Message).ToList());
+                Messages += string.Join(" | Inner Exception: ", ex.GetInnerExceptions().Select(x => x.Message).ToList());
             }
 
             return Messages;

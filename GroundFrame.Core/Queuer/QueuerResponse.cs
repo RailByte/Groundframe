@@ -74,11 +74,11 @@ namespace GroundFrame.Core.Queuer
 
         [JsonConstructor]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Only used by Newtonsoft.JSON deserializer")]
-        private QueuerResponse(QueuerResponseStatus Status, string ResponseKey, DateTime ResponseDateTime)
+        private QueuerResponse(QueuerResponseStatus Status, string ResponseMessage, DateTime ResponseDateTime)
         {
             this._ResponseDateTime = ResponseDateTime;
             this._Status = Status;
-            this._ResponseMessage = Status == QueuerResponseStatus.DebugMesssage || Status == QueuerResponseStatus.Failed ? ResponseKey : GetResponseMessage(ResponseKey);
+            this._ResponseMessage = ResponseMessage;
         }
 
         /// <summary>
@@ -88,8 +88,16 @@ namespace GroundFrame.Core.Queuer
         /// <returns></returns>
         private string GetResponseMessage(string ResponseKey)
         {
-            ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Core.Resources.QueuerResources", Assembly.GetExecutingAssembly());
-            return ExceptionMessageResources.GetString(ResponseKey, Globals.UserSettings.GetCultureInfo());
+            if (string.IsNullOrEmpty(ResponseKey))
+            {
+                return ResponseKey;
+            }
+            else
+            {
+                ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Core.Resources.QueuerResources", Assembly.GetExecutingAssembly());
+                string ResponseMessage = ExceptionMessageResources.GetString(ResponseKey, Globals.UserSettings.GetCultureInfo());
+                return string.IsNullOrEmpty(ResponseMessage) ? ResponseKey : ResponseMessage;
+            }
         }
 
         #endregion Constructors

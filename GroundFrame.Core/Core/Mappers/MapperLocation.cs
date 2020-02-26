@@ -56,9 +56,14 @@ namespace GroundFrame.Core
         {
             //Validate Arguments
             ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
+            ArgumentValidation.ValidateSimulation(TargetSimulation, Globals.UserSettings.GetCultureInfo());
+            //Instantiate Location
             GroundFrame.Core.SimSig.Location NewLocation = new SimSig.Location(TargetSimulation, this.Name, null, this.SimSigCode, this.IsEntryPoint, SimSig.SimSigLocationType.Unknown, SQLConnector);
+            //Save to GroundFrame.SQL database
             NewLocation.SaveToSQLDB();
-            TargetSimulation.AddLocation(NewLocation);
+            //Add location to MapperLocation
+            this._Location = NewLocation;
+            //Dispose
             NewLocation.Dispose();
         }
 

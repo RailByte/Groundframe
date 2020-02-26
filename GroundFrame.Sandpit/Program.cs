@@ -18,13 +18,24 @@ namespace GroundFrame.Sandpit
 
             try
             {
-                string ConfigJSON = File.ReadAllText(@"C:\Users\tcaceres\Desktop\GF.json");
+                string ConfigJSON = File.ReadAllText($"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\\GF.json");
 
                 Test = new QueuerProcess("testuserAPIKEY", "testappAPIKEY", "", "localhost", ConfigJSON, true);
                 string JSON = Test.ToJSON();
 
+
                 //QueuerProcess Test1 = new QueuerProcess("6ea2a14fdadf4b0589612f4f8cf90d82", "localhost");
                 //Test1.ExecuteProcess();
+
+                QueuerProcess Test1 = new QueuerProcess(Test.Key, "localhost");
+
+                while (Test1.Status != QueuerResponseStatus.Success && Test1.Status != QueuerResponseStatus.CompletedWithWarning)
+                {
+                    Test1 = new QueuerProcess(Test.Key, "localhost");
+                    Console.WriteLine(Test1.Response.ResponseMessage);
+                }
+
+                Console.WriteLine($"Finished!! - {Test1.Response.ResponseMessage}");
             }
             catch (Exception Ex)
             {

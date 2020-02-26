@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text;
@@ -326,6 +327,31 @@ namespace GroundFrame.Core
             if (Version == null)
             {
                 throw new ArgumentException(ExceptionMessageResources.GetString("InvalidSimulationArgument", Culture));
+            }
+        }
+
+
+        /// <summary>
+        /// Validates the Environment argument
+        /// </summary>
+        /// <param name="Environment">The environment to validation</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "Environment wall always by in en-GB")]
+        internal static void ValidateEnvironment(string Environment, CultureInfo Culture)
+        {
+            ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Core.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
+
+            if (string.IsNullOrEmpty(Environment))
+            {
+                
+            }
+
+            //Check it's a valid environment
+            List<string> ValidEnvironments = new List<string>() { "production", "localhost" };
+
+            if (ValidEnvironments.Any(x => x.ToLower() == Environment.ToLower()) == false)
+            {
+                throw new ArgumentException(ExceptionMessageResources.GetString("InvalidEnvironmentArgument", Culture)); 
             }
         }
     }

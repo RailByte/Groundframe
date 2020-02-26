@@ -94,6 +94,7 @@ namespace GroundFrame.Core.Queuer
         /// </summary>
         /// <returns></returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "All conversion will be in English")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "The exception is captures in the QueuerRequest responses and written to the GroundFrame.MongoDB database")]
         public async Task<QueuerResponseStatus> Execute()
         {
             bool DebugMode = Convert.ToBoolean(this._Config["debugMode"]);
@@ -162,7 +163,9 @@ namespace GroundFrame.Core.Queuer
                     }
                     catch (Exception Ex)
                     {
-                        throw new Exception("GG", Ex);
+                        ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Core.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
+                        string ExceptionMessage = ExceptionMessageResources.GetString("QueuerErrorSavingSimulation", Globals.UserSettings.GetCultureInfo());
+                        throw new Exception(ExceptionMessage, Ex);
                     }
                 }
 
@@ -219,7 +222,8 @@ namespace GroundFrame.Core.Queuer
 
                 if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed create the locations in the GroundFrame.SQL database", null));
 #if DEBUG
-                Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- The Simulation contains {this._Simulation.Locations.Count} location(s).");
+                using SimulationExtension SimExtention = new SimulationExtension(this._Simulation.ID, this._SQLConnector);
+                Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- The Simulation contains {SimExtention.Locations.Count} location(s).");
 #endif
 
                 this._Responses.Add(new QueuerResponse(QueuerResponseStatus.Success, "processSuccess", null));

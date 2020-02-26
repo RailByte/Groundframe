@@ -8,11 +8,11 @@ using System.Text;
 
 namespace GroundFrame.Core.SimSig
 {
-     /// <summary>
-     /// A class representing a location node with in SimSig simulation
-     /// </summary>
-     /// <remarks>A location node is so labelled as a location node forms a node within the SQL Graph database. 
-     /// A location can have multiple nodes representing platforms, paths and lines over multiple eras the idea that users can more accurately validate their timetables against the relevant era</remarks>
+    /// <summary>
+    /// A class representing a location node with in SimSig simulation
+    /// </summary>
+    /// <remarks>A location node is so labelled as a location node forms a node within the SQL Graph database. 
+    /// A location can have multiple nodes representing platforms, paths and lines over multiple eras the idea that users can more accurately validate their timetables against the relevant era</remarks>
     public class LocationNode : IDisposable
     {
         #region Constants
@@ -138,7 +138,7 @@ namespace GroundFrame.Core.SimSig
 
             this._SimID = SimulationID;
             //Load simulation into a SimSig Simulation object
-            using Simulation LocNodeSimulation = new Simulation(this.SimID, this._SQLConnector);
+            using SimulationExtension LocNodeSimulation = new SimulationExtension(this.SimID, this._SQLConnector);
 
             //Validate locations and eras
             if (LocNodeSimulation.Locations.Any(x => x.ID == LocationID) == false)
@@ -198,7 +198,7 @@ namespace GroundFrame.Core.SimSig
 
             this._SimID = SimulationID;
             //Load simulation into a SimSig Simulation object
-            using Simulation LocNodeSimulation = new Simulation(this.SimID, this._SQLConnector);
+            using SimulationExtension LocNodeSimulation = new SimulationExtension(this.SimID, this._SQLConnector);
 
             //Validate locations and eras
             if (LocNodeSimulation.Locations.Any(x => x.SimSigCode == LocationSimSigCode) == false)
@@ -441,7 +441,7 @@ namespace GroundFrame.Core.SimSig
         {
             if (disposing == true)
             {
-
+                this._Version.Dispose();
             }
             else
             {

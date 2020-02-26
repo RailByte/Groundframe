@@ -169,6 +169,24 @@ namespace GroundFrame.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Environment argument must be a valid environment.
+        /// </summary>
+        internal static string InvalidEnvironmentArgument {
+            get {
+                return ResourceManager.GetString("InvalidEnvironmentArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Exception argument cannot be &lt;NULL&gt;.
+        /// </summary>
+        internal static string InvalidExceptionArgument {
+            get {
+                return ResourceManager.GetString("InvalidExceptionArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The FileName argument cannot be &lt;NULL&gt; or empty.
         /// </summary>
         internal static string InvalidFileNameNullArgument {
@@ -385,6 +403,15 @@ namespace GroundFrame.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Environment argument cannot be &lt;NULL&gt; or an empty string.
+        /// </summary>
+        internal static string NullEnvironmentArgument {
+            get {
+                return ResourceManager.GetString("NullEnvironmentArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The JSON string cannot be &lt;NULL&gt; or empty.
         /// </summary>
         internal static string NullOrEmptyJSONError {
@@ -570,6 +597,15 @@ namespace GroundFrame.Core.Resources {
         internal static string QueuerCheckWTTExistsError {
             get {
                 return ResourceManager.GetString("QueuerCheckWTTExistsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The task has errored trying to save the simulation to the GroundFrame.SQL database.
+        /// </summary>
+        internal static string QueuerErrorSavingSimulation {
+            get {
+                return ResourceManager.GetString("QueuerErrorSavingSimulation", resourceCulture);
             }
         }
         

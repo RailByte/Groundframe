@@ -24,7 +24,6 @@ namespace GroundFrame.Core.SimSig
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private string _Name; //Stores the Simulation Name
         private string _SimSigCode; //Stores the SimSig Code
-        private LocationCollection _Locations; //Stores the locations for the simulation
 
         #endregion Private Variables
 
@@ -49,16 +48,11 @@ namespace GroundFrame.Core.SimSig
         /// Gets or sets the Simulation Wiki URL
         /// </summary>
         public string SimSigWikiLink { get; set; }
-        
+
         /// <summary>
         /// Gets the SimSig code for the Simulation
         /// </summary>
         public string SimSigCode { get { return this._SimSigCode; } }
-
-        /// <summary>
-        /// Gets the locations for the simulation
-        /// </summary>
-        public LocationCollection Locations { get { return this._Locations; } }
 
         #endregion Properties
 
@@ -121,7 +115,7 @@ namespace GroundFrame.Core.SimSig
             //Instantiate a new GFSqlConnector object from the supplied connector. Stops issues with shared connections / commands and readers etc.
             this._SQLConnector = new GFSqlConnector(SQLConnector);
             //Parse Reader
-            this.ParseSqlDataReader(DataReader);           
+            this.ParseSqlDataReader(DataReader);
         }
 
         #endregion Constructors
@@ -170,7 +164,7 @@ namespace GroundFrame.Core.SimSig
         {
             if (this._ID == 0)
             {
-                throw new ApplicationException(ExceptionHelper.GetStaticException("RefreshSimulationError",null,Globals.UserSettings.GetCultureInfo()));
+                throw new ApplicationException(ExceptionHelper.GetStaticException("RefreshSimulationError", null, Globals.UserSettings.GetCultureInfo()));
             }
 
             this.GetSimulationFromSQLDBByID();
@@ -201,7 +195,7 @@ namespace GroundFrame.Core.SimSig
         {
             if (this._ID <= 0)
             {
-                throw new ArgumentException(ExceptionHelper.GetStaticException("DeleteSimulationZeroIDError",null,Globals.UserSettings.GetCultureInfo()));
+                throw new ArgumentException(ExceptionHelper.GetStaticException("DeleteSimulationZeroIDError", null, Globals.UserSettings.GetCultureInfo()));
             }
 
             try
@@ -254,9 +248,6 @@ namespace GroundFrame.Core.SimSig
                     //Parse the DataReader into the version object
                     this.ParseSqlDataReader(DataReader);
                 }
-
-                //Now load the locations
-                this._Locations = new LocationCollection(this, this._SQLConnector);
 
             }
             catch (Exception Ex)
@@ -313,12 +304,6 @@ namespace GroundFrame.Core.SimSig
                 Cmd.ExecuteNonQuery();
                 this._ID = Convert.ToInt32(Cmd.Parameters["@id"].Value);
 
-                //If new simulation then initialise new location collection
-                if (NewSimulation)
-                {
-                    this._Locations = new LocationCollection(this, this._SQLConnector);
-                }
-
             }
             catch (Exception Ex)
             {
@@ -328,15 +313,6 @@ namespace GroundFrame.Core.SimSig
             {
                 this._SQLConnector.Close();
             }
-         }
-
-        /// <summary>
-        /// Adds a location to the simulation location collection
-        /// </summary>
-        /// <param name="NewLocation">The location to add to the collection</param>
-        public void AddLocation(Location NewLocation)
-        {
-            this._Locations.Add(NewLocation);
         }
 
         /// <summary>

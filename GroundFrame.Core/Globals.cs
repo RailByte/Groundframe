@@ -58,6 +58,9 @@ namespace GroundFrame.Core
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "Different config file will only ever be declare in English")]
         public static IConfigurationRoot GetConfig(string Environment)
         {
+            //Validate argument
+            ArgumentValidation.ValidateEnvironment(Environment, Globals.UserSettings.GetCultureInfo());
+            //Return config
             return new ConfigurationBuilder().AddJsonFile($"groundframe.{Environment.ToLower()}.config.json", optional: true, reloadOnChange: true).Build();
         }
     }
