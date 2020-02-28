@@ -171,7 +171,7 @@ namespace GroundFrame.Core.Queuer
 
                 //Build the next stage of the task by setting the individual lasts
                 Task<List<MapperLocation>> GetLocationMapperTask = this.GetLocationMapperFromWTT(); //Gets the location mapper list from the WTT
-                Task<List<MapperLocationNode>> GetLocationNodeMapperTask = this.GetLocationNodeMappperFromWTT(); //Gets the location node mapper list from the WTT
+                Task<List<MapperLocationNode>> GetLocationNodeMapperTask = this.GetLocationNodeMapperFromWTT(); //Gets the location node mapper list from the WTT
                 Task<SimSig.Version> SimVersionTask = this.GetSimSigVersion(); //Gets SimSig version requested from the GroundFrame.SQL database
                 Task<SimSig.SimulationEra> TemplateSimEraTask = this.GetSimTemplateEra(); //Gets the era template for the simulation
 
@@ -220,10 +220,19 @@ namespace GroundFrame.Core.Queuer
                 //Next create the locations in the GroundFrame.SQL database
                 await CreateLocationsFromMap().ConfigureAwait(false);
 
-                if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed create the locations in the GroundFrame.SQL database", null));
+                if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed creating the locations in the GroundFrame.SQL database", null));
 #if DEBUG
-                using SimulationExtension SimExtention = new SimulationExtension(this._Simulation.ID, this._SQLConnector);
-                Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- The Simulation contains {SimExtention.Locations.Count} location(s).");
+                using SimulationExtension SimExtentionLocations = new SimulationExtension(this._Simulation.ID, this._SQLConnector);
+                Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- The Simulation contains {SimExtentionLocations.Locations.Count} location(s).");
+#endif
+
+                //Next create the location nodes in the GroundFrame.SQL database
+                await CreateLocationNodesFromMap().ConfigureAwait(false);
+
+                if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed creating the location nodes in the GroundFrame.SQL database", null));
+#if DEBUG
+                using SimulationExtension SimExtentionLocationNodes = new SimulationExtension(this._Simulation.ID, this._SQLConnector);
+                Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- The Simulation contains {SimExtentionLocationNodes.LocationNodes.Count} location nodes(s).");
 #endif
 
                 this._Responses.Add(new QueuerResponse(QueuerResponseStatus.Success, "processSuccess", null));
@@ -281,12 +290,14 @@ namespace GroundFrame.Core.Queuer
         {
             await Task.Run(() =>
             {
+                SimSig.SimulationExtension SimExt = new SimulationExtension(this._Simulation.ID, this._SQLConnector);
+
                 foreach (MapperLocationNode MappedLocNode in this._LocationNodeMapper)
                 {
                     //Get the location
                     Location NodeLocation = GetLocationFromMapperBySimSigCode(MappedLocNode.SimSigCode);
                     //Build new LocationNode
-                    //TODO: Build the new location node
+                    MappedLocNode.CreateLocationNode(ref SimExt, this._SQLConnector, NodeLocation, this._Version, this._TemplateSimEra);
                 }
             }).ConfigureAwait(false);
         }
@@ -406,7 +417,7 @@ namespace GroundFrame.Core.Queuer
         /// </summary>
         /// <returns></returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "The culture is set in the ExceptionHelper.GetStaticException overload")]
-        private async Task<List<MapperLocationNode>> GetLocationNodeMappperFromWTT()
+        private async Task<List<MapperLocationNode>> GetLocationNodeMapperFromWTT()
         {
             try
             {

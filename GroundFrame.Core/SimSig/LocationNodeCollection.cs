@@ -4,40 +4,41 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace GroundFrame.Core.SimSig
 {
     /// <summary>
-    /// Class representing a collection of locations
+    /// Class representing a collection of location nodes
     /// </summary>
-    public class LocationCollection : IEnumerable<Location>, IDisposable
+    public class LocationNodeCollection : IEnumerable<LocationNode>, IDisposable
     {
         #region Constants
         #endregion Constants
 
         #region Private Variables
-        private List<Location> _Locations = new List<Location>(); //List to store all Locations
+        private List<LocationNode> _LocationNodes = new List<LocationNode>(); //List to store all Location node
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private readonly int _SimID; //Stores the ID of the Simulation to which the collection relates
         #endregion Private Variables
 
         #region Properties
         /// <summary>
-        /// Gets the LocationCollection Enumerator
+        /// Gets the LocationNodeCollection Enumerator
         /// </summary>
         /// <returns></returns>
-        public IEnumerator<Location> GetEnumerator() { return this._Locations.GetEnumerator(); }
+        public IEnumerator<LocationNode> GetEnumerator() { return this._LocationNodes.GetEnumerator(); }
 
         #endregion Properties
 
         #region Constructors
         /// <summary>
-        /// Instantiates a LocationCollection collection for the supplied Simulation from the supplied GroundFrame.SQL Connection
+        /// Instantiates a LocationNodeCollection for the supplied Simulation from the supplied GroundFrame.SQL Connection
         /// </summary>
         /// <param name="Simulation">The simulation for which you want to inititate the LocationCOllection</param>
         /// <param name="SQLConnector">A GFSqlConnector to the GroundFrame.SQL database</param>
-        public LocationCollection(Simulation Simulation, GFSqlConnector SQLConnector)
+        public LocationNodeCollection(Simulation Simulation, GFSqlConnector SQLConnector)
         {
             CultureInfo culture = Globals.UserSettings.GetCultureInfo();
             ArgumentValidation.ValidateSimulation(Simulation, culture);
@@ -47,34 +48,52 @@ namespace GroundFrame.Core.SimSig
             //Set the SQL Connector
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiated as a new copy of the SQLConnector to stop conflict issues with open connections, commands and DataReaders
             //Get the locations
-            this.GetAllLocationsBySimFromSQLDB();
+            this.GetAllLocationNodesBySimFromSQLDB();
         }
 
         /// <summary>
-        /// Gets the total number of locations in the collection
+        /// Gets the total number of location nodes in the collection
         /// </summary>
-        public int Count { get { return this._Locations.Count; } }
+        public int Count { get { return this._LocationNodes.Count; } }
 
         #endregion Constructors
 
         #region Methods
 
         /// <summary>
-        /// Adds a location to the location collection
+        /// Adds a location node to the location node collection
         /// </summary>
-        /// <param name="NewLocation"></param>
-        public void Add(Location NewLocation)
+        /// <param name="NewLocationNode"></param>
+        public void Add(LocationNode NewLocationNode)
         {
-            this._Locations.Add(NewLocation);
+            this._LocationNodes.Add(NewLocationNode);
+        }
+
+
+        /// <summary>
+        /// Checks to see whether the supplied location already exists within the collection
+        /// </summary>
+        /// <param name="NewLocationNode"></param>
+        /// <returns>True if the location node already exists in the collection otherwise false</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "Codes wil always be en-GB")]
+        public bool Exists(LocationNode NewLocationNode)
+        {
+            return this._LocationNodes.Any(x => x.SimID == NewLocationNode.SimID
+            && x.EraID == NewLocationNode.EraID
+            && x.LocationID == NewLocationNode.LocationID
+            && String.CompareOrdinal(x.Platform, NewLocationNode.Platform) == 0
+            && String.CompareOrdinal(x.Line, NewLocationNode.Line) == 0
+            && String.CompareOrdinal(x.Path, NewLocationNode.Path) == 0);
+            //&& x.LocationSimSigCode.ToLower() == NewLocationNode.LocationSimSigCode.ToLower());
         }
 
         /// <summary>
-        /// Finds a location which matches the search predicate
+        /// Finds a location node which matches the search predicate
         /// </summary>
         /// <param name="match">The search predicate</param>
-        public Location Find(Predicate<Location> match)
+        public LocationNode Find(Predicate<LocationNode> match)
         {
-            return this._Locations.Find(match);
+            return this._LocationNodes.Find(match);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -83,28 +102,28 @@ namespace GroundFrame.Core.SimSig
         }
 
         /// <summary>
-        /// Returns the Location for the supplied index
+        /// Returns the LocationNode for the supplied index
         /// </summary>
         /// <param name="Index">The index of the location to be returned</param>
         /// <returns>The location at the supplied index value</returns>
-        public Location IndexOf(int Index)
+        public LocationNode IndexOf(int Index)
         {
-            return this._Locations[Index];
+            return this._LocationNodes[Index];
         }
 
         /// <summary>
-        /// Gets alls the locations from the GroundFrame.SQL database
+        /// Gets alls the location nodes from the GroundFrame.SQL database
         /// </summary>
-        private void GetAllLocationsBySimFromSQLDB()
+        private void GetAllLocationNodesBySimFromSQLDB()
         {
-            this._Locations = new List<Location>();
+            this._LocationNodes = new List<LocationNode>();
 
             try
             {
                 //Open the Connection
                 this._SQLConnector.Open();
                 //Set Command
-                using SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.USp_GET_TLOCATION_BY_SIM", CommandType.StoredProcedure);
+                using SqlCommand Cmd = this._SQLConnector.SQLCommand("simsig.USp_GET_TLOCATIONNODE_BY_SIM", CommandType.StoredProcedure);
                 //Add Parameters
                 Cmd.Parameters.Add(new SqlParameter("@sim_id", this._SimID));
                 SqlDataReader DataReader = Cmd.ExecuteReader();
@@ -114,13 +133,13 @@ namespace GroundFrame.Core.SimSig
                 {
                     {
                         //Parse the DataReader into the object
-                        this._Locations.Add(new Location(DataReader, this._SQLConnector));
+                        this._LocationNodes.Add(new LocationNode(DataReader, this._SQLConnector));
                     }
                 }
             }
             catch (Exception Ex)
             {
-                throw new ApplicationException($"An error has occurred trying to retrieve all location records for Simulation ID {this._SimID} from the GroundFrame.SQL database.", Ex);
+                throw new ApplicationException($"An error has occurred trying to retrieve all location node records for Simulation ID {this._SimID} from the GroundFrame.SQL database.", Ex);
             }
             finally
             {

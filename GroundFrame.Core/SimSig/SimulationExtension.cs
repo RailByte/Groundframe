@@ -21,6 +21,7 @@ namespace GroundFrame.Core.SimSig
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
         private List<SimulationEra> _Eras; //Stores the Eras available in the Simulation
         private LocationCollection _Locations; //Stores the locations available in the Simulation
+        private LocationNodeCollection _LocationNodes; //Stores the location nodes available in the Simulation
 
         #endregion Private Variables
 
@@ -35,6 +36,11 @@ namespace GroundFrame.Core.SimSig
         /// Gets the Locations available in the Simulation
         /// </summary>
         public LocationCollection Locations { get { return this._Locations; } }
+
+        /// <summary>
+        /// Gets the Location Nodes available in the Simulation
+        /// </summary>
+        public LocationNodeCollection LocationNodes { get { return this._LocationNodes; } }
 
         #endregion Properties
 
@@ -54,6 +60,7 @@ namespace GroundFrame.Core.SimSig
             //Load the data
             this.LoadSimErasFromSQLDB();
             this._Locations = new LocationCollection(this, SQLConnector);
+            this._LocationNodes = new LocationNodeCollection(this, SQLConnector);
         }
 
         #endregion Constructors
@@ -68,6 +75,7 @@ namespace GroundFrame.Core.SimSig
             base.RefreshFromSQLDB();
             this.LoadSimErasFromSQLDB();
             this._Locations = new LocationCollection(this, this._SQLConnector);
+            this._LocationNodes = new LocationNodeCollection(this, this._SQLConnector);
         }
 
         //Loads the Simulation Eras from the GroundFrame.SQL database into the Era List.

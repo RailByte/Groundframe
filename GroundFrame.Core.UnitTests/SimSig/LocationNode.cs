@@ -17,6 +17,7 @@ namespace GroundFrame.Core.UnitTests.SimSig
 
         private readonly GFSqlConnector _SQLConnection;
         private readonly Core.SimSig.Simulation _TestSimulation;
+        private readonly Core.SimSig.SimulationExtension _TestSimulationExt;
         private readonly Core.SimSig.Location _TestLocation;
         private readonly Core.SimSig.Version _TestVersion;
 
@@ -44,7 +45,8 @@ namespace GroundFrame.Core.UnitTests.SimSig
             this._TestSimulation.SaveToSQLDB();
             this._TestLocation = new Core.SimSig.Location(this._TestSimulation, "Test LocNode Loc Name", null, "TestLocNodeCode", false, Core.SimSig.SimSigLocationType.Station, this._SQLConnection);
             this._TestLocation.SaveToSQLDB();
-            this._TestSimulation.Locations.Add(this._TestLocation);
+            this._TestSimulationExt = new SimulationExtension(this._TestLocation.ID, this._SQLConnection);
+            this._TestSimulationExt.Locations.Add(this._TestLocation);
             this._TestVersion = new Core.SimSig.Version("Test LocNode Version", "Test LocCode Version", 4.15M, this._SQLConnection);
             this._TestVersion.SaveToSQLDB();
         }

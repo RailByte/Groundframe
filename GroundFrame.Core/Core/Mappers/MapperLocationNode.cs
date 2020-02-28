@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace GroundFrame.Core
@@ -13,6 +14,9 @@ namespace GroundFrame.Core
         #endregion Constants
 
         #region Private Variables
+
+        private SimSig.LocationNode _LocationNode; //Private variable to store the location node
+
         #endregion Private Variables
 
         #region Properties
@@ -41,6 +45,11 @@ namespace GroundFrame.Core
         /// Gets or sets the next location node
         /// </summary>
         public MapperLocationNode NextLocationNode { get; set; }
+        
+        /// <summary>
+        /// Gets the created location node
+        /// </summary>
+        public SimSig.LocationNode LocationNode { get { return this._LocationNode; } }
 
         #endregion Properties
 
@@ -48,6 +57,43 @@ namespace GroundFrame.Core
         #endregion Constructors
 
         #region Methods
+
+
+        /// <summary>
+        /// Creates the mapped location in the Target Simulation
+        /// </summary>
+        /// <param name="SQLConnector">The target simulation where the location should be created</param>
+        /// <param name="TargetSimulation">A GFSqlConnector object connected to the GroundFrame.SQL database</param>
+        /// <param name="Version">The version under which the location node was created</param>
+        /// <param name="SimEra">The era for which the location node is valid/param>
+        /// <param name="Location">The location against which the location node will be created<.param>
+        public void CreateLocationNode(ref SimSig.SimulationExtension TargetSimulation, GFSqlConnector SQLConnector, SimSig.Location Location, SimSig.Version Version, SimSig.SimulationEra SimEra)
+        {
+            //Validate Arguments
+            ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
+            ArgumentValidation.ValidateSimulation(TargetSimulation, Globals.UserSettings.GetCultureInfo());
+            ArgumentValidation.ValidateVersion(Version, Globals.UserSettings.GetCultureInfo());
+
+            //Default Value
+            Electrification DefaultElectrification = new Electrification("D");
+
+            //Instantiate Location Node
+            SimSig.LocationNode NewLocationNode = new SimSig.LocationNode(TargetSimulation.ID, Location.ID, SimEra.ID, Version, this.Platform, DefaultElectrification, SimSig.SimSigLocationType.Unknown, null, false, this.Line, this.Path, SQLConnector);
+           
+            if (TargetSimulation.LocationNodes.Exists(NewLocationNode) == false)
+            {
+                //Save to GroundFrame.SQL database
+                NewLocationNode.SaveToSQLDB();
+                //Add location node to MapperLocationNode
+                this._LocationNode = NewLocationNode;
+                //Add location to the simulation
+                TargetSimulation.LocationNodes.Add(NewLocationNode);
+            }
+
+            //Dispose
+            NewLocationNode.Dispose();
+        }
+
         #endregion Methods
     }
 

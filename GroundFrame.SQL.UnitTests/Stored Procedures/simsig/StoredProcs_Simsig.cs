@@ -234,6 +234,12 @@ namespace GroundFrame.SQL.UnitTests
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Usp_GET_TLOCATIONNODE_CheckDebug_WithSessionID;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ExpectedSchemaCondition chk_Usp_GET_TLOCATIONNODE_CheckDebug_CheckSchema;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_USp_GET_TLOCATIONNODETest_PosttestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_TestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_PosttestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_Usp_GET_TLOCATIONNODE_BY_SIM_User_NotLoggedIn_Error;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_Usp_GET_TLOCATIONNODE_BY_SIM_RowCount;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Usp_GET_TLOCATIONNODE_BY_SIM_Debug;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_Usp_GET_TLOCATIONNODE_BY_SIM_DebugWithSession;
             this.simsig_USp_UPSERT_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_USp_GET_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_Usp_DELETE_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
@@ -248,6 +254,7 @@ namespace GroundFrame.SQL.UnitTests
             this.simsig_Usp_GET_TSIM_BY_SIMSIG_CODETestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_USp_GET_TLOCATIONNODETestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            this.simsig_Usp_GET_TLOCATIONNODE_BY_SIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             simsig_USp_UPSERT_TSIMTest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             chk_NotLoggedIn_Errors = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_NULLName_Errors = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
@@ -444,6 +451,12 @@ namespace GroundFrame.SQL.UnitTests
             chk_Usp_GET_TLOCATIONNODE_CheckDebug_WithSessionID = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
             chk_Usp_GET_TLOCATIONNODE_CheckDebug_CheckSchema = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ExpectedSchemaCondition();
             simsig_USp_GET_TLOCATIONNODETest_PosttestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_PosttestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_User_NotLoggedIn_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_RowCount = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_Debug = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_DebugWithSession = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
             // 
             // simsig_USp_UPSERT_TSIMTest_TestAction
             // 
@@ -2378,6 +2391,53 @@ namespace GroundFrame.SQL.UnitTests
             this.simsig_USp_GET_TLOCATIONNODETestData.PosttestAction = simsig_USp_GET_TLOCATIONNODETest_PosttestAction;
             this.simsig_USp_GET_TLOCATIONNODETestData.PretestAction = null;
             this.simsig_USp_GET_TLOCATIONNODETestData.TestAction = simsig_USp_GET_TLOCATIONNODETest_TestAction;
+            // 
+            // simsig_Usp_GET_TLOCATIONNODE_BY_SIMTestData
+            // 
+            this.simsig_Usp_GET_TLOCATIONNODE_BY_SIMTestData.PosttestAction = simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_PosttestAction;
+            this.simsig_Usp_GET_TLOCATIONNODE_BY_SIMTestData.PretestAction = null;
+            this.simsig_Usp_GET_TLOCATIONNODE_BY_SIMTestData.TestAction = simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_TestAction;
+            // 
+            // simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_TestAction
+            // 
+            simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_TestAction.Conditions.Add(chk_Usp_GET_TLOCATIONNODE_BY_SIM_User_NotLoggedIn_Error);
+            simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_TestAction.Conditions.Add(chk_Usp_GET_TLOCATIONNODE_BY_SIM_RowCount);
+            simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_TestAction.Conditions.Add(chk_Usp_GET_TLOCATIONNODE_BY_SIM_Debug);
+            simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_TestAction.Conditions.Add(chk_Usp_GET_TLOCATIONNODE_BY_SIM_DebugWithSession);
+            resources.ApplyResources(simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_TestAction, "simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_TestAction");
+            // 
+            // simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_PosttestAction
+            // 
+            resources.ApplyResources(simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_PosttestAction, "simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_PosttestAction");
+            // 
+            // chk_Usp_GET_TLOCATIONNODE_BY_SIM_User_NotLoggedIn_Error
+            // 
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_User_NotLoggedIn_Error.ColumnNumber = 1;
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_User_NotLoggedIn_Error.Enabled = true;
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_User_NotLoggedIn_Error.ExpectedValue = "The user is not logged in.";
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_User_NotLoggedIn_Error.Name = "chk_Usp_GET_TLOCATIONNODE_BY_SIM_User_NotLoggedIn_Error";
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_User_NotLoggedIn_Error.NullExpected = false;
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_User_NotLoggedIn_Error.ResultSet = 1;
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_User_NotLoggedIn_Error.RowNumber = 1;
+            // 
+            // chk_Usp_GET_TLOCATIONNODE_BY_SIM_RowCount
+            // 
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_RowCount.Enabled = true;
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_RowCount.Name = "chk_Usp_GET_TLOCATIONNODE_BY_SIM_RowCount";
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_RowCount.ResultSet = 2;
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_RowCount.RowCount = 1;
+            // 
+            // chk_Usp_GET_TLOCATIONNODE_BY_SIM_Debug
+            // 
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_Debug.Enabled = true;
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_Debug.Name = "chk_Usp_GET_TLOCATIONNODE_BY_SIM_Debug";
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_Debug.ResultSet = 4;
+            // 
+            // chk_Usp_GET_TLOCATIONNODE_BY_SIM_DebugWithSession
+            // 
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_DebugWithSession.Enabled = true;
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_DebugWithSession.Name = "chk_Usp_GET_TLOCATIONNODE_BY_SIM_DebugWithSession";
+            chk_Usp_GET_TLOCATIONNODE_BY_SIM_DebugWithSession.ResultSet = 6;
         }
 
         #endregion
@@ -2719,6 +2779,30 @@ namespace GroundFrame.SQL.UnitTests
                 SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
             }
         }
+        [TestMethod()]
+        public void simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest()
+        {
+            SqlDatabaseTestActions testActions = this.simsig_Usp_GET_TLOCATIONNODE_BY_SIMTestData;
+            // Execute the pre-test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
+            SqlExecutionResult[] pretestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PretestAction);
+            try
+            {
+                // Execute the test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.TestAction != null), "Executing test script...");
+                SqlExecutionResult[] testResults = TestService.Execute(this.ExecutionContext, this.PrivilegedContext, testActions.TestAction);
+            }
+            finally
+            {
+                // Execute the post-test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.PosttestAction != null), "Executing post-test script...");
+                SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
+            }
+        }
+
 
 
 
@@ -2747,5 +2831,6 @@ namespace GroundFrame.SQL.UnitTests
         private SqlDatabaseTestActions simsig_Usp_GET_TSIM_BY_SIMSIG_CODETestData;
         private SqlDatabaseTestActions simsig_Usp_GET_TVERSION_BY_VERSION_NUMBERTestData;
         private SqlDatabaseTestActions simsig_USp_GET_TLOCATIONNODETestData;
+        private SqlDatabaseTestActions simsig_Usp_GET_TLOCATIONNODE_BY_SIMTestData;
     }
 }

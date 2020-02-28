@@ -47,7 +47,7 @@ namespace GroundFrame.Core.UnitTests.TimeTable.WTTTimeTableCollection
             GroundFrame.Core.Timetables.WTTTimeTableCollection TestTimeTableCollection = new GroundFrame.Core.Timetables.WTTTimeTableCollection(TestXML, new DateTime(2018, 7, 1));
 
             List<MapperLocationNode> LocationMapperNodes = TestTimeTableCollection.GetMapperLocationNodes().OrderBy(x => x.SimSigCode).ToList();
-            Assert.Equal(20, LocationMapperNodes.Count);
+            Assert.Equal(24, LocationMapperNodes.Count);
         }
 
         /// <summary>

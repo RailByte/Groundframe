@@ -574,7 +574,7 @@ namespace GroundFrame.Core.Timetables
 
             //Now add trip locations
 
-            for (int i = 0; i < this.Trip.Count - 1; i++)
+            for (int i = 0; i < this.Trip.Count; i++)
             {
                 if (i < this.Trip.Count - 1)
                 {

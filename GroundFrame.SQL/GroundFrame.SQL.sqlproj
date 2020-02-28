@@ -153,6 +153,7 @@
     <Build Include="Stored Procedures\simsig\simsig.Usp_GET_TVERSION_BY_VERSION_NUMBER.sql" />
     <Build Include="Stored Procedures\simsig\simsig.Usp_GET_TLOCATIONNODE.sql" />
     <Build Include="Views\simsig\simsig.VLOCATIONNODE.sql" />
+    <Build Include="Stored Procedures\simsig\simsig.Usp_GET_TLOCATIONNODE_BY_SIM.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\140\SqlSchemas\master.dacpac">

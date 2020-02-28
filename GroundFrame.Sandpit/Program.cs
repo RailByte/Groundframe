@@ -11,6 +11,8 @@ namespace GroundFrame.Sandpit
             Console.WriteLine("Hello World!");
             QueuerProcess Test = null;
 
+            Console.WriteLine(string.Compare("EBALDCK", "BALDOCK"));
+
             GroundFrame.Core.GFSqlConnector SQL = GroundFrame.Core.Globals.GetGFSqlConnector("testappAPIKEY", "testadminuserAPIKEY", "localhost");
 
             GroundFrame.Core.SimSig.Version Version = new Core.SimSig.Version("Version 4.15", "The current default version", 4.15M , SQL);

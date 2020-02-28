@@ -1,7 +1,7 @@
 ﻿/******************************
-** File:		~\GroundFrame\GroundFrame.SQL\Stored Procedures\simsig\simsig.USp_GET_TLOCATIONNODE.sql
-** Name:		simsig.USp_GET_TLOCATIONNODE
-** Desc:		Stored procedure to get a SimSig location node.
+** File:		~\GroundFrame\GroundFrame.SQL\Stored Procedures\simsig\simsig.Usp_GET_TLOCATIONNODE_BY_SIM.sql
+** Name:		simsig.Usp_GET_TLOCATIONNODE_BY_SIM
+** Desc:		Stored procedure to get all location nodes for the supplied sim
 ** Unit Test:	
 ** Auth:		Tim Caceres
 ** Date:		2019-12-12
@@ -13,8 +13,8 @@
 ** 1    2019-12-12	TC			Initial Script creation
 **
 *******************************/
-CREATE PROCEDURE [simsig].[USp_GET_TLOCATIONNODE]
-	@id SMALLINT,
+CREATE PROCEDURE [simsig].[Usp_GET_TLOCATIONNODE_BY_SIM]
+	@sim_id SMALLINT,
 	@debug BIT = 0,
 	@debug_session_id UNIQUEIDENTIFIER = NULL OUTPUT
 AS
@@ -34,10 +34,10 @@ BEGIN
 
 	IF @debug = 1
 	BEGIN
-		SET @debug_message = 'Executing [simsig].[Usp_GET_TLOCATIONNODE] started.';
+		SET @debug_message = 'Executing [simsig].[Usp_GET_TLOCATIONNODE_BY_SIM] started.';
 		EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 
-		SET @debug_message = 'Parameters passed: @id = ' + CONVERT(NVARCHAR(16),@id) + '.';
+		SET @debug_message = 'Parameters passed: @sim_id = ' + CONVERT(NVARCHAR(16),@sim_id) + '.';
 		EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 	END
 
@@ -56,10 +56,6 @@ BEGIN
 		
 		THROW 50000, 'The user is not logged in.', 1;
 	END;
-
-	--Set Default Parameters
-
-	IF @id IS NULL SET @id = 0;
 
 	--Paramter checks
 
@@ -93,17 +89,17 @@ BEGIN
 			LN.[modified_by_app]
 		FROM [simsig].[VLOCATIONNODE] AS LN
 		WHERE
-			LN.id = @id 
+			LN.sim_id = @sim_id 
 			AND (LN.[testdata_id] = @testdata_id OR @testdata_id IS NULL) --Used to ensure if the connection is a test only records effected by the test are returned
 	END TRY
 	BEGIN CATCH
 		IF @debug = 1
 		BEGIN
-			SET @debug_message = 'An error has occured trying to retrieve [simsig].[TLOCATIONNODE] record [id] = ' + CAST(@id AS NVARCHAR(16)) + ': - ' + ERROR_MESSAGE();
+			SET @debug_message = 'An error has occured trying to retrieve [simsig].[Usp_GET_TLOCATIONNODE_BY_SIM] records for Simulation [id] = ' + CAST(@sim_id AS NVARCHAR(16)) + ': - ' + ERROR_MESSAGE();
 			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 		END;
 
-		SET @error_message = 'An error has occurred retrieving location node [id] = ' + CAST(@id AS NVARCHAR(16)) + ':- ' + ERROR_MESSAGE();
+		SET @error_message = 'An error has occurred retrieving location nodes for Simulation [id] = ' + CAST(@sim_id AS NVARCHAR(16)) + ':- ' + ERROR_MESSAGE();
 		THROW 50000, @error_message, 1;
 	END CATCH
 

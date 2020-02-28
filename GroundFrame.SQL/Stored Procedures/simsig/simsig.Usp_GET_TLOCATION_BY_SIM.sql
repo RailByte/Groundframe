@@ -83,7 +83,7 @@ BEGIN
 	BEGIN CATCH
 		IF @debug = 1
 		BEGIN
-			SET @debug_message = 'An error has occured trying to retrieve [simsig].[TLOCATION_BY_SIM] records for simualtion [sim_id] = ' + CAST(@sim_id AS NVARCHAR(16)) + ': - ' + ERROR_MESSAGE();
+			SET @debug_message = 'An error has occured trying to retrieve [simsig].[TLOCATION_BY_SIM] records for simulation [sim_id] = ' + CAST(@sim_id AS NVARCHAR(16)) + ': - ' + ERROR_MESSAGE();
 			EXEC [audit].[Usp_INSERT_TEVENT] @debug_session_id, @@PROCID, @debug_message;
 		END;
 
