@@ -26,7 +26,7 @@ namespace GroundFrame.Core.SimSig
         private int _EraID; //Stores the GroundFrame.SQL Database ID of the Era record
         private string _LocationSimSigCode; //Stores the SimSig code for the location
         private Version _Version; //Stores the version object
-        private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database 
+        private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database
 
         #endregion Private Variables
 

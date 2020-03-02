@@ -65,8 +65,8 @@ namespace GroundFrame.Core
         /// <param name="SQLConnector">The target simulation where the location should be created</param>
         /// <param name="TargetSimulation">A GFSqlConnector object connected to the GroundFrame.SQL database</param>
         /// <param name="Version">The version under which the location node was created</param>
-        /// <param name="SimEra">The era for which the location node is valid/param>
-        /// <param name="Location">The location against which the location node will be created<.param>
+        /// <param name="SimEra">The era for which the location node is valid</param>
+        /// <param name="Location">The location against which the location node will be created</param>
         public void CreateLocationNode(ref SimSig.SimulationExtension TargetSimulation, GFSqlConnector SQLConnector, SimSig.Location Location, SimSig.Version Version, SimSig.SimulationEra SimEra)
         {
             //Validate Arguments

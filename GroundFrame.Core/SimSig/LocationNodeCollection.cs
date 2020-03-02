@@ -81,10 +81,28 @@ namespace GroundFrame.Core.SimSig
             return this._LocationNodes.Any(x => x.SimID == NewLocationNode.SimID
             && x.EraID == NewLocationNode.EraID
             && x.LocationID == NewLocationNode.LocationID
+            && x.Version.ID == NewLocationNode.Version.ID
             && String.CompareOrdinal(x.Platform, NewLocationNode.Platform) == 0
             && String.CompareOrdinal(x.Line, NewLocationNode.Line) == 0
             && String.CompareOrdinal(x.Path, NewLocationNode.Path) == 0);
             //&& x.LocationSimSigCode.ToLower() == NewLocationNode.LocationSimSigCode.ToLower());
+        }
+
+        /// <summary>
+        /// Checks to see whether the supplied location already exists within the collection
+        /// </summary>
+        /// <param name="NewLocationNode"></param>
+        /// <returns>True if the location node already exists in the collection otherwise false</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "Codes wil always be en-GB")]
+        public LocationNode Find(SimSig.Simulation Simulation, SimSig.SimulationEra Era, SimSig.Version Version, string LocationSimSigCode, string Platform, string Line, string Path )
+        {
+            return this._LocationNodes.Find(x => x.SimID == Simulation.ID
+            && x.EraID == Era.ID
+            && x.Version.ID == Version.ID
+            && String.CompareOrdinal(x.LocationSimSigCode, LocationSimSigCode) == 0
+            && String.CompareOrdinal(x.Platform, Platform) == 0
+            && String.CompareOrdinal(x.Line, Line) == 0
+            && String.CompareOrdinal(x.Path, Path) == 0);
         }
 
         /// <summary>

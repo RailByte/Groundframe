@@ -235,6 +235,14 @@ namespace GroundFrame.Core.Queuer
                 Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- The Simulation contains {SimExtentionLocationNodes.LocationNodes.Count} location nodes(s).");
 #endif
 
+                //Next create the path edges in the GroundFrame.SQL database
+                await CreatePathEdgesFromMap().ConfigureAwait(false);
+
+                if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed creating the location nodes in the GroundFrame.SQL database", null));
+#if DEBUG
+                Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- The Simulation contains {SimExtentionLocationNodes.LocationNodes.Count} path edge(s).");
+#endif
+
                 this._Responses.Add(new QueuerResponse(QueuerResponseStatus.Success, "processSuccess", null));
                 return QueuerResponseStatus.Success;
             }
@@ -286,6 +294,70 @@ namespace GroundFrame.Core.Queuer
             return this._LocationMapper.Find(x => x.Location.SimSigCode.ToLower() == SimSigCode.ToLower()).Location;
         }
 
+        /// <summary>
+        /// Creates all the path edges from the list of LocationMappers
+        /// </summary>
+        /// <returns></returns>
+        private async Task CreatePathEdgesFromMap()
+        {
+            await Task.Run(() =>
+            {
+                SimSig.SimulationExtension SimExt = new SimulationExtension(this._Simulation.ID, this._SQLConnector);
+
+                foreach (MapperLocationNode MappedLocNode in this._LocationNodeMapper)
+                {
+                    LocationNode FromLocationNode = null;
+
+                    //Check the MappedLocNode has a next location node to create
+
+                    if (string.IsNullOrEmpty(MappedLocNode.NextLocationNode.SimSigCode) == false)
+                    {
+                        //Get a list of MapperLocationNode objects with a location node created
+                        List<MapperLocationNode> MappersWithLocationNodes = this._LocationNodeMapper.Where(y => y.LocationNode != null).ToList();
+
+                        //Get the From Location Node
+                        if (MappedLocNode.LocationNode == null)
+                        {
+                            //If not already tagged in the MapperLocationNode search through the list to find it 
+                            FromLocationNode = MappersWithLocationNodes.Find(x => x.LocationNode.SimID == this._Simulation.ID
+                            && x.LocationNode.EraID == this._TemplateSimEra.ID
+                            && x.LocationNode.Version.ID == this._Version.ID
+                            && String.CompareOrdinal(x.LocationNode.LocationSimSigCode, MappedLocNode.SimSigCode) == 0
+                            && String.CompareOrdinal(x.LocationNode.Platform, MappedLocNode.Platform) == 0
+                            && String.CompareOrdinal(x.LocationNode.Path, MappedLocNode.Path) == 0
+                            && String.CompareOrdinal(x.LocationNode.Line, MappedLocNode.Line) == 0).LocationNode;
+                        }
+                        else
+                        {
+                            FromLocationNode = MappedLocNode.LocationNode;
+                        }
+
+                        //Get the to location node
+                        LocationNode ToNodeLocation = MappersWithLocationNodes.FirstOrDefault(x => x.LocationNode.SimID == this._Simulation.ID
+                        && x.LocationNode.EraID == this._TemplateSimEra.ID
+                        && x.LocationNode.Version.ID == this._Version.ID
+                        && String.CompareOrdinal(x.LocationNode.LocationSimSigCode, MappedLocNode.NextLocationNode.SimSigCode) == 0
+                        && String.CompareOrdinal(x.LocationNode.Platform, MappedLocNode.NextLocationNode.Platform) == 0
+                        && String.CompareOrdinal(x.LocationNode.Path, MappedLocNode.NextLocationNode.Path) == 0
+                        && String.CompareOrdinal(x.LocationNode.Line, MappedLocNode.NextLocationNode.Line) == 0).LocationNode;
+
+                        //Create the path edge
+                        if (ToNodeLocation != null)
+                        {
+                            //Build new LocationNode
+                            SimSig.PathEdge NewPathEdge = new PathEdge(FromLocationNode, ToNodeLocation, this._SQLConnector);
+                            NewPathEdge.SaveToSQLDB();
+                        }
+                    }
+                }
+            }).ConfigureAwait(false);
+        }
+
+
+        /// <summary>
+        /// Creates all the location nodes from the list of LocationMappers
+        /// </summary>
+        /// <returns></returns>
         private async Task CreateLocationNodesFromMap()
         {
             await Task.Run(() =>

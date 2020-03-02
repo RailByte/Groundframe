@@ -42,4 +42,23 @@ namespace GroundFrame.Core.SimSig
 		/// </summary>
 		SeedPoint = 7
 	}
+
+	/// <summary>
+	/// Enum representing the bit wise values for a path edge direction
+	/// </summary>
+	public enum SimSigPathDirection
+	{
+		/// <summary>
+		/// No direction recorded
+		/// </summary>
+		None = 0,
+		/// <summary>
+		/// The down direction
+		/// </summary>
+		Down = 1,
+		/// <summary>
+		/// The up direction
+		/// </summary>
+		Up = 2
+	}
 }
