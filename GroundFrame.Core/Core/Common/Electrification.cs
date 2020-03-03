@@ -271,7 +271,7 @@ namespace GroundFrame.Core
 
             if (!HasMatch || (CharactersParsed != OriginalCode.Length))
             {
-                throw new ArgumentException(ExceptionHelper.GetStaticException("InvalidSimSigCodeError", null, Culture));
+                throw new ArgumentException(ExceptionHelper.GetStaticException("InvalidSimSigElecCodeError", null, Culture));
             }
         }
 

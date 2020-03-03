@@ -187,7 +187,7 @@ namespace GroundFrame.Core.UnitTests.SimSig
             Assert.NotEqual(0, TestLocationNode.ID);
 
             //Load the LocationNode into a new object and compare
-            Core.SimSig.LocationNode TestLoadLocationNode = new Core.SimSig.LocationNode(TestLocationNode.ID, this._SQLConnection);
+            Core.SimSig.LocationNode TestLoadLocationNode = new Core.SimSig.LocationNode(TestLocationNode.ID, this._SQLConnection, true);
 
             Assert.Equal(TestLocationNode.LocationType, TestLoadLocationNode.LocationType);
             Assert.Equal(TestLocationNode.Platform, TestLoadLocationNode.Platform);

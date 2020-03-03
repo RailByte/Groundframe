@@ -32,6 +32,68 @@ namespace GroundFrame.Core
         }
 
         /// <summary>
+        /// Validates the Location Node argument
+        /// </summary>
+        /// <param name="LocationNode">The Location Node to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
+        internal static void ValidateLocationNode(LocationNode LocationNode, CultureInfo Culture)
+        {
+            ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Core.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
+
+            if (LocationNode == null)
+            {
+
+                throw new ArgumentNullException(ExceptionMessageResources.GetString("InvalidLocationNodeArgument", Culture));
+            }
+        }
+
+        /// <summary>
+        /// Validates the Simulation Era argument
+        /// </summary>
+        /// <param name="SimEra">The Simualation Era object to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
+        internal static void ValidateSimEra(SimulationEra SimEra, CultureInfo Culture)
+        {
+            ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Core.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
+
+            if (SimEra == null)
+            {
+                throw new ArgumentNullException(ExceptionMessageResources.GetString("InvalidSimEraArgument", Culture));
+            }
+        }
+
+        /// <summary>
+        /// Validates the Location argument
+        /// </summary>
+        /// <param name="Location">The Location object to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
+        internal static void ValidateLocation(Location Location, CultureInfo Culture)
+        {
+            ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Core.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
+
+            if (Location == null)
+            {
+                throw new ArgumentNullException(ExceptionMessageResources.GetString("InvalidLocationArgument", Culture));
+            }
+        }
+
+        /// <summary>
+        /// Validates the Path Edge argument
+        /// </summary>
+        /// <param name="PathEdge">The Path Edge object to validate</param>
+        /// <param name="Culture">The culture in which any exception messages should be thrown</param>
+        internal static void ValidatePathEdge(PathEdge PathEdge, CultureInfo Culture)
+        {
+            ResourceManager ExceptionMessageResources = new ResourceManager("GroundFrame.Core.Resources.ExceptionResources", Assembly.GetExecutingAssembly());
+
+            if (PathEdge == null)
+            {
+
+                throw new ArgumentNullException(ExceptionMessageResources.GetString("InvalidPathEdgeArgument", Culture));
+            }
+        }
+
+        /// <summary>
         /// Validates the Half Minute Character as a string argument
         /// </summary>
         /// <param name="HalfMinuteCharacter">The half minute character to validate</param>

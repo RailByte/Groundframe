@@ -89,14 +89,25 @@ namespace GroundFrame.Core.SimSig
         }
 
         /// <summary>
-        /// Checks to see whether the supplied location already exists within the collection
+        /// Finds the LocationNode object which matches the supplied arguments
         /// </summary>
-        /// <param name="NewLocationNode"></param>
-        /// <returns>True if the location node already exists in the collection otherwise false</returns>
+        /// <param name="Era">The era of the location</param>
+        /// <param name="Version">The SimSig version where the location appears</param>
+        /// <param name="LocationSimSigCode">The SimSig location code of the node</param>
+        /// <param name="Platform">The Platform of the location. Can be NULL</param>
+        /// <param name="Line">The Platform of the line. Can be NULL</param>
+        /// <param name="Path">The Platform of the path. Can be NULL</param>
+        /// <returns>The first LocationNode object which matches the search predicate</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "Codes wil always be en-GB")]
-        public LocationNode Find(SimSig.Simulation Simulation, SimSig.SimulationEra Era, SimSig.Version Version, string LocationSimSigCode, string Platform, string Line, string Path )
+        public LocationNode Find(SimSig.SimulationEra Era, SimSig.Version Version, string LocationSimSigCode, string Platform, string Line, string Path )
         {
-            return this._LocationNodes.Find(x => x.SimID == Simulation.ID
+            CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
+
+            //Validate Arguments
+            ArgumentValidation.ValidateSimEra(Era, Culture);
+            ArgumentValidation.ValidateVersion(Version, Culture);
+
+            return this._LocationNodes.Find(x => x.SimID == this._SimID
             && x.EraID == Era.ID
             && x.Version.ID == Version.ID
             && String.CompareOrdinal(x.LocationSimSigCode, LocationSimSigCode) == 0
@@ -151,7 +162,7 @@ namespace GroundFrame.Core.SimSig
                 {
                     {
                         //Parse the DataReader into the object
-                        this._LocationNodes.Add(new LocationNode(DataReader, this._SQLConnector));
+                        this._LocationNodes.Add(new LocationNode(DataReader, this._SQLConnector, true));
                     }
                 }
             }

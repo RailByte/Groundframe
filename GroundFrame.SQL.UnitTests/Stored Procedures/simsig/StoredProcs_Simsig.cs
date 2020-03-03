@@ -68,7 +68,6 @@ namespace GroundFrame.SQL.UnitTests
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_UpdateFromID_Description;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_UpdateFromID_SimSigWikiLink;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_UpdateFromID_SimSigCode;
-            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_OneRecordCreated;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_NewRecord2_OneRecordCreated;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_NewRecord2_NewIDIssued;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_NewRecord2_CreatedOnCorrect;
@@ -242,10 +241,10 @@ namespace GroundFrame.SQL.UnitTests
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_PosttestAction;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_Usp_UPSERT_TPATHEDGETest_TestAction;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition chk_UPSERT_TPATHEDGE_User_Not_Logged_In_Error;
-            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_Usp_UPSERT_TPATHEDGETest_PosttestAction;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_UPSERT_TPATHEDGE_Check_Debug;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition chk_UPSERT_TPATHEDGE_Check_Debug_WIth_Session;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition chk_UPSERT_TPATHEDGE_Check_One_Row_Inserts;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction simsig_Usp_UPSERT_TPATHEDGETest_PosttestAction;
             this.simsig_USp_UPSERT_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_USp_GET_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.simsig_Usp_DELETE_TSIMTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
@@ -292,7 +291,6 @@ namespace GroundFrame.SQL.UnitTests
             chk_UpdateFromID_Description = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_UpdateFromID_SimSigWikiLink = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_UpdateFromID_SimSigCode = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
-            chk_OneRecordCreated = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
             chk_NewRecord2_OneRecordCreated = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
             chk_NewRecord2_NewIDIssued = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             chk_NewRecord2_CreatedOnCorrect = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
@@ -466,10 +464,10 @@ namespace GroundFrame.SQL.UnitTests
             simsig_Usp_GET_TLOCATIONNODE_BY_SIMTest_PosttestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             simsig_Usp_UPSERT_TPATHEDGETest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             chk_UPSERT_TPATHEDGE_User_Not_Logged_In_Error = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
-            simsig_Usp_UPSERT_TPATHEDGETest_PosttestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             chk_UPSERT_TPATHEDGE_Check_Debug = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
             chk_UPSERT_TPATHEDGE_Check_Debug_WIth_Session = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
             chk_UPSERT_TPATHEDGE_Check_One_Row_Inserts = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
+            simsig_Usp_UPSERT_TPATHEDGETest_PosttestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             // 
             // simsig_USp_UPSERT_TSIMTest_TestAction
             // 
@@ -502,7 +500,6 @@ namespace GroundFrame.SQL.UnitTests
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_UpdateFromID_Description);
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_UpdateFromID_SimSigWikiLink);
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_UpdateFromID_SimSigCode);
-            simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_OneRecordCreated);
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_NewRecord2_OneRecordCreated);
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_NewRecord2_NewIDIssued);
             simsig_USp_UPSERT_TSIMTest_TestAction.Conditions.Add(chk_NewRecord2_CreatedOnCorrect);
@@ -796,13 +793,6 @@ namespace GroundFrame.SQL.UnitTests
             chk_UpdateFromID_SimSigCode.NullExpected = false;
             chk_UpdateFromID_SimSigCode.ResultSet = 9;
             chk_UpdateFromID_SimSigCode.RowNumber = 1;
-            // 
-            // chk_OneRecordCreated
-            // 
-            chk_OneRecordCreated.Enabled = true;
-            chk_OneRecordCreated.Name = "chk_OneRecordCreated";
-            chk_OneRecordCreated.ResultSet = 10;
-            chk_OneRecordCreated.RowCount = 1;
             // 
             // chk_NewRecord2_OneRecordCreated
             // 
@@ -2380,6 +2370,25 @@ namespace GroundFrame.SQL.UnitTests
             chk_UPSERT_TPATHEDGE_User_Not_Logged_In_Error.ResultSet = 1;
             chk_UPSERT_TPATHEDGE_User_Not_Logged_In_Error.RowNumber = 1;
             // 
+            // chk_UPSERT_TPATHEDGE_Check_Debug
+            // 
+            chk_UPSERT_TPATHEDGE_Check_Debug.Enabled = true;
+            chk_UPSERT_TPATHEDGE_Check_Debug.Name = "chk_UPSERT_TPATHEDGE_Check_Debug";
+            chk_UPSERT_TPATHEDGE_Check_Debug.ResultSet = 3;
+            // 
+            // chk_UPSERT_TPATHEDGE_Check_Debug_WIth_Session
+            // 
+            chk_UPSERT_TPATHEDGE_Check_Debug_WIth_Session.Enabled = true;
+            chk_UPSERT_TPATHEDGE_Check_Debug_WIth_Session.Name = "chk_UPSERT_TPATHEDGE_Check_Debug_WIth_Session";
+            chk_UPSERT_TPATHEDGE_Check_Debug_WIth_Session.ResultSet = 4;
+            // 
+            // chk_UPSERT_TPATHEDGE_Check_One_Row_Inserts
+            // 
+            chk_UPSERT_TPATHEDGE_Check_One_Row_Inserts.Enabled = true;
+            chk_UPSERT_TPATHEDGE_Check_One_Row_Inserts.Name = "chk_UPSERT_TPATHEDGE_Check_One_Row_Inserts";
+            chk_UPSERT_TPATHEDGE_Check_One_Row_Inserts.ResultSet = 2;
+            chk_UPSERT_TPATHEDGE_Check_One_Row_Inserts.RowCount = 1;
+            // 
             // simsig_Usp_UPSERT_TPATHEDGETest_PosttestAction
             // 
             resources.ApplyResources(simsig_Usp_UPSERT_TPATHEDGETest_PosttestAction, "simsig_Usp_UPSERT_TPATHEDGETest_PosttestAction");
@@ -2479,25 +2488,6 @@ namespace GroundFrame.SQL.UnitTests
             this.simsig_Usp_UPSERT_TPATHEDGETestData.PosttestAction = simsig_Usp_UPSERT_TPATHEDGETest_PosttestAction;
             this.simsig_Usp_UPSERT_TPATHEDGETestData.PretestAction = null;
             this.simsig_Usp_UPSERT_TPATHEDGETestData.TestAction = simsig_Usp_UPSERT_TPATHEDGETest_TestAction;
-            // 
-            // chk_UPSERT_TPATHEDGE_Check_Debug
-            // 
-            chk_UPSERT_TPATHEDGE_Check_Debug.Enabled = true;
-            chk_UPSERT_TPATHEDGE_Check_Debug.Name = "chk_UPSERT_TPATHEDGE_Check_Debug";
-            chk_UPSERT_TPATHEDGE_Check_Debug.ResultSet = 3;
-            // 
-            // chk_UPSERT_TPATHEDGE_Check_Debug_WIth_Session
-            // 
-            chk_UPSERT_TPATHEDGE_Check_Debug_WIth_Session.Enabled = true;
-            chk_UPSERT_TPATHEDGE_Check_Debug_WIth_Session.Name = "chk_UPSERT_TPATHEDGE_Check_Debug_WIth_Session";
-            chk_UPSERT_TPATHEDGE_Check_Debug_WIth_Session.ResultSet = 4;
-            // 
-            // chk_UPSERT_TPATHEDGE_Check_One_Row_Inserts
-            // 
-            chk_UPSERT_TPATHEDGE_Check_One_Row_Inserts.Enabled = true;
-            chk_UPSERT_TPATHEDGE_Check_One_Row_Inserts.Name = "chk_UPSERT_TPATHEDGE_Check_One_Row_Inserts";
-            chk_UPSERT_TPATHEDGE_Check_One_Row_Inserts.ResultSet = 2;
-            chk_UPSERT_TPATHEDGE_Check_One_Row_Inserts.RowCount = 1;
         }
 
         #endregion

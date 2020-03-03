@@ -157,6 +157,8 @@
     <Build Include="Stored Procedures\simsig\simsig.Usp_GET_TLOCATIONNODE_BY_SIM.sql" />
     <Build Include="Functions\Scalar\simsig\simsig.Fn_GET_LOCATIONNODE_NODEID.sql" />
     <Build Include="Stored Procedures\simsig\simsig.Usp_UPSERT_TPATHEDGE.sql" />
+    <Build Include="Stored Procedures\simsig\simsig.Usp_GET_PATHEDGE_BY_FROM_LOCATIONNODE.sql" />
+    <Build Include="Stored Procedures\simsig\simsig.Usp_DELETE_TPATHEDGE.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\140\SqlSchemas\master.dacpac">

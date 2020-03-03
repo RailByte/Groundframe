@@ -83,11 +83,19 @@ BEGIN
 			SET @counter = @counter +1;
 		END;
 
-		--Delte any other location notes
+		--Delete any other location notes
 
 		DELETE FROM [simsig].[TLOCATIONNODE]
 		WHERE
 			[testdata_id] = @testdata_id;
+
+		--Delete PathNodes
+
+		DELETE E
+		FROM simsig.TPATHEDGE AS E
+		WHERE
+			NOT EXISTS (SELECT 1 FROM simsig.TLOCATIONNODE AS FLN WHERE E.$from_id = FLN.$node_id)
+			OR NOT EXISTS (SELECT 1 FROM simsig.TLOCATIONNODE AS TLN WHERE E.$to_id = TLN.$node_id);
 
 		--Delete any other simulation eras
 

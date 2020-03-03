@@ -27,6 +27,7 @@ namespace GroundFrame.Core.SimSig
         private string _LocationSimSigCode; //Stores the SimSig code for the location
         private Version _Version; //Stores the version object
         private readonly GFSqlConnector _SQLConnector; //Stores the Connector to the Microsoft SQL Database
+        private PathEdgeCollection _PathEdges; //Private variable to store the Path Edges for this location node
 
         #endregion Private Variables
 
@@ -101,6 +102,11 @@ namespace GroundFrame.Core.SimSig
         /// Gets the GFSqlConnector for the location node
         /// </summary>
         public GFSqlConnector SQLConnector { get { return this._SQLConnector; } }
+
+        /// <summary>
+        /// Gets the Path Edges collection for the location node
+        /// </summary>
+        public PathEdgeCollection PathEdges { get { return this._PathEdges; } }
 
         #endregion Properties
 
@@ -230,14 +236,15 @@ namespace GroundFrame.Core.SimSig
         /// </summary>
         /// <param name="ID">The ID of the location record to be retreived</param>
         /// <param name="SQLConnector">The GFSqlConnector to the GroundFrame.SQL database</param>
-        public LocationNode(int ID, GFSqlConnector SQLConnector)
+        /// <param name="LoadPathEdges">A flag to indicate whether the Path Edges should be loaded from the GroundFrame.SQL database</param>
+        public LocationNode(int ID, GFSqlConnector SQLConnector, bool LoadPathEdges)
         {
             //Validate Arguments
             ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
 
             this._ID = ID;
             this._SQLConnector = new GFSqlConnector(SQLConnector); //Instantiates a copy of the SQLConnector object so prevent conflicts on Connections, Commands and DataReaders
-            this.GetLocationNodeFromSQLDBByID();
+            this.GetLocationNodeFromSQLDBByID(LoadPathEdges);
         }
 
         /// <summary>
@@ -245,7 +252,8 @@ namespace GroundFrame.Core.SimSig
         /// </summary>
         /// <param name="DataReader">A SqlDataReader object representing a location node</param>
         /// <param name="SQLConnector">A GFSqlConnector to the GroundFrame.SQL database</param>
-        public LocationNode(SqlDataReader DataReader, GFSqlConnector SQLConnector)
+        /// <param name="LoadPathEdges">A flag to indicate whether the path edges should be loaded for this location node</param>
+        public LocationNode(SqlDataReader DataReader, GFSqlConnector SQLConnector, bool LoadPathEdges)
         {
             CultureInfo Culture = Globals.UserSettings.GetCultureInfo();
 
@@ -256,7 +264,7 @@ namespace GroundFrame.Core.SimSig
             //Instantiate a new GFSqlConnector object from the supplied connector. Stops issues with shared connections / commands and readers etc.
             this._SQLConnector = new GFSqlConnector(SQLConnector);
             //Parse Reader
-            this.ParseSqlDataReader(DataReader);
+            this.ParseSqlDataReader(DataReader, LoadPathEdges);
         }
 
         #endregion Constructors
@@ -279,6 +287,45 @@ namespace GroundFrame.Core.SimSig
             this.SaveLocationNodeToSQLDB(ExecutionDateTimeOffSet);
         }
 
+        /// <summary>
+        /// Adds a Path Edge to the supplied To Location Node
+        /// </summary>
+        /// <param name="ToLocationNode">The Location Node at the end of the path</param>
+        /// <param name="PathElectrifcation">The available electrification of the path</param>
+        /// <param name="PathLength">The path length</param>
+        /// <param name="PathDirection">The path direction</param>
+        public void AddPathEdge(LocationNode ToLocationNode, Electrification PathElectrifcation, Length PathLength, SimSigPathDirection PathDirection)
+        {
+            //Validate arguments
+            ArgumentValidation.ValidateLocationNode(ToLocationNode, Globals.UserSettings.GetCultureInfo());
+
+            if (this.ID == 0)
+            {
+                ExceptionHelper.GetStaticException("AddPathEdgeFromLocationNodeError", null, Globals.UserSettings.GetCultureInfo());
+            }
+
+            if (ToLocationNode.ID == 0)
+            {
+                ExceptionHelper.GetStaticException("AddPathEdgeToLocationNodeError", null, Globals.UserSettings.GetCultureInfo());
+            }
+
+            PathEdge NewPathEdge = new PathEdge(this, ToLocationNode, PathElectrifcation, PathLength, PathDirection, this._SQLConnector);
+            NewPathEdge.SaveToSQLDB();
+            this._PathEdges.Add(NewPathEdge);
+        }
+
+        /// <summary>
+        /// Removes the supplied PathEdge from the Path Edge collection
+        /// </summary>
+        /// <param name="LocationNodePathEdge"></param>
+        /// <remarks>Removing the path edge from the collection will also delete it from the GroundFrame.SQL database</remarks>
+        public void RemovePathEdge(PathEdge LocationNodePathEdge)
+        {
+            //Validate Arguments
+            ArgumentValidation.ValidatePathEdge(LocationNodePathEdge, Globals.UserSettings.GetCultureInfo());
+            this._PathEdges.Remove(LocationNodePathEdge);
+            LocationNodePathEdge.DeleteFromSQLDB();
+        }
 
         /// <summary>
         /// Deletes the location from the GroundFrame.SQL Database
@@ -316,7 +363,7 @@ namespace GroundFrame.Core.SimSig
         /// <summary>
         /// Gets the location node object from the GroundFrame.SQL database based on the ID
         /// </summary>
-        private void GetLocationNodeFromSQLDBByID()
+        private void GetLocationNodeFromSQLDBByID(bool LoadPathEdges)
         {
 
             if (this._ID <= 0)
@@ -337,7 +384,7 @@ namespace GroundFrame.Core.SimSig
                 while (DataReader.Read())
                 {
                     //Parse the DataReader into the version object
-                    this.ParseSqlDataReader(DataReader);
+                    this.ParseSqlDataReader(DataReader, LoadPathEdges);
                 }
 
             }
@@ -354,8 +401,9 @@ namespace GroundFrame.Core.SimSig
         /// <summary>
         /// Parses a SqlDataReader object into a location node object
         /// </summary>
-        /// <param name="DataReader"></param>
-        private void ParseSqlDataReader(SqlDataReader DataReader)
+        /// <param name="DataReader">The SqlDataReader object to parse into this Location Node object</param>
+        /// <param name="LoadPathEdges">Flag to indicate whether the Path Edge should be loaded</param>
+        private void ParseSqlDataReader(SqlDataReader DataReader, bool LoadPathEdges)
         {
             //Validate Argument
             ArgumentValidation.ValidateSqlDataReader(DataReader, Globals.UserSettings.GetCultureInfo());
@@ -373,6 +421,11 @@ namespace GroundFrame.Core.SimSig
             this.Line = DataReader.GetNullableString("simsig_line");
             this._LocationSimSigCode = DataReader.GetNullableString("simsig_code");
             this.LocationType = (SimSigLocationType)SqlDataReaderExtensions.GetNullableByte(DataReader, "location_type_id");
+
+            if (LoadPathEdges)
+            {
+                this._PathEdges = new PathEdgeCollection(this, this._SQLConnector);
+            }
         }
 
         /// <summary>
@@ -442,10 +495,11 @@ namespace GroundFrame.Core.SimSig
             if (disposing == true)
             {
                 this._Version.Dispose();
+                this._PathEdges.Dispose();
+                this._SQLConnector.Dispose();
             }
             else
             {
-                this._SQLConnector.Dispose();
             }
         }
 

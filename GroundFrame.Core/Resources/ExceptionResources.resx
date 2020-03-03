@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddPathEdgeFromLocationNodeError" xml:space="preserve">
+    <value>Cannot add a path edge to this location node because the from location node is not saved to the GroundFrame.SQL Database</value>
+  </data>
+  <data name="AddPathEdgeToLocationNodeError" xml:space="preserve">
+    <value>Cannot add a path edge to this location node because the to location node is not saved to the GroundFrame.SQL Database</value>
+  </data>
   <data name="CannotConnectGFSQLDb" xml:space="preserve">
     <value>Cannot connect to GroundFrame Microsoft SQL Database</value>
   </data>
@@ -174,6 +180,12 @@
   <data name="InvalidJSONError" xml:space="preserve">
     <value>The supplied JSON is not in the correct format</value>
   </data>
+  <data name="InvalidLocationArgument" xml:space="preserve">
+    <value>The Location argument cannot be &lt;NULL&gt;</value>
+  </data>
+  <data name="InvalidLocationNodeArgument" xml:space="preserve">
+    <value>The Location Node cannot be &lt;NULL&gt;</value>
+  </data>
   <data name="InvalidMeterArgument" xml:space="preserve">
     <value>The meters argument must be greater than zero</value>
   </data>
@@ -186,11 +198,17 @@
   <data name="InvalidNameLengthArgument" xml:space="preserve">
     <value>The name argument cannot be longer than {0} characters</value>
   </data>
+  <data name="InvalidPathEdgeArgument" xml:space="preserve">
+    <value>The Path Edge argument cannot be &lt;NULL&gt;</value>
+  </data>
   <data name="InvalidPercentageArgument" xml:space="preserve">
     <value>The percentage argument must be between 0 and 100</value>
   </data>
   <data name="InvalidSecondsArgument" xml:space="preserve">
     <value>The Seconds argument must be equal or greater than 0</value>
+  </data>
+  <data name="InvalidSimEraArgument" xml:space="preserve">
+    <value>The Simulation Era argument cannot be &lt;NULL&gt;</value>
   </data>
   <data name="InvalidSimSigCodeArgument" xml:space="preserve">
     <value>The SimSigCode argument cannot be &lt;NULL&gt; or empty</value>
@@ -200,6 +218,9 @@
   </data>
   <data name="InvalidSimSigCodeLengthArgument" xml:space="preserve">
     <value>The SimSig code argument cannot be longer than {0} characters</value>
+  </data>
+  <data name="InvalidSimSigElecCodeError" xml:space="preserve">
+    <value>An invalid or missing SimSig Electrification code has been supplied</value>
   </data>
   <data name="InvalidSimulationArgument" xml:space="preserve">
     <value>The Simulation argument cannot be &lt;NULL&gt;</value>

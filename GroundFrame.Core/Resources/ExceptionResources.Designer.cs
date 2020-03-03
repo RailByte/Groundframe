@@ -61,6 +61,24 @@ namespace GroundFrame.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot add a path edge to this location node because the from location node is not saved to the GroundFrame.SQL Database.
+        /// </summary>
+        internal static string AddPathEdgeFromLocationNodeError {
+            get {
+                return ResourceManager.GetString("AddPathEdgeFromLocationNodeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot add a path edge to this location node because the to location node is not saved to the GroundFrame.SQL Database.
+        /// </summary>
+        internal static string AddPathEdgeToLocationNodeError {
+            get {
+                return ResourceManager.GetString("AddPathEdgeToLocationNodeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot connect to GroundFrame Microsoft SQL Database.
         /// </summary>
         internal static string CannotConnectGFSQLDb {
@@ -232,6 +250,24 @@ namespace GroundFrame.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Location argument cannot be &lt;NULL&gt;.
+        /// </summary>
+        internal static string InvalidLocationArgument {
+            get {
+                return ResourceManager.GetString("InvalidLocationArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Location Node cannot be &lt;NULL&gt;.
+        /// </summary>
+        internal static string InvalidLocationNodeArgument {
+            get {
+                return ResourceManager.GetString("InvalidLocationNodeArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The meters argument must be greater than zero.
         /// </summary>
         internal static string InvalidMeterArgument {
@@ -268,6 +304,15 @@ namespace GroundFrame.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Path Edge argument cannot be &lt;NULL&gt;.
+        /// </summary>
+        internal static string InvalidPathEdgeArgument {
+            get {
+                return ResourceManager.GetString("InvalidPathEdgeArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The percentage argument must be between 0 and 100.
         /// </summary>
         internal static string InvalidPercentageArgument {
@@ -282,6 +327,15 @@ namespace GroundFrame.Core.Resources {
         internal static string InvalidSecondsArgument {
             get {
                 return ResourceManager.GetString("InvalidSecondsArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Simulation Era argument cannot be &lt;NULL&gt;.
+        /// </summary>
+        internal static string InvalidSimEraArgument {
+            get {
+                return ResourceManager.GetString("InvalidSimEraArgument", resourceCulture);
             }
         }
         
@@ -309,6 +363,15 @@ namespace GroundFrame.Core.Resources {
         internal static string InvalidSimSigCodeLengthArgument {
             get {
                 return ResourceManager.GetString("InvalidSimSigCodeLengthArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An invalid or missing SimSig Electrification code has been supplied.
+        /// </summary>
+        internal static string InvalidSimSigElecCodeError {
+            get {
+                return ResourceManager.GetString("InvalidSimSigElecCodeError", resourceCulture);
             }
         }
         

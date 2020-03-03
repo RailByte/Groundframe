@@ -73,6 +73,8 @@ namespace GroundFrame.Core
             ArgumentValidation.ValidateSQLConnector(SQLConnector, Globals.UserSettings.GetCultureInfo());
             ArgumentValidation.ValidateSimulation(TargetSimulation, Globals.UserSettings.GetCultureInfo());
             ArgumentValidation.ValidateVersion(Version, Globals.UserSettings.GetCultureInfo());
+            ArgumentValidation.ValidateLocation(Location, Globals.UserSettings.GetCultureInfo());
+            ArgumentValidation.ValidateSimEra(SimEra, Globals.UserSettings.GetCultureInfo());
 
             //Default Value
             Electrification DefaultElectrification = new Electrification("D");

@@ -191,6 +191,5 @@ namespace GroundFrame.Core.UnitTests.SimSig
         }
 
         #endregion Methods
-
     }
 }
