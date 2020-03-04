@@ -144,6 +144,7 @@ namespace GroundFrame.Core.SimSig
 
             this._SimID = SimulationID;
             //Load simulation into a SimSig Simulation object
+            //TODO: Find a way of not loading the extension data from the Database. This is silly.
             using SimulationExtension LocNodeSimulation = new SimulationExtension(this.SimID, this._SQLConnector);
 
             //Validate locations and eras
@@ -473,7 +474,7 @@ namespace GroundFrame.Core.SimSig
          }
 
         /// <summary>
-        /// Disposes the Simulation object
+        /// Disposes the Location Node object
         /// </summary>
         public void Dispose()
         {
@@ -495,7 +496,12 @@ namespace GroundFrame.Core.SimSig
             if (disposing == true)
             {
                 this._Version.Dispose();
-                this._PathEdges.Dispose();
+
+                if (this._PathEdges != null)
+                {
+                    this._PathEdges.Dispose();
+
+                }
                 this._SQLConnector.Dispose();
             }
             else

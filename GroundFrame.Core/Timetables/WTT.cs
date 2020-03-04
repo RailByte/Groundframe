@@ -20,7 +20,11 @@ namespace GroundFrame.Core.Timetables
         /// <summary>
         /// Three Bridges Simulation
         /// </summary>
-        threebridges = 2
+        threebridges = 2,
+        /// <summary>
+        /// Carlisle Simulation
+        /// </summary>
+        carlisle = 3
     }
 
     /// <summary>

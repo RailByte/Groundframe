@@ -9,37 +9,36 @@ namespace GroundFrame.Sandpit
         static void Main()
         {
             Console.WriteLine("Hello World!");
-            //QueuerProcess Test = null;
+            QueuerProcess Test = null;
 
             Console.WriteLine(string.Compare("EBALDCK", "BALDOCK"));
 
-            GroundFrame.Core.GFSqlConnector SQL = GroundFrame.Core.Globals.GetGFSqlConnector("testappAPIKEY", "testadminuserAPIKEY", "localhost");
+            //GroundFrame.Core.GFSqlConnector SQL = GroundFrame.Core.Globals.GetGFSqlConnector("testappAPIKEY", "testadminuserAPIKEY", "localhost");
 
             //GroundFrame.Core.SimSig.Version Version = new Core.SimSig.Version("Version 4.15", "The current default version", 4.15M , SQL);
             //Version.SaveToSQLDB();
 
             try
             {
-                //string ConfigJSON = File.ReadAllText($"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\\GF.json");
+                string ConfigJSON = File.ReadAllText($"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\\GF.json");
 
-                //Test = new QueuerProcess("testuserAPIKEY", "testappAPIKEY", "", "localhost", ConfigJSON, true);
-                //string JSON = Test.ToJSON();
+                Test = new QueuerProcess("testuserAPIKEY", "testappAPIKEY", "", "localhost", ConfigJSON, true);
+                string JSON = Test.ToJSON();
 
 
-                ////QueuerProcess Test1 = new QueuerProcess("6ea2a14fdadf4b0589612f4f8cf90d82", "localhost");
-                ////Test1.ExecuteProcess();
+                //QueuerProcess Test1 = new QueuerProcess("6ea2a14fdadf4b0589612f4f8cf90d82", "localhost");
+                //Test1.ExecuteProcess();
 
-                //QueuerProcess Test1 = new QueuerProcess(Test.Key, "localhost");
+                QueuerProcess Test1 = new QueuerProcess(Test.Key, "localhost");
 
-                //while (Test1.Status != QueuerResponseStatus.Success && Test1.Status != QueuerResponseStatus.CompletedWithWarning)
-                //{
-                //    Test1 = new QueuerProcess(Test.Key, "localhost");
-                //    Console.WriteLine(Test1.Response.ResponseMessage);
-                //}
+                while (Test1.Status != QueuerResponseStatus.Success && Test1.Status != QueuerResponseStatus.CompletedWithWarning)
+                {
+                    Test1 = new QueuerProcess(Test.Key, "localhost");
+                    Console.WriteLine(Test1.Response.ResponseMessage);
+                    System.Threading.Thread.Sleep(1000);
+                }
 
-                //Console.WriteLine($"Finished!! - {Test1.Response.ResponseMessage}");
-
-                Core.SimSig.SimulationExtension Simulation = new Core.SimSig.SimulationExtension(108, SQL);
+                Console.WriteLine($"Finished!! - {Test1.Response.ResponseMessage}");
             }
             catch (Exception Ex)
             {
