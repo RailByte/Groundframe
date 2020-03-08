@@ -33,8 +33,6 @@ namespace GroundFrame.Sandpit
 
                 while (Test1.Status != QueuerResponseStatus.Success && Test1.Status != QueuerResponseStatus.CompletedWithWarning)
                 {
-                    Test1 = new QueuerProcess(Test.Key, "localhost");
-                    Console.WriteLine(Test1.Response.ResponseMessage);
                     System.Threading.Thread.Sleep(1000);
                 }
 

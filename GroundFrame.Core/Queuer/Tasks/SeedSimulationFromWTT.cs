@@ -37,6 +37,7 @@ namespace GroundFrame.Core.Queuer
         //Task specific variables
 
         private Simulation _Simulation; //Private variable to store the simulation to be seeded
+        private SimulationExtension _SimExt; //Private variable to store the simulation extension object to store the seeded data for processing
         private WTT _TimeTable; //Prvate variable to store the timetable
         List<MapperLocation> _LocationMapper = new List<MapperLocation>(); //Private variable to store the Location Mapper for the WTT
         List<MapperLocationNode> _LocationNodeMapper = new List<MapperLocationNode>(); //Private variable to store the Location Node Mapper fro the WTT
@@ -156,6 +157,9 @@ namespace GroundFrame.Core.Queuer
                     try
                     {
                         this._Simulation.SaveToSQLDB();
+                        //Now load the Extension version so we can keep track of the nodes
+                        this._SimExt = new SimulationExtension(this._Simulation.ID, this._SQLConnector);
+
                         if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, $"Simulation saved to the GroundFrame.SQL database. ID = {this._Simulation.ID}.", null));
 #if DEBUG
                         Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- Simulation saved to GroundFrame.SQL database");
@@ -227,20 +231,19 @@ namespace GroundFrame.Core.Queuer
 #endif
 
                 //Next create the location nodes in the GroundFrame.SQL database
-                await CreateLocationNodesFromMap().ConfigureAwait(false);
+                await CreateLocationNodesFromMap(this._SimExt).ConfigureAwait(false);
 
                 if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed creating the location nodes in the GroundFrame.SQL database", null));
 #if DEBUG
-                using SimulationExtension SimExtentionLocationNodes = new SimulationExtension(this._Simulation.ID, this._SQLConnector);
-                Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- The Simulation contains {SimExtentionLocationNodes.LocationNodes.Count} location nodes(s).");
+                Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- The Simulation contains {this._SimExt.LocationNodes.Count} location nodes(s).");
 #endif
 
                 //Next create the path edges in the GroundFrame.SQL database
-                await CreatePathEdgesFromMap().ConfigureAwait(false);
+                await CreatePathEdgesFromMap(this._SimExt).ConfigureAwait(false);
 
-                if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed creating the location nodes in the GroundFrame.SQL database", null));
+                if (DebugMode) this._Responses.Add(new QueuerResponse(QueuerResponseStatus.DebugMesssage, "Completed creating the path edges in the GroundFrame.SQL database", null));
 #if DEBUG
-                Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- The Simulation contains {SimExtentionLocationNodes.LocationNodes.Count} path edge(s).");
+                Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString()}:- The Simulation contains {this._SimExt.LocationNodes.Sum(x => x.PathEdges.Count)} path edge(s).");
 #endif
 
                 this._Responses.Add(new QueuerResponse(QueuerResponseStatus.Success, "processSuccess", null));
@@ -298,11 +301,11 @@ namespace GroundFrame.Core.Queuer
         /// Creates all the path edges from the list of LocationMappers
         /// </summary>
         /// <returns></returns>
-        private async Task CreatePathEdgesFromMap()
+        private async Task CreatePathEdgesFromMap(SimulationExtension SimExt)
         {
             await Task.Run(() =>
             {
-                SimSig.SimulationExtension SimExt = new SimulationExtension(this._Simulation.ID, this._SQLConnector);
+                //SimSig.SimulationExtension SimExt = new SimulationExtension(this._Simulation.ID, this._SQLConnector);
 
                 foreach (MapperLocationNode MappedLocNode in this._LocationNodeMapper)
                 {
@@ -358,11 +361,11 @@ namespace GroundFrame.Core.Queuer
         /// Creates all the location nodes from the list of LocationMappers
         /// </summary>
         /// <returns></returns>
-        private async Task CreateLocationNodesFromMap()
+        private async Task CreateLocationNodesFromMap(SimulationExtension SimExt)
         {
             await Task.Run(() =>
             {
-                SimSig.SimulationExtension SimExt = new SimulationExtension(this._Simulation.ID, this._SQLConnector);
+                //SimSig.SimulationExtension SimExt = new SimulationExtension(this._Simulation.ID, this._SQLConnector);
 
                 foreach (MapperLocationNode MappedLocNode in this._LocationNodeMapper)
                 {
